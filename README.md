@@ -1,0 +1,2 @@
+# PointingPoker
+Planning Poker application
