@@ -1,3 +1,5 @@
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 
-export default combineReducers({});
+const isPending = (state = '', action: AnyAction): string => state;
+
+export default combineReducers({ isPending });

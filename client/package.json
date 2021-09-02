@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "../node_modules/.bin/webpack-cli serve --mode=development --env development --open --hot",
-    "build": "../node_modules/.bin/webpack --mode=production --env production --progress",
-    "lint": "../node_modules/.bin/eslint './src/**/*.{ts,tsx}'",
-    "lint:fix": "../node_modules/.bin/eslint './src/**/*.{ts,tsx}' --fix",
+    "start:dev": "./node_modules/.bin/webpack-cli serve --mode=development --env development --open --hot",
+    "build": "./node_modules/.bin/webpack --mode=production --env production --progress",
+    "lint": "./node_modules/.bin/eslint './src/**/*.{ts,tsx}'",
+    "lint:fix": "./node_modules/.bin/eslint './src/**/*.{ts,tsx}' --fix",
     "test": "npx jest test",
     "test:coverage": "npx jest --coverage"
   },
@@ -81,6 +81,7 @@
     "react-transition-group": "2.7.0",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.2.0"
   }
 }
