@@ -27,7 +27,7 @@
   "include": [
     "./src",
     "./webpack.config.ts",
-    "src/components",
-    "src/custom.d.ts"
+    "client/src/components",
+    "client/src/custom.d.ts"
   ]
 }
