@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat&display=swap%27');
+
+$font-family-first: 'Dancing Script', serif;
+$font-family-second: 'Montserrat', serif;
+$blue: #2d5b74;
+$light-blue: #b0cacb;
+$emerald: #49aaa3;
+$light-emerald: #7ecfc9;
+$yellow: #facf24;
+$light-yellow: #f7de7b;
+$pink: #d5bda3;
+
+$base-text-color: #333;
+$disabled-color: #bdbdbd;
+$error-color: #ff6450;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+}
