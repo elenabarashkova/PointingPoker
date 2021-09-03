@@ -7,12 +7,12 @@ export const App: FunctionComponent = (): ReactElement => (
     openModalBtnTitle="Click to open modal"
     modalTitle="This is modal title"
     Component={<Button>Test</Button>}
-    actionBtnYesTitle="Confirm"
-    actionBtnYesOnClick={() => {
+    yesBtnTitle="Confirm"
+    yesBtnOnClick={() => {
       console.log('Yes');
     }}
-    actionBtnNoTitle="Decline"
-    actionBtnNoOnClick={() => {
+    noBtnNoTitle="Decline"
+    noBtnNoOnClick={() => {
       console.log('No');
     }}
   />
