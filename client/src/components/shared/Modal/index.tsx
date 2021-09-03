@@ -52,20 +52,22 @@ export const Modal: FunctionComponent<ModalProps> = (
         {openModalBtnTitle}
       </Button>
       <Dialog className={styles.modal} open={isOpen} onClose={handleClose}>
-        <DialogTitle>
-          {modalTitle}
-        </DialogTitle>
-        <DialogContent>
-          {Component}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={actionBtnClickHandle} name="actionBtnYes">
-            {actionBtnYesTitle}
-          </Button>
-          <Button onClick={actionBtnClickHandle} name="actionBtnNo">
-            {actionBtnNoTitle}
-          </Button>
-        </DialogActions>
+        <div className={styles.inner}>
+          <DialogTitle className={styles.title}>
+            {modalTitle}
+          </DialogTitle>
+          <DialogContent className={styles.component}>
+            {Component}
+          </DialogContent>
+          <DialogActions className={styles.buttons}>
+            <Button onClick={actionBtnClickHandle} name="actionBtnYes">
+              {actionBtnYesTitle}
+            </Button>
+            <Button onClick={actionBtnClickHandle} name="actionBtnNo">
+              {actionBtnNoTitle}
+            </Button>
+          </DialogActions>
+        </div>
       </Dialog>
     </div>
   );
