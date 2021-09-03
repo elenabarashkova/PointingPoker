@@ -1,0 +1,37 @@
+@import '../../../../scss/variables.scss';
+
+.btn {
+    height: 40px;
+    width: 200px;
+    border-radius: 7px;
+    font-size: 18px;
+    font-family: "Montserrat";
+    box-shadow: $shadow;
+    cursor: pointer;
+}
+
+.btn_colored {
+    background: $blue;
+    border: 2px solid $blue;
+    color: whitesmoke;
+    transition: .4s;
+    &:hover {
+        background: $dark-blue;
+    }
+    &:active {
+        transform: scale(.9);
+    }
+}
+
+.btn_bordered {
+    background: whitesmoke;
+    border: 2px solid $dark-blue;
+    color: $dark-blue;
+    transition: .4s;
+    &:hover {
+        background: $light-blue;
+    }
+    &:active {
+        transform: scale(.9);
+    }
+}
