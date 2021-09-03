@@ -1,3 +1,25 @@
 .modal {
-  background: #7ecfc9;
+  $inner-modal-margin-bottom: 20px;
+
+  .inner {
+    padding: 15px;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: $inner-modal-margin-bottom;
+    padding: 0;
+  }
+
+  .component {
+    margin-bottom: $inner-modal-margin-bottom;
+    padding: 0;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin-bottom: $inner-modal-margin-bottom;
+  }
 }
