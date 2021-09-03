@@ -1,0 +1,9 @@
+@import '../../../scss/variables.scss';
+
+.textInput {
+
+  .invalid {
+    border-color: $error-color;
+  }
+
+}
