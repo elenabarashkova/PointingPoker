@@ -1,6 +1,15 @@
 @import '../../../scss/variables.scss';
 
 .textInput {
+  display: flex;
+
+  &.inline {
+    flex-direction: row;;
+  }
+
+  &.incol {
+    flex-direction: column;
+  }
 
   .invalid {
     border-color: $error-color;
