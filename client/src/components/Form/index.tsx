@@ -16,6 +16,7 @@ export const Form: FunctionComponent = (): ReactElement => {
       label="First Name"
       onChange={handleChange}
       error=""
+      placeholder=""
     />
   );
 };

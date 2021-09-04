@@ -8,6 +8,7 @@ interface TextInputProps {
   error: string,
   onChange: CallableFunction,
   isInline?: boolean,
+  placeholder: string
 }
 
 const MAX_INPUT_LENGTH = 30;
@@ -20,6 +21,7 @@ export const TextInput: FunctionComponent<TextInputProps> = (
     error,
     onChange,
     isInline = false,
+    placeholder,
   },
 ): ReactElement => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -35,7 +37,7 @@ export const TextInput: FunctionComponent<TextInputProps> = (
         type="text"
         value={value}
         onChange={handleChange}
-        placeholder={label}
+        placeholder={placeholder}
         maxLength={MAX_INPUT_LENGTH}
       />
       <span className={styles.error}>{error}</span>
