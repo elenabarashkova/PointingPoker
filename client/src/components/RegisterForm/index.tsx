@@ -6,7 +6,8 @@ import React, {
   MouseEvent,
 } from 'react';
 import { TextInput } from 'components/shared/TextInput';
-import { FIELDS_CONFIG } from 'components/Form/fields-config';
+import { FIELDS_CONFIG } from 'components/RegisterForm/fields-config';
+import Button from 'components/shared/buttons/Button';
 import { Modal } from '../shared/Modal';
 
 export const DEFAULT_FIELDS_STATE = {
@@ -17,9 +18,18 @@ export const DEFAULT_FIELDS_STATE = {
   viewerRole: false,
 };
 
-export const Form: FunctionComponent = (): ReactElement => {
+export const RegisterForm: FunctionComponent = (): ReactElement => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const [fieldsState, setFieldsState] = useState(DEFAULT_FIELDS_STATE);
   const [validationState, setValidationState] = useState({});
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const handleChange = (name: string, value: string): void => {
     const state = {
@@ -47,42 +57,40 @@ export const Form: FunctionComponent = (): ReactElement => {
 
       setFieldsState(DEFAULT_FIELDS_STATE);
       setValidationState({});
+      closeModal();
     }
 
     setValidationState(validationErrors);
   };
 
   return (
-    <Modal
-      Component={(
-        <form className="register-form" onSubmit={handleSubmit}>
-          {FIELDS_CONFIG.map((
-            {
-              label,
-              name,
-            },
-          ) => (
-            <TextInput
-              key={name}
-              name={name}
-              value={fieldsState[name]}
-              isInline={false}
-              label={label}
-              onChange={handleChange}
-              error={validationState[name]}
-            />
-          ))}
-          <input type="file" />
-        </form>
-      )}
-      openModalBtnTitle="Register"
-      modalTitle="Sign in"
-      yesBtnTitle="Confirm"
-      yesBtnOnClick={handleSubmit}
-      noBtnNoTitle="Decline"
-      noBtnNoOnClick={() => {
-        console.log('Cancel');
-      }}
-    />
+    <>
+      <Button action={openModal} content="Register" variant="colored" />
+      <Modal
+        Component={(
+          <form className="register-form" onSubmit={handleSubmit}>
+            {FIELDS_CONFIG.map(({ label, name }) => (
+              <TextInput
+                key={name}
+                name={name}
+                value={fieldsState[name]}
+                isInline={false}
+                label={label}
+                onChange={handleChange}
+                error={validationState[name]}
+              />
+            ))}
+            <input type="file" />
+          </form>
+        )}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        modalTitle="Sign in"
+        yesBtnTitle="Confirm"
+        yesBtnOnClick={handleSubmit}
+        noBtnNoTitle="Decline"
+        noBtnNoOnClick={closeModal}
+      />
+    </>
   );
 };
