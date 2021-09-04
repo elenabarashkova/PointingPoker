@@ -1,30 +1,31 @@
 import { Socket } from "socket.io";
+import { createRoom } from "../actions/room";
+import { addUser, changeUserStatus } from "../actions/user";
 import {
   JOINED_ROOM,
-  KICKED_FROM_ROOM,
   LEFT_ROOM,
-  MESSAGE_WAS_SENDED,
-  RECEIVE_MESSAGE,
   ROOM_NOT_FOUND,
   ROOM_WAS_CREATED,
   USER_CONNECTED,
-  USER_KICKED,
   USER_LEFT,
 } from "../events";
 import { store } from "../store";
-import { ConnectionData, MessageData, UserData } from "../types/data";
-import { UserStatus } from "../types/user";
-import { addMessage, addUser, changeUserStatus, createRoom } from "../utils";
+import { ConnectionData } from "../types/data";
+import { UserRole, UserStatus } from "../types/user";
 
-export const getCreateRoomHandler =
+export const createRoomHandler =
   (socket: Socket) =>
   ({ roomId, user }: ConnectionData): void => {
-    createRoom(store, roomId, socket.id, user);
+    createRoom(store, roomId);
+    addUser(store, roomId, socket.id, {
+      ...user,
+      role: UserRole.master,
+    });
     socket.join(roomId);
     socket.emit(ROOM_WAS_CREATED, socket.id, store[roomId]);
   };
 
-export const getJoinRoomHandler =
+export const joinRoomHandler =
   (socket: Socket) =>
   ({ roomId, user }: ConnectionData): void => {
     if (store[roomId]) {
@@ -38,26 +39,10 @@ export const getJoinRoomHandler =
     }
   };
 
-export const getSendMessageHandler =
-  (socket: Socket) =>
-  ({ roomId, text }: MessageData): void => {
-    const message = addMessage(store, roomId, socket.id, text);
-    socket.emit(MESSAGE_WAS_SENDED, socket.id, message);
-    socket.to(roomId).emit(RECEIVE_MESSAGE, message);
-  };
-
-export const getLeaveRoomHandler =
+export const leaveRoomHandler =
   (socket: Socket) =>
   (roomId: string): void => {
     changeUserStatus(store, roomId, socket.id, UserStatus.left);
     socket.emit(LEFT_ROOM, socket.id);
     socket.to(roomId).emit(USER_LEFT, socket.id);
-  };
-
-export const getKickUserHandler =
-  (socket: Socket) =>
-  ({ userId, roomId }: UserData): void => {
-    changeUserStatus(store, roomId, userId, UserStatus.kicked);
-    socket.emit(KICKED_FROM_ROOM, userId);
-    socket.to(roomId).emit(USER_KICKED, userId);
   };
