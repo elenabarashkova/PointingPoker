@@ -63,23 +63,25 @@ export const RegisterForm: FunctionComponent = (): ReactElement => {
     setValidationState(validationErrors);
   };
 
+  const textInputs = FIELDS_CONFIG.map(({ label, name }) => (
+    <TextInput
+      key={name}
+      name={name}
+      value={fieldsState[name]}
+      isInline={false}
+      label={label}
+      onChange={handleChange}
+      error={validationState[name]}
+    />
+  ));
+
   return (
     <>
       <Button action={openModal} content="Register" variant="colored" />
       <Modal
         Component={(
           <form className="register-form" onSubmit={handleSubmit}>
-            {FIELDS_CONFIG.map(({ label, name }) => (
-              <TextInput
-                key={name}
-                name={name}
-                value={fieldsState[name]}
-                isInline={false}
-                label={label}
-                onChange={handleChange}
-                error={validationState[name]}
-              />
-            ))}
+            {textInputs}
             <input type="file" />
           </form>
         )}
