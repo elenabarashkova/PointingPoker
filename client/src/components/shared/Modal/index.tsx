@@ -37,14 +37,14 @@ export const Modal: FunctionComponent<ModalProps> = (
     setIsOpen(false);
   };
 
-  const yesBtnClickHandle = () => {
+  const yesBtnClickHandle = (event: MouseEvent) => {
+    yesBtnOnClick(event);
     handleClose();
-    yesBtnOnClick();
   };
 
   const noBtnClickHandle = () => {
-    handleClose();
     noBtnNoOnClick();
+    handleClose();
   };
 
   return (
