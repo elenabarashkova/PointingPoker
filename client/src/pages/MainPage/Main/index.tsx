@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import RegistrSection from 'components/RegistrSection';
+import RegisterSection from 'components/RegisterSection';
 import styles from './style.module.scss';
 
 const Main: React.FC = (): ReactElement => (
@@ -20,7 +20,7 @@ const Main: React.FC = (): ReactElement => (
       </p>
     </div>
     <div className={styles.containerMainField}>
-      <RegistrSection />
+      <RegisterSection />
       <div className={styles.palette}>
         <div className={styles.round}><span className={styles.feature}>plan</span></div>
         <div className={styles.round}><span className={styles.feature}>discuss</span></div>
