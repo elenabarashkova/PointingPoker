@@ -1,0 +1,30 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/style.scss';
+
+.footer {
+    position: absolute;
+    top: 600px;
+    left: calc(100vw - 95px);
+    display: flex;
+    flex-direction: column;
+}
+
+.githubIco {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-color: black;
+    background-image: url(../../../assets/githubIco.png);
+    background-position: center;
+    background-size: 30px;
+    box-shadow: 0 0.3rem 0.5rem #211b588a;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: .4s;
+    &:hover {
+      transform: scale(1.1);
+    }
+    &:active {
+      transform: scale(.9);
+    }
+  }
