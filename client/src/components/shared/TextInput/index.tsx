@@ -23,7 +23,7 @@ export const TextInput: FunctionComponent<TextInputProps> = (
   },
 ): ReactElement => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    onChange(event.target.value);
+    onChange(name, event.target.value);
   };
 
   return (
