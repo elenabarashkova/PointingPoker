@@ -3,7 +3,7 @@ import styles from './style.module.scss';
 
 interface TextInputProps {
   name: string,
-  defaultValue: string,
+  value: string,
   label: string,
   error: string,
   onChange: CallableFunction,
@@ -13,7 +13,7 @@ interface TextInputProps {
 export const TextInput: FunctionComponent<TextInputProps> = (
   {
     name,
-    defaultValue,
+    value,
     label,
     error,
     onChange,
@@ -25,16 +25,20 @@ export const TextInput: FunctionComponent<TextInputProps> = (
   };
 
   return (
-    <label htmlFor={name} className={[styles.textInput, styles[`${isInline ? 'inline' : 'inrow'}`]].join(' ')}>
+    <label htmlFor={name} className={[styles.textInput, styles[`${isInline ? 'inline' : 'incol'}`]].join(' ')}>
       <span>{label}</span>
       <input
         id={name}
         className={error ? `${styles.invalid}` : ''}
         type="text"
-        value={defaultValue}
+        value={value}
         onChange={handleChange}
       />
       <span className="error-text">{error}</span>
     </label>
   );
+};
+
+TextInput.defaultProps = {
+  isInline: false,
 };
