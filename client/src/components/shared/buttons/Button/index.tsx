@@ -4,7 +4,7 @@ import styles from './style.module.scss';
 interface ButtonProps {
   content: string,
   variant: string,
-  action(): void
+  action(MouseEvent): void
 }
 
 const Button: React.FC<ButtonProps> = ({ content, variant, action }): ReactElement => (
