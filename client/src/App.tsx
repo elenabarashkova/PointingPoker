@@ -1,12 +1,12 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { Button } from '@material-ui/core';
 import { Modal } from 'components/shared/Modal';
+import { Form } from 'components/Form';
 
 export const App: FunctionComponent = (): ReactElement => (
   <Modal
     openModalBtnTitle="Click to open modal"
     modalTitle="This is modal title"
-    Component={<Button>Test</Button>}
+    Component={<Form />}
     yesBtnTitle="Confirm"
     yesBtnOnClick={() => {
       console.log('Yes');
