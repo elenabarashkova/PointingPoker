@@ -1,0 +1,124 @@
+@import '../../../scss/variables.scss';
+
+.switchInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.switchLabel {
+  position: relative;
+  display: block;
+  height: inherit;
+  font-size: 16px;
+  line-height: 40px;
+  text-transform: uppercase;
+  border-radius: inherit;
+  transition: .15s ease-out;
+  box-shadow: 0 0.3rem 0.5rem #6451838a;
+  &:hover {
+      box-shadow: 0 0.5rem 0.7rem #6451838a;
+  }
+}
+
+.switchLabel:before {
+  content: attr(data-off);
+  right: 5px;
+  color: white;
+  font-family: $font-family-second;
+}
+
+.switchLabel:after, .switchLabel:before {
+  position: absolute;
+  top: -5px;
+  transition: inherit;
+}
+
+.switch {
+  right: 0;
+  display: inline-block;
+  vertical-align: top;
+  padding: 3px;
+  background-color: #fff;
+  position: relative;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.switchLabel:after {
+  content: attr(data-on);
+  left: 5px;
+  color: white;
+  opacity: 0;
+}
+
+.switchHandle {
+  position: absolute;
+  top: 7px;
+  left: 6px;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 5px;
+  transition: left 150ms ease-in;
+}
+
+.switchHandle:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -6px 0 0 -6px;
+}
+
+.switchInput:checked~.switchLabel:before {
+  opacity: 0;
+}
+
+.switchInput:checked~.switchLabel:after {
+  opacity: 1;
+}
+
+.switchInput:checked~.switchLabel {
+  background: $emerald; 
+  font-family: $font-family-second;
+}
+
+.switchInput:checked~.switchHandle {
+  left: 110px;
+  background: #327571;
+}
+
+.switch.choice {
+  width: 80px;
+  .switchInput:checked~.switchHandle {
+    left: 51px;
+    background: #327571;
+  }
+  .switchLabel {
+    background: $light-emerald;
+  }
+  .switchInput:checked~.switchLabel {
+    background: $emerald;
+  }
+}
+
+.switch.role {
+  width: 140px;
+  .switchLabel {
+    background: $emerald;
+  }
+  .switchInput:checked~.switchLabel {
+    background: $emerald;
+  }
+  .switchInput:checked~.switchHandle {
+    background: white;
+  }
+}
+
+.switchInput:disabled~.switchLabel {
+  background: grey;
+  opacity: .5;
+}
