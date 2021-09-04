@@ -18,18 +18,14 @@ export const DEFAULT_FIELDS_STATE = {
   viewerRole: false,
 };
 
-export const RegisterForm: FunctionComponent = (): ReactElement => {
-  const [isModalOpen, setModalOpen] = useState(false);
+interface RegisterFormProps {
+  isOpen: boolean,
+  closeModal(): void,
+}
+
+export const RegisterForm: FunctionComponent<RegisterFormProps> = ({ isOpen, closeModal }): ReactElement => {
   const [fieldsState, setFieldsState] = useState(DEFAULT_FIELDS_STATE);
   const [validationState, setValidationState] = useState({});
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   const handleChange = (name: string, value: string): void => {
     const state = {
@@ -53,7 +49,10 @@ export const RegisterForm: FunctionComponent = (): ReactElement => {
     const validationErrors = validate();
 
     if (!Object.keys(validationErrors).length) {
-      // todo: send fieldState data
+      // todo: send fieldState data &&
+      //    if role === Master => send server request for new room
+      // server - add new User
+      // page redirect - master = settings, other = lobby
 
       setFieldsState(DEFAULT_FIELDS_STATE);
       setValidationState({});
@@ -72,27 +71,25 @@ export const RegisterForm: FunctionComponent = (): ReactElement => {
       label={label}
       onChange={handleChange}
       error={validationState[name]}
+      placeholder={label}
     />
   ));
 
   return (
-    <>
-      <Button action={openModal} content="Register" variant="colored" />
-      <Modal
-        Component={(
-          <form className="register-form" onSubmit={handleSubmit}>
-            {textInputs}
-            <input type="file" />
-          </form>
-        )}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        modalTitle="Sign in"
-        yesBtnTitle="Confirm"
-        yesBtnOnClick={handleSubmit}
-        noBtnNoTitle="Decline"
-        noBtnNoOnClick={closeModal}
-      />
-    </>
+    <Modal
+      Component={(
+        <form className="register-form" onSubmit={handleSubmit}>
+          {textInputs}
+          <input type="file" />
+        </form>
+      )}
+      isOpen={isOpen}
+      onClose={closeModal}
+      modalTitle="Sign in"
+      yesBtnTitle="Confirm"
+      yesBtnOnClick={handleSubmit}
+      noBtnNoTitle="Decline"
+      noBtnNoOnClick={closeModal}
+    />
   );
 };
