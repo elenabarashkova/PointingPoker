@@ -3,9 +3,11 @@ import React, {
   ReactElement,
   useState,
   FormEvent,
+  MouseEvent,
 } from 'react';
 import { TextInput } from 'components/shared/TextInput';
 import { FIELDS_CONFIG } from 'components/Form/fields-config';
+import { Modal } from '../shared/Modal';
 
 export const DEFAULT_FIELDS_STATE = {
   firstName: '',
@@ -36,7 +38,7 @@ export const Form: FunctionComponent = (): ReactElement => {
     }, {})
   );
 
-  const handleSubmit = (event: FormEvent): void => {
+  const handleSubmit = (event: FormEvent | MouseEvent): void => {
     event.preventDefault();
     const validationErrors = validate();
 
@@ -51,27 +53,36 @@ export const Form: FunctionComponent = (): ReactElement => {
   };
 
   return (
-    <form className="register-form" onSubmit={handleSubmit}>
-      {FIELDS_CONFIG.map((
-        {
-          label,
-          name,
-        },
-      ) => (
-        <TextInput
-          key={name}
-          name={name}
-          value={fieldsState[name]}
-          isInline={false}
-          label={label}
-          onChange={handleChange}
-          error={validationState[name]}
-        />
-      ))}
-      <input type="file" />
-      <div className="submit-btn-wrap">
-        <input className="submit-btn" type="submit" value="Отправить" />
-      </div>
-    </form>
+    <Modal
+      Component={(
+        <form className="register-form" onSubmit={handleSubmit}>
+          {FIELDS_CONFIG.map((
+            {
+              label,
+              name,
+            },
+          ) => (
+            <TextInput
+              key={name}
+              name={name}
+              value={fieldsState[name]}
+              isInline={false}
+              label={label}
+              onChange={handleChange}
+              error={validationState[name]}
+            />
+          ))}
+          <input type="file" />
+        </form>
+      )}
+      openModalBtnTitle="Register"
+      modalTitle="Sign in"
+      yesBtnTitle="Confirm"
+      yesBtnOnClick={handleSubmit}
+      noBtnNoTitle="Decline"
+      noBtnNoOnClick={() => {
+        console.log('Cancel');
+      }}
+    />
   );
 };
