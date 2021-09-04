@@ -10,6 +10,8 @@ interface TextInputProps {
   isInline?: boolean,
 }
 
+const MAX_INPUT_LENGTH = 30;
+
 export const TextInput: FunctionComponent<TextInputProps> = (
   {
     name,
@@ -26,15 +28,17 @@ export const TextInput: FunctionComponent<TextInputProps> = (
 
   return (
     <label htmlFor={name} className={[styles.textInput, styles[`${isInline ? 'inline' : 'incol'}`]].join(' ')}>
-      <span>{label}</span>
+      <span className={styles.label}>{label}</span>
       <input
         id={name}
-        className={error ? `${styles.invalid}` : ''}
+        className={[styles.input, error ? `${styles.invalid}` : ''].join(' ')}
         type="text"
         value={value}
         onChange={handleChange}
+        placeholder={label}
+        maxLength={MAX_INPUT_LENGTH}
       />
-      <span className="error-text">{error}</span>
+      <span className={styles.error}>{error}</span>
     </label>
   );
 };
