@@ -1,3 +1,5 @@
+import cors from "cors";
+import express, { Request, Response } from "express";
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { CREATE_ROOM, JOIN_ROOM, LEAVE_ROOM, SEND_MESSAGE } from "./events";
@@ -8,14 +10,22 @@ import {
   leaveRoomHandler,
 } from "./handlers/room";
 
-const server = createServer();
+const PORT = process.env.PORT || 5000;
+const app = express();
 
-const io = new Server(server, {
-  path: "/",
-  cors: {
-    origin: "http://localhost:8080",
-  },
+const allowedOrigins = ["http://localhost:8080"];
+
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+};
+
+app.use(cors(options));
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello!");
 });
+const server = createServer(app);
+
+const io = new Server(server);
 
 io.on("connection", (socket: Socket) => {
   console.log("Connected " + socket.id);
@@ -26,6 +36,6 @@ io.on("connection", (socket: Socket) => {
   socket.on(LEAVE_ROOM, leaveRoomHandler(socket));
 });
 
-server.listen(4000, () => {
+server.listen(PORT, () => {
   console.log("Server is listen on PORT 4000");
 });
