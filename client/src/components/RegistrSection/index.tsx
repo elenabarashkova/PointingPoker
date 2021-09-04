@@ -19,7 +19,7 @@ const RegistrSection: React.FC = (): ReactElement => {
         <Button content="start new game" variant="colored" action={handleClickBtnMaster} />
       </div>
       <div className={styles.registrEl}>
-        <TextInput name="" value="" label="game ID" error="" onChange={() => console.log(1)} />
+        <TextInput name="" value="" label="" placeholder="game ID" error="" onChange={() => console.log(1)} />
         <Button content="connect" variant="colored" action={handleClickBtnUser} />
       </div>
     </div>
