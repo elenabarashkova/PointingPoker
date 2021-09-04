@@ -2,17 +2,66 @@
 
 .textInput {
   display: flex;
+  max-width: 400px;
+  margin-bottom: 20px;
+  position: relative;
 
   &.inline {
-    flex-direction: row;;
+    flex-direction: row;
+    align-items: baseline;
   }
 
   &.incol {
     flex-direction: column;
+    max-width: 300px;
+  }
+
+  .label {
+    font-family: $font-family-first;
+    color: $dark-blue;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  &.inline .label {
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+
+  .input {
+    border: none;
+    border-bottom: 1px solid $blue;
+    height: 30px;
+    padding: 0 10px;
+    color: $base-text-color;
+    font-size: 16px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .input::placeholder {
+    color: $disabled-color;
+  }
+
+  .input:focus,
+  .input:active {
+    border-color: $emerald;
+    outline: none;
   }
 
   .invalid {
     border-color: $error-color;
+  }
+
+  .error {
+    font-size: 12px;
+    line-height: 18px;
+    color: $error-color;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(100%);
   }
 
 }
