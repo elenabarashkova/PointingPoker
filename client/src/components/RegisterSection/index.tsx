@@ -47,7 +47,7 @@ const RegisterSection: React.FC = (): ReactElement => {
       <div className={styles.registrEl}>
         <TextInput
           name="gameId"
-          value=""
+          value={gameIdInput}
           label=""
           placeholder="game ID"
           error={gameIdValidation}

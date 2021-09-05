@@ -8,8 +8,10 @@ import React, {
 } from 'react';
 import { TextInput } from 'components/shared/TextInput';
 import { FIELDS_CONFIG } from 'components/RegisterForm/fields-config';
+import Switch from 'components/shared/Switch';
 import { Modal } from '../shared/Modal';
 import { User, UserRole } from '../../types/user';
+import { SWITCH_TYPE_ROLE } from '../../types/constants';
 
 export const DEFAULT_FIELDS_STATE = {
   firstName: '',
@@ -94,15 +96,14 @@ export const RegisterForm: FunctionComponent<RegisterFormProps> = (
     <Modal
       Component={(
         <form className="register-form" onSubmit={handleSubmit}>
-          <input
-            type="checkbox"
-            onChange={
-              (event: ChangeEvent<HTMLInputElement>) => {
-                handleChange('isObserver', event.target.checked);
-              }
-            }
+          {/* <Switch
+            name="isObserver"
+            onChange={handleChange}
+            dataOn="Player"
+            dataOff="Observer"
+            checked={fieldsState.isObserver}
             disabled={isMaster}
-          />
+           /> */}
           {textInputs}
           <input type="file" />
         </form>
