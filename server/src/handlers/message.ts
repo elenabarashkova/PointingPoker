@@ -7,7 +7,11 @@ import { MessageData } from "../types/data";
 export const sendMessageHandler =
   (socket: Socket) =>
   ({ roomId, text }: MessageData): void => {
-    const message = addMessage(store, roomId, socket.id, text);
-    socket.emit(MESSAGE_WAS_SENDED, socket.id, message);
-    socket.to(roomId).emit(RECEIVE_MESSAGE, message);
+    try {
+      const message = addMessage(store, roomId, socket.id, text);
+      socket.emit(MESSAGE_WAS_SENDED, message);
+      socket.to(roomId).emit(RECEIVE_MESSAGE, message);
+    } catch {
+      socket.emit("error", { status: 500, message: "error" });
+    }
   };
