@@ -58,7 +58,7 @@ User should have status: "player" | "observer"
 ###### Other users in this room:
 
 - event: **USER_CONNECTED**
-- data: **joinedUserObject**
+- data: **joinedUserId**, **joinedUserObject**
 
 ##### Response if room dos not exists
 
@@ -82,7 +82,7 @@ User should have status: "player" | "observer"
 ###### User who sent the message:
 
 - event: **MESSAGE_WAS_SENT**
-- data: userId, **{userId: string, text: string}**
+- data: **{userId: string, text: string}**
 
 ###### Other users in this room:
 
