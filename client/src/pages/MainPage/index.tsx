@@ -6,19 +6,17 @@ import Main from './Main';
 import Footer from './Footer';
 import {
   CHOICE_NO, CHOICE_YES,
-  ROLE_MASTER,
-  ROLE_OBSERVER,
-  ROLE_USER,
   SWITCH_TYPE_CHOICE,
   SWITCH_TYPE_ROLE,
-} from '../../constants';
+} from '../../types/constants';
+import { UserRole } from '../../types/user';
 
 const MainPage: React.FC = (): ReactElement => {
-  const [role, setRole] = useState(ROLE_USER);
+  const [role, setRole] = useState(UserRole.player);
   const [choice, setChoice] = useState(CHOICE_NO);
 
   const handleRoleChange = () => {
-    const newRole = (role === ROLE_USER) ? ROLE_OBSERVER : ROLE_USER;
+    const newRole = (role === UserRole.player) ? UserRole.observer : UserRole.player;
     setRole(newRole);
   };
 
@@ -39,9 +37,9 @@ const MainPage: React.FC = (): ReactElement => {
         justifyContent: 'space-between',
       }}
       >
-        <Switch type={SWITCH_TYPE_ROLE} status={role} onChange={handleRoleChange} />
-        <Switch type={SWITCH_TYPE_ROLE} status={ROLE_MASTER} />
-        <Switch type={SWITCH_TYPE_CHOICE} status={choice} onChange={handleChoiceChange} />
+        <Switch name="first" type={SWITCH_TYPE_ROLE} status={role} onChange={handleRoleChange} />
+        <Switch name="second" type={SWITCH_TYPE_ROLE} status={UserRole.master} />
+        <Switch name="third" type={SWITCH_TYPE_CHOICE} status={choice} onChange={handleChoiceChange} />
       </div>
     </div>
   );
