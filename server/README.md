@@ -12,7 +12,7 @@
 
 { roomId: string, user : User }
 
-User should have status: "master"
+User should have role: "master"
 
 ##### Success response
 
@@ -48,7 +48,7 @@ roundTime: 140
 
 { roomId: string, user : User }
 
-User should have status: "player" | "observer"
+User should have role: "player" | "observer"
 
 ##### Success response if room exists
 
@@ -120,6 +120,8 @@ roomId: string
 
 - event: **error**
 - data: **{ status: 500, message: "error" }**
+
+##### Master can not be kicked, user cannot kick himself!
 
 ---
 
