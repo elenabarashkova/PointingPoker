@@ -16,8 +16,6 @@ const RegisterSection: React.FC = (): ReactElement => {
 
   const handleIdInput = (name, idValue) => {
     setGameIdInput(idValue);
-    // todo: store name: idValue
-    // todo: set handleClickBtnUser - disabled if id is empty
   };
 
   const handleClickBtnMaster = () => {
@@ -30,7 +28,7 @@ const RegisterSection: React.FC = (): ReactElement => {
       setGameIdValidation('Fill in the field');
       return;
     }
-    const serverResponse = true; // todo: send server request if idValue matches and get response
+    const serverResponse = true; // SAMPLE CONST todo: add function that sends server request if idValue matches and get response
     // todo: show spinner while waiting
     if (!serverResponse) {
       setGameIdValidation('Invalid room Id');
