@@ -27,10 +27,11 @@ export const addKickVoteArray = (
   roomId: string,
   userId: string
 ): void => {
-  const votingUsersInRoom = Object.keys(store[roomId].users).filter(
-    (id) => id !== userId
+  const votingUsersInRoom = Object.entries(store[roomId].users).filter(
+    ([id, { status }]) => id !== userId && status === UserStatus.active
   );
-  store[roomId].users[userId].kickingVote = votingUsersInRoom.map((id) => ({
+
+  store[roomId].users[userId].kickingVote = votingUsersInRoom.map(([id]) => ({
     id: id,
     vote: undefined,
   }));
