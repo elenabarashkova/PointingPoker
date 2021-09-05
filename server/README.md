@@ -53,7 +53,7 @@ User should have status: "player" | "observer"
 ###### Joined user:
 
 - event: **JOINED_ROOM**
-- data: userId, **currentRoomStoreObject**
+- data: **currentRoomStoreObject**
 
 ###### Other users in this room:
 
@@ -121,5 +121,3 @@ roomId: string
 ---
 
 ##### For client app you can use socket.io-client
-
-###### The Client API can al listening for the following events:
