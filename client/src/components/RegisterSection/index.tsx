@@ -6,6 +6,7 @@ import styles from './style.module.scss';
 
 const RegisterSection: React.FC = (): ReactElement => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [isMaster, setMaster] = useState(false);
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -13,17 +14,19 @@ const RegisterSection: React.FC = (): ReactElement => {
 
   const handleIdInput = (name, idValue) => {
     // todo: store name: idValue
+    // todo: set handleClickBtnUser - disabled if id is empty
   };
 
   const handleClickBtnMaster = () => {
-    // todo: store role: Master
+    setMaster(true);
     setModalOpen(true);
   };
       
   const handleClickBtnUser = () => {
     // todo: send server request if idValue matches
     // todo: show spinner while waiting
-    // todo: store role: player
+    // todo: if sucsess open modal
+    // todo: if fail - show error message on TextInput "Invalid room Id"
     setModalOpen(true);
   };
 
@@ -37,7 +40,7 @@ const RegisterSection: React.FC = (): ReactElement => {
         <TextInput name="gameId" value="" label="" placeholder="game ID" error="" onChange={handleIdInput} />
         <Button content="connect" variant="colored" action={handleClickBtnUser} />
       </div>
-      <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} />
+      <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} isMaster={isMaster} />
     </div>
   );
 };
