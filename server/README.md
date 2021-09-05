@@ -53,12 +53,12 @@ User should have status: "player" | "observer"
 ###### Joined user:
 
 - event: **JOINED_ROOM**
-- data: userId, **roomStoreObject**
+- data: userId, **currentRoomStoreObject**
 
 ###### Other users in this room:
 
 - event: **USER_CONNECTED**
-- data: **roomStoreObject**
+- data: **joinedUserObject**
 
 ##### Response if room dos not exists
 
@@ -117,3 +117,9 @@ roomId: string
 
 - event: **error**
 - data: **{ status: 500, message: "error" }**
+
+---
+
+##### For client app you can use socket.io-client
+
+###### The Client API can al listening for the following events:
