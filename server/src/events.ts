@@ -7,11 +7,6 @@ export const ROOM_NOT_FOUND = "ROOM_NOT_FOUND";
 export const LEAVE_ROOM = "LEAVE_ROOM";
 export const LEFT_ROOM = "LEFT_ROOM";
 
-export const KICKED_FROM_ROOM = "KICKED_FROM_ROOM";
-export const DELETED_FROM_ROOM = "DELETED_FROM_ROOM";
-export const USER_KICKED = "USER_KICKED";
-export const USER_DELETED = "USER_DELETED";
-
 export const USER_CONNECTED = "USER_CONNECTED";
 export const USER_LEFT = "USER_LEFT";
 export const USER_DISCONNECTED = "USER_DISCONNECTED";
@@ -19,3 +14,12 @@ export const USER_DISCONNECTED = "USER_DISCONNECTED";
 export const SEND_MESSAGE = "SEND_MESSAGE";
 export const MESSAGE_WAS_SENT = "MESSAGE_WAS_SENT";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
+
+export const KICK_USER = "KICK_USER";
+export const YOU_ARE_KICKED = "YOU_ARE_KICKED";
+export const USER_IS_KICKED = "USER_IS_KICKED";
+export const YOU_ARE_DELETED = "YOU_ARE_DELETED";
+export const USER_IS_DELETED = "USER_IS_DELETED";
+export const YOU_ARE_NOT_DELETED = "YOU_ARE_NOT_DELETED";
+export const USER_IS_NOT_DELETED = "USER_IS_NOT_DELETED";
+export const KICKING_VOTE = "KICKING_VOTE";
