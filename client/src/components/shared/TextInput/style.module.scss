@@ -3,7 +3,7 @@
 .textInput {
   display: flex;
   max-width: 400px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   position: relative;
 
   &.inline {
@@ -33,7 +33,7 @@
     border: none;
     border-bottom: 1px solid $blue;
     height: 30px;
-    padding: 0 10px;
+    padding: 0;
     color: $base-text-color;
     font-size: 16px;
     background: transparent;

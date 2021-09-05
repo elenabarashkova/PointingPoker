@@ -1,8 +1,10 @@
+
 import React, { FunctionComponent, ReactElement, useState } from 'react';
 import Switch from 'components/shared/Switch';
 import {
   CHOICE_NO, CHOICE_YES, ROLE_OBSERVER, ROLE_USER, SWITCH_TYPE_CHOICE, SWITCH_TYPE_ROLE, ROLE_MASTER, 
 } from './constants';
+import React, { FunctionComponent, ReactElement } from 'react';
 
 export const App: FunctionComponent = (): ReactElement => {
   const [role, setRole] = useState(ROLE_USER);
