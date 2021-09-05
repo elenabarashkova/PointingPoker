@@ -18,7 +18,7 @@ User should have status: "master"
 - data: **roomStoreObject**
 
 const initRoomStore = {
-users: Users;
+users: [];
 messages: [],
 issues: [],
 gameStatus: "pending" | "inProgress", | "finished" | "canceled",
