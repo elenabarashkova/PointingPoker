@@ -53,7 +53,7 @@ User should have status: "player" | "observer"
 ###### Joined user:
 
 - event: **JOINED_ROOM**
-- data: userId, **currentRoomStoreObject**
+- data: **currentRoomStoreObject**
 
 ###### Other users in this room:
 
