@@ -1,5 +1,5 @@
 import { StoreSchema } from "../types/store";
-import { User, UserStatus } from "../types/user";
+import { User, UserRole, UserStatus } from "../types/user";
 
 export const addUser = (
   store: StoreSchema,
@@ -74,3 +74,12 @@ export const getKickingResult = (
     Number(store[roomId].users[kickedUserId].kickingVote?.length) / 2;
   return (result as number) >= middleResult;
 };
+
+export const userCanNotBeKicked = (
+  userId: string,
+  kickedUserId: string,
+  roomId: string,
+  store: StoreSchema
+): boolean =>
+  userId === kickedUserId ||
+  store[roomId].users[kickedUserId].role === UserRole.master;
