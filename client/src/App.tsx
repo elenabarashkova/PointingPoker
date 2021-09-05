@@ -2,9 +2,15 @@
 import React, { FunctionComponent, ReactElement, useState } from 'react';
 import Switch from 'components/shared/Switch';
 import {
-  CHOICE_NO, CHOICE_YES, ROLE_OBSERVER, ROLE_USER, SWITCH_TYPE_CHOICE, SWITCH_TYPE_ROLE, ROLE_MASTER, 
+  CHOICE_NO, CHOICE_YES, ROLE_OBSERVER, ROLE_USER, SWITCH_TYPE_CHOICE, SWITCH_TYPE_ROLE, ROLE_MASTER,
 } from './constants';
 import React, { FunctionComponent, ReactElement } from 'react';
+import MainPage from './pages/MainPage';
+import { RegisterForm } from 'components/RegisterForm';
+
+export const App: FunctionComponent = (): ReactElement => (
+  <MainPage />
+);
 
 export const App: FunctionComponent = (): ReactElement => {
   const [role, setRole] = useState(ROLE_USER);
@@ -21,16 +27,20 @@ export const App: FunctionComponent = (): ReactElement => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100px', 
-      justifyContent: 'space-between', 
-    }}
-    >
-      <Switch type={SWITCH_TYPE_ROLE} status={role} onChange={handleRoleChange} />
-      <Switch type={SWITCH_TYPE_ROLE} status={ROLE_MASTER} />
-      <Switch type={SWITCH_TYPE_CHOICE} status={choice} onChange={handleChoiceChange} />
-    </div>
+    <>
+      <MainPage />
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100px',
+        justifyContent: 'space-between',
+      }}
+      >
+        <Switch type={SWITCH_TYPE_ROLE} status={role} onChange={handleRoleChange} />
+        <Switch type={SWITCH_TYPE_ROLE} status={ROLE_MASTER} />
+        <Switch type={SWITCH_TYPE_CHOICE} status={choice} onChange={handleChoiceChange} />
+      </div>
+    </>
+
   );
 };
