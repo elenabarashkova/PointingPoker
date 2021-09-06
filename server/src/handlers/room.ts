@@ -2,6 +2,7 @@ import { Socket } from "socket.io";
 import { createRoom, createRoomId } from "../actions/room";
 import { addUser, changeUserStatus } from "../actions/user";
 import { UserEvents } from "../constants/events";
+import { handleError } from "../helpers";
 import { store } from "../store";
 import { EventCallback } from "../types/callbacks";
 import { ConnectionData } from "../types/data";
@@ -20,7 +21,7 @@ export const createRoomHandler =
       socket.join(roomId);
       callback({ status: 200, data: { room: store[roomId], roomId } });
     } catch {
-      callback({ status: 500, error: "error" });
+      handleError(socket, callback, true);
     }
   };
 
@@ -31,7 +32,7 @@ export const checkRoomHandler =
       const response = store[roomId] ? true : false;
       callback({ status: 200, data: response });
     } catch {
-      callback({ status: 500, error: "error" });
+      handleError(socket, callback, false);
     } finally {
       socket.disconnect();
     }
@@ -54,7 +55,7 @@ export const joinRoomHandler =
         socket.disconnect();
       }
     } catch {
-      callback({ status: 500, error: "error" });
+      handleError(socket, callback, true);
     }
   };
 
@@ -67,6 +68,6 @@ export const leaveRoomHandler =
       socket.to(roomId).emit(UserEvents.userLeft, { userId: socket.id, user });
       socket.disconnect();
     } catch {
-      callback({ status: 500, error: "error" });
+      handleError(socket, callback, false);
     }
   };
