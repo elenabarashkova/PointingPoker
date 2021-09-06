@@ -14,3 +14,9 @@ export interface UserData {
   userId: string;
   roomId: string;
 }
+
+export interface VotingData {
+  confirm: boolean;
+  kickedUserId: string;
+  roomId: string;
+}

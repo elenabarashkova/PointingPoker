@@ -1,4 +1,4 @@
-import { initGameSettings } from "../store";
+import { initialGameSettings } from "../store";
 import { GameStatus } from "../types/game";
 import { StoreSchema } from "../types/store";
 
@@ -8,6 +8,14 @@ export const createRoom = (store: StoreSchema, roomId: string): void => {
     messages: [],
     issues: [],
     gameStatus: GameStatus.pending,
-    gameSettings: initGameSettings,
+    gameSettings: initialGameSettings,
   };
+};
+
+export const createRoomId = (store: StoreSchema): string => {
+  let roomId = Date.now().toString();
+  if (store[roomId]) {
+    roomId = createRoomId(store);
+  }
+  return roomId;
 };
