@@ -13,6 +13,7 @@ import { UserRole } from 'src/types/user';
 import { SwitchType } from 'components/shared/Switch/types';
 import UserIco from 'components/shared/UserIco';
 import FileInput from 'components/FileInput';
+import styles from './style.module.scss';
 import { Modal } from '../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../constants';
 
@@ -38,7 +39,6 @@ export const RegisterForm: FunctionComponent<RegisterFormProps> = (
     };
     setFieldsState(state);
   };
-  // todo: add noBtnNoOnClick - handler => clears the fieldState & validationState
 
   const handleSubmit = (event: FormEvent | MouseEvent): void => {
     event.preventDefault();
@@ -56,17 +56,23 @@ export const RegisterForm: FunctionComponent<RegisterFormProps> = (
     setValidationState(validationErrors);
   };
 
+  const handleDecline = () => {
+    setFieldsState(DEFAULT_FIELDS_STATE);
+    setValidationState({});
+    closeModal();
+  };
+
   return (
     <Modal
       Component={(
-        <form className="register-form" onSubmit={handleSubmit}>
+        // onSubmit={handleSubmit} ?
+        <form className={styles.registerForm} onSubmit={handleSubmit}>
           <Switch name="switchRole" type={SwitchType.role} status={role} onChange={changeRole} />
           <RegisterTextInputs fields={fieldsState} validation={validationState} handler={handleChange} />
-          <div>
+          <div className={styles.userIcoField}>
             <FileInput name="userIcoInput" handler={handleChange} />
             <UserIco firstName={fieldsState.firstName} lastName={fieldsState.lastName} imgSrc={fieldsState.image} />
           </div>
-          
         </form>
       )}
       isOpen={isOpen}
@@ -75,7 +81,7 @@ export const RegisterForm: FunctionComponent<RegisterFormProps> = (
       yesBtnTitle="Confirm"
       yesBtnOnClick={handleSubmit}
       noBtnNoTitle="Decline"
-      noBtnNoOnClick={closeModal}
+      noBtnNoOnClick={handleDecline}
     />
   );
 };
