@@ -1,5 +1,4 @@
 export enum UserStatus {
-  nonAuthorized = "nonAuthorized",
   active = "active",
   kicked = "kicked",
   deleted = "deleted",

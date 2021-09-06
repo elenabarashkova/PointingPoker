@@ -14,31 +14,17 @@ user: User
 
 User should have role: "master"
 
+##### On client side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("CREATE_ROOM", user, (response) => { console.log(response) });
+
 ##### Success response
 
-- event: **ROOM_WAS_CREATED**
-- data: **{room: roomStoreObject, roomID: string}**
-
-const initialRoomStore = {
-users: [];
-messages: [],
-issues: [],
-gameStatus: "pending" | "inProgress", | "finished" | "canceled",
-gameSettings: initialGameSettingsConfig,
-}
-
-const initialGameSettingsConfig = {
-masterAsPlayer: true,
-changingCardInRoundEnd: false,
-timer: true,
-scoreType: ScoreType.storyPoint,
-roundTime: 140
-}
+{status: 200, data: {room: roomStoreObject, roomID: string}}
 
 ##### Error response
 
-- event: **error**
-- data: **{ status: 500, message: "error" }**
+{status: 500, error: "error"}
 
 ---
 
@@ -48,19 +34,17 @@ roundTime: 140
 
 roomId: string
 
-##### Success response if room exists
+##### On client side you can add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
-- event: **ROOM_IS_VALID**
-- data: **roomID: string**
+socket.emit("IS_ROOM_VALID", roomId, (response) => { console.log(response) });
 
-##### Success response if room dos not exists
+##### Success response
 
-- event: **ROOM_IS_NOT_VALID**
+{status: 200, data: true/false}
 
 ##### Error response
 
-- event: **error**
-- data: **{ status: 500, message: "error" }**
+{status: 500, error: "error"}
 
 ##### After success or error response user will disconnect
 
@@ -76,26 +60,25 @@ roomId: string
 
 User should have role: "player" | "observer"
 
-##### Success response if room exists
-
 ###### Joined user:
 
-- event: **JOINED_ROOM**
-- data: **{room: roomStoreObject, roomID: string}**
+##### On joined user side you can add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
-###### Other users in this room:
+socket.emit("JOINED_ROOM", { roomId: string, user : User }, (response) => { console.log(response) });
 
-- event: **USER_CONNECTED**
-- data: **{userId: joinedUserId, user: joinedUserObject}**
+##### Response
 
-##### Response if room dos not exists
-
-- event: **ROOM_NOT_FOUND**
+- If room exists: **{ status: 200, data: { room: roomStore, roomId } }**
+- If room doesn't exists: **{ status: 404, data: "Room not found" }**
 
 ##### Error response
 
-- event: **error**
-- data: **{ status: 500, message: "error" }**
+{status: 500, error: "error"}
+
+###### Other users in this room should listen event:
+
+- event: **USER_CONNECTED**
+- data: **{userId: joinedUserId, user: joinedUserObject}**
 
 ---
 
@@ -105,22 +88,22 @@ User should have role: "player" | "observer"
 
 roomId: string
 
-##### Success response
+##### On user side you can add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
-###### User who left the room:
+socket.emit("LEAVE_ROOM", roomId, (response) => { console.log(response) });
 
-- event: **LEFT_ROOM**
-- data: **{ userId: leftUserId, user: leftUserObj }** _Left User has status "left"_
+##### Response
 
-###### Other users in this room:
-
-- event: **USER_LEFT**
-- data: **{ userId: leftUserId, user: leftUserObj }** _Left User has status "left"_
+{ status: 200, data: { userId: string, user: User } }
 
 ##### Error response
 
-- event: **error**
-- data: **{ status: 500, message: "error" }**
+{status: 500, error: "error"}
+
+###### Other users in this room should listen event:
+
+- event: **USER_LEFT**
+- data: **{ userId: leftUserId, user: leftUserObj }** _Left User has status "left"_
 
 ---
 
@@ -196,22 +179,22 @@ IF ALL USERS HAVE VOTED BUT THEY DECIDED NOT TO DELETE USER
 
 { roomId: string, text : string }
 
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("SEND_MESSAGE", { roomId, text }, (response) => { console.log(response) });
+
 ##### Success response
 
-###### User who sent the message:
-
-- event: **MESSAGE_WAS_SENT**
-- data: **{userId: string, text: string}**
-
-###### Other users in this room:
-
-- event: **RECEIVE_MESSAGE**
-- data: **{userId: string, text: string}**
+{ status: 200, data: {userId: string, text: string} }
 
 ##### Error response
 
-- event: **error**
-- data: **{ status: 500, message: "error" }**
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **RECEIVE_MESSAGE**
+- data: **{userId: string, text: string}**
 
 ---
 
