@@ -88,14 +88,18 @@ export const kickUserVotingHandler =
             user,
           });
 
-        socket
-          .to(kickedUserId)
-          .emit(KickUserEvents.youAreNotDeleted, {
-            userId: kickedUserId,
-            user,
-          });
+        socket.to(kickedUserId).emit(KickUserEvents.youAreNotDeleted, {
+          userId: kickedUserId,
+          user,
+        });
       }
     } catch {
       socket.emit("error", { status: 500, message: "error" });
     }
   };
+
+// export const disconnectingUserHandler = (socket: Socket) => (): void => {
+//   const [userId, roomId] = Array.from(socket.rooms);
+//   addDisconnectStatus(store, roomId, userId);
+//   console.log(store[roomId].users[userId]);
+// };

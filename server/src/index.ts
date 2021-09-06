@@ -44,6 +44,7 @@ io.on("connection", (socket: Socket) => {
   socket.on(UserEvents.leaveRoom, leaveRoomHandler(socket));
   socket.on(KickUserEvents.kickUser, kickUserHandler(socket));
   socket.on(KickUserEvents.kickingVote, kickUserVotingHandler(socket, io));
+  // socket.on(UserEvents.disconnecting, disconnectingUserHandler(socket));
 });
 
 server.listen(PORT, () => {

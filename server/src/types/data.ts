@@ -20,3 +20,8 @@ export interface VotingData {
   kickedUserId: string;
   roomId: string;
 }
+
+export interface ErrorResponse {
+  status: number;
+  error: string;
+}
