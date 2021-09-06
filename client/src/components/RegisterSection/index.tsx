@@ -2,12 +2,13 @@ import React, { ReactElement, useState } from 'react';
 import Button from 'components/shared/buttons/Button';
 import { TextInput } from 'components/shared/TextInput';
 import { RegisterForm } from 'components/RegisterForm';
+import { UserRole } from 'src/types/user';
 import styles from './style.module.scss';
 import { isRoomValid } from '../../services/isRoomValid';
 
 const RegisterSection: React.FC = (): ReactElement => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [isMaster, setMaster] = useState(false);
+  const [role, setRole] = useState(UserRole.master);
   const [gameIdInput, setGameIdInput] = useState('');
   const [gameIdValidation, setGameIdValidation] = useState('');
 
@@ -20,7 +21,7 @@ const RegisterSection: React.FC = (): ReactElement => {
   };
 
   const handleClickBtnMaster = () => {
-    setMaster(true);
+    setRole(UserRole.master);
     setModalOpen(true);
   };
       
@@ -36,7 +37,13 @@ const RegisterSection: React.FC = (): ReactElement => {
       setGameIdValidation('Invalid room Id');
       return;
     }
+    setRole(UserRole.player);
     setModalOpen(true);
+  };
+
+  const handleSwitch = () => {
+    const newRole = role === UserRole.player ? UserRole.observer : UserRole.player;
+    setRole(newRole);
   };
 
   return (
@@ -57,7 +64,7 @@ const RegisterSection: React.FC = (): ReactElement => {
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} />
       </div>
-      <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} isMaster={isMaster} />
+      <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} role={role} changeRole={handleSwitch} />
     </div>
   );
 };
