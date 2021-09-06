@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 import { addMessage } from "../actions/message";
 import { ChatEvents } from "../constants/events";
+import { handleError } from "../helpers";
 import { store } from "../store";
 import { EventCallback } from "../types/callbacks";
 import { MessageData } from "../types/data";
@@ -13,6 +14,6 @@ export const sendMessageHandler =
       callback({ status: 200, data: message });
       socket.to(roomId).emit(ChatEvents.receiveMessage, message);
     } catch {
-      callback({ status: 500, error: "error" });
+      handleError(socket, callback, false);
     }
   };

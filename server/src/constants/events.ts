@@ -11,7 +11,6 @@ export enum ChatEvents {
 
 export enum UserEvents {
   joinRoom = "JOIN_ROOM",
-  joinedRoom = "JOINED_ROOM",
   leaveRoom = "LEAVE_ROOM",
   userConnected = "USER_CONNECTED",
   userLeft = "USER_LEFT",

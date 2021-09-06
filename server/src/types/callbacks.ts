@@ -1,3 +1,4 @@
+import { ErrorResponse } from "./data";
 import { Message } from "./message";
 import { Room } from "./store";
 import { User } from "./user";
@@ -10,8 +11,12 @@ type DataType =
   | boolean
   | string;
 
-export type EventCallback = (response: {
-  status: number;
-  data?: DataType;
-  error?: string;
-}) => void;
+type ResponseType =
+  | {
+      status?: number;
+      data?: DataType;
+      error?: string;
+    }
+  | ErrorResponse;
+
+export type EventCallback = (response: ResponseType) => void;
