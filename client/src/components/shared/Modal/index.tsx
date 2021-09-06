@@ -40,7 +40,7 @@ export const Modal: FunctionComponent<ModalProps> = (
         </DialogContent>
         <DialogActions className={styles.buttons}>
           <Button action={yesBtnOnClick} variant="colored" content={yesBtnTitle} />
-          <Button action={noBtnNoOnClick} variant="colored" content={noBtnNoTitle} />
+          <Button action={noBtnNoOnClick} variant="bordered" content={noBtnNoTitle} />
         </DialogActions>
       </div>
     </Dialog>
