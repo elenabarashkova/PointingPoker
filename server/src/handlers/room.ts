@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { createRoom } from "../actions/room";
+import { createRoom, createRoomId } from "../actions/room";
 import { addUser, changeUserStatus } from "../actions/user";
 import {
   JOINED_ROOM,
@@ -11,12 +11,13 @@ import {
 } from "../events";
 import { store } from "../store";
 import { ConnectionData } from "../types/data";
-import { UserRole, UserStatus } from "../types/user";
+import { User, UserRole, UserStatus } from "../types/user";
 
 export const createRoomHandler =
   (socket: Socket) =>
-  ({ roomId, user }: ConnectionData): void => {
+  (user: User): void => {
     try {
+      const roomId = createRoomId(store);
       createRoom(store, roomId);
       addUser(store, roomId, socket.id, {
         ...user,
