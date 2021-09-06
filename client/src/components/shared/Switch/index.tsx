@@ -4,7 +4,7 @@ import { UserRole } from '../../../types/user';
 import { SwitchType, ChoiceType } from './types';
 
 interface SwitchProps {
- 
+  name: string,
   type: keyof typeof SwitchType,
   status: string, 
   onChange?: CallableFunction
@@ -12,6 +12,7 @@ interface SwitchProps {
 
 const Switch:React.FC<SwitchProps> = (
   {
+    name,
     type,
     status,
     onChange,
@@ -34,9 +35,9 @@ const Switch:React.FC<SwitchProps> = (
   };
 
   return (
-    <label htmlFor="name" className={[styles.switch, styles[type]].join(' ')}>
+    <label htmlFor={name} className={[styles.switch, styles[type]].join(' ')}>
       <input
-        id="name"
+        id={name}
         type="checkbox" 
         className={styles.switchInput} 
         disabled={status === UserRole.master}
