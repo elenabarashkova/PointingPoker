@@ -26,17 +26,17 @@ const RegisterSection: React.FC = (): ReactElement => {
   };
       
   const handleClickBtnUser = async () => {
-    if (!gameIdInput) {
-      setGameIdValidation('Fill in the field');
-      return;
-    }
+    // if (!gameIdInput) {
+    //   setGameIdValidation('Fill in the field');
+    //   return;
+    // }
 
-    const isValid = await isRoomValid(gameIdInput);
-    // todo: show spinner while waiting
-    if (!isValid) {
-      setGameIdValidation('Invalid room Id');
-      return;
-    }
+    // const isValid = await isRoomValid(gameIdInput);
+    // // todo: show spinner while waiting
+    // if (!isValid) {
+    //   setGameIdValidation('Invalid room Id');
+    //   return;
+    // }
     setRole(UserRole.player);
     setModalOpen(true);
   };
