@@ -42,6 +42,32 @@ roundTime: 140
 
 ---
 
+##### - IS_ROOM_VALID
+
+##### Expected data
+
+roomId: string
+
+##### Success response if room exists
+
+- event: **ROOM_IS_VALID**
+- data: **roomID: string**
+
+##### Success response if room dos not exists
+
+- event: **ROOM_IS_NOT_VALID**
+
+##### Error response
+
+- event: **error**
+- data: **{ status: 500, message: "error" }**
+
+##### After success or error response user will disconnect
+
+- event: **disconnect**
+
+---
+
 ##### - JOIN_ROOM
 
 ##### Expected data

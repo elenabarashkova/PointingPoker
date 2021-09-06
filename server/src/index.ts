@@ -3,15 +3,14 @@ import express, { Request, Response } from "express";
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import {
-  CREATE_ROOM,
-  JOIN_ROOM,
-  KICKING_VOTE,
-  KICK_USER,
-  LEAVE_ROOM,
-  SEND_MESSAGE,
-} from "./events";
+  ChatEvents,
+  KickUserEvents,
+  RoomEvents,
+  UserEvents,
+} from "./constants/events";
 import { sendMessageHandler } from "./handlers/message";
 import {
+  checkRoomHandler,
   createRoomHandler,
   joinRoomHandler,
   leaveRoomHandler,
@@ -38,14 +37,15 @@ const io = new Server(server);
 io.on("connection", (socket: Socket) => {
   console.log("Connected " + socket.id);
 
-  socket.on(CREATE_ROOM, createRoomHandler(socket));
-  socket.on(JOIN_ROOM, joinRoomHandler(socket));
-  socket.on(SEND_MESSAGE, sendMessageHandler(socket));
-  socket.on(LEAVE_ROOM, leaveRoomHandler(socket));
-  socket.on(KICK_USER, kickUserHandler(socket));
-  socket.on(KICKING_VOTE, kickUserVotingHandler(socket, io));
+  socket.on(RoomEvents.createRoom, createRoomHandler(socket));
+  socket.on(RoomEvents.isRoomValid, checkRoomHandler(socket));
+  socket.on(UserEvents.joinRoom, joinRoomHandler(socket));
+  socket.on(ChatEvents.sendMessage, sendMessageHandler(socket));
+  socket.on(UserEvents.leaveRoom, leaveRoomHandler(socket));
+  socket.on(KickUserEvents.kickUser, kickUserHandler(socket));
+  socket.on(KickUserEvents.kickingVote, kickUserVotingHandler(socket, io));
 });
 
 server.listen(PORT, () => {
-  console.log("Server is listen on PORT 4000");
+  console.log("Server is listen on PORT 5000");
 });
