@@ -58,7 +58,7 @@ export const RegisterForm: FunctionComponent<RegisterFormProps> = (
     <Modal
       Component={(
         <form className="register-form" onSubmit={handleSubmit}>
-          <Switch type={SwitchType.role} status={role} onChange={changeRole} />
+          <Switch name='switchRole' type={SwitchType.role} status={role} onChange={changeRole} />
           <RegisterTextInputs fields={fieldsState} validation={validationState} handler={handleChange} />
           <input type="file" />
         </form>
