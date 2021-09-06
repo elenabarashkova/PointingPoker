@@ -1,16 +1,19 @@
-import { io } from 'socket.io-client';
-
-const socket = io('https://arcane-thicket-43676.herokuapp.com/', { transports: ['websocket', 'polling'] });
+import {
+  IS_ROOM_VALID,
+  ROOM_IS_NOT_VALID,
+  ROOM_IS_VALID,
+  socket,
+} from './constants';
 
 export const isRoomValid = async (roomId: string): Promise<boolean | Error> => {
   try {
     return await (
       new Promise((resolve, reject) => {
-        socket.emit('IS_ROOM_VALID', roomId);
-        socket.on('ROOM_IS_NOT_VALID', () => {
+        socket.emit(IS_ROOM_VALID, roomId);
+        socket.on(ROOM_IS_NOT_VALID, () => {
           resolve(false);
         });
-        socket.on('ROOM_IS_VALID', () => {
+        socket.on(ROOM_IS_VALID, () => {
           resolve(true);
         });
         socket.on('error', (error) => {

@@ -1,5 +1,4 @@
 import React, {
-  ChangeEvent,
   FormEvent,
   FunctionComponent,
   MouseEvent,
@@ -8,10 +7,8 @@ import React, {
 } from 'react';
 import { TextInput } from 'components/shared/TextInput';
 import { FIELDS_CONFIG } from 'components/RegisterForm/fields-config';
-import Switch from 'components/shared/Switch';
 import { Modal } from '../shared/Modal';
 import { User, UserRole } from '../../types/user';
-import { SWITCH_TYPE_ROLE } from '../../constants';
 
 export const DEFAULT_FIELDS_STATE = {
   firstName: '',

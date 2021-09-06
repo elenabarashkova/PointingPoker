@@ -3,7 +3,7 @@ import Button from 'components/shared/buttons/Button';
 import { TextInput } from 'components/shared/TextInput';
 import { RegisterForm } from 'components/RegisterForm';
 import styles from './style.module.scss';
-import { isRoomValid } from '../../services/login';
+import { isRoomValid } from '../../services/isRoomValid';
 
 const RegisterSection: React.FC = (): ReactElement => {
   const [modalOpen, setModalOpen] = useState(false);
