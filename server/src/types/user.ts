@@ -19,6 +19,7 @@ export interface User {
   jobPosition: string;
   image: string;
   status: keyof typeof UserStatus;
+  kickingVote?: Array<{ id: string; vote: undefined | number }>;
 }
 
 export interface Users {
