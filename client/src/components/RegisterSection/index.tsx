@@ -3,6 +3,7 @@ import Button from 'components/shared/buttons/Button';
 import { TextInput } from 'components/shared/TextInput';
 import { RegisterForm } from 'components/RegisterForm';
 import styles from './style.module.scss';
+import { isRoomValid } from '../../services/login';
 
 const RegisterSection: React.FC = (): ReactElement => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,14 +24,15 @@ const RegisterSection: React.FC = (): ReactElement => {
     setModalOpen(true);
   };
       
-  const handleClickBtnUser = (): void => {
+  const handleClickBtnUser = async () => {
     if (!gameIdInput) {
       setGameIdValidation('Fill in the field');
       return;
     }
-    const serverResponse = true; // SAMPLE CONST todo: add function that sends server request if idValue matches and get response
+
+    const isValid = await isRoomValid(gameIdInput);
     // todo: show spinner while waiting
-    if (!serverResponse) {
+    if (!isValid) {
       setGameIdValidation('Invalid room Id');
       return;
     }
