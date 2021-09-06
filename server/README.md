@@ -10,7 +10,7 @@
 
 ##### Expected data
 
-{ roomId: string, user : User }
+user: User
 
 User should have role: "master"
 
@@ -19,15 +19,15 @@ User should have role: "master"
 - event: **ROOM_WAS_CREATED**
 - data: **{room: roomStoreObject, roomID: string}**
 
-const initRoomStore = {
+const initialRoomStore = {
 users: [];
 messages: [],
 issues: [],
 gameStatus: "pending" | "inProgress", | "finished" | "canceled",
-gameSettings: initGameSettingsConfig,
+gameSettings: initialGameSettingsConfig,
 }
 
-const initGameSettingsConfig = {
+const initialGameSettingsConfig = {
 masterAsPlayer: true,
 changingCardInRoundEnd: false,
 timer: true,
@@ -142,7 +142,7 @@ IF ALL USERS HAVE VOTED AND THEY DECIDED TO DELETE USER
 
 ###### Other users in this room:
 
-- event: **YOU_ARE_DELETED**
+- event: **USER_IS_DELETED**
 - data: **{ userId: deletedUserId, user: deletedUserObject}** _Deleted User has status "deleted"_
 
 IF ALL USERS HAVE VOTED BUT THEY DECIDED NOT TO DELETE USER

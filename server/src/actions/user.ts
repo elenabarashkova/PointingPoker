@@ -72,6 +72,7 @@ export const getKickingResult = (
 
   const middleResult =
     Number(store[roomId].users[kickedUserId].kickingVote?.length) / 2;
+
   return (result as number) >= middleResult;
 };
 

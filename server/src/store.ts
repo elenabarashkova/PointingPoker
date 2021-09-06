@@ -1,7 +1,7 @@
 import { GameSettings, ScoreType } from "./types/game";
 import { StoreSchema } from "./types/store";
 
-export const initGameSettings: GameSettings = {
+export const initialGameSettings: GameSettings = {
   masterAsPlayer: true,
   changingCardInRoundEnd: false,
   timer: true,
