@@ -7,14 +7,7 @@ import {
   userCanNotBeKicked,
   vote,
 } from "../actions/user";
-import {
-  USER_IS_DELETED,
-  USER_IS_KICKED,
-  USER_IS_NOT_DELETED,
-  YOU_ARE_DELETED,
-  YOU_ARE_KICKED,
-  YOU_ARE_NOT_DELETED,
-} from "../events";
+import { KickUserEvents } from "../constants/events";
 import { store } from "../store";
 import { UserData, VotingData } from "../types/data";
 import { UserStatus } from "../types/user";
@@ -28,9 +21,12 @@ export const kickUserHandler =
       }
       const user = changeUserStatus(store, roomId, userId, UserStatus.kicked);
       addKickVoteArray(store, roomId, userId);
-      socket.emit(USER_IS_KICKED, { userId, user });
-      socket.to(userId).emit(YOU_ARE_KICKED, userId);
-      socket.to(roomId).except(userId).emit(USER_IS_KICKED, { userId, user });
+      socket.emit(KickUserEvents.userIsKicked, { userId, user });
+      socket.to(userId).emit(KickUserEvents.youAreKicked, userId);
+      socket
+        .to(roomId)
+        .except(userId)
+        .emit(KickUserEvents.userIsKicked, { userId, user });
     } catch (error) {
       socket.emit("error", { status: 500, message: "error" });
     }
@@ -56,16 +52,19 @@ export const kickUserVotingHandler =
           UserStatus.deleted
         );
 
-        socket.emit(USER_IS_DELETED, {
+        socket.emit(KickUserEvents.userIsDeleted, {
           userId: kickedUserId,
           user,
         });
-        socket.to(roomId).except(kickedUserId).emit(USER_IS_DELETED, {
-          userId: kickedUserId,
-          user,
-        });
+        socket
+          .to(roomId)
+          .except(kickedUserId)
+          .emit(KickUserEvents.userIsDeleted, {
+            userId: kickedUserId,
+            user,
+          });
 
-        socket.to(kickedUserId).emit(YOU_ARE_DELETED, {
+        socket.to(kickedUserId).emit(KickUserEvents.youAreDeleted, {
           userId: kickedUserId,
           user,
         });
@@ -77,15 +76,24 @@ export const kickUserVotingHandler =
           kickedUserId,
           UserStatus.active
         );
-        socket.emit(USER_IS_NOT_DELETED, { userId: kickedUserId, user });
+        socket.emit(KickUserEvents.userIsNotDeleted, {
+          userId: kickedUserId,
+          user,
+        });
         socket
           .to(roomId)
           .except(kickedUserId)
-          .emit(USER_IS_NOT_DELETED, { userId: kickedUserId, user });
+          .emit(KickUserEvents.userIsNotDeleted, {
+            userId: kickedUserId,
+            user,
+          });
 
         socket
           .to(kickedUserId)
-          .emit(YOU_ARE_NOT_DELETED, { userId: kickedUserId, user });
+          .emit(KickUserEvents.youAreNotDeleted, {
+            userId: kickedUserId,
+            user,
+          });
       }
     } catch {
       socket.emit("error", { status: 500, message: "error" });

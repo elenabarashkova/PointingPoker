@@ -1,14 +1,7 @@
 import { Socket } from "socket.io";
 import { createRoom, createRoomId } from "../actions/room";
 import { addUser, changeUserStatus } from "../actions/user";
-import {
-  JOINED_ROOM,
-  LEFT_ROOM,
-  ROOM_NOT_FOUND,
-  ROOM_WAS_CREATED,
-  USER_CONNECTED,
-  USER_LEFT,
-} from "../events";
+import { RoomEvents, UserEvents } from "../constants/events";
 import { store } from "../store";
 import { ConnectionData } from "../types/data";
 import { User, UserRole, UserStatus } from "../types/user";
@@ -24,9 +17,25 @@ export const createRoomHandler =
         role: UserRole.master,
       });
       socket.join(roomId);
-      socket.emit(ROOM_WAS_CREATED, { room: store[roomId], roomId });
+      socket.emit(RoomEvents.roomWasCreated, { room: store[roomId], roomId });
     } catch {
       socket.emit("error", { status: 500, message: "error" });
+    }
+  };
+
+export const checkRoomHandler =
+  (socket: Socket) =>
+  (roomId: string): void => {
+    try {
+      if (store[roomId]) {
+        socket.emit(RoomEvents.roomIsValid, roomId);
+      } else {
+        socket.emit(RoomEvents.roomIsNotValid);
+      }
+    } catch {
+      socket.emit("error", { status: 500, message: "error" });
+    } finally {
+      socket.disconnect();
     }
   };
 
@@ -37,12 +46,13 @@ export const joinRoomHandler =
       if (store[roomId]) {
         const joinedUser = addUser(store, roomId, socket.id, user);
         socket.join(roomId);
-        socket.emit(JOINED_ROOM, { room: store[roomId], roomId });
-        socket
-          .to(roomId)
-          .emit(USER_CONNECTED, { userId: socket.id, user: joinedUser });
+        socket.emit(UserEvents.joinedRoom, { room: store[roomId], roomId });
+        socket.to(roomId).emit(UserEvents.userConnected, {
+          userId: socket.id,
+          user: joinedUser,
+        });
       } else {
-        socket.emit(ROOM_NOT_FOUND, socket.id);
+        socket.emit(RoomEvents.roomNotFound, socket.id);
         socket.disconnect();
       }
     } catch {
@@ -55,8 +65,8 @@ export const leaveRoomHandler =
   (roomId: string): void => {
     try {
       const user = changeUserStatus(store, roomId, socket.id, UserStatus.left);
-      socket.emit(LEFT_ROOM, { userId: socket.id, user });
-      socket.to(roomId).emit(USER_LEFT, { userId: socket.id, user });
+      socket.emit(UserEvents.leftRoom, { userId: socket.id, user });
+      socket.to(roomId).emit(UserEvents.userLeft, { userId: socket.id, user });
       socket.disconnect();
     } catch {
       socket.emit("error", { status: 500, message: "error" });
