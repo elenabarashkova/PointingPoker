@@ -1,11 +1,11 @@
-import React, { ChangeEvent, ReactElement } from 'react';
-import { CHOICE_NO, CHOICE_YES } from 'src/constants';
+import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
 import { UserRole } from '../../../types/user';
+import { SwitchType, ChoiceType } from './types';
 
 interface SwitchProps {
-  name: string,
-  type: string,
+ 
+  type: keyof typeof SwitchType,
   status: string, 
   onChange?: CallableFunction
 }
@@ -15,13 +15,13 @@ const Switch:React.FC<SwitchProps> = (
     type,
     status,
     onChange,
-    name,
+    
   },
 ): ReactElement => {
   const switchConfig = {
     choice: {
-      dataOn: CHOICE_YES,
-      dataOff: CHOICE_NO,
+      dataOn: ChoiceType.yes,
+      dataOff: ChoiceType.no,
     },
     role: {
       dataOn: UserRole.observer,
@@ -29,18 +29,18 @@ const Switch:React.FC<SwitchProps> = (
     },
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange(name, event.target.checked);
+  const handleChange = () => {
+    onChange();
   };
-  
+
   return (
-    <label htmlFor={name} className={[styles.switch, styles[type]].join(' ')}>
+    <label htmlFor="name" className={[styles.switch, styles[type]].join(' ')}>
       <input
-        id={name}
+        id="name"
         type="checkbox" 
         className={styles.switchInput} 
         disabled={status === UserRole.master}
-        checked={status === UserRole.observer || status === CHOICE_YES}
+        checked={status === UserRole.observer || status === ChoiceType.yes}
         onChange={handleChange}
       />
       <span 
