@@ -22,6 +22,16 @@ export const changeUserStatus = (
   return store[roomId].users[userId];
 };
 
+export const addDisconnectStatus = (
+  store: StoreSchema,
+  roomId: string,
+  userId: string
+): void => {
+  if (store[roomId].users[userId].status === UserStatus.active) {
+    store[roomId].users[userId].status = UserStatus.disconnected;
+  }
+};
+
 export const addKickVoteArray = (
   store: StoreSchema,
   roomId: string,
