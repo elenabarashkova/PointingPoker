@@ -8,7 +8,7 @@ import {
   CHOICE_NO, CHOICE_YES,
   SWITCH_TYPE_CHOICE,
   SWITCH_TYPE_ROLE,
-} from '../../types/constants';
+} from '../../constants';
 import { UserRole } from '../../types/user';
 
 const MainPage: React.FC = (): ReactElement => {

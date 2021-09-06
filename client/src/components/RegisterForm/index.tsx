@@ -11,7 +11,7 @@ import { FIELDS_CONFIG } from 'components/RegisterForm/fields-config';
 import Switch from 'components/shared/Switch';
 import { Modal } from '../shared/Modal';
 import { User, UserRole } from '../../types/user';
-import { SWITCH_TYPE_ROLE } from '../../types/constants';
+import { SWITCH_TYPE_ROLE } from '../../constants';
 
 export const DEFAULT_FIELDS_STATE = {
   firstName: '',

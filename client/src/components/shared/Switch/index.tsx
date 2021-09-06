@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactElement } from 'react';
-import { CHOICE_NO, CHOICE_YES } from 'src/types/constants';
+import { CHOICE_NO, CHOICE_YES } from 'src/constants';
 import styles from './style.module.scss';
 import { UserRole } from '../../../types/user';
 
