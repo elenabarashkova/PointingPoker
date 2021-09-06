@@ -1,7 +1,13 @@
+import { Dispatch } from 'redux';
 import { User, UserRole } from '../../types/user';
 import { createRoom } from '../../services/createRoom';
+import { Room, RoomData } from '../../types/room';
+import { createNewRoom } from '../../redux/actions';
 
-export const setNewUser = async (fieldsState: Record<string, string | boolean>, isMaster: boolean) => {
+export const setNewUser = (
+  fieldsState: Record<string, string | boolean>,
+  isMaster: boolean,
+) => async (dispatch: Dispatch): Promise<void> => {
   const role = isMaster ? UserRole.master : (fieldsState.isObserver ? UserRole.observer : UserRole.player);
 
   const newUser: User = {
@@ -12,8 +18,13 @@ export const setNewUser = async (fieldsState: Record<string, string | boolean>, 
   };
 
   if (role === UserRole.master) {
-    const newRoom = await createRoom(newUser);
-    // todo: store in redux data
+    const { roomId, room } = await createRoom(newUser) as RoomData;
+
+    const newRoom: Room = {
+      [roomId]: room,
+    };
+
+    dispatch(createNewRoom(newRoom));
   } else {
     // todo:join room
   }

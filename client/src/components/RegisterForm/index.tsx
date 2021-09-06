@@ -5,6 +5,7 @@ import React, {
   ReactElement,
   useState,
 } from 'react';
+import { connect } from 'react-redux';
 import { RegisterTextInputs } from 'components/RegisterForm/textInputsSet';
 import { validate } from 'components/RegisterForm/validate';
 import { setNewUser } from 'components/RegisterForm/setNewUser';
@@ -15,10 +16,16 @@ interface RegisterFormProps {
   isOpen: boolean,
   closeModal(): void,
   isMaster: boolean,
+  setNewUserConnected: CallableFunction,
 }
 
-export const RegisterForm: FunctionComponent<RegisterFormProps> = (
-  { isOpen, closeModal, isMaster },
+const RegisterForm: FunctionComponent<RegisterFormProps> = (
+  {
+    isOpen,
+    closeModal,
+    isMaster,
+    setNewUserConnected,
+  },
 ): ReactElement => {
   const [fieldsState, setFieldsState] = useState(DEFAULT_FIELDS_STATE);
   const [validationState, setValidationState] = useState({});
@@ -37,7 +44,7 @@ export const RegisterForm: FunctionComponent<RegisterFormProps> = (
     const validationErrors = validate(fieldsState);
 
     if (!Object.keys(validationErrors).length) {
-      setNewUser(fieldsState, isMaster);
+      setNewUserConnected(fieldsState, isMaster);
       // todo:page redirect - master = settings, other = lobby
 
       setFieldsState(DEFAULT_FIELDS_STATE);
@@ -74,3 +81,5 @@ export const RegisterForm: FunctionComponent<RegisterFormProps> = (
     />
   );
 };
+
+export default connect(null, { setNewUserConnected: setNewUser })(RegisterForm);

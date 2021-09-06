@@ -1,6 +1,8 @@
-// import { PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { CREATE_ROOM } from '../services/constants';
+import { Room } from '../types/room';
 
-// export const exampleAction = (testInfo: string): PayloadAction<string> => ({
-//   type: TEST_NAME,
-//   payload: testInfo,
-// });
+export const createNewRoom = (room: Room): PayloadAction<Room> => ({
+  type: CREATE_ROOM,
+  payload: room,
+});
