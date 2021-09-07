@@ -2,8 +2,8 @@ import React, { ChangeEvent, ReactElement } from 'react';
 import styles from './style.module.scss';
 
 interface FileInputProps {
-  name: string,
-  handler: CallableFunction
+  name: string;
+  handler: CallableFunction;
 }
 
 const FileInput: React.FC<FileInputProps> = ({ name, handler }): ReactElement => {

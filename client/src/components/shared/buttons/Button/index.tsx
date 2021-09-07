@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
 
 interface ButtonProps {
-  content: string,
-  variant: string,
-  action(MouseEvent): void,
-  disabled?: boolean,
+  content: string;
+  variant: string;
+  action(MouseEvent): void;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = (
