@@ -7,14 +7,14 @@ import styles from './style.module.scss';
 import Button from '../buttons/Button';
 
 export interface ModalProps {
-  isOpen: boolean,
-  onClose(): void,
-  modalTitle: string,
-  Component: ReactElement,
-  yesBtnTitle: string,
-  yesBtnOnClick(MouseEvent): void,
-  noBtnNoTitle: string,
-  noBtnNoOnClick(MouseEvent): void,
+  isOpen: boolean;
+  onClose(): void;
+  modalTitle: string;
+  Component: ReactElement;
+  yesBtnTitle: string;
+  yesBtnOnClick(MouseEvent): void;
+  noBtnNoTitle: string;
+  noBtnNoOnClick(MouseEvent): void;
 }
 
 export const Modal: FunctionComponent<ModalProps> = (

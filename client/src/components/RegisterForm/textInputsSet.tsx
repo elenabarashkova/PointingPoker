@@ -3,9 +3,9 @@ import { TextInput } from 'components/shared/TextInput';
 import React, { FunctionComponent, ReactElement } from 'react';
 
 interface RegisterTextInputsProps {
-  fields: Record<string, string | boolean>,
-  validation: Record<string, string>,
-  handler: CallableFunction,
+  fields: Record<string, string | boolean>;
+  validation: Record<string, string>;
+  handler: CallableFunction;
 }
 
 export const RegisterTextInputs: FunctionComponent<RegisterTextInputsProps> = (

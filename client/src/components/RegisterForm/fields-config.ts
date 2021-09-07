@@ -1,7 +1,7 @@
 export interface FieldConfigItem {
-  name: string,
-  label: string,
-  required?: boolean,
+  name: string;
+  label: string;
+  required?: boolean;
 }
 
 export const FIELDS_CONFIG: Array<FieldConfigItem> = [

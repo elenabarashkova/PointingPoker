@@ -2,13 +2,13 @@ import React, { ChangeEvent, FunctionComponent, ReactElement } from 'react';
 import styles from './style.module.scss';
 
 interface TextInputProps {
-  name: string,
-  value: string,
-  label: string,
-  error: string,
-  onChange: CallableFunction,
-  isInline?: boolean,
-  placeholder: string
+  name: string;
+  value: string;
+  label: string;
+  error: string;
+  onChange: CallableFunction;
+  isInline?: boolean;
+  placeholder: string;
 }
 
 const MAX_INPUT_LENGTH = 30;
