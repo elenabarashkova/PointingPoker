@@ -1,5 +1,6 @@
 import {
-  CREATE_ROOM, ResponseStatus,
+  CREATE_ROOM,
+  ResponseStatus,
   socket,
 } from './constants';
 import { User } from '../types/user';
