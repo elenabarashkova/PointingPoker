@@ -17,7 +17,10 @@ const RegisterSection: React.FC = (): ReactElement => {
     setModalOpen(false);
   };
 
-  const handleIdInput = (name, idValue) => {
+  const handleIdInput = (name: string, idValue: string) => {
+    if (gameIdValidation) {
+      setGameIdValidation('');
+    }
     setGameIdInput(idValue);
   };
 
@@ -35,6 +38,7 @@ const RegisterSection: React.FC = (): ReactElement => {
     setLoading(true);
 
     const isValid = await isRoomValid(gameIdInput);
+
     setTimeout(() => {
       setLoading(false);
       if (!isValid) {
