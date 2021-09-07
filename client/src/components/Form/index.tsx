@@ -1,5 +1,5 @@
-import React, { FunctionComponent, ReactElement, useState } from 'react';
 import { TextInput } from 'components/shared/TextInput';
+import React, { FunctionComponent, ReactElement, useState } from 'react';
 
 export const Form: FunctionComponent = (): ReactElement => {
   const [inputValue, setInputValue] = useState('');

@@ -1,33 +1,25 @@
-import React, { ReactElement } from 'react';
-import styles from './style.module.scss';
-import { UserRole } from '../../../types/user';
-import { SwitchType, ChoiceType } from './types';
+import React, { ReactElement } from "react";
+import { UserRole } from "../../../types/user";
+import styles from "./style.module.scss";
+import { ChoiceType, SwitchType } from "./types";
 
 interface SwitchProps {
-  name: string,
-  type: keyof typeof SwitchType,
-  status: string, 
-  onChange?: CallableFunction
+  name: string;
+  type: keyof typeof SwitchType;
+  status: string;
+  onChange?: CallableFunction;
 }
 
-const Switch:React.FC<SwitchProps> = (
-  {
-    name,
-    type,
-    status,
-    onChange,
-    
-  },
-): ReactElement => {
+const Switch: React.FC<SwitchProps> = ({ name, type, status, onChange }): ReactElement => {
   const switchConfig = {
     choice: {
       dataOn: ChoiceType.yes,
-      dataOff: ChoiceType.no,
+      dataOff: ChoiceType.no
     },
     role: {
       dataOn: UserRole.observer,
-      dataOff: UserRole.player,
-    },
+      dataOff: UserRole.player
+    }
   };
 
   const handleChange = () => {
@@ -35,18 +27,18 @@ const Switch:React.FC<SwitchProps> = (
   };
 
   return (
-    <label htmlFor={name} className={[styles.switch, styles[type]].join(' ')}>
+    <label htmlFor={name} className={[styles.switch, styles[type]].join(" ")}>
       <input
         id={name}
-        type="checkbox" 
-        className={styles.switchInput} 
+        type="checkbox"
+        className={styles.switchInput}
         disabled={status === UserRole.master}
         checked={status === UserRole.observer || status === ChoiceType.yes}
         onChange={handleChange}
       />
-      <span 
-        className={styles.switchLabel} 
-        data-on={switchConfig[type].dataOn} 
+      <span
+        className={styles.switchLabel}
+        data-on={switchConfig[type].dataOn}
         data-off={switchConfig[type].dataOff}
       />
       <span className={styles.switchHandle} />
@@ -55,7 +47,7 @@ const Switch:React.FC<SwitchProps> = (
 };
 
 Switch.defaultProps = {
-  onChange: null,
+  onChange: null
 };
 
 export default Switch;

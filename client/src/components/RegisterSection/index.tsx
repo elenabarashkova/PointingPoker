@@ -1,10 +1,10 @@
-import React, { ReactElement, useState } from 'react';
+import RegisterForm from 'components/RegisterForm';
 import Button from 'components/shared/buttons/Button';
 import { TextInput } from 'components/shared/TextInput';
-import RegisterForm from 'components/RegisterForm';
+import React, { ReactElement, useState } from 'react';
 import { UserRole } from 'src/types/user';
-import styles from './style.module.scss';
 import { isRoomValid } from '../../services/isRoomValid';
+import styles from './style.module.scss';
 
 const RegisterSection: React.FC = (): ReactElement => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,7 +24,7 @@ const RegisterSection: React.FC = (): ReactElement => {
     setRole(UserRole.master);
     setModalOpen(true);
   };
-      
+
   const handleClickBtnUser = async () => {
     if (!gameIdInput) {
       setGameIdValidation('Fill in the field');
@@ -64,7 +64,12 @@ const RegisterSection: React.FC = (): ReactElement => {
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} />
       </div>
-      <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} role={role} changeRole={handleSwitch} />
+      <RegisterForm
+        isOpen={modalOpen}
+        closeModal={handleCloseModal}
+        role={role}
+        changeRole={handleSwitch}
+      />
     </div>
   );
 };

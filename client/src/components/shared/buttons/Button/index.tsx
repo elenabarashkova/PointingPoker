@@ -1,33 +1,26 @@
-import React, { ReactElement } from 'react';
-import styles from './style.module.scss';
+import React, { ReactElement } from "react";
+import styles from "./style.module.scss";
 
 interface ButtonProps {
-  content: string,
-  variant: string,
-  action(MouseEvent): void,
-  disabled?: boolean,
+  content: string;
+  variant: string;
+  action(MouseEvent): void;
+  disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = (
-  {
-    content,
-    variant,
-    action,
-    disabled,
-  },
-): ReactElement => (
+const Button: React.FC<ButtonProps> = ({ content, variant, action, disabled }): ReactElement => (
   <button
     type="button"
-    className={[styles.btn, styles[`btn_${variant}`]].join(' ')}
+    className={[styles.btn, styles[`btn_${variant}`]].join(" ")}
     onClick={action}
     disabled={disabled}
   >
     {content}
-  </button> 
+  </button>
 );
-
+// Не понимаю, зачем использовать и PropsType и Interface
 Button.defaultProps = {
-  disabled: false,
+  disabled: false
 };
 
 export default Button;
