@@ -1,51 +1,51 @@
-import { Socket } from "socket.io";
 import { createRoom, createRoomId } from "../actions/room";
 import { addUser, changeUserStatus } from "../actions/user";
 import { UserEvents } from "../constants/events";
 import { handleError } from "../helpers";
-import { store } from "../store";
+import { HandlerParams } from "../types";
 import { EventCallback } from "../types/callbacks";
 import { ConnectionData } from "../types/data";
-import { User, UserRole, UserStatus } from "../types/user";
+import { User, UserStatus } from "../types/user";
 
 export const createRoomHandler =
-  (socket: Socket) =>
-  (user: User, callback: EventCallback): void => {
+  ({ socket, redisSetAsync }: HandlerParams) =>
+  async (user: User, callback: EventCallback): Promise<void> => {
     try {
-      const roomId = createRoomId(store);
-      createRoom(store, roomId);
-      addUser(store, roomId, socket.id, {
-        ...user,
-        role: UserRole.master,
-      });
+      const roomId = createRoomId();
+      const room = createRoom(socket.id, user);
+      await redisSetAsync(roomId, JSON.stringify(room));
       socket.join(roomId);
-      callback({ status: 200, data: { room: store[roomId], roomId } });
+      callback({ status: 200, data: { room, roomId } });
     } catch {
-      handleError(socket, callback, true);
+      handleError(socket, callback);
     }
   };
 
 export const checkRoomHandler =
-  (socket: Socket) =>
-  (roomId: string, callback: EventCallback): void => {
+  ({ socket, redisGetAsync }: HandlerParams) =>
+  async (roomId: string, callback: EventCallback): Promise<void> => {
     try {
-      const response = store[roomId] ? true : false;
-      callback({ status: 200, data: response });
+      const room = await redisGetAsync(roomId);
+      callback({ status: 200, data: !!room });
     } catch {
-      handleError(socket, callback, false);
-    } finally {
-      socket.disconnect();
+      handleError(socket, callback);
     }
   };
 
 export const joinRoomHandler =
-  (socket: Socket) =>
-  ({ roomId, user }: ConnectionData, callback: EventCallback): void => {
+  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
+  async (
+    { roomId, user }: ConnectionData,
+    callback: EventCallback
+  ): Promise<void> => {
     try {
-      if (store[roomId]) {
-        const joinedUser = addUser(store, roomId, socket.id, user);
+      const roomStr = await redisGetAsync(roomId);
+      if (roomStr) {
+        const room = JSON.parse(roomStr as string);
+        const { updatedRoom, joinedUser } = addUser(room, socket.id, user);
+        await redisSetAsync(roomId, JSON.stringify(updatedRoom));
+        callback({ status: 200, data: { room: updatedRoom, roomId } });
         socket.join(roomId);
-        callback({ status: 200, data: { room: store[roomId], roomId } });
         socket.to(roomId).emit(UserEvents.userConnected, {
           userId: socket.id,
           user: joinedUser,
@@ -55,19 +55,28 @@ export const joinRoomHandler =
         socket.disconnect();
       }
     } catch {
-      handleError(socket, callback, true);
+      handleError(socket, callback);
     }
   };
 
 export const leaveRoomHandler =
-  (socket: Socket) =>
-  (roomId: string, callback: EventCallback): void => {
+  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
+  async (roomId: string, callback: EventCallback): Promise<void> => {
     try {
-      const user = changeUserStatus(store, roomId, socket.id, UserStatus.left);
-      callback({ status: 200, data: { userId: socket.id, user } });
-      socket.to(roomId).emit(UserEvents.userLeft, { userId: socket.id, user });
+      const roomStr = await redisGetAsync(roomId);
+      const room = JSON.parse(roomStr as string);
+      const { updatedRoom, updatedUser } = changeUserStatus(
+        room,
+        socket.id,
+        UserStatus.left
+      );
+      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
+      callback({ status: 200, data: { userId: socket.id, user: updatedUser } });
+      socket
+        .to(roomId)
+        .emit(UserEvents.userLeft, { userId: socket.id, user: updatedUser });
       socket.disconnect();
     } catch {
-      handleError(socket, callback, false);
+      handleError(socket, callback);
     }
   };
