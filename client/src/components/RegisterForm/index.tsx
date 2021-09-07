@@ -19,11 +19,11 @@ import { Modal } from '../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../constants';
 
 interface RegisterFormProps {
-  isOpen: boolean,
-  closeModal(): void,
-  role: keyof typeof UserRole,
-  changeRole: CallableFunction
-  setNewUserConnected: CallableFunction,
+  isOpen: boolean;
+  closeModal(): void;
+  role: keyof typeof UserRole;
+  changeRole: CallableFunction;
+  setNewUserConnected: CallableFunction;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = (

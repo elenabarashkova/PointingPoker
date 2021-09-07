@@ -2,9 +2,9 @@ import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
 
 interface UserIcoProps {
-  firstName: string,
-  lastName: string,
-  imgSrc: string
+  firstName: string;
+  lastName: string;
+  imgSrc: string;
 }
 
 const UserIco: React.FC<UserIcoProps> = ({ firstName, lastName, imgSrc }): ReactElement => {

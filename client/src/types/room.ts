@@ -12,23 +12,23 @@ export enum ScoreType {
 }
 
 export interface GameSettings {
-  masterAsPlayer: boolean,
-  changingCardInRoundEnd: boolean,
-  timer: boolean,
-  scoreType: ScoreType.storyPoint,
-  roundTime: number,
+  masterAsPlayer: boolean;
+  changingCardInRoundEnd: boolean;
+  timer: boolean;
+  scoreType: ScoreType.storyPoint;
+  roundTime: number;
 }
 
 export interface Room {
-  roomId?: string,
-  users: Array<User>,
-  messages: Array<string>,
-  issues: Array<string>,
-  gameStatus: GameStatus,
-  gameSettings: GameSettings,
+  roomId?: string;
+  users: Array<User>;
+  messages: Array<string>;
+  issues: Array<string>;
+  gameStatus: GameStatus;
+  gameSettings: GameSettings;
 }
 
 export interface RoomData {
-  roomId: string,
-  room: Room,
+  roomId: string;
+  room: Room;
 }
