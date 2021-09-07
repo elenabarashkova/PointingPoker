@@ -1,14 +1,15 @@
 import React, { ReactElement } from 'react';
+import { Pages } from 'src/types/page';
 import styles from './style.module.scss';
-import Header from './Header';
+import Header from '../../components/Header';
 import Main from './Main';
-import Footer from './Footer';
+import Footer from '../../components/Footer';
 
 const MainPage: React.FC = (): ReactElement => (
   <div className={styles.wrapper}>
     <Header />
     <Main />
-    <Footer />
+    <Footer page={Pages.main} />
   </div>
 );
 
