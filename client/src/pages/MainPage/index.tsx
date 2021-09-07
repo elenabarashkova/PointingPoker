@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 
 const MainPage: React.FC = (): ReactElement => (
   <div className={styles.wrapper}>
-    <Header />
+    <Header page={Pages.main} />
     <Main />
     <Footer page={Pages.main} />
   </div>
