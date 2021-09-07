@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux';
 import { RegisterTextInputs } from 'components/RegisterForm/textInputsSet';
-import { validate, validateField } from 'components/RegisterForm/validate';
+import { validate } from 'components/RegisterForm/validate';
 import { setNewUser } from 'components/RegisterForm/setNewUser';
 import Switch from 'components/shared/Switch';
 import { UserRole } from 'src/types/user';
@@ -19,11 +19,11 @@ import { Modal } from '../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../constants';
 
 interface RegisterFormProps {
-  isOpen: boolean,
-  closeModal(): void,
-  role: keyof typeof UserRole,
-  changeRole: CallableFunction
-  setNewUserConnected: CallableFunction,
+  isOpen: boolean;
+  closeModal(): void;
+  role: keyof typeof UserRole;
+  changeRole: CallableFunction;
+  setNewUserConnected: CallableFunction;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = (
@@ -45,11 +45,8 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     };
     setFieldsState(state);
 
-    // добавить валидацию ?
-    // если юзер нажал на кнопку сабмит, не заполнив поля, они подсвечиваются красным
-    // чтобы ошибка уходила, как только он начал вводить инфу в это поле, можно добавить проверку этого поля
+    const validationErrors = validate({ [name]: value });
 
-    const validationErrors = validateField(name, value);
     if (!Object.keys(validationErrors).length) {
       const newValidationState = { ...validationState };
       delete newValidationState[name];
@@ -98,8 +95,6 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
       yesBtnOnClick={handleSubmit}
       noBtnNoTitle="Decline"
       noBtnNoOnClick={handleDecline}
-      // убрала бы yesBtnTitle="Confirm" и noBtnNoTitle="Decline" в конфиги самой модалки
-      // сама модалка будет знать, какой контент отправить в кнопки при определенном modalTitle
     />
   );
 };

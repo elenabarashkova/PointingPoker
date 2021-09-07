@@ -4,10 +4,10 @@ import { UserRole } from '../../../types/user';
 import { SwitchType, ChoiceType } from './types';
 
 interface SwitchProps {
-  name: string,
-  type: keyof typeof SwitchType,
-  status: string, 
-  onChange?: CallableFunction
+  name: string;
+  type: keyof typeof SwitchType;
+  status: string; 
+  onChange?: CallableFunction;
 }
 
 const Switch:React.FC<SwitchProps> = (
