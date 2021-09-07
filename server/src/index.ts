@@ -11,13 +11,11 @@ import {
   UserEvents,
 } from "./constants/events";
 import { sendMessageHandler } from "./handlers/message";
-import {
-  checkRoomHandler,
-  createRoomHandler,
-  joinRoomHandler,
-  leaveRoomHandler,
-} from "./handlers/room";
-import { kickUserHandler, kickUserVotingHandler } from "./handlers/user";
+import { checkRoomHandler, createRoomHandler } from "./handlers/room";
+import { joinRoomHandler } from "./handlers/user/joinRoom";
+import { kickUserHandler } from "./handlers/user/kick";
+import { kickUserVotingHandler } from "./handlers/user/kickVote";
+import { leaveRoomHandler } from "./handlers/user/leaveRoom";
 import secret from "./secret";
 import { HandlerParams } from "./types";
 
@@ -25,15 +23,13 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 const allowedOrigins = ["http://localhost:8080", "http://localhost:3000"];
-
+Y;
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
 };
 
 app.use(cors(options));
-// app.get("/", (req: Request, res: Response) => {
-//   res.send("Hello!");
-// });
+
 const server = createServer(app);
 const io = new Server(server);
 const client = redis.createClient(secret);
