@@ -71,8 +71,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
   return (
     <Modal
       Component={(
-        // onSubmit={handleSubmit} ?
-        <form className={styles.registerForm} onSubmit={handleSubmit}>
+        <form className={styles.registerForm}>
           <Switch name="switchRole" type={SwitchType.role} status={role} onChange={changeRole} />
           <RegisterTextInputs fields={fieldsState} validation={validationState} handler={handleChange} />
           <div className={styles.userIcoField}>
