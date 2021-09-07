@@ -1,5 +1,5 @@
 import { ChatEvents } from "../constants/events";
-import { handleError } from "../helpers";
+import { getRoom, handleError } from "../helpers";
 import { HandlerParams } from "../types";
 import { EventCallback } from "../types/callbacks";
 import { MessageData } from "../types/data";
@@ -11,11 +11,9 @@ export const sendMessageHandler =
     callback: EventCallback
   ): Promise<void> => {
     try {
-      const roomStr = await redisGetAsync(roomId);
-      const room = JSON.parse(roomStr as string);
+      const room = await getRoom(roomId, redisGetAsync);
       const message = { userId: socket.id, text };
       room.messages.push(message);
-      console.log(room);
       await redisSetAsync(roomId, JSON.stringify(room));
       callback({ status: 200, data: message });
       socket.to(roomId).emit(ChatEvents.receiveMessage, message);
