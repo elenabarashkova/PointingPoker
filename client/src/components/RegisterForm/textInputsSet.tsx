@@ -22,6 +22,7 @@ export const RegisterTextInputs: FunctionComponent<RegisterTextInputsProps> = (
         name={name}
         value={(fields[name] as string)}
         isInline={false}
+        // isInline={false} по умолчанию, можно убрать?
         label={label}
         onChange={handler}
         error={validation[name]}

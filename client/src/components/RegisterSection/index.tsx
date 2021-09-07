@@ -11,12 +11,16 @@ const RegisterSection: React.FC = (): ReactElement => {
   const [role, setRole] = useState(UserRole.master);
   const [gameIdInput, setGameIdInput] = useState('');
   const [gameIdValidation, setGameIdValidation] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
 
-  const handleIdInput = (name, idValue) => {
+  const handleIdInput = (name: string, idValue: string) => {
+    if (gameIdValidation) {
+      setGameIdValidation('');
+    }
     setGameIdInput(idValue);
   };
 
@@ -31,14 +35,19 @@ const RegisterSection: React.FC = (): ReactElement => {
       return;
     }
 
+    setLoading(true);
+
     const isValid = await isRoomValid(gameIdInput);
-    // todo: show spinner while waiting
-    if (!isValid) {
-      setGameIdValidation('Invalid room Id');
-      return;
-    }
-    setRole(UserRole.player);
-    setModalOpen(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      if (!isValid) {
+        setGameIdValidation('Invalid room Id');
+        return;
+      }
+      setRole(UserRole.player);
+      setModalOpen(true);
+    }, 2000);    
   };
 
   const handleSwitch = () => {
@@ -62,7 +71,7 @@ const RegisterSection: React.FC = (): ReactElement => {
           error={gameIdValidation}
           onChange={handleIdInput}
         />
-        <Button content="connect" variant="colored" action={handleClickBtnUser} />
+        <Button content="connect" variant="colored" action={handleClickBtnUser} loading={loading} />
       </div>
       <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} role={role} changeRole={handleSwitch} />
     </div>
