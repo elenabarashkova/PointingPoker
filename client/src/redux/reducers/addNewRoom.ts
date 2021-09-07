@@ -4,9 +4,9 @@ import { Room } from '../../types/room';
 
 export const initialState = [];
 
-export const addNewRoom = (state = initialState, action: PayloadAction<Room>): Array<Room> => {
-  if (action.type === CREATE_ROOM) {
-    return [...state, action.payload];
+export const addNewRoom = (state = initialState, { type, payload }: PayloadAction<Room>): Array<Room> => {
+  if (type === CREATE_ROOM) {
+    return [...state, payload];
   }
 
   return state;
