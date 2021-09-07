@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import Button from 'components/shared/buttons/Button';
 import { TextInput } from 'components/shared/TextInput';
-import { RegisterForm } from 'components/RegisterForm';
+import RegisterForm from 'components/RegisterForm';
 import { UserRole } from 'src/types/user';
 import styles from './style.module.scss';
 import { isRoomValid } from '../../services/isRoomValid';
