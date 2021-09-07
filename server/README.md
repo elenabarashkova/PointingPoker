@@ -20,7 +20,7 @@ socket.emit("CREATE_ROOM", user, (response) => { console.log(response) });
 
 ##### Success response
 
-{status: 200, data: {room: roomStoreObject, roomID: string}}
+{status: 200, data: {room: roomStoreObject, roomId: string}}
 
 ##### Error response
 
@@ -45,10 +45,6 @@ socket.emit("IS_ROOM_VALID", roomId, (response) => { console.log(response) });
 ##### Error response
 
 {status: 500, error: "error"}
-
-##### After success or error response user will disconnect
-
-- event: **disconnect**
 
 ---
 

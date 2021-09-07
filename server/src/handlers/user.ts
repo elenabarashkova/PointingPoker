@@ -1,97 +1,75 @@
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 import {
-  addKickVoteArray,
-  changeUserStatus,
-  getKickingResult,
-  notAllUsersHaveVoted,
+  getVoteResults,
+  kickUser,
   userCanNotBeKicked,
-  vote,
-} from "../actions/user";
+} from "../actions/user/kickUser";
 import { KickUserEvents } from "../constants/events";
-import { store } from "../store";
+import { HandlerParams } from "../types";
 import { UserData, VotingData } from "../types/data";
-import { UserStatus } from "../types/user";
 
 export const kickUserHandler =
-  (socket: Socket) =>
-  ({ userId, roomId }: UserData): void => {
+  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
+  async ({ userId, roomId }: UserData): Promise<void> => {
     try {
-      if (userCanNotBeKicked(socket.id, userId, roomId, store)) {
+      const roomStr = await redisGetAsync(roomId);
+      const room = JSON.parse(roomStr as string);
+      if (userCanNotBeKicked(socket.id, userId, room)) {
         return;
       }
-      const user = changeUserStatus(store, roomId, userId, UserStatus.kicked);
-      addKickVoteArray(store, roomId, userId);
-      socket.emit(KickUserEvents.userIsKicked, { userId, user });
+      const { updatedRoom, updatedUser } = kickUser(room, userId);
+      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
+      socket.emit(KickUserEvents.userIsKicked, { userId, user: updatedUser });
       socket.to(userId).emit(KickUserEvents.youAreKicked, userId);
       socket
         .to(roomId)
         .except(userId)
-        .emit(KickUserEvents.userIsKicked, { userId, user });
+        .emit(KickUserEvents.userIsKicked, { userId, user: updatedUser });
     } catch (error) {
       socket.emit("error", { status: 500, message: "error" });
     }
   };
 
 export const kickUserVotingHandler =
-  (socket: Socket, io: Server) =>
-  ({ confirm, roomId, kickedUserId }: VotingData): void => {
+  (io: Server, { socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
+  async ({ confirm, roomId, kickedUserId }: VotingData): Promise<void> => {
     try {
-      vote(store, roomId, socket.id, kickedUserId, confirm);
+      const roomStr = await redisGetAsync(roomId);
+      const room = JSON.parse(roomStr as string);
+      const { updatedUser, updatedRoom, votingIsNotFinished, userWasKicked } =
+        getVoteResults(room, socket.id, kickedUserId, confirm);
 
-      if (notAllUsersHaveVoted(store, roomId, kickedUserId)) {
+      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
+
+      if (votingIsNotFinished) {
         return;
       }
 
-      const kickResult = getKickingResult(store, roomId, kickedUserId);
+      const kickUserData = {
+        userId: kickedUserId,
+        user: updatedUser,
+      };
 
-      if (kickResult) {
-        const user = changeUserStatus(
-          store,
-          roomId,
-          kickedUserId,
-          UserStatus.deleted
-        );
-
-        socket.emit(KickUserEvents.userIsDeleted, {
-          userId: kickedUserId,
-          user,
-        });
+      if (userWasKicked) {
+        socket.emit(KickUserEvents.userIsDeleted, kickUserData);
         socket
           .to(roomId)
           .except(kickedUserId)
-          .emit(KickUserEvents.userIsDeleted, {
-            userId: kickedUserId,
-            user,
-          });
+          .emit(KickUserEvents.userIsDeleted, kickUserData);
+        socket
+          .to(kickedUserId)
+          .emit(KickUserEvents.youAreDeleted, kickUserData);
 
-        socket.to(kickedUserId).emit(KickUserEvents.youAreDeleted, {
-          userId: kickedUserId,
-          user,
-        });
         io.to(kickedUserId).disconnectSockets();
       } else {
-        const user = changeUserStatus(
-          store,
-          roomId,
-          kickedUserId,
-          UserStatus.active
-        );
-        socket.emit(KickUserEvents.userIsNotDeleted, {
-          userId: kickedUserId,
-          user,
-        });
+        socket.emit(KickUserEvents.userIsNotDeleted, kickUserData);
         socket
           .to(roomId)
           .except(kickedUserId)
-          .emit(KickUserEvents.userIsNotDeleted, {
-            userId: kickedUserId,
-            user,
-          });
-
-        socket.to(kickedUserId).emit(KickUserEvents.youAreNotDeleted, {
-          userId: kickedUserId,
-          user,
-        });
+          .emit(KickUserEvents.userIsNotDeleted, kickUserData);
+        socket
+          .to(kickedUserId)
+          .emit(KickUserEvents.youAreNotDeleted, kickUserData);
       }
     } catch {
       socket.emit("error", { status: 500, message: "error" });

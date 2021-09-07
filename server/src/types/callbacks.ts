@@ -4,8 +4,7 @@ import { Room } from "./store";
 import { User } from "./user";
 
 type DataType =
-  | { room: Room; roomId: string }
-  | { room: Room; roomId: string }
+  | { room: Room | null; roomId: string }
   | { userId: string; user: User }
   | Message
   | boolean
@@ -20,3 +19,9 @@ type ResponseType =
   | ErrorResponse;
 
 export type EventCallback = (response: ResponseType) => void;
+
+export type RedisGetAsyncType = (key: string) => Promise<string | null>;
+export type RedisSetAsyncType = (
+  key: string,
+  value: string
+) => Promise<unknown>;
