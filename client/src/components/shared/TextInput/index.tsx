@@ -29,11 +29,14 @@ export const TextInput: FunctionComponent<TextInputProps> = (
   };
 
   return (
-    <label htmlFor={name} className={[styles.textInput, styles[`${isInline ? 'inline' : 'incol'}`]].join(' ')}>
+    <label
+      htmlFor={name}
+      className={`${styles.textInput} ${styles[`${isInline ? 'inline' : 'incol'}`]}`}
+    >
       <span className={styles.label}>{label}</span>
       <input
         id={name}
-        className={[styles.input, error ? `${styles.invalid}` : ''].join(' ')}
+        className={`${styles.input} ${error ? `${styles.invalid}` : ''}`}
         type="text"
         value={value}
         onChange={handleChange}

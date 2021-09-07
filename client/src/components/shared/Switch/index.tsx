@@ -35,7 +35,7 @@ const Switch:React.FC<SwitchProps> = (
   };
 
   return (
-    <label htmlFor={name} className={[styles.switch, styles[type]].join(' ')}>
+    <label htmlFor={name} className={`${styles.switch} ${styles[type]}`}>
       <input
         id={name}
         type="checkbox" 
