@@ -18,10 +18,8 @@ export const setNewUser = (
   if (userRole === UserRole.master) {
     const { roomId, room } = await createRoom(newUser) as RoomData;
 
-    const newRoom: Room = {
-      [roomId]: room,
-    };
-
+    const newRoom: Room = { ...room, roomId };
+    // todo: add new currentUser in redux
     dispatch(createNewRoom(newRoom));
   } else {
     // todo:join room

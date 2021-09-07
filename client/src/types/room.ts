@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export enum GameStatus {
   pending = 'pending',
   inProgress = 'inProgress',
@@ -17,17 +19,16 @@ export interface GameSettings {
   roundTime: number,
 }
 
-export interface RoomInfo {
-  users: [],
-  messages: [],
-  issues: [],
-  gameStatus?: GameStatus,
-  gameSettings?: GameSettings,
+export interface Room {
+  roomId?: string,
+  users: Array<User>,
+  messages: Array<string>,
+  issues: Array<string>,
+  gameStatus: GameStatus,
+  gameSettings: GameSettings,
 }
 
 export interface RoomData {
   roomId: string,
-  room: RoomInfo,
+  room: Room,
 }
-
-export type Room = Record<string, RoomInfo>;

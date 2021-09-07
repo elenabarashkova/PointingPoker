@@ -2,5 +2,5 @@ import { combineReducers } from 'redux';
 import { addNewRoom } from './addNewRoom';
 
 export default combineReducers({
-  rooms: addNewRoom,
+  room: addNewRoom,
 });
