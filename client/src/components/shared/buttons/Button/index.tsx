@@ -1,3 +1,4 @@
+import { LinearProgress } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
 
@@ -6,6 +7,7 @@ interface ButtonProps {
   variant: string;
   action(MouseEvent): void;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = (
@@ -14,6 +16,7 @@ const Button: React.FC<ButtonProps> = (
     variant,
     action,
     disabled,
+    loading,
   },
 ): ReactElement => (
   <button
@@ -22,12 +25,13 @@ const Button: React.FC<ButtonProps> = (
     onClick={action}
     disabled={disabled}
   >
-    {content}
+    {loading ? <LinearProgress /> : content}
   </button> 
 );
 
 Button.defaultProps = {
   disabled: false,
+  loading: false,
 };
 
 export default Button;
