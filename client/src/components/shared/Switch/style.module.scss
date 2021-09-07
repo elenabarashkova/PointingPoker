@@ -1,5 +1,9 @@
 @import '../../../scss/variables.scss';
 
+.switch {
+  margin-bottom: 20px;
+}
+
 .switchInput {
   position: absolute;
   top: 0;
@@ -18,7 +22,7 @@
   transition: .15s ease-out;
   box-shadow: 0 0.3rem 0.5rem #6451838a;
   &:hover {
-      box-shadow: 0 0.5rem 0.7rem #6451838a;
+    box-shadow: 0 0.5rem 0.7rem #6451838a;
   }
 }
 
@@ -107,6 +111,7 @@
 
 .switch.role {
   width: 140px;
+  margin-left: calc(100% - 140px - 10px);
   .switchLabel {
     background: $emerald;
   }

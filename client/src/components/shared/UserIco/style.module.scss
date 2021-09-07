@@ -1,0 +1,22 @@
+@import '../../../scss/variables.scss';
+
+.userIco {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: $emerald;
+    box-shadow: $shadow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $base-text-color-2;
+    font-family: $font-family-second;
+    color: white;
+}
+
+.userImg {
+    margin: 0;
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+}
