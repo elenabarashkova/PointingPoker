@@ -44,6 +44,14 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
       [name]: value,
     };
     setFieldsState(state);
+
+    const validationErrors = validate({ [name]: value });
+
+    if (!Object.keys(validationErrors).length) {
+      const newValidationState = { ...validationState };
+      delete newValidationState[name];
+      setValidationState(newValidationState);
+    }    
   };
 
   const handleSubmit = (event: FormEvent | MouseEvent): void => {

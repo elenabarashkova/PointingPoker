@@ -61,7 +61,7 @@ const webpackConfig = ({ development }): Configuration => ({
       },
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        use: ['svg-url-loader'],
       }
     ]
   },
