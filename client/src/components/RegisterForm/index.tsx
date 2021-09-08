@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { RegisterTextInputs } from 'components/RegisterForm/textInputsSet';
 import { validate } from 'components/RegisterForm/validate';
 import { setNewUser } from 'components/RegisterForm/setNewUser';
+import { History } from 'history';
 import Switch from 'components/shared/Switch';
 import { UserRole } from 'src/types/user';
 import { SwitchType } from 'components/shared/Switch/types';
@@ -26,7 +27,7 @@ interface RegisterFormProps extends RouteComponentProps {
   role: keyof typeof UserRole;
   changeRole: CallableFunction;
   setNewUserConnected: CallableFunction;
-  history: any;
+  history: History;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = (
