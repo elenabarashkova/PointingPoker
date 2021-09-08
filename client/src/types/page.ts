@@ -3,4 +3,5 @@ export enum Pages {
   lobby = 'lobby',
   game = 'game',
   settings = 'settings',
+  error = 'error',
 }

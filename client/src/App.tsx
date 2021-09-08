@@ -4,10 +4,14 @@ import MainPage from './pages/MainPage';
 import LobbyPage from './pages/LobbyPage';
 import GamePage from './pages/GamePage';
 import SettingsPage from './pages/Settings';
+import ErrorPage from './pages/ErrorPage';
 
 const App: FunctionComponent = (): ReactElement => (
   
   <Switch>
+    <Route exact path="/">
+      <MainPage />
+    </Route>
     <Route path="/game">
       <GamePage />
     </Route>
@@ -17,8 +21,8 @@ const App: FunctionComponent = (): ReactElement => (
     <Route path="/lobby">
       <LobbyPage />
     </Route>
-    <Route path="/">
-      <MainPage />
+    <Route path={'/*'}>
+      <ErrorPage />
     </Route>
   </Switch>
    
