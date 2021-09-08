@@ -9,21 +9,25 @@ import { connect } from 'react-redux';
 import { RegisterTextInputs } from 'components/RegisterForm/textInputsSet';
 import { validate } from 'components/RegisterForm/validate';
 import { setNewUser } from 'components/RegisterForm/setNewUser';
+import { History } from 'history';
 import Switch from 'components/shared/Switch';
 import { UserRole } from 'src/types/user';
 import { SwitchType } from 'components/shared/Switch/types';
 import UserIco from 'components/shared/UserIco';
 import FileInput from 'components/FileInput';
+import { withRouter } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 import styles from './style.module.scss';
 import { Modal } from '../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../constants';
 
-interface RegisterFormProps {
+interface RegisterFormProps extends RouteComponentProps {
   isOpen: boolean;
   closeModal(): void;
   role: keyof typeof UserRole;
   changeRole: CallableFunction;
   setNewUserConnected: CallableFunction;
+  history: History;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = (
@@ -33,6 +37,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     role,
     changeRole,
     setNewUserConnected,
+    history,
   },
 ): ReactElement => {
   const [fieldsState, setFieldsState] = useState(DEFAULT_FIELDS_STATE);
@@ -54,13 +59,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     }    
   };
 
-  const handleSubmit = (event: FormEvent | MouseEvent): void => {
+  const handleSubmit = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
     const validationErrors = validate(fieldsState);
 
     if (!Object.keys(validationErrors).length) {
-      setNewUserConnected(fieldsState, role);
-      // todo:page redirect - master = settings, other = lobby
+      setNewUserConnected(fieldsState, role, history);
 
       setFieldsState(DEFAULT_FIELDS_STATE);
       setValidationState({});
@@ -99,4 +103,4 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
   );
 };
 
-export default connect(null, { setNewUserConnected: setNewUser })(RegisterForm);
+export default connect(null, { setNewUserConnected: setNewUser })(withRouter(RegisterForm));
