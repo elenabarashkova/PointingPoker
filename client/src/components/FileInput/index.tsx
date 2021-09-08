@@ -13,7 +13,10 @@ const FileInput: React.FC<FileInputProps> = ({ name, handler }): ReactElement =>
     if (file && file.type.match('image.*')) {
       reader.readAsDataURL(file);
     }
-    reader.onloadend = () => handler('image', reader.result);
+    reader.onloadend = () => {
+      console.log(typeof (reader.result));
+      handler('image', reader.result);
+    }; 
   };
   return (
     <label htmlFor={name} className={styles.label}>
