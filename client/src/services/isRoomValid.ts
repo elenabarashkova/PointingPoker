@@ -12,4 +12,4 @@ export const isRoomValid = (roomId: string, showError: CallableFunction): Promis
       }
       reject(error);
     });
-  }).catch((error) => showError()));
+  }).catch(() => showError()));

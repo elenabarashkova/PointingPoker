@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Pages } from 'src/types/page';
 import styles from './style.module.scss';
 
 const ErrorPage: React.FC<RouteComponentProps> = ({ history }): ReactElement => {
