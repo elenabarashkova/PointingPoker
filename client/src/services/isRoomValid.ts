@@ -3,20 +3,13 @@ import {
   socket,
 } from './constants';
 
-export const isRoomValid = (roomId: string): Promise<boolean | Error> => {
-  try {
-    return (
-      new Promise((resolve, reject) => {
-        socket.emit(IS_ROOM_VALID, roomId, ({ status, data, error }) => {
-          if (status === ResponseStatus.ok) {
-            resolve(data);
-            return;
-          }
-          reject(error);
-        });
-      })
-    );
-  } catch (error) {
-    return error;
-  }
-};
+export const isRoomValid = (roomId: string): Promise<unknown> => (
+  new Promise((resolve, reject) => {
+    socket.emit(IS_ROOM_VALID, roomId, ({ status, data, error }) => {
+      if (status === ResponseStatus.ok) {
+        resolve(data);
+        return;
+      }
+      reject(error);
+    });
+  }).catch((error) => error));

@@ -15,7 +15,7 @@ export interface GameSettings {
   masterAsPlayer: boolean;
   changingCardInRoundEnd: boolean;
   timer: boolean;
-  scoreType: ScoreType.storyPoint;
+  scoreType: keyof typeof ScoreType.storyPoint;
   roundTime: number;
 }
 
@@ -24,7 +24,7 @@ export interface Room {
   users: Array<User>;
   messages: Array<string>;
   issues: Array<string>;
-  gameStatus: GameStatus;
+  gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
 }
 
