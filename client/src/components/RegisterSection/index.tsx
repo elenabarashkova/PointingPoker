@@ -28,6 +28,10 @@ const RegisterSection: React.FC = (): ReactElement => {
     setRole(UserRole.master);
     setModalOpen(true);
   };
+
+  const showError = () => {
+    setGameIdValidation('Something is wrong. Try again');
+  };
       
   const handleClickBtnUser = async () => {
     if (!gameIdInput) {
@@ -37,17 +41,17 @@ const RegisterSection: React.FC = (): ReactElement => {
 
     setLoading(true);
 
-    const isValid = await isRoomValid(gameIdInput);
+    const isValid = await isRoomValid(gameIdInput, showError);
 
-    setTimeout(() => {
-      setLoading(false);
-      if (!isValid) {
-        setGameIdValidation('Invalid room Id');
-        return;
-      }
+    setLoading(false);
+
+    if (isValid === true) {
       setRole(UserRole.player);
-      setModalOpen(true);
-    }, 2000);    
+      setModalOpen(true); 
+    }
+    if (isValid === false) {
+      setGameIdValidation('Invalid room Id');
+    }         
   };
 
   const handleSwitch = () => {
@@ -73,7 +77,13 @@ const RegisterSection: React.FC = (): ReactElement => {
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} loading={loading} />
       </div>
-      <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} role={role} changeRole={handleSwitch} />
+      <RegisterForm 
+        isOpen={modalOpen} 
+        closeModal={handleCloseModal} 
+        role={role} 
+        changeRole={handleSwitch} 
+        gameIdInput={gameIdInput} 
+      />
     </div>
   );
 };
