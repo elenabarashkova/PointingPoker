@@ -3,12 +3,12 @@ import { UserEvents } from "../../constants/events";
 import { handleError } from "../../helpers";
 import { HandlerParams } from "../../types";
 import { EventCallback } from "../../types/callbacks";
-import { ConnectionData } from "../../types/data";
+import { NewUserData } from "../../types/data";
 
 export const joinRoomHandler =
   ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
   async (
-    { roomId, user }: ConnectionData,
+    { roomId, user }: NewUserData,
     callback: EventCallback
   ): Promise<void> => {
     try {

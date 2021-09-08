@@ -1,12 +1,12 @@
 import { GameSettings, GameStatus } from "./game";
-import { Issue } from "./issue";
+import { Issues } from "./issue";
 import { Message } from "./message";
 import { Users } from "./user";
 
 export interface Room {
   users: Users;
   messages: Message[];
-  issues: Issue[];
+  issues: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
 }

@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 import { RedisGetAsyncType } from "../types/callbacks";
 import { ErrorResponse } from "../types/data";
+import { Issues } from "../types/issue";
 import { Room } from "../types/room";
 
 export const sendError = (socket: Socket, data: ErrorResponse): void => {
@@ -20,4 +21,12 @@ export const getRoom = async (
 ): Promise<Room> => {
   const response = await getByKey(key);
   return JSON.parse(response as string);
+};
+
+export const getIssueId = (issueList: Issues): string => {
+  let id = (Math.random() * 1000 + 100).toString();
+  if (issueList[id]) {
+    id = getIssueId(issueList);
+  }
+  return id;
 };
