@@ -64,7 +64,7 @@ socket.emit("JOINED_ROOM", { roomId: string, user : User }, (response) => { cons
 
 ##### Response
 
-- If room exists: **{ status: 200, data: { room: roomStore, roomId } }**
+- If room exists: **{ status: 200, data: { room: roomStore, roomId: string, userId: string } }**
 - If room doesn't exists: **{ status: 404, data: "Room not found" }**
 
 ##### Error response
@@ -191,6 +191,31 @@ socket.emit("SEND_MESSAGE", { roomId, text }, (response) => { console.log(respon
 
 - event: **RECEIVE_MESSAGE**
 - data: **{userId: string, text: string}**
+
+---
+
+##### - CHANGE_GAME_SETTINGS
+
+##### Expected data
+
+{ roomId: string, settings : {gameSettings} }
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("CHANGE_GAME_SETTINGS", { roomId, settings }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: {updatedGameSettings} }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **GAME_SETTINGS_CHANGED**
+- data: **{gameSettings}**
 
 ---
 

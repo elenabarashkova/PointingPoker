@@ -17,7 +17,10 @@ export const joinRoomHandler =
         const room = JSON.parse(roomStr as string);
         const { updatedRoom, joinedUser } = addUser(room, socket.id, user);
         await redisSetAsync(roomId, JSON.stringify(updatedRoom));
-        callback({ status: 200, data: { room: updatedRoom, roomId } });
+        callback({
+          status: 200,
+          data: { room: updatedRoom, roomId, userId: socket.id },
+        });
         socket.join(roomId);
         socket.to(roomId).emit(UserEvents.userConnected, {
           userId: socket.id,
