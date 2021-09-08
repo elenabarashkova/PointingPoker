@@ -12,7 +12,4 @@ export const isRoomValid = (roomId: string): Promise<unknown> => (
       }
       reject(error);
     });
-    socket.on('disconnect', () => {
-      socket.connect();
-    });
   }).catch((error) => error));
