@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { User, UserRole } from '../../types/user';
 import { createRoom } from '../../services/createRoom';
-import { Room, RoomData } from '../../types/room';
+import { RoomData, Room } from '../../types/room';
 import {
   setUsersAction,
   setCurrentUserAction,
@@ -31,20 +31,20 @@ export const setNewUser = (
     dispatch(setRoomIdAction(roomId));
   } else {
     // const { roomId, room, userId } = await joinRoom(newUser, roomId) as RoomData;
-  //   const {
-  //     users,
-  //     messages,
-  //     issues,
-  //     gameStatus,
-  //     gameSettings,
-  //   } = room as Room;
-  //
-  //   dispatch(setUsersAction(users));
-  //   dispatch(setCurrentUserAction(userId));
-  //   dispatch(setRoomIdAction(roomId));
-  //   dispatch(setGameStatus(gameStatus));
-  //   dispatch(setAllGameSettings(gameSettings));
-  //   dispatch(setMessages(messages));
-  //   dispatch(setIssues(issues));
+    // const {
+    //   users,
+    //   messages,
+    //   issues,
+    //   gameStatus,
+    //   gameSettings,
+    // } = room as Room;
+    //
+    // dispatch(setUsersAction(users));
+    // dispatch(setCurrentUserAction(userId));
+    // dispatch(setRoomIdAction(roomId));
+    // dispatch(setGameStatus(gameStatus));
+    // dispatch(setAllGameSettings(gameSettings));
+    // dispatch(setMessages(messages));
+    // dispatch(setIssues(issues));
   }
 };
