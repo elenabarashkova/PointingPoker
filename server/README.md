@@ -103,7 +103,7 @@ socket.emit("LEAVE_ROOM", roomId, (response) => { console.log(response) });
 
 ---
 
-##### - DELETE_USER
+##### - DELETE_USER //Еще нужно проверить этот ивент
 
 ##### Expected data
 
@@ -269,7 +269,7 @@ socket.emit("CHANGE_GAME_STATUS", { roomId, newStatus }, (response) => { console
 
 ---
 
-##### - ADD_ISSUE
+##### - ADD_ISSUE //Будет меняться
 
 ##### Expected data
 
@@ -294,7 +294,7 @@ socket.emit("ADD_ISSUE", { roomId, issue }, (response) => { console.log(response
 
 ---
 
-##### - DELETE_ISSUE
+##### - DELETE_ISSUE //Будет меняться
 
 ##### Expected data
 
@@ -319,7 +319,7 @@ socket.emit("DELETE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ---
 
-##### - UPDATE_ISSUE
+##### - UPDATE_ISSUE //Будет меняться
 
 ##### Expected data
 
