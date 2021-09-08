@@ -1,5 +1,5 @@
 export interface Game {
   gameStatus: string;
-  gameId: string;
+  roomId: string;
   isRoomValid: boolean;
 }

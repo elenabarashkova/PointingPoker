@@ -1,18 +1,25 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { SET_ROOM_ID, SET_IS_ROOM_VALID } from '../action-types';
+import {
+  SET_ROOM_ID,
+  SET_IS_ROOM_VALID,
+  SET_GAME_STATUS,
+} from '../action-types';
 import { Game } from '../../types/redusers';
 
 export const initialState = {
   gameStatus: '',
-  gameId: '',
+  roomId: '',
   isRoomValid: false,
 };
 
-export const game = (state: Game = initialState, { type, payload }: PayloadAction<string | boolean>): Game => {
+export const game = (
+  state: Game = initialState,
+  { type, payload }: PayloadAction<string | boolean>,
+): Game => {
   if (type === SET_ROOM_ID) {
     return {
       ...state,
-      gameId: payload as string,
+      roomId: payload as string,
     };
   }
 
@@ -20,6 +27,13 @@ export const game = (state: Game = initialState, { type, payload }: PayloadActio
     return {
       ...state,
       isRoomValid: payload as boolean,
+    };
+  }
+
+  if (type === SET_GAME_STATUS) {
+    return {
+      ...state,
+      gameStatus: payload as string,
     };
   }
 
