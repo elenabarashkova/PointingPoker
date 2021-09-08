@@ -64,7 +64,7 @@ User should have role: "player" | "observer"
 
 ##### On joined user side you can add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
-socket.emit("JOINED_ROOM", { roomId: string, user : User }, (response) => { console.log(response) });
+socket.emit("JOINED_ROOM", { roomId: string, user : User, userId: string }, (response) => { console.log(response) });
 
 ##### Response
 
