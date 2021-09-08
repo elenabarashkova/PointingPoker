@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { Pages } from 'src/types/page';
 import { User, UserRole } from '../../types/user';
 import { createRoom } from '../../services/createRoom';
@@ -8,7 +9,7 @@ import { createNewRoom } from '../../redux/actions';
 export const setNewUser = (
   fieldsState: Record<string, string>,
   userRole: keyof typeof UserRole,
-  history: any,
+  history: RouteComponentProps['history'],
 ) => async (dispatch: Dispatch): Promise<void> => {
   const newUser: User = {
     name: `${fieldsState.firstName} ${fieldsState.lastName}`,
