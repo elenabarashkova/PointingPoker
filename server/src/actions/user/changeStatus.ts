@@ -1,4 +1,4 @@
-import { Room, StoreSchema } from "../../types/store";
+import { Room, StoreSchema } from "../../types/room";
 import { User, UserStatus } from "../../types/user";
 
 export const changeUserStatus = (

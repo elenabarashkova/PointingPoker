@@ -1,5 +1,5 @@
-import { GameSettings } from "../types/game";
-import { Room } from "../types/store";
+import { GameSettings, GameStatus } from "../types/game";
+import { Room } from "../types/room";
 
 export const changeGameSettings = (
   room: Room,
@@ -9,3 +9,8 @@ export const changeGameSettings = (
   const updatedRoom = { ...room, gameSettings: updatedSettings };
   return { updatedSettings, updatedRoom };
 };
+
+export const changeGameStatus = (
+  room: Room,
+  gameStatus: keyof typeof GameStatus
+): Room => ({ ...room, gameStatus });

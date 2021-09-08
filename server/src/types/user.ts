@@ -1,4 +1,4 @@
-import { Room } from "./store";
+import { Room } from "./room";
 
 export enum UserStatus {
   active = "active",

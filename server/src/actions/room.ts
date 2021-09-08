@@ -1,6 +1,6 @@
 import { INIT_GAME_SETTINGS } from "../constants/game";
 import { GameStatus } from "../types/game";
-import { Room } from "../types/store";
+import { Room } from "../types/room";
 import { User, UserRole, UserStatus } from "../types/user";
 
 export const createRoom = (userId: string, user: User): Room => ({

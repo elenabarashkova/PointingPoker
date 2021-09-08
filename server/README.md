@@ -103,6 +103,31 @@ socket.emit("LEAVE_ROOM", roomId, (response) => { console.log(response) });
 
 ---
 
+##### - DELETE_USER
+
+##### Expected data
+
+{userId: string, roomId: string}
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: { userId: string, user: updatedUser } }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **USER_IS_DELETED**
+- data: **{userId: string, user: updatedUser}**
+
+---
+
 ##### - KICK_USER
 
 ##### Expected data
@@ -216,6 +241,31 @@ socket.emit("CHANGE_GAME_SETTINGS", { roomId, settings }, (response) => { consol
 
 - event: **GAME_SETTINGS_CHANGED**
 - data: **{gameSettings}**
+
+---
+
+##### - CHANGE_GAME_STATUS
+
+##### Expected data
+
+{ roomId: string, gameStatus : string }
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("CHANGE_GAME_STATUS", { roomId, newStatus }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: gameStatus }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **GAME_STATUS_CHANGED**
+- data: **gameStatus**
 
 ---
 
