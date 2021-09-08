@@ -20,3 +20,5 @@ export interface User {
   image: string;
   status?: keyof typeof UserStatus;
 }
+
+export type Users = Record<string, User>;
