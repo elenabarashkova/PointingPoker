@@ -1,4 +1,6 @@
 import { Dispatch } from 'redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { Pages } from 'src/types/page';
 import { User, UserRole } from '../../types/user';
 import { createRoom } from '../../services/createRoom';
 import { RoomData, Room } from '../../types/room';
@@ -14,6 +16,7 @@ import {
 export const setNewUser = (
   fieldsState: Record<string, string>,
   userRole: keyof typeof UserRole,
+  history: RouteComponentProps['history'],
 ) => async (dispatch: Dispatch): Promise<void> => {
   const newUser: User = {
     name: `${fieldsState.firstName} ${fieldsState.lastName}`,
@@ -24,6 +27,9 @@ export const setNewUser = (
 
   if (userRole === UserRole.master) {
     const { roomId, room } = await createRoom(newUser) as RoomData;
+    if (roomId) {
+      history.push(`/${Pages.settings}`);
+    }
     const { users } = room;
 
     dispatch(setUsersAction(users));
@@ -46,5 +52,6 @@ export const setNewUser = (
     // dispatch(setAllGameSettings(gameSettings));
     // dispatch(setMessages(messages));
     // dispatch(setIssues(issues));
+    // todo: redirect history.push(`/${Pages.lobby}`);
   }
 };
