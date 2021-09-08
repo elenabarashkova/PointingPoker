@@ -1,7 +1,7 @@
 import { ErrorResponse } from "./data";
 import { GameSettings } from "./game";
 import { Message } from "./message";
-import { Room } from "./store";
+import { Room } from "./room";
 import { User } from "./user";
 
 type DataType =

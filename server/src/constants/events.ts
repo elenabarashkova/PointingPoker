@@ -20,6 +20,7 @@ export enum UserEvents {
 
 export enum KickUserEvents {
   kickUser = "KICK_USER",
+  deleteUser = "DELETE_USER",
   youAreKicked = "YOU_ARE_KICKED",
   userIsKicked = "USER_IS_KICKED",
   youAreDeleted = "YOU_ARE_DELETED",
@@ -32,4 +33,12 @@ export enum KickUserEvents {
 export enum GameEvents {
   changeGameSettings = "CHANGE_GAME_SETTINGS",
   gameSettingsChanged = "GAME_SETTINGS_CHANGED",
+  changeGameStatus = "CHANGE_GAME_STATUS",
+  gameStatusChanged = "GAME_STATUS_CHANGED",
+}
+
+export enum IssueEvents {
+  createIssue = "createIssue",
+  deleteIssue = "deleteIssue",
+  updateIssue = "updateIssue",
 }

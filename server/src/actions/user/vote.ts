@@ -1,4 +1,4 @@
-import { Room } from "../../types/store";
+import { Room } from "../../types/room";
 import { KickResults, UserStatus, Vote } from "../../types/user";
 
 export const getKickVoteResult = (kickingVote: Array<Vote>): boolean => {

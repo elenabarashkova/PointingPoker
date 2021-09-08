@@ -1,4 +1,4 @@
-import { Room } from "../../types/store";
+import { Room } from "../../types/room";
 import { User, UserRole, UserStatus } from "../../types/user";
 
 export const kickUser = (

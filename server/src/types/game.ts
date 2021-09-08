@@ -1,6 +1,6 @@
 export enum GameStatus {
   pending = "pending",
-  inProgress = "inProgress",
+  active = "active",
   finished = "finished",
   canceled = "canceled",
 }
@@ -20,4 +20,9 @@ export interface GameSettings {
 export interface GameSettingsData {
   roomId: string;
   settings: GameSettings;
+}
+
+export interface GameStatusData {
+  roomId: string;
+  gameStatus: keyof typeof GameStatus;
 }

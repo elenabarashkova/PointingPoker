@@ -1,7 +1,7 @@
 import { Socket } from "socket.io";
 import { RedisGetAsyncType } from "../types/callbacks";
 import { ErrorResponse } from "../types/data";
-import { Room } from "../types/store";
+import { Room } from "../types/room";
 
 export const sendError = (socket: Socket, data: ErrorResponse): void => {
   socket.emit("error", data);
