@@ -28,3 +28,8 @@ export enum KickUserEvents {
   userIsNotDeleted = "USER_IS_NOT_DELETED",
   kickingVote = "KICKING_VOTE",
 }
+
+export enum GameEvents {
+  changeGameSettings = "CHANGE_GAME_SETTINGS",
+  gameSettingsChanged = "GAME_SETTINGS_CHANGED",
+}

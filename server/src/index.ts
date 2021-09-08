@@ -6,10 +6,12 @@ import { Server, Socket } from "socket.io";
 import { promisify } from "util";
 import {
   ChatEvents,
+  GameEvents,
   KickUserEvents,
   RoomEvents,
   UserEvents,
 } from "./constants/events";
+import { gameSettingsHandler } from "./handlers/game/settings";
 import { sendMessageHandler } from "./handlers/message";
 import { checkRoomHandler, createRoomHandler } from "./handlers/room";
 import { joinRoomHandler } from "./handlers/user/joinRoom";
@@ -23,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 const allowedOrigins = ["http://localhost:8080", "http://localhost:3000"];
-Y;
+
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
 };
@@ -48,6 +50,7 @@ io.on("connection", (socket: Socket) => {
   socket.on(UserEvents.leaveRoom, leaveRoomHandler(params));
   socket.on(KickUserEvents.kickUser, kickUserHandler(params));
   socket.on(KickUserEvents.kickingVote, kickUserVotingHandler(io, params));
+  socket.on(GameEvents.changeGameSettings, gameSettingsHandler(params));
   // socket.on(UserEvents.disconnecting, disconnectingUserHandler(socket));
 });
 

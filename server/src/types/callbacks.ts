@@ -1,4 +1,5 @@
 import { ErrorResponse } from "./data";
+import { GameSettings } from "./game";
 import { Message } from "./message";
 import { Room } from "./store";
 import { User } from "./user";
@@ -7,6 +8,7 @@ type DataType =
   | { room: Room | null; roomId: string }
   | { userId: string; user: User }
   | Message
+  | GameSettings
   | boolean
   | string;
 
