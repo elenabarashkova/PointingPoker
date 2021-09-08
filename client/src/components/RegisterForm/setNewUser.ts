@@ -29,23 +29,17 @@ export const setNewUser = (
 
   if (userRole === UserRole.master) {
     const { roomId, room } = await createRoom(newUser) as RoomData;
-    
-    if (roomId) {
-      history.push(`/${Pages.settings}`);
-    }
-
     const { users } = room;
 
     dispatch(setUsersAction(users));
     dispatch(setCurrentUserAction(Object.keys(users)[0]));
     dispatch(setRoomIdAction(roomId));
-  } else {
-    const { room, roomId, userId } = await joinRoom(gameIdInput, newUser) as RoomData;
 
-    if (userId) {
-      history.push(`/${Pages.lobby}`);
+    if (roomId) {
+      history.push(`/${Pages.settings}`);
     }
-
+  } else {
+    const { room, roomId, userId } = await joinRoom('0', newUser) as RoomData;
     const {
       users,
       messages,
@@ -61,5 +55,9 @@ export const setNewUser = (
     dispatch(setAllGameSettings(gameSettings));
     dispatch(setMessages(messages));
     dispatch(setIssues(issues));
+
+    if (userId) {
+      history.push(`/${Pages.lobby}`);
+    }
   }
 };

@@ -4,6 +4,7 @@ export const socket = io('https://arcane-thicket-43676.herokuapp.com/', { transp
 
 export enum ResponseStatus {
   ok = 200,
+  notFound = 404,
   error = 500,
 }
 
