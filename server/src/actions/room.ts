@@ -12,7 +12,7 @@ export const createRoom = (userId: string, user: User): Room => ({
     },
   },
   messages: [],
-  issues: [],
+  issues: {},
   gameStatus: GameStatus.pending,
   gameSettings: INIT_GAME_SETTINGS,
 });

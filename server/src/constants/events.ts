@@ -38,7 +38,10 @@ export enum GameEvents {
 }
 
 export enum IssueEvents {
-  createIssue = "createIssue",
-  deleteIssue = "deleteIssue",
-  updateIssue = "updateIssue",
+  addIssue = "ADD_ISSUE",
+  issueHasBeenAdded = "ISSUE_HAS_BEEN_ADDED",
+  deleteIssue = "DELETE_ISSUE",
+  issueHasBeenDeleted = "ISSUE_HAS_BEEN_DELETED",
+  updateIssue = "UPDATE_ISSUE",
+  issueHasBeenUpdated = "ISSUE_HAS_BEEN_UPDATED",
 }
