@@ -15,7 +15,7 @@ export interface GameSettings {
   masterAsPlayer: boolean;
   changingCardInRoundEnd: boolean;
   timer: boolean;
-  scoreType: keyof typeof ScoreType.storyPoint;
+  scoreType: keyof typeof ScoreType;
   roundTime: number;
 }
 
@@ -29,6 +29,7 @@ export interface Room {
 }
 
 export interface RoomData {
+  userId?: string;
   roomId: string;
   room: Room;
 }

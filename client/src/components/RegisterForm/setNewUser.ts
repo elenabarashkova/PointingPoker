@@ -1,8 +1,15 @@
 import { Dispatch } from 'redux';
 import { User, UserRole } from '../../types/user';
 import { createRoom } from '../../services/createRoom';
-import { RoomData } from '../../types/room';
-import { setUsersAction, setCurrentUserAction, setRoomIdAction } from '../../redux/actions';
+import { Room, RoomData } from '../../types/room';
+import {
+  setUsersAction,
+  setCurrentUserAction,
+  setRoomIdAction,
+  setGameStatus,
+  setAllGameSettings,
+  setMessages, setIssues,
+} from '../../redux/actions';
 
 export const setNewUser = (
   fieldsState: Record<string, string>,
@@ -23,7 +30,21 @@ export const setNewUser = (
     dispatch(setCurrentUserAction(Object.keys(users)[0]));
     dispatch(setRoomIdAction(roomId));
   } else {
-    // todo: {room, userId} await joinroom
-    // todo: setUsersAction, setCurrentUserAction
+    // const { roomId, room, userId } = await joinRoom(newUser, roomId) as RoomData;
+  //   const {
+  //     users,
+  //     messages,
+  //     issues,
+  //     gameStatus,
+  //     gameSettings,
+  //   } = room as Room;
+  //
+  //   dispatch(setUsersAction(users));
+  //   dispatch(setCurrentUserAction(userId));
+  //   dispatch(setRoomIdAction(roomId));
+  //   dispatch(setGameStatus(gameStatus));
+  //   dispatch(setAllGameSettings(gameSettings));
+  //   dispatch(setMessages(messages));
+  //   dispatch(setIssues(issues));
   }
 };
