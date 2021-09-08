@@ -4,12 +4,12 @@ import styles from './style.module.scss';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-const GamePage: React.FC = (): ReactElement => (
+const SettingsPage: React.FC = (): ReactElement => (
   <div className={styles.wrapper}>
-    <Header page={Pages.game} />
-    <h2>GamePage</h2>
-    <Footer page={Pages.game} />
+    <Header page={Pages.settings} />
+    <h2>settingsPage</h2>
+    <Footer page={Pages.settings} />
   </div>
 );
 
-export default GamePage;
+export default SettingsPage;
