@@ -1,13 +1,17 @@
 import { ErrorResponse } from "./data";
+import { GameSettings } from "./game";
+import { Issue } from "./issue";
 import { Message } from "./message";
-import { Room } from "./store";
+import { Room } from "./room";
 import { User } from "./user";
 
 type DataType =
-  | { room: Room; roomId: string }
-  | { room: Room; roomId: string }
+  | { room: Room | null; roomId: string }
   | { userId: string; user: User }
+  | { issueId: string; issue: Issue }
   | Message
+  | GameSettings
+  | Issue
   | boolean
   | string;
 
@@ -20,3 +24,9 @@ type ResponseType =
   | ErrorResponse;
 
 export type EventCallback = (response: ResponseType) => void;
+
+export type RedisGetAsyncType = (key: string) => Promise<string | null>;
+export type RedisSetAsyncType = (
+  key: string,
+  value: string
+) => Promise<unknown>;

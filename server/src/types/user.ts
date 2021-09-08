@@ -1,3 +1,5 @@
+import { Room } from "./room";
+
 export enum UserStatus {
   active = "active",
   kicked = "kicked",
@@ -12,15 +14,27 @@ export enum UserRole {
   observer = "observer",
 }
 
+export interface Vote {
+  id: string;
+  vote: undefined | number;
+}
+
 export interface User {
   name: string;
   role: keyof typeof UserRole;
   jobPosition: string;
   image: string;
   status: keyof typeof UserStatus;
-  kickingVote?: Array<{ id: string; vote: undefined | number }>;
+  kickingVote?: Array<Vote>;
 }
 
 export interface Users {
   [id: string]: User;
+}
+
+export interface KickResults {
+  updatedRoom: Room;
+  votingIsNotFinished: boolean | undefined;
+  userWasKicked: boolean | undefined;
+  updatedUser: User;
 }

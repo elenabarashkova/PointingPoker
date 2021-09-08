@@ -1,6 +1,6 @@
 export enum GameStatus {
   pending = "pending",
-  inProgress = "inProgress",
+  active = "active",
   finished = "finished",
   canceled = "canceled",
 }
@@ -10,9 +10,19 @@ export enum ScoreType {
 }
 
 export interface GameSettings {
-  masterAsPlayer: boolean;
-  changingCardInRoundEnd: boolean;
-  timer: boolean;
-  scoreType: keyof typeof ScoreType;
-  roundTime: number;
+  masterAsPlayer?: boolean;
+  changingCardInRoundEnd?: boolean;
+  timer?: boolean;
+  scoreType?: keyof typeof ScoreType;
+  roundTime?: number;
+}
+
+export interface GameSettingsData {
+  roomId: string;
+  settings: GameSettings;
+}
+
+export interface GameStatusData {
+  roomId: string;
+  gameStatus: keyof typeof GameStatus;
 }

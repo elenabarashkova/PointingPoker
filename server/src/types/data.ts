@@ -1,6 +1,7 @@
+import { Issue } from "./issue";
 import { User } from "./user";
 
-export interface ConnectionData {
+export interface NewUserData {
   roomId: string;
   user: User;
 }
@@ -24,4 +25,20 @@ export interface VotingData {
 export interface ErrorResponse {
   status: number;
   error: string;
+}
+
+export interface NewIssueData {
+  roomId: string;
+  issue: Issue;
+}
+
+export interface IssueData {
+  roomId: string;
+  issueId: string;
+}
+
+export interface UpdatedIssueData {
+  roomId: string;
+  issueId: string;
+  issue: Issue;
 }

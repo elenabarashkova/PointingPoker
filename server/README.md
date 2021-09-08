@@ -20,7 +20,7 @@ socket.emit("CREATE_ROOM", user, (response) => { console.log(response) });
 
 ##### Success response
 
-{status: 200, data: {room: roomStoreObject, roomID: string}}
+{status: 200, data: {room: roomStoreObject, roomId: string}}
 
 ##### Error response
 
@@ -46,10 +46,6 @@ socket.emit("IS_ROOM_VALID", roomId, (response) => { console.log(response) });
 
 {status: 500, error: "error"}
 
-##### After success or error response user will disconnect
-
-- event: **disconnect**
-
 ---
 
 ##### - JOIN_ROOM
@@ -68,7 +64,7 @@ socket.emit("JOINED_ROOM", { roomId: string, user : User, userId: string }, (res
 
 ##### Response
 
-- If room exists: **{ status: 200, data: { room: roomStore, roomId } }**
+- If room exists: **{ status: 200, data: { room: roomStore, roomId: string, userId: string } }**
 - If room doesn't exists: **{ status: 404, data: "Room not found" }**
 
 ##### Error response
@@ -104,6 +100,31 @@ socket.emit("LEAVE_ROOM", roomId, (response) => { console.log(response) });
 
 - event: **USER_LEFT**
 - data: **{ userId: leftUserId, user: leftUserObj }** _Left User has status "left"_
+
+---
+
+##### - DELETE_USER
+
+##### Expected data
+
+{userId: string, roomId: string}
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: { userId: string, user: updatedUser } }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **USER_IS_DELETED**
+- data: **{userId: string, user: updatedUser}**
 
 ---
 
@@ -195,6 +216,131 @@ socket.emit("SEND_MESSAGE", { roomId, text }, (response) => { console.log(respon
 
 - event: **RECEIVE_MESSAGE**
 - data: **{userId: string, text: string}**
+
+---
+
+##### - CHANGE_GAME_SETTINGS
+
+##### Expected data
+
+{ roomId: string, settings : {gameSettings} }
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("CHANGE_GAME_SETTINGS", { roomId, settings }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: {updatedGameSettings} }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **GAME_SETTINGS_CHANGED**
+- data: **{gameSettings}**
+
+---
+
+##### - CHANGE_GAME_STATUS
+
+##### Expected data
+
+{ roomId: string, gameStatus : string }
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("CHANGE_GAME_STATUS", { roomId, newStatus }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: gameStatus }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **GAME_STATUS_CHANGED**
+- data: **gameStatus**
+
+---
+
+##### - ADD_ISSUE
+
+##### Expected data
+
+{ roomId: string, issue : Issue }
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("ADD_ISSUE", { roomId, issue }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: {issueId, issue}}
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **ISSUE_HAS_BEEN_ADDED**
+- data: **{issueId, issue}**
+
+---
+
+##### - DELETE_ISSUE
+
+##### Expected data
+
+{ roomId: string, issueId : string }
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("DELETE_ISSUE", { roomId, issueId }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: deletedIssueId }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **ISSUE_HAS_BEEN_DELETED**
+- data: **deletedIssueId**
+
+---
+
+##### - UPDATE_ISSUE
+
+##### Expected data
+
+{ roomId: string, issueId : string }
+
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("UPDATE_ISSUE", { roomId, issueId }, (response) => { console.log(response) });
+
+##### Success response
+
+{ status: 200, data: { issueId, issue } }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **ISSUE_HAS_BEEN_UPDATED**
+- data: **{ issueId, issue }**
 
 ---
 
