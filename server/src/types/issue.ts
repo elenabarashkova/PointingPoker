@@ -13,8 +13,12 @@ export interface IssueVote {
 
 export interface Issue {
   title: string;
-  priority: boolean;
-  statistics: IssueStatistics[];
-  vote: IssueVote[];
+  priority?: boolean;
+  statistics?: IssueStatistics[];
+  vote?: IssueVote[];
   status: keyof typeof IssueStatus;
+}
+
+export interface Issues {
+  [id: string]: Issue;
 }

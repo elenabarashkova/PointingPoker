@@ -1,21 +1,20 @@
-import { initialGameSettings } from "../store";
+import { INIT_GAME_SETTINGS } from "../constants/game";
 import { GameStatus } from "../types/game";
-import { StoreSchema } from "../types/store";
+import { Room } from "../types/room";
+import { User, UserRole, UserStatus } from "../types/user";
 
-export const createRoom = (store: StoreSchema, roomId: string): void => {
-  store[roomId] = {
-    users: {},
-    messages: [],
-    issues: [],
-    gameStatus: GameStatus.pending,
-    gameSettings: initialGameSettings,
-  };
-};
+export const createRoom = (userId: string, user: User): Room => ({
+  users: {
+    [userId]: {
+      ...user,
+      role: UserRole.master,
+      status: UserStatus.active,
+    },
+  },
+  messages: [],
+  issues: {},
+  gameStatus: GameStatus.pending,
+  gameSettings: INIT_GAME_SETTINGS,
+});
 
-export const createRoomId = (store: StoreSchema): string => {
-  let roomId = Date.now().toString();
-  if (store[roomId]) {
-    roomId = createRoomId(store);
-  }
-  return roomId;
-};
+export const createRoomId = (): string => Date.now().toString();
