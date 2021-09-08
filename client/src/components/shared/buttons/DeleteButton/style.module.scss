@@ -1,0 +1,16 @@
+.deleteBtn {
+  width: 35px;
+  height: 40px;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
