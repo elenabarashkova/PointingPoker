@@ -1,3 +1,5 @@
+import { Issue } from './issues';
+import { Message } from './messages';
 import { Users } from './user';
 
 export enum GameStatus {
@@ -22,8 +24,8 @@ export interface GameSettings {
 export interface Room {
   roomId?: string;
   users: Users;
-  messages: Array<string>;
-  issues: Array<string>;
+  messages: Array<Message>;
+  issues: Array<Issue>;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
 }

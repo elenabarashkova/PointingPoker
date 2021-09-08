@@ -77,7 +77,13 @@ const RegisterSection: React.FC = (): ReactElement => {
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} loading={loading} />
       </div>
-      <RegisterForm isOpen={modalOpen} closeModal={handleCloseModal} role={role} changeRole={handleSwitch} />
+      <RegisterForm 
+        isOpen={modalOpen} 
+        closeModal={handleCloseModal} 
+        role={role} 
+        changeRole={handleSwitch} 
+        gameIdInput={gameIdInput} 
+      />
     </div>
   );
 };

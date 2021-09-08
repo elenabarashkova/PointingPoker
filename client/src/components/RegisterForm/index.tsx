@@ -28,6 +28,7 @@ interface RegisterFormProps extends RouteComponentProps {
   changeRole: CallableFunction;
   setNewUserConnected: CallableFunction;
   history: History;
+  gameIdInput: string;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = (
@@ -38,6 +39,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     changeRole,
     setNewUserConnected,
     history,
+    gameIdInput,
   },
 ): ReactElement => {
   const [fieldsState, setFieldsState] = useState(DEFAULT_FIELDS_STATE);
@@ -64,7 +66,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     const validationErrors = validate(fieldsState);
 
     if (!Object.keys(validationErrors).length) {
-      setNewUserConnected(fieldsState, role, history);
+      setNewUserConnected(fieldsState, role, history, gameIdInput);
 
       setFieldsState(DEFAULT_FIELDS_STATE);
       setValidationState({});
