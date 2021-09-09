@@ -2,17 +2,18 @@ import React, { ReactElement, useState } from 'react';
 import { ElementSize } from 'src/types/additional';
 import UserCard from 'components/shared/UserCard';
 import { UserRole } from 'src/types/user';
-import { TextInput } from 'components/shared/TextInput';
 import ChatBtn from 'components/shared/buttons/ChatBtn';
 import SendMessageButton from 'components/shared/buttons/SendMessageButton';
+import Textarea from 'components/Textarea';
 import styles from './style.module.scss';
 
 const ChatField: React.FC = (): ReactElement => {
   const [messageInput, setMessageInput] = useState('');
   const [chatIsOpened, setChatIsOpened] = useState(false);
 
-  const handleInput = (name: string, value: string) => {
+  const handleTextArea = (value: string) => {
     setMessageInput(value); 
+    console.log(value);
   };
 
   const openCloseChat = () => {
@@ -70,12 +71,9 @@ const ChatField: React.FC = (): ReactElement => {
           ))}
         </div>
         <div className={styles.sendMessageField}>
-          <TextInput 
-            name="messageField" 
+          <Textarea
             value={messageInput} 
-            label="" 
-            error="" 
-            onChange={handleInput} 
+            onChange={handleTextArea} 
             placeholder="Print your message here"
           />
           <SendMessageButton onClick={handleSendMessage} />
