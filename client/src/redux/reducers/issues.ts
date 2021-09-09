@@ -1,23 +1,23 @@
-import { AnyAction } from "@reduxjs/toolkit";
-import { IssuesStore } from "../../types/issues";
+import { AnyAction } from '@reduxjs/toolkit';
+import { IssuesStore } from '../../types/issues';
 import {
   ADD_ISSUE,
   DELETE_ISSUE,
   SEND_REQUEST,
   SET_ERROR,
   SET_ISSUES,
-  UPDATE_ISSUE
-} from "../action-types";
+  UPDATE_ISSUE,
+} from '../action-types';
 
 export const initialState: IssuesStore = {
   error: false,
   isLoading: false,
-  issues: {}
+  issues: {},
 };
 
 export const issues = (
   state: IssuesStore = initialState,
-  { type, payload }: AnyAction
+  { type, payload }: AnyAction,
 ): IssuesStore => {
   switch (type) {
     case SEND_REQUEST:
@@ -29,28 +29,28 @@ export const issues = (
         ...state,
         issues: { ...payload },
         isLoading: false,
-        error: false
+        error: false,
       };
     case ADD_ISSUE:
       return {
         ...state,
         issues: { ...state.issues, [payload.issueId]: payload.issue },
         isLoading: false,
-        error: false
+        error: false,
       };
     case UPDATE_ISSUE:
       return {
         ...state,
         issues: { ...state.issues, [payload.issueId]: payload.issue },
         isLoading: false,
-        error: false
+        error: false,
       };
     case DELETE_ISSUE:
       return {
         ...state,
         issues: { ...state.issues, [payload.issueId]: payload.issue },
         isLoading: false,
-        error: false
+        error: false,
       };
     default:
       return state;
