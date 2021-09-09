@@ -1,0 +1,38 @@
+@import '../../scss/variables.scss';
+
+.chatField {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  .chat {
+    padding: 10px;
+    width: 500px;
+    border: 1px solid black;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.623);
+  }
+}
+.messagesField {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .messageField {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .message {
+      margin: 0;
+      box-sizing: border-box;
+      width: calc(100% - 200px - 10px);
+      border-bottom: 2px solid $blue;
+      min-height: 70px;
+    }
+  }
+}
+
+.sendMessageField {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+}

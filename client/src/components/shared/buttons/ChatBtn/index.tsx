@@ -1,18 +1,25 @@
 import React, { ReactElement } from 'react';
-import styles from './style.module.scss';
 import ChatIco from './comments.svg';
+import styles from './style.module.scss';
 
-const ChatButton: React.FC = (): ReactElement => {
+interface ChatBtnProps {
+  openCloseChat: CallableFunction;
+}
+
+const ChatBtn: React.FC<ChatBtnProps> = ({ openCloseChat }): ReactElement => {
   const handleClick = () => {
-    console.log('открыть чат');
+    openCloseChat();
+    console.log('открыть/закрыть чат');
     // todo: открывать/закрывать чат по нажатию
   }; 
 
   return (
+    
     <button type="button" className={styles.chatBtn} onClick={handleClick}>
       <img src={ChatIco} alt="" className={styles.chatIco} />
     </button>
+    
   );
 };
 
-export default ChatButton;
+export default ChatBtn;
