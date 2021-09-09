@@ -17,6 +17,7 @@ import UserIco from 'components/shared/UserIco';
 import FileInput from 'components/FileInput';
 import { withRouter } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
+import { ElementSize } from 'src/types/additional';
 import styles from './style.module.scss';
 import { Modal } from '../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../constants';
@@ -28,6 +29,7 @@ interface RegisterFormProps extends RouteComponentProps {
   changeRole: CallableFunction;
   setNewUserConnected: CallableFunction;
   history: History;
+  gameIdInput: string;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = (
@@ -38,6 +40,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     changeRole,
     setNewUserConnected,
     history,
+    gameIdInput,
   },
 ): ReactElement => {
   const [fieldsState, setFieldsState] = useState(DEFAULT_FIELDS_STATE);
@@ -64,7 +67,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     const validationErrors = validate(fieldsState);
 
     if (!Object.keys(validationErrors).length) {
-      setNewUserConnected(fieldsState, role, history);
+      setNewUserConnected(fieldsState, role, history, gameIdInput);
 
       setFieldsState(DEFAULT_FIELDS_STATE);
       setValidationState({});
@@ -88,7 +91,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
           <RegisterTextInputs fields={fieldsState} validation={validationState} handler={handleChange} />
           <div className={styles.userIcoField}>
             <FileInput name="userIcoInput" handler={handleChange} />
-            <UserIco firstName={fieldsState.firstName} lastName={fieldsState.lastName} imgSrc={fieldsState.image} />
+            <UserIco 
+              firstName={fieldsState.firstName} 
+              lastName={fieldsState.lastName} 
+              imgSrc={fieldsState.image} 
+              size={ElementSize.big} 
+            />
           </div>
         </form>
       )}

@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
 
-const Palette: React.FC = ():ReactElement => (
-  <div className={styles.palette}>
-    <div className={styles.round}><span className={styles.feature}>plan</span></div>
-    <div className={styles.round}><span className={styles.feature}>discuss</span></div>
-    <div className={styles.round}><span className={styles.feature}>vote</span></div>
-    <div className={styles.round}><span className={styles.feature}>chat</span></div>
-    <div className={styles.round} />
-  </div>
-);
+const Palette: React.FC = ():ReactElement => {
+  const features = ['plan', 'discuss', 'vote', 'chat'];
+  return (
+    <div className={styles.palette}>
+      {features.map((el) => <div className={styles.round} key={el}><span className={styles.feature}>{el}</span></div>)}
+      <div className={styles.round} />
+    </div>
+  );
+};
 
 export default Palette;
