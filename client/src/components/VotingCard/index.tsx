@@ -16,10 +16,9 @@ import burger from './burger.svg';
 interface VotingCardProps {
   scoreType: keyof typeof ScoreType;
   point: string;
-  value: number;
 }
 
-const VotingCard: React.FC<VotingCardProps> = ({ scoreType, point, value }):ReactElement => {
+const VotingCard: React.FC<VotingCardProps> = ({ scoreType, point }):ReactElement => {
   const config = {
     [ScoreType.size]: 'clothing size',
     [ScoreType.storyPoint]: 'story point',
@@ -43,7 +42,8 @@ const VotingCard: React.FC<VotingCardProps> = ({ scoreType, point, value }):Reac
     '360 kcal': burger,
   };
 
-  // todo: выделить карточку, которой проголосовал юзер
+  // todo: подсветить карточку, которой проголосовал юзер
+  // после ответа сервера - выделить ее и показать как-то, что голос засчитан
 
   return (
     <div
@@ -52,7 +52,7 @@ const VotingCard: React.FC<VotingCardProps> = ({ scoreType, point, value }):Reac
       onKeyPress={handle}
       role="button"
       tabIndex={0}   
-      id={String(value)}   
+      id={point}  
     >
       {(scoreType !== ScoreType.storyPoint) && <p className={styles.pointField}>{point !== 'coffee' && point}</p>}
       <div className={styles.img}>

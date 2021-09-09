@@ -17,11 +17,13 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ scoreType, number }
 
   const points: string[] = config[scoreType];
 
+  // todo: данные брать из стора
+
   // todo: передавать в карточку номер карты, которой проголосал юзер или просто выделять ее???
   
   return (
     <div className={styles.cardsField}>
-      {points.slice(0, number).map((el, index) => <VotingCard scoreType={scoreType} point={el} key={el} value={index} />)}
+      {points.slice(0, number).map((el) => <VotingCard scoreType={scoreType} point={el} key={el} />)}
     </div>
   );
 };
