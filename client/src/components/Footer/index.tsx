@@ -6,12 +6,13 @@ interface FooterProps {
   page: keyof typeof Pages;
 }
 
-const Footer: React.FC<FooterProps> = ({ page }): ReactElement => (
-  <footer className={`${styles.footer} ${styles[page]}`}>
-    <a href="https://github.com/elenabarashkova" className={styles.githubIco}> </a>
-    <a href="https://github.com/StacieKot" className={styles.githubIco}> </a>
-    <a href="https://github.com/EkaterinaMosina" className={styles.githubIco}> </a>
-  </footer>
-);
+const Footer: React.FC<FooterProps> = ({ page }): ReactElement => {
+  const teamMembers = ['elenabarashkova', 'StacieKot', 'EkaterinaMosina'];
+  return (
+    <footer className={`${styles.footer} ${styles[page]}`}>
+      {teamMembers.map((el) => <a href={`https://github.com/${el}`} className={styles.githubIco} key={el}> </a>)}
+    </footer>
+  );
+};
 
 export default Footer;
