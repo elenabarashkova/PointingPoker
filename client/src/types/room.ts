@@ -1,4 +1,4 @@
-import { Issue } from './issues';
+import { Issues } from './issues';
 import { Message } from './messages';
 import { Users } from './user';
 
@@ -27,7 +27,7 @@ export interface Room {
   roomId?: string;
   users: Users;
   messages: Array<Message>;
-  issues: Array<Issue>;
+  issues: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
 }
