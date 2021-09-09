@@ -39,7 +39,7 @@ export const setNewUser = (
       history.push(`/${Pages.settings}`);
     }
   } else {
-    const { room, roomId, userId } = await joinRoom('0', newUser) as RoomData;
+    const { room, roomId, userId } = await joinRoom(gameIdInput, newUser) as RoomData;
     const {
       users,
       messages,
