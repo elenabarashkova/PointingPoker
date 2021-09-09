@@ -17,6 +17,7 @@ import UserIco from 'components/shared/UserIco';
 import FileInput from 'components/FileInput';
 import { withRouter } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
+import { ElementSize } from 'src/types/additional';
 import styles from './style.module.scss';
 import { Modal } from '../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../constants';
@@ -90,7 +91,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
           <RegisterTextInputs fields={fieldsState} validation={validationState} handler={handleChange} />
           <div className={styles.userIcoField}>
             <FileInput name="userIcoInput" handler={handleChange} />
-            <UserIco firstName={fieldsState.firstName} lastName={fieldsState.lastName} imgSrc={fieldsState.image} />
+            <UserIco 
+              firstName={fieldsState.firstName} 
+              lastName={fieldsState.lastName} 
+              imgSrc={fieldsState.image} 
+              size={ElementSize.big} 
+            />
           </div>
         </form>
       )}

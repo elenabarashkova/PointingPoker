@@ -1,0 +1,86 @@
+@import '../../../scss/variables.scss';
+
+.userCard {
+  border-radius: 7px;
+  box-shadow: $shadow;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  color: $base-text-color-2;
+  font-family: $font-family-second;
+  box-sizing: border-box;
+  background: $light-yellow;
+  position: relative;
+  border: 3px solid $emerald;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .userInfo {
+      .currentUserInfo {
+        margin: 0;
+        margin-top: -8px;
+        margin-bottom: 5px;
+        font-family: $font-family-first;
+        color: $dark-blue;
+        padding: 2px;
+        border-radius: 5px;
+        background: #49aaa491;
+      }
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+.userCard.big {
+  padding: 5px 10px;
+  width: 250px;
+  height: 100px;
+  .wrapper {
+    .userInfo {
+      margin: 0 13px;
+      .currentUserInfo {
+        font-size: 16px;
+      }
+      .userName {
+        font-size: 20px;
+      }
+      .jobPosition {
+        font-size: 14px;
+      }
+    }
+  }
+  
+}
+.userCard.small {
+  width: 200px;
+  height: 70px;
+  padding: 3px;
+  .wrapper {
+    .userInfo {
+      margin: 0 13px;
+      .currentUserInfo {
+        font-size: 12px;
+      }
+      .userName {
+        font-size: 16px;
+      }
+      .jobPosition {
+        font-size: 12px;
+      }
+    }
+  }
+}
+.master {
+  border: 3px solid $blue;
+  background: $yellow;
+  .crown {
+    position: absolute;
+    top: -34px;
+    left: 25px;
+    width: 40px;
+    height: 40px;
+  }
+}
