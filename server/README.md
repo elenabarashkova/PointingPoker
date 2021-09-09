@@ -103,7 +103,7 @@ socket.emit("LEAVE_ROOM", roomId, (response) => { console.log(response) });
 
 ---
 
-##### - DELETE_USER
+##### - DELETE_USER //Еще нужно проверить этот ивент
 
 ##### Expected data
 
@@ -132,19 +132,19 @@ socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(respo
 
 ##### Expected data
 
-{userId: string, roomId: string}
+{userId: user who you wont to kick, roomId: string}
 
 ##### Success response
 
 ###### Kicked user:
 
 - event: **YOU_ARE_KICKED**
-- data: **{ userId: kickedUserId, user: kickedUserObject}** _Kicked User has status "kicked"_
+- data: **{ kickInitiator: string, kickedUserId: string, kickedUser: kickedUserObject}** _Kicked User has status "kicked"_
 
 ###### Other users in this room:
 
 - event: **USER_IS_KICKED**
-- data: **{userId: kickedUserId, user: kickedUserObject}** _Kicked User has status "kicked"_
+- data: **{ kickInitiator: string, kickedUserId: string, kickedUser: kickedUserObject}** _Kicked User has status "kicked"_
 
 ##### Error response
 
@@ -269,7 +269,7 @@ socket.emit("CHANGE_GAME_STATUS", { roomId, newStatus }, (response) => { console
 
 ---
 
-##### - ADD_ISSUE
+##### - ADD_ISSUE //Будет меняться
 
 ##### Expected data
 
@@ -294,7 +294,7 @@ socket.emit("ADD_ISSUE", { roomId, issue }, (response) => { console.log(response
 
 ---
 
-##### - DELETE_ISSUE
+##### - DELETE_ISSUE //Будет меняться
 
 ##### Expected data
 
@@ -319,7 +319,7 @@ socket.emit("DELETE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ---
 
-##### - UPDATE_ISSUE
+##### - UPDATE_ISSUE //Будет меняться
 
 ##### Expected data
 

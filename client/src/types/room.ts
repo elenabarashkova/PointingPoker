@@ -1,3 +1,5 @@
+import { Issue } from './issues';
+import { Message } from './messages';
 import { Users } from './user';
 
 export enum GameStatus {
@@ -9,6 +11,8 @@ export enum GameStatus {
 
 export enum ScoreType {
   storyPoint = 'storyPoint',
+  size = 'size',
+  calories = 'calories',
 }
 
 export interface GameSettings {
@@ -22,8 +26,8 @@ export interface GameSettings {
 export interface Room {
   roomId?: string;
   users: Users;
-  messages: Array<string>;
-  issues: Array<string>;
+  messages: Array<Message>;
+  issues: Array<Issue>;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
 }
