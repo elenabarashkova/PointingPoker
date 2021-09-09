@@ -1,0 +1,287 @@
+@import '../../scss/variables.scss';
+
+.card.size {
+  width: 90px;
+  height: 140px;
+  border-radius: 7px;
+  box-shadow: $shadow;
+  box-sizing: border-box;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: $base-text-color-2;
+  .pointField {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    font-family: $font-family-first;
+    background: rgba(255, 255, 255, 0.233);
+    text-transform: uppercase;
+    color: white;
+  }
+  .img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.274);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-family-second;
+    color: white;
+    font-size: 36px;
+  }
+  .type {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    font-family: $font-family-first;
+    background: rgba(255, 255, 255, 0.377);
+    
+  }
+  &:nth-child(1) {
+    background: $yellow;
+    .img {
+      .coffeeCard {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+  &:nth-child(2) {
+    background: $light-emerald;
+    .shirt {
+      width: 60px;
+      height: 60px;
+    }
+    
+  }
+  &:nth-child(3) {
+    background: $emerald;
+    .shirt {
+      width: 80px;
+      height: 80px;
+    }
+    
+  }
+  &:nth-child(4) {
+    background: $blue;
+    .shirt {
+      width: 100px;
+      height: 100px;
+    }
+    
+  }
+  &:nth-child(5) {
+    background: $light-blue;
+    .shirt {
+      width: 120px;
+      height: 120px;
+    }
+    
+  }
+  &:nth-child(6) {
+    background: $light-yellow;
+    .shirt {
+      width: 140px;
+      height: 140px;
+    }
+  }
+}
+
+//
+
+.card.storyPoint {
+  width: 90px;
+  height: 140px;
+  border-radius: 7px;
+  box-shadow: $shadow;
+  box-sizing: border-box;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  color: $base-text-color-2;
+  
+  .img {
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.685);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-family-second;
+    color:$base-text-color-2;
+    font-size: 36px;
+    border: 3px solid white;
+  }
+  .type {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    font-family: $font-family-first;
+    background: rgba(255, 255, 255, 0.377);
+    
+  }
+  &:nth-child(1) {
+    background: $yellow;
+    .img {
+      background: rgba(255, 255, 255, 0.315);
+      height: 80px;
+      width: 80px;
+      .coffeeCard {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+  &:nth-child(2) {
+    //background: $light-emerald;
+    background: url(../../assets/Новаяпапка/01.jpg);
+    background-size: cover;
+    background-position: center;
+    .img {
+      //background: $light-emerald;
+      height: 45px;
+      width: 45px;
+    }
+  }
+  &:nth-child(3) {
+    
+    background: url(../../assets/Новаяпапка/02.jpg);
+    background-size: cover;
+    background-position: center;
+    .img {
+      //background: #16a198;
+      height: 50px;
+      width: 50px;    
+    }
+  }
+  &:nth-child(4) {
+    //background: $blue;
+    background: url(../../assets/Новаяпапка/03.jpg);
+    background-size: cover;
+    background-position: center;
+    .img {
+      //background: $blue;
+      height: 60px;
+      width: 60px;
+    }
+  }
+  &:nth-child(5) {
+    //background: $light-blue;
+    background: url(../../assets/Новаяпапка/04.jpg);
+    background-size: cover;
+    background-position: center;
+    .img {
+      //background: $light-blue;
+      height: 70px;
+      width: 70px;
+    }
+  }
+  &:nth-child(6) {
+    //background: $light-yellow;
+    background: url(../../assets/Новаяпапка/05.jpg);
+    background-size: cover;
+    background-position: center;
+    .img {
+      //background: $light-yellow;
+      height: 80px;
+      width: 80px;
+    }
+  }
+}
+
+.card.calories {
+  width: 90px;
+  height: 140px;
+  border-radius: 7px;
+  box-shadow: $shadow;
+  box-sizing: border-box;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: $base-text-color-2;
+  .pointField {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    font-family: $font-family-first;
+    background: rgba(255, 255, 255, 0.233);
+    color: white;
+  }  
+  .img {
+    border-radius: 50%;
+    // background: rgba(255, 255, 255, 0.274);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-family-second;
+    color: white;
+    font-size: 36px;
+    
+    height: 80px;
+    width: 80px;
+    .food {
+      width: 80px;
+      height: 80px;
+    }
+    
+  }
+  .type {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    font-family: $font-family-first;
+    background: rgba(255, 255, 255, 0.377);
+    
+  }
+  &:nth-child(1) {
+    background: $yellow;
+    .img {
+     
+      .coffeeCard {
+        width: 70px;
+        height: 70px;
+      }
+      
+    }
+  }
+  &:nth-child(2) {
+    background: $light-emerald;
+    
+  }
+  &:nth-child(3) {
+    background: $emerald;
+    
+  }
+  &:nth-child(4) {
+    background: $blue;
+    
+  }
+  &:nth-child(5) {
+    background: $light-blue;
+    
+  }
+  &:nth-child(6) {
+    background: $light-yellow;
+    
+  }
+}

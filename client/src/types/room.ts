@@ -11,6 +11,8 @@ export enum GameStatus {
 
 export enum ScoreType {
   storyPoint = 'storyPoint',
+  size = 'size',
+  calories = 'calories',
 }
 
 export interface GameSettings {
