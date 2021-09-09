@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export type IssueStatistics = Array<string>;
 export type IssueVote = Array<string>;
@@ -30,15 +30,15 @@ export interface IssueData {
 }
 
 export enum IssuePriority {
-  low = 'low',
-  high = 'high',
+  low = "low",
+  high = "high"
 }
 
 export interface IssueProps {
   id: string;
   theme: string;
   title: string;
-  current: boolean;
+  current?: boolean;
   priority: keyof typeof IssuePriority;
 }
 
