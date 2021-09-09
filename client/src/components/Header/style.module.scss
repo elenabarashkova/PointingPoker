@@ -6,6 +6,7 @@
   margin: 0 auto;
   width: 100%;
   max-width: 1600px;
+  height: 106px;
 }
 .header.main {
   height: fit-content;
@@ -19,9 +20,8 @@
 .header.lobby,
 .header.game,
 .header.settings {
-  padding: 30px 50px;
+  padding: 30px 0px;
   display: flex;
-  align-items: center;
   justify-content: flex-end;
   background: $light-blue;
   .logo {
@@ -32,7 +32,6 @@
 }
 
 .logo {
-  
   background: #facf24;
   width: 130px;
   height: 130px;

@@ -1,4 +1,4 @@
-import ChatButton from 'components/shared/buttons/ChatButton';
+import ChatField from 'components/ChatField';
 import React, { ReactElement } from 'react';
 import { Pages } from 'src/types/page';
 import styles from './style.module.scss';
@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ page }): ReactElement => (
       <p>Planing</p>
       <span>Poker</span>
     </div>
-    { page !== Pages.main && <ChatButton /> }
+    { page !== Pages.main && <ChatField /> }
   </header>
 );
 
