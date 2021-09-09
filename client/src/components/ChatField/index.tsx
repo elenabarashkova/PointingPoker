@@ -4,6 +4,7 @@ import UserCard from 'components/shared/UserCard';
 import { UserRole } from 'src/types/user';
 import { TextInput } from 'components/shared/TextInput';
 import ChatBtn from 'components/shared/buttons/ChatBtn';
+import SendMessageButton from 'components/shared/buttons/SendMessageButton';
 import styles from './style.module.scss';
 
 const ChatField: React.FC = (): ReactElement => {
@@ -77,7 +78,7 @@ const ChatField: React.FC = (): ReactElement => {
             onChange={handleInput} 
             placeholder="Print your message here"
           />
-          <button type="button" onClick={handleSendMessage} aria-label="Send Message" />
+          <SendMessageButton onClick={handleSendMessage} />
         </div>
       </div>
     </div>

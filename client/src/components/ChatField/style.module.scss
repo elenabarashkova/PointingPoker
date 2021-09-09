@@ -5,12 +5,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  color: $base-text-color-2;
+  font-family: $font-family-second;
   .chat {
     padding: 10px;
     width: 500px;
     border: 1px solid black;
     margin-top: 20px;
-    background: rgba(255, 255, 255, 0.623);
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
   }
 }
 .messagesField {
@@ -25,14 +28,17 @@
       margin: 0;
       box-sizing: border-box;
       width: calc(100% - 200px - 10px);
-      border-bottom: 2px solid $blue;
+      border-bottom: 2px solid $emerald;
       min-height: 70px;
     }
   }
 }
 
 .sendMessageField {
-  width: 100%;
+  font-family: $font-family-second;
+  color: #2d5b74;
+  width: 50%;
   margin-top: 50px;
   display: flex;
+  justify-content: space-between;
 }

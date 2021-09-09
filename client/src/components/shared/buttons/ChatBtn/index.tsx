@@ -9,8 +9,6 @@ interface ChatBtnProps {
 const ChatBtn: React.FC<ChatBtnProps> = ({ openCloseChat }): ReactElement => {
   const handleClick = () => {
     openCloseChat();
-    console.log('открыть/закрыть чат');
-    // todo: открывать/закрывать чат по нажатию
   }; 
 
   return (
