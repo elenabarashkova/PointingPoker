@@ -14,7 +14,7 @@ import donut from './doughnut.svg';
 import burger from './burger.svg';
 
 interface VotingCardProps {
-  scoreType: string;
+  scoreType: keyof typeof ScoreType;
   point: string;
   value: number;
 }
