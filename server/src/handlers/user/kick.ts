@@ -12,14 +12,21 @@ export const kickUserHandler =
       if (userCanNotBeKicked(socket.id, userId, room)) {
         return;
       }
-      const { updatedRoom, updatedUser } = kickUser(room, userId);
+      const { updatedRoom, kickedUser } = kickUser(room, userId);
       await redisSetAsync(roomId, JSON.stringify(updatedRoom));
-      socket.emit(KickUserEvents.userIsKicked, { userId, user: updatedUser });
-      socket.to(userId).emit(KickUserEvents.youAreKicked, userId);
+
+      const response = {
+        kickInitiator: socket.id,
+        kickedUserId: userId,
+        kickedUser,
+      };
+
+      socket.emit(KickUserEvents.userIsKicked, response);
+      socket.to(userId).emit(KickUserEvents.youAreKicked, response);
       socket
         .to(roomId)
         .except(userId)
-        .emit(KickUserEvents.userIsKicked, { userId, user: updatedUser });
+        .emit(KickUserEvents.userIsKicked, response);
     } catch (error) {
       socket.emit("error", { status: 500, message: "error" });
     }

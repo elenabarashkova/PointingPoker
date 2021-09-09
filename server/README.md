@@ -132,19 +132,19 @@ socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(respo
 
 ##### Expected data
 
-{userId: string, roomId: string}
+{userId: user who you wont to kick, roomId: string}
 
 ##### Success response
 
 ###### Kicked user:
 
 - event: **YOU_ARE_KICKED**
-- data: **{ userId: kickedUserId, user: kickedUserObject}** _Kicked User has status "kicked"_
+- data: **{ kickInitiator: string, kickedUserId: string, kickedUser: kickedUserObject}** _Kicked User has status "kicked"_
 
 ###### Other users in this room:
 
 - event: **USER_IS_KICKED**
-- data: **{userId: kickedUserId, user: kickedUserObject}** _Kicked User has status "kicked"_
+- data: **{ kickInitiator: string, kickedUserId: string, kickedUser: kickedUserObject}** _Kicked User has status "kicked"_
 
 ##### Error response
 
