@@ -2,17 +2,17 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import {
   SET_IS_LOADING, SET_MESSAGE, SET_MESSAGES, SET_SERVER_ERROR, 
 } from '../action-types';
-import { Messages, Message, MessageData } from '../../types/messages';
+import { Messages, Message } from '../../types/messages';
 
 export const initialState = {
   error: false,
   isLoading: false,
-  messages: {},
+  messages: [],
 };
 
 export const messages = (
   state: Messages = initialState,
-  { type, payload }: PayloadAction<MessageData | Record<string, Message> | boolean>,
+  { type, payload }: PayloadAction<Message[] | Message | boolean>,
 ): Messages => {
   console.log('payload:', payload, 'type:', type);
 
@@ -20,16 +20,15 @@ export const messages = (
     case SET_MESSAGES: 
       return {
         ...state,
-        messages: payload as Record<string, Message>,
+        messages: payload as Message[],
       };
     case SET_MESSAGE: {
-      const { messageId, message } = payload as MessageData;
       return {
         ...state, 
-        messages: {
+        messages: [
           ...state.messages,
-          [messageId]: message,
-        },
+          payload as Message,
+        ],
       };
     }
     case SET_SERVER_ERROR: 

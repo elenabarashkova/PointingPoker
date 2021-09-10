@@ -5,6 +5,7 @@ export const initialState = '';
 
 export const currentUserId = (state = initialState, { type, payload }: PayloadAction<string>): string => {
   if (type === SET_CURRENT_USER) {
+    console.log('store', payload);
     return payload;
   }
 

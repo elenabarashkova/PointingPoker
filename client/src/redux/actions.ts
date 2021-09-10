@@ -9,7 +9,7 @@ import {
 } from './action-types';
 import { Users } from '../types/user';
 import { GameSettings } from '../types/room';
-import { Message, MessageData } from '../types/messages';
+import { Message } from '../types/messages';
 import { Issue } from '../types/issues';
 
 export const setUsersAction = (users: Users): PayloadAction<Users> => ({
@@ -42,12 +42,12 @@ export const setAllGameSettings = (gameSettings: GameSettings): PayloadAction<Ga
   payload: gameSettings,
 });
 
-export const setMessages = (messages: Record<string, string | Message>): PayloadAction<Record<string, string | Message>> => ({
+export const setMessages = (messages: Message[]): PayloadAction<Message[]> => ({
   type: SET_MESSAGES,
   payload: messages,
 });
 
-export const setMessage = (message: MessageData): PayloadAction<MessageData> => ({
+export const setMessage = (message: Message): PayloadAction<Message> => ({
   type: SET_MESSAGE,
   payload: message,
 });

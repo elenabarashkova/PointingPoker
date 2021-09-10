@@ -25,27 +25,23 @@ const MessagesField: React.FC<MessagesFieldProps> = ({
   isLoading, serverError, messages, users, currentUserId, 
 }): ReactElement => {
   console.log('messages:', messages);
-
-  const messagesKeys = Object.keys(messages);
+  console.log('messFiels', currentUserId);
+  
   return (
     <div className={styles.messagesField}>
-      {!messagesKeys.length 
+      {!messages.length 
         ? <p>No messages</p> 
-        : messagesKeys.map((messageKey) => {
-          const { userId, text } = messages[messageKey];
-
-          return (
-            <div className={styles.messageField} key={messageKey}>
-              <p className={styles.message}>{text}</p>
-              <UserCard
-                user={users[userId]}
-                id={userId}
-                currentUserId={currentUserId}
-                size={ElementSize.small}
-              />
-            </div>
-          );
-        })}
+        : messages.map(({ userId, text, messageId }) => (
+          <div className={styles.messageField} key={messageId}>
+            <p className={styles.message}>{text}</p>
+            <UserCard
+              user={users[userId]}
+              id={userId}
+              currentUserId={currentUserId}
+              size={ElementSize.small}
+            />
+          </div>
+        ))}
     </div>
   );
 };
@@ -55,7 +51,7 @@ const mapStateToProps = (state) => ({
   serverError: state.messages.error,
   messages: state.messages.messages,
   users: state.users,
-  currentUserId: state.currentUser,
+  currentUserId: state.currentUserId,
 });
 
 export default connect(mapStateToProps)(MessagesField);
