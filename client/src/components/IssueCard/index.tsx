@@ -1,8 +1,8 @@
-import React from "react";
-import { IssueCardProps } from "src/types/issues";
-import { DeleteButton } from "../shared/buttons/DeleteButton";
-import { EditButton } from "../shared/buttons/EditButton";
-import { IssueItem } from "../shared/IssueItem";
+import React from 'react';
+import { IssueCardProps } from 'src/types/issues';
+import { DeleteButton } from '../shared/buttons/DeleteButton';
+import { EditButton } from '../shared/buttons/EditButton';
+import { IssueItem } from '../shared/IssueItem';
 
 export const IssueCard: React.FC<IssueCardProps> = ({
   id,
@@ -10,7 +10,7 @@ export const IssueCard: React.FC<IssueCardProps> = ({
   theme,
   priority,
   deleteBtnAction,
-  editBtnAction
+  editBtnAction,
 }) => (
   <IssueItem
     id={id}
