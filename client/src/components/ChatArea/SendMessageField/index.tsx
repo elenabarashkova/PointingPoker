@@ -6,7 +6,7 @@ import { ValidationMessages } from 'src/types/validationMessages';
 import { setMessage, setMessageStatusIsLoading, setServerStatusError } from 'src/redux/actions';
 import { connect } from 'react-redux';
 import { sendMessage } from 'src/services/sendMessage';
-import { Message, MessageData } from 'src/types/messages';
+import { Message } from 'src/types/messages';
 import styles from './style.module.scss';
 
 interface SendMessageFieldProps {
@@ -19,7 +19,12 @@ interface SendMessageFieldProps {
 }
 
 const SendMessageField: React.FC<SendMessageFieldProps> = ({
-  roomId, isLoading, serverError, setMessageStatusIsLoading: setMessageStatus, setServerStatusError: setServerStatus, setMessage: setNewMessage, 
+  roomId, 
+  isLoading, 
+  serverError, 
+  setMessageStatusIsLoading: setMessageStatus, 
+  setServerStatusError: setServerStatus, 
+  setMessage: setNewMessage, 
 }): ReactElement => {  
   const [messageInput, setMessageInput] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
@@ -85,7 +90,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setMessageStatusIsLoading: (status: boolean) => dispatch(setMessageStatusIsLoading(status)),
   setServerStatusError: (status: boolean) => dispatch(setServerStatusError(status)),
-  setMessage: (message: MessageData) => dispatch(setMessage(message)),
+  setMessage: (message: Message) => dispatch(setMessage(message)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendMessageField);
