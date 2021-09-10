@@ -1,15 +1,26 @@
 import React, { ReactElement, useState } from 'react';
+import { LinearProgress } from '@material-ui/core';
 import SendMessageButton from 'components/shared/buttons/SendMessageButton';
 import Textarea from 'components/Textarea';
 import { ValidationMessages } from 'src/types/validationMessages';
+import { setMessage, setMessageStatusIsLoading, setServerStatusError } from 'src/redux/actions';
+import { connect } from 'react-redux';
+import { sendMessage } from 'src/services/sendMessage';
+import { Message, MessageData } from 'src/types/messages';
 import styles from './style.module.scss';
 
 interface SendMessageFieldProps {
-  value: string;
-  handleMessage: CallableFunction;
+  roomId: string;
+  isLoading: boolean;
+  serverError: boolean;
+  setMessageStatusIsLoading;
+  setServerStatusError;
+  setMessage;
 }
 
-const SendMessageField: React.FC<SendMessageFieldProps> = ({ value, handleMessage }): ReactElement => {
+const SendMessageField: React.FC<SendMessageFieldProps> = ({
+  roomId, isLoading, serverError, setMessageStatusIsLoading: setMessageStatus, setServerStatusError: setServerStatus, setMessage: setNewMessage, 
+}): ReactElement => {  
   const [messageInput, setMessageInput] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
 
@@ -23,18 +34,21 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({ value, handleMessag
     setMessageInput(textAreaValue); 
   };
 
-  const handleServerError = () => {
-    setValidationMessage(ValidationMessages.error);
-    setMessageInput(value);
-  };
-
-  // todo: если validationMessage === error -> 
-  // показать сообщение об ошибке отправки и отобразить в textarea value -> setMessageInput(value))
-
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (messageInput) {
-      handleMessage(messageInput);
-      setMessageInput('');
+      setMessageStatus(true);
+      try {
+        const message = await sendMessage(roomId, messageInput);
+
+        if (message.messageId) {
+          setMessageStatus(false);
+          setNewMessage(message);
+          setMessageInput('');
+        }
+      } catch (error) {
+        setServerStatus(true);
+        setMessageStatus(false);
+      }  
     } else {
       setValidationMessage(ValidationMessages.emptyField);
     }
@@ -43,25 +57,35 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({ value, handleMessag
   // todo: нажал отправить - меняем status
   // todo: пришел ответ - меняем status; мессeдж -> стор
 
-  // todo: ошибку отображать возле input ?
-
   // messages должны приходить с id ?????
 
-  // todo: валидация инпута
-
   return (
-    
-    <div className={styles.sendMessageField}>
-      <Textarea
-        value={messageInput} 
-        onChange={handleTextArea} 
-        placeholder="Print your message here"
-        errorMessage={validationMessage}
-      />
-      <SendMessageButton onClick={handleSendMessage} />
+    <div className={styles.wrapper}>
+      <div className={styles.sendMessageField}>
+        <Textarea
+          value={messageInput} 
+          onChange={handleTextArea} 
+          placeholder="Print your message here"
+          errorMessage={serverError ? ValidationMessages.error : validationMessage}
+        />
+        <SendMessageButton onClick={handleSendMessage} />
+      
+      </div>
+      { isLoading && <LinearProgress /> }
     </div>
     
   );
 };
 
-export default SendMessageField;
+const mapStateToProps = (state) => ({
+  roomId: state.game.roomId,
+  isLoading: state.messages.isLoading,
+  serverError: state.messages.error,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setMessageStatusIsLoading: (status: boolean) => dispatch(setMessageStatusIsLoading(status)),
+  setServerStatusError: (status: boolean) => dispatch(setServerStatusError(status)),
+  setMessage: (message: MessageData) => dispatch(setMessage(message)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SendMessageField);

@@ -6,5 +6,11 @@ export interface Message {
 export interface Messages {
   error: boolean;
   isLoading: boolean;
-  messages: Array<Message>;
+  messages: Record<string, Message>;
+}
+
+export interface MessageData {
+  messageId: string;
+  message: Message;
+
 }

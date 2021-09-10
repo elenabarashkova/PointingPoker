@@ -26,7 +26,7 @@ export interface GameSettings {
 export interface Room {
   roomId?: string;
   users: Users;
-  messages: Array<Message>;
+  messages: Record<string, string | Message>;
   issues: Array<Issue>;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
