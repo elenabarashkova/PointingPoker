@@ -5,6 +5,7 @@ interface TextareaProps {
   value: string;
   onChange: CallableFunction;
   placeholder: string;
+  errorMessage: string;
 }
 
 const Textarea: FunctionComponent<TextareaProps> = (
@@ -12,6 +13,7 @@ const Textarea: FunctionComponent<TextareaProps> = (
     value,
     onChange,
     placeholder,
+    errorMessage,
   },
 ): ReactElement => {
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -21,7 +23,7 @@ const Textarea: FunctionComponent<TextareaProps> = (
   return (
     <label
       htmlFor="message"
-      className={styles.label}
+      className={`${styles.label} ${errorMessage && styles.error}`}
     >
       <textarea
         id="message"
@@ -30,6 +32,7 @@ const Textarea: FunctionComponent<TextareaProps> = (
         onChange={handleChange}
         placeholder={placeholder}
       />
+      {errorMessage && <span>{errorMessage}</span>}
     </label>
   );
 };
