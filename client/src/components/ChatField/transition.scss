@@ -1,0 +1,26 @@
+@keyframes show-chat{
+  0% {
+    opacity: 0;
+    transform: translateX(1500px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(500px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.chat {
+ transition: .8s;
+}
+.chat-show {
+  animation: show-chat .5s forwards;
+
+}
+.chat-active {
+  opacity: 1;
+}
+.chat-exit {
+  animation: show-chat .5s reverse;
+}
