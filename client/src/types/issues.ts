@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export type IssueStatistics = Array<string>;
 export type IssueVote = Array<string>;
@@ -30,8 +30,9 @@ export interface IssueData {
 }
 
 export enum IssuePriority {
-  low = "low",
-  high = "high"
+  low = 'low',
+  middle = 'middle',
+  hight = 'hight',
 }
 
 export interface IssueProps {
@@ -54,4 +55,8 @@ export interface IssueCardProps extends IssueProps {
 
 export interface CreateIssueProps {
   addBtnAction: () => void;
+}
+
+export interface CreateIssueModalProps {
+  isOpen: boolean;
 }
