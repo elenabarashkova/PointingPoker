@@ -1,0 +1,10 @@
+@import '../../../scss/variables.scss';
+
+.sendMessageField {
+  font-family: $font-family-second;
+  color: #2d5b74;
+  width: 50%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
