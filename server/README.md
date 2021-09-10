@@ -206,7 +206,7 @@ socket.emit("SEND_MESSAGE", { roomId, text }, (response) => { console.log(respon
 
 ##### Success response
 
-{ status: 200, data: {userId: string, text: string} }
+{ status: 200, data: {userId: string, text: string, messageId: string} }
 
 ##### Error response
 
@@ -215,7 +215,7 @@ socket.emit("SEND_MESSAGE", { roomId, text }, (response) => { console.log(respon
 ###### Other users in this room should listen event:
 
 - event: **RECEIVE_MESSAGE**
-- data: **{userId: string, text: string}**
+- data: **{userId: string, text: string, messageId: string}**
 
 ---
 
