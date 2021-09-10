@@ -1,53 +1,61 @@
 import React, { ReactElement } from 'react';
 import { ElementSize } from 'src/types/additional';
 import UserCard from 'components/shared/UserCard';
-import { UserRole } from 'src/types/user';
+import { User, UserRole, Users } from 'src/types/user';
+import { connect } from 'react-redux';
 import styles from './style.module.scss';
 
-const MessagesField: React.FC = (): ReactElement => {
-  // todo: нажал отправить - меняем status
-  // todo: пришел ответ - меняем status; мессeдж -> стор
+interface MessagesFieldProps {
+  isLoading: boolean;
+  serverError: boolean;
+  messages: any;
+  users: Users;
+  currentUserId: string;
+}
 
-  // todo: ошибку отображать возле input ?
+// export interface User {
+//   name: string;
+//   role: keyof typeof UserRole;
+//   jobPosition: string;
+//   image: string;
+//   status?: keyof typeof UserStatus;
+// }
 
-  // messages должны приходить с id ?????
+const MessagesField: React.FC<MessagesFieldProps> = ({
+  isLoading, serverError, messages, users, currentUserId, 
+}): ReactElement => {
+  console.log('messages:', messages);
 
-  // todo: валидация инпута
-
-  const messages = [{
-    text: 'string',
-    userId: 'string', 
-  }, {
-    text: 'string',
-    userId: 'string', 
-  }, {
-    text: 'string',
-    userId: 'string', 
-  }];
-
-  const id = [1, 2, 3];
-
+  const messagesKeys = Object.keys(messages);
   return (
     <div className={styles.messagesField}>
-      {messages.map(({ text, userId }, index) => (
-        <div className={styles.messageField} key={id[index]}>
-          <p className={styles.message}>{text}</p>
-          <UserCard
-            user={{
-              name: 'string string',
-              role: UserRole.player,
-              jobPosition: 'string string',
-              image: '', 
-            }}
-            id={userId}
-            currentUserId="1"
-            size={ElementSize.small}
-          />
-        </div>
-      ))}
+      {!messagesKeys.length 
+        ? <p>No messages</p> 
+        : messagesKeys.map((messageKey) => {
+          const { userId, text } = messages[messageKey];
+
+          return (
+            <div className={styles.messageField} key={messageKey}>
+              <p className={styles.message}>{text}</p>
+              <UserCard
+                user={users[userId]}
+                id={userId}
+                currentUserId={currentUserId}
+                size={ElementSize.small}
+              />
+            </div>
+          );
+        })}
     </div>
-    
   );
 };
 
-export default MessagesField;
+const mapStateToProps = (state) => ({
+  isLoading: state.messages.isLoading,
+  serverError: state.messages.error,
+  messages: state.messages.messages,
+  users: state.users,
+  currentUserId: state.currentUser,
+});
+
+export default connect(mapStateToProps)(MessagesField);

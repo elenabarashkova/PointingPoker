@@ -8,5 +8,8 @@ export const SET_GAME_STATUS = 'SET_GAME_STATUS';
 export const SET_ALL_GAME_SETTINGS = 'SET_ALL_GAME_SETTINGS';
 
 export const SET_MESSAGES = 'SET_MESSAGES';
+export const SET_MESSAGE = 'SET_MESSAGE';
+export const SET_IS_LOADING = 'SET_IS_LOADING';
+export const SET_SERVER_ERROR = 'SET_SERVER_ERROR';
 
 export const SET_ISSUES = 'SET_ISSUES';
