@@ -1,0 +1,44 @@
+@import "../../../scss/variables.scss";
+
+.issueCard {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Montserrat";
+  padding: 20px;
+}
+
+.issueInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.currentIssue {
+  background: rgba(96, 218, 191, 0.33);
+}
+
+.current {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  text-transform: uppercase;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 30px;
+}
+
+.theme {
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.priority {
+  font-weight: 300;
+  font-size: 10px;
+  line-height: 12px;
+}
