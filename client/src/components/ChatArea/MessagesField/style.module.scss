@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-height: calc(100vh - 106px - 25px - 110px);
+  overflow: auto;
   .messageField {
     display: flex;
     justify-content: space-between;
