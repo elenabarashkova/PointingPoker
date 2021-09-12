@@ -1,9 +1,9 @@
-import { addUser } from "../../actions/user/addUser";
-import { UserEvents } from "../../constants/events";
-import { handleError } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { EventCallback } from "../../types/callbacks";
-import { NewUserData } from "../../types/data";
+import { addUser } from '../../actions/user/addUser';
+import { UserEvents } from '../../constants/events';
+import { handleError } from '../../helpers';
+import { HandlerParams } from '../../types';
+import { EventCallback } from '../../types/callbacks';
+import { NewUserData } from '../../types/data';
 
 export const joinRoomHandler =
   ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
@@ -27,7 +27,7 @@ export const joinRoomHandler =
           user: joinedUser,
         });
       } else {
-        callback({ status: 404, data: "Room not found" });
+        callback({ status: 404, data: 'Room not found' });
         socket.disconnect();
       }
     } catch {

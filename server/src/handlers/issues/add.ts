@@ -1,9 +1,9 @@
-import { addIssue } from "../../actions/issue/add";
-import { IssueEvents } from "../../constants/events";
-import { getRoom, handleError } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { EventCallback } from "../../types/callbacks";
-import { NewIssueData } from "../../types/data";
+import { addIssue } from '../../actions/issue/add';
+import { IssueEvents } from '../../constants/events';
+import { getRoom, handleError } from '../../helpers';
+import { HandlerParams } from '../../types';
+import { EventCallback } from '../../types/callbacks';
+import { NewIssueData } from '../../types/data';
 
 export const addIssueHandler =
   ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>

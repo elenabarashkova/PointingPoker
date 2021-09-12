@@ -1,9 +1,9 @@
-import { Server } from "socket.io";
-import { getVoteResults } from "../../actions/user/vote";
-import { KickUserEvents } from "../../constants/events";
-import { getRoom } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { VotingData } from "../../types/data";
+import { Server } from 'socket.io';
+import { getVoteResults } from '../../actions/user/vote';
+import { KickUserEvents } from '../../constants/events';
+import { getRoom } from '../../helpers';
+import { HandlerParams } from '../../types';
+import { VotingData } from '../../types/data';
 
 export const kickUserVotingHandler =
   (io: Server, { socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
@@ -36,6 +36,6 @@ export const kickUserVotingHandler =
         io.to(kickedUserId).disconnectSockets();
       }
     } catch {
-      socket.emit("error", { status: 500, message: "error" });
+      socket.emit('error', { status: 500, message: 'error' });
     }
   };

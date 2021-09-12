@@ -1,5 +1,5 @@
-import { Room, StoreSchema } from "../../types/room";
-import { User, UserStatus } from "../../types/user";
+import { Room } from '../../types/room';
+import { User, UserStatus } from '../../types/user';
 
 export const changeUserStatus = (
   room: Room,
@@ -16,11 +16,18 @@ export const changeUserStatus = (
 };
 
 export const addDisconnectedStatus = (
-  store: StoreSchema,
-  roomId: string,
+  room: Room,
   userId: string
-): void => {
-  if (store[roomId].users[userId].status === UserStatus.active) {
-    store[roomId].users[userId].status = UserStatus.disconnected;
+): { updatedRoom: Room | undefined; disconnectedUser: User | undefined } => {
+  const user = room.users[userId];
+  if (user.status === UserStatus.active) {
+    const disconnectedUser = { ...user, status: UserStatus.disconnected };
+    const updatedRoom = {
+      ...room,
+      users: { ...room.users, [userId]: disconnectedUser },
+    };
+    return { updatedRoom, disconnectedUser };
   }
+
+  return { updatedRoom: undefined, disconnectedUser: undefined };
 };

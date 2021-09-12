@@ -1,8 +1,8 @@
-import { kickUser, userCanNotBeKicked } from "../../actions/user/kick";
-import { KickUserEvents } from "../../constants/events";
-import { getRoom } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { UserData } from "../../types/data";
+import { kickUser, userCanNotBeKicked } from '../../actions/user/kick';
+import { KickUserEvents } from '../../constants/events';
+import { getRoom } from '../../helpers';
+import { HandlerParams } from '../../types';
+import { UserData } from '../../types/data';
 
 export const kickUserHandler =
   ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
@@ -28,12 +28,6 @@ export const kickUserHandler =
         .except(userId)
         .emit(KickUserEvents.userIsKicked, response);
     } catch (error) {
-      socket.emit("error", { status: 500, message: "error" });
+      socket.emit('error', { status: 500, message: 'error' });
     }
   };
-
-// export const disconnectingUserHandler = (socket: Socket) => (): void => {
-//   const [userId, roomId] = Array.from(socket.rooms);
-//   addDisconnectStatus(store, roomId, userId);
-//   console.log(store[roomId].users[userId]);
-// };

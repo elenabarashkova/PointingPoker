@@ -344,4 +344,17 @@ socket.emit("UPDATE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ---
 
+---
+
+---
+
+##### - IF USER DISCONNECTS (due to network problems):
+
+###### Other users in this room should listen event:
+
+- event: **USER_DISCONNECTED**
+- data: **{ disconnectedUserId, disconnectedUser }**
+
+---
+
 ##### For client app you can use socket.io-client
