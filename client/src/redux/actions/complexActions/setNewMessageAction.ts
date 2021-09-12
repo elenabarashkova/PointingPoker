@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux';
 import { setMessage, setMessageStatusIsLoading, setServerStatusError } from 'src/redux/actions/messages';
 import { ERROR_RESULT } from 'src/services/constants';
-import { sendMessage } from 'src/services/sendMessage';
-import { SendMessageResultType } from '../../../services/sendMessage';
+import { sendMessage } from 'src/services/messages/sendMessage';
+import { SendMessageResultType } from '../../../services/messages/sendMessage';
 
 export const setNewMessageAction = (
   cleanUpMessageInput: CallableFunction, 

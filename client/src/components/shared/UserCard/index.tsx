@@ -25,11 +25,6 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const isUserCurrentUser = (id === currentUserId);
 
-  const handleClick = () => {
-    console.log('id', id);
-    // todo: отправить запрос на сервер с currentUserId и id для удаления игрока
-  };
-
   return (
     <div className={`${styles.userCard} ${styles[size]} ${role === UserRole.master && styles.master}`}>
       {(role === UserRole.master && size === ElementSize.big) 
@@ -41,7 +36,7 @@ const UserCard: React.FC<UserCardProps> = ({
           <p className={styles.userName}>{name}</p>
           <p className={styles.jobPosition}>{jobPosition}</p>
         </div>
-        {(!isUserCurrentUser && role !== UserRole.master) && <KickButton onClick={handleClick} />}
+        {(!isUserCurrentUser && role !== UserRole.master) && <KickButton userId={id} />}
       </div>
     </div>
   );
