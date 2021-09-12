@@ -84,3 +84,10 @@
     height: 40px;
   }
 }
+.nonActiveUser {
+  background-color: rgba(128, 128, 128, 0.397);
+  border-color: grey;
+  .noActiveStatus {
+    font-size: 12px;
+  }
+}
