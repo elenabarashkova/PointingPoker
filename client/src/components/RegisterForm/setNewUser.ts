@@ -1,18 +1,15 @@
-import { Dispatch } from 'redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { Pages } from 'src/types/page';
+import { Dispatch } from 'redux';
+import { setAllGameSettings, setGameStatus } from 'src/redux/actions/game';
+import { setIssuesAction } from 'src/redux/actions/issues';
+import { setMessages } from 'src/redux/actions/messages';
+import { setRoomIdAction } from 'src/redux/actions/room';
+import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { joinRoom } from 'src/services/joinRoom';
-import { User, UserRole } from '../../types/user';
+import { Pages } from 'src/types/page';
 import { createRoom } from '../../services/createRoom';
-import { RoomData, Room } from '../../types/room';
-import {
-  setUsersAction,
-  setCurrentUserAction,
-  setRoomIdAction,
-  setGameStatus,
-  setAllGameSettings,
-  setMessages, setIssues,
-} from '../../redux/actions';
+import { Room, RoomData } from '../../types/room';
+import { User, UserRole } from '../../types/user';
 
 export const setNewUser = (
   fieldsState: Record<string, string>,
@@ -23,13 +20,14 @@ export const setNewUser = (
   const newUser: User = {
     name: `${fieldsState.firstName} ${fieldsState.lastName}`,
     role: userRole,
-    jobPosition: (fieldsState.jobPosition as string),
-    image: (fieldsState.image as string),
+    jobPosition: fieldsState.jobPosition as string,
+    image: fieldsState.image as string,
   };
 
   if (userRole === UserRole.master) {
+
     const { roomId, room } = await createRoom(newUser) as RoomData;
-    console.log(roomId);
+
     const { users } = room;
 
     dispatch(setUsersAction(users));
@@ -40,21 +38,18 @@ export const setNewUser = (
       history.push(`/${Pages.settings}`);
     }
   } else {
-    const { room, roomId, userId } = await joinRoom(gameIdInput, newUser) as RoomData;
+    const { room, roomId, userId } = (await joinRoom(gameIdInput, newUser)) as RoomData;
     const {
-      users,
-      messages,
-      issues,
-      gameStatus,
-      gameSettings,
+      users, messages, issues, gameStatus, gameSettings, 
     } = room as Room;
+
     dispatch(setUsersAction(users));
     dispatch(setCurrentUserAction(userId));
     dispatch(setRoomIdAction(roomId));
     dispatch(setGameStatus(gameStatus));
     dispatch(setAllGameSettings(gameSettings));
     dispatch(setMessages(messages));
-    dispatch(setIssues(issues));
+    dispatch(setIssuesAction(issues));
 
     if (userId) {
       history.push(`/${Pages.lobby}`);
