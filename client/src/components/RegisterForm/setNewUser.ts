@@ -38,7 +38,7 @@ export const setNewUser = (
   } else {
     const { room, roomId, userId } = (await joinRoom(gameIdInput, newUser)) as RoomData;
     const {
-      users, messages, issues, gameStatus, gameSettings, 
+      users, messages, issuesStore, gameStatus, gameSettings, 
     } = room as Room;
 
     dispatch(setUsersAction(users));
@@ -47,7 +47,7 @@ export const setNewUser = (
     dispatch(setGameStatus(gameStatus));
     dispatch(setAllGameSettings(gameSettings));
     dispatch(setMessages(messages));
-    dispatch(setIssuesAction(issues));
+    dispatch(setIssuesAction(issuesStore));
 
     if (userId) {
       history.push(`/${Pages.lobby}`);

@@ -1,6 +1,9 @@
 import { io } from 'socket.io-client';
 
-export const socket = io('https://arcane-thicket-43676.herokuapp.com/', { transports: ['websocket', 'polling'] });
+export const socket = io('https://arcane-thicket-43676.herokuapp.com/', {
+  transports: ['websocket', 'polling'],
+});
+console.log(io);
 
 export enum ResponseStatus {
   ok = 200,
