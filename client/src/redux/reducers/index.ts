@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
-import { users } from './setUsers';
 import { currentUserId } from './currentUser';
 import { game } from './game';
 import { gameSettings } from './gameSettings';
+import { issuesStore } from './issues';
 import { messages } from './messages';
-import { issues } from './issues';
+import { users } from './setUsers';
 
 export default combineReducers({
   users,
   currentUserId,
   messages,
-  issues,
+  issuesStore,
   game,
   gameSettings,
 });

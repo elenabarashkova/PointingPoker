@@ -8,7 +8,7 @@ interface IconButtonProps {
 }
 
 const IconButton: React.FC<IconButtonProps> = ({ onClick, imageUrl, btnStyle }) => (
-  <button type="button" className={`${styles.btn} ${btnStyle || ''}`} onClick={onClick}>
+  <button type="button" className={`${styles.btn} ${btnStyle}`} onClick={onClick}>
     <img src={imageUrl} className={styles.icon} alt="" />
   </button>
 );

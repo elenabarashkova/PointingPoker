@@ -15,6 +15,7 @@ export interface ModalProps {
   yesBtnOnClick(MouseEvent): void;
   noBtnNoTitle: string;
   noBtnNoOnClick(MouseEvent): void;
+  loading?: boolean;
 }
 
 export const Modal: FunctionComponent<ModalProps> = ({
@@ -26,6 +27,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
   yesBtnOnClick,
   noBtnNoTitle,
   noBtnNoOnClick,
+  loading,
 }): ReactElement => (
   <div>
     <Dialog className={styles.modal} open={isOpen} onClose={onClose}>
@@ -33,7 +35,12 @@ export const Modal: FunctionComponent<ModalProps> = ({
         <DialogTitle className={styles.title}>{modalTitle}</DialogTitle>
         <DialogContent className={styles.component}>{Component}</DialogContent>
         <DialogActions className={styles.buttons}>
-          <Button action={yesBtnOnClick} variant="colored" content={yesBtnTitle} />
+          <Button
+            action={yesBtnOnClick}
+            variant="colored"
+            content={yesBtnTitle}
+            loading={loading}
+          />
           <Button action={noBtnNoOnClick} variant="bordered" content={noBtnNoTitle} />
         </DialogActions>
       </div>
