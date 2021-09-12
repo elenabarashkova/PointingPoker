@@ -1,10 +1,11 @@
 export interface Message {
-  text: string;
   userId: string;
+  text: string;
+  messageId: string;
 }
 
 export interface Messages {
   error: boolean;
   isLoading: boolean;
-  messages: Array<Message>;
+  messages: Message[];
 }

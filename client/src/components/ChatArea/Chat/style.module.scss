@@ -1,0 +1,12 @@
+@import '../../../scss/variables.scss';
+
+.chat {
+  padding: 10px 10px 15px;
+  width: 500px;
+  border: 1px solid black;
+  margin-top: 20px;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  max-height: calc(100vh - 106px);
+}
+

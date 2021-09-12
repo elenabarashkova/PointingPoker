@@ -16,7 +16,7 @@ interface UserCardProps {
 const UserCard: React.FC<UserCardProps> = ({
   user, id, currentUserId, size, 
 }): ReactElement => {
-  // приходит юзер, у которого статус UserStatus.active
+  // если статус не UserStatus.active, перекрасить в серый цвет
 
   const { 
     name, role, jobPosition, image, 
@@ -27,7 +27,7 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const handleClick = () => {
     console.log('id', id);
-    // todo: отправить запрос на сервер с currentUserId и id
+    // todo: отправить запрос на сервер с currentUserId и id для удаления игрока
   };
 
   return (
