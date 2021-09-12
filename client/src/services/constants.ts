@@ -25,6 +25,7 @@ export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 export const KICK_USER = 'KICK_USER';
 export const YOU_ARE_KICKED = 'YOU_ARE_KICKED';
 export const USER_IS_KICKED = 'USER_IS_KICKED';
+export const DELETE_USER = 'DELETE_USER';
 export const YOU_ARE_DELETED = 'YOU_ARE_DELETED';
 export const USER_IS_DELETED = 'USER_IS_DELETED';
 export const YOU_ARE_NOT_DELETED = 'YOU_ARE_NOT_DELETED';
