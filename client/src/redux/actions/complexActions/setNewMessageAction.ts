@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { setMessage, setMessageStatusIsLoading, setServerStatusError } from 'src/redux/actions';
+import { setMessage, setMessageStatusIsLoading, setServerStatusError } from 'src/redux/actions/messages';
 import { ERROR_RESULT } from 'src/services/constants';
 import { sendMessage } from 'src/services/sendMessage';
 import { SendMessageResultType } from '../../../services/sendMessage';

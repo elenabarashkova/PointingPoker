@@ -11,8 +11,9 @@ import ErrorPage from './pages/ErrorPage';
 import { socket } from './services/constants';
 import { AppDispatch } from './redux/store';
 import { UserData } from './types/user';
-import { setMessage, setUser } from './redux/actions';
 import { Message } from './types/messages';
+import { setUser } from './redux/actions/user';
+import { setMessage } from './redux/actions/messages';
 
 interface AppProps extends RouteComponentProps {
   setUser: CallableFunction;
