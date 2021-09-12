@@ -30,3 +30,5 @@ export const USER_IS_DELETED = 'USER_IS_DELETED';
 export const YOU_ARE_NOT_DELETED = 'YOU_ARE_NOT_DELETED';
 export const USER_IS_NOT_DELETED = 'USER_IS_NOT_DELETED';
 export const KICKING_VOTE = 'KICKING_VOTE';
+
+export const ERROR_RESULT = 'error';

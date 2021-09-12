@@ -6,7 +6,7 @@ import { gameSettings } from './gameSettings';
 import { messages } from './messages';
 import { issues } from './issues';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   users,
   currentUserId,
   messages,
@@ -14,3 +14,6 @@ export default combineReducers({
   game,
   gameSettings,
 });
+
+export default rootReducer;
+export type RootState = ReturnType<typeof rootReducer>;
