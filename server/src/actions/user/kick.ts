@@ -4,7 +4,7 @@ import { User, UserRole, UserStatus } from "../../types/user";
 export const kickUser = (
   room: Room,
   userId: string
-): { updatedRoom: Room; updatedUser: User } => {
+): { updatedRoom: Room; kickedUser: User } => {
   const votingUsersInRoom = Object.entries(room.users).filter(
     ([id, { status }]) => id !== userId && status === UserStatus.active
   );
@@ -12,17 +12,17 @@ export const kickUser = (
     id: id,
     vote: undefined,
   }));
-  const updatedUser = {
+  const kickedUser = {
     ...room.users[userId],
     status: UserStatus.kicked,
     kickingVote,
   };
   const updatedRoom = {
     ...room,
-    users: { ...room.users, [userId]: updatedUser },
+    users: { ...room.users, [userId]: kickedUser },
   };
 
-  return { updatedRoom, updatedUser };
+  return { updatedRoom, kickedUser };
 };
 
 export const userCanNotBeKicked = (

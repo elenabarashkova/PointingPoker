@@ -13,4 +13,10 @@ export const SET_MESSAGE = 'SET_MESSAGE';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_SERVER_ERROR = 'SET_SERVER_ERROR';
 
+export const SEND_REQUEST = 'SEND_REQUEST';
+export const SET_ERROR = 'SET_ERROR';
+
 export const SET_ISSUES = 'SET_ISSUES';
+export const ADD_ISSUE = 'ADD_ISSUE';
+export const UPDATE_ISSUE = 'UPDATE_ISSUE';
+export const DELETE_ISSUE = 'DELETE_ISSUE';

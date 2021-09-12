@@ -27,3 +27,9 @@ export interface UserData {
 }
 
 export type Users = Record<string, User>;
+
+export interface UsersStore {
+  error: boolean;
+  isLoading: boolean;
+  users: Users;
+}
