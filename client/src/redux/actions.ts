@@ -5,16 +5,22 @@ import {
   SET_ROOM_ID,
   SET_IS_ROOM_VALID,
   SET_GAME_STATUS,
-  SET_ALL_GAME_SETTINGS, SET_MESSAGES, SET_IS_LOADING, SET_SERVER_ERROR, SET_ISSUES, SET_MESSAGE,
+  SET_ALL_GAME_SETTINGS, SET_MESSAGES, SET_IS_LOADING, SET_SERVER_ERROR, SET_ISSUES, SET_MESSAGE, SET_USER,
 } from './action-types';
-import { Users } from '../types/user';
+import { UserData, Users } from '../types/user';
 import { GameSettings } from '../types/room';
 import { Message } from '../types/messages';
 import { Issue } from '../types/issues';
+import { MessageAction } from './reducers/messages';
 
 export const setUsersAction = (users: Users): PayloadAction<Users> => ({
   type: SET_USERS,
   payload: users,
+});
+
+export const setUser = (userData: UserData): PayloadAction<UserData> => ({
+  type: SET_USER,
+  payload: userData,
 });
 
 export const setCurrentUserAction = (userId: string): PayloadAction<string> => ({
@@ -42,24 +48,24 @@ export const setAllGameSettings = (gameSettings: GameSettings): PayloadAction<Ga
   payload: gameSettings,
 });
 
-export const setMessages = (messages: Message[]): PayloadAction<Message[]> => ({
+export const setMessages = (messages: Message[]): MessageAction => ({
   type: SET_MESSAGES,
-  payload: messages,
+  messages,
 });
 
-export const setMessage = (message: Message): PayloadAction<Message> => ({
+export const setMessage = (message: Message): MessageAction => ({
   type: SET_MESSAGE,
-  payload: message,
+  message,
 });
 
-export const setMessageStatusIsLoading = (isLoading: boolean): PayloadAction<boolean> => ({
+export const setMessageStatusIsLoading = (isLoading: boolean): MessageAction => ({
   type: SET_IS_LOADING,
-  payload: isLoading,
+  isLoading,
 });
 
-export const setServerStatusError = (isError: boolean): PayloadAction<boolean> => ({
+export const setServerStatusError = (isError: boolean): MessageAction => ({
   type: SET_SERVER_ERROR,
-  payload: isError,
+  isError,
 });
 
 export const setIssues = (issues: Array<Issue>): PayloadAction<Array<Issue>> => ({

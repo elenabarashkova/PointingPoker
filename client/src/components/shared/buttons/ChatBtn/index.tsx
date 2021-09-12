@@ -4,9 +4,10 @@ import styles from './style.module.scss';
 
 interface ChatBtnProps {
   openCloseChat: CallableFunction;
+  isMessagesUnshown: boolean;
 }
 
-const ChatBtn: React.FC<ChatBtnProps> = ({ openCloseChat }): ReactElement => {
+const ChatBtn: React.FC<ChatBtnProps> = ({ openCloseChat, isMessagesUnshown }): ReactElement => {
   const handleClick = () => {
     openCloseChat();
   }; 
@@ -14,6 +15,7 @@ const ChatBtn: React.FC<ChatBtnProps> = ({ openCloseChat }): ReactElement => {
   return (
     
     <button type="button" className={styles.chatBtn} onClick={handleClick}>
+      {isMessagesUnshown && <div className={styles.newMessagesIndicator} />}
       <img src={ChatIco} alt="" className={styles.chatIco} />
     </button>
     

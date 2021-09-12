@@ -21,4 +21,9 @@ export interface User {
   status?: keyof typeof UserStatus;
 }
 
+export interface UserData {
+  userId: string;
+  user: User;
+}
+
 export type Users = Record<string, User>;

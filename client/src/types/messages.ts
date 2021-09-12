@@ -1,6 +1,6 @@
 export interface Message {
   userId: string;
-  test: string;
+  text: string;
   messageId: string;
 }
 
