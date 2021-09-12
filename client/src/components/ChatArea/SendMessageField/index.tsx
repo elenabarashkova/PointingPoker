@@ -3,31 +3,31 @@ import { LinearProgress } from '@material-ui/core';
 import SendMessageButton from 'components/shared/buttons/SendMessageButton';
 import Textarea from 'components/Textarea';
 import { ValidationMessages } from 'src/types/validationMessages';
-import { setMessage, setMessageStatusIsLoading, setServerStatusError } from 'src/redux/actions';
 import { connect } from 'react-redux';
-import { sendMessage } from 'src/services/sendMessage';
-import { Message } from 'src/types/messages';
+import useTypedSelector from 'src/hooks/useTypedSelector';
+import { RootState } from 'src/redux/reducers';
 import styles from './style.module.scss';
+import { setNewMessageAction } from './setNewMessageAction';
 
 interface SendMessageFieldProps {
-  roomId: string;
   isLoading: boolean;
   serverError: boolean;
-  setMessageStatusIsLoading;
-  setServerStatusError;
-  setMessage;
+  setNewMessage: CallableFunction;
 }
 
 const SendMessageField: React.FC<SendMessageFieldProps> = ({
-  roomId, 
   isLoading, 
   serverError, 
-  setMessageStatusIsLoading: setMessageStatus, 
-  setServerStatusError: setServerStatus, 
-  setMessage: setNewMessage, 
+  setNewMessage, 
 }): ReactElement => {  
   const [messageInput, setMessageInput] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
+
+  const roomId = useTypedSelector((state) => state.game.roomId);
+
+  const cleanUpMessageInput = () => {
+    setMessageInput('');
+  };
 
   const handleTextArea = (textAreaValue: string) => {
     if (validationMessage) {
@@ -39,30 +39,13 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
     setMessageInput(textAreaValue); 
   };
 
-  const handleSendMessage = async () => {
-    if (messageInput) {
-      setMessageStatus(true);
-      try {
-        const message = await sendMessage(roomId, messageInput);
-
-        if (message.messageId) {
-          setMessageStatus(false);
-          setNewMessage(message);
-          setMessageInput('');
-        }
-      } catch (error) {
-        setServerStatus(true);
-        setMessageStatus(false);
-      }  
-    } else {
+  const handleSendMessage = () => {
+    if (!messageInput) {
       setValidationMessage(ValidationMessages.emptyField);
+    } else {
+      setNewMessage(cleanUpMessageInput, roomId, messageInput);
     }
   };
-
-  // todo: нажал отправить - меняем status
-  // todo: пришел ответ - меняем status; мессeдж -> стор
-
-  // messages должны приходить с id ?????
 
   return (
     <div className={styles.wrapper}>
@@ -82,15 +65,9 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  roomId: state.game.roomId,
+const mapStateToProps = (state: RootState) => ({
   isLoading: state.messages.isLoading,
   serverError: state.messages.error,
 });
-const mapDispatchToProps = (dispatch) => ({
-  setMessageStatusIsLoading: (status: boolean) => dispatch(setMessageStatusIsLoading(status)),
-  setServerStatusError: (status: boolean) => dispatch(setServerStatusError(status)),
-  setMessage: (message: Message) => dispatch(setMessage(message)),
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SendMessageField);
+export default connect(mapStateToProps, { setNewMessage: setNewMessageAction })(SendMessageField);

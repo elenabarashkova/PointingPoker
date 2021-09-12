@@ -48,7 +48,6 @@ export const setNewUser = (
       gameStatus,
       gameSettings,
     } = room as Room;
-    console.log('joinRoom:', messages);
     dispatch(setUsersAction(users));
     dispatch(setCurrentUserAction(userId));
     dispatch(setRoomIdAction(roomId));

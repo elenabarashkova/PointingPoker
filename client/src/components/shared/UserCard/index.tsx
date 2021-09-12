@@ -24,7 +24,6 @@ const UserCard: React.FC<UserCardProps> = ({
   const [firstName, lastName] = name.split(' ');
 
   const isUserCurrentUser = (id === currentUserId);
-  console.log('id', id, 'currentUserId', currentUserId);
 
   const handleClick = () => {
     console.log('id', id);
