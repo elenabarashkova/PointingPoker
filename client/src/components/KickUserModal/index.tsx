@@ -23,7 +23,6 @@ const KickUserModal: React.FC<KickUserModalProps> = ({
   const handleSubmitBtn = () => {
     if (currentUserRole === UserRole.master) {
       deleteUserByMaster(roomId, userIdToBeKicked);
-      // todo: DELETE_USER
     } else {
       // todo: KICK_USER
     }

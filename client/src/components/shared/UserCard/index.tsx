@@ -26,7 +26,10 @@ const UserCard: React.FC<UserCardProps> = ({
   const isUserCurrentUser = (id === currentUserId);
 
   return (
-    <div className={`${styles.userCard} ${styles[size]} ${role === UserRole.master && styles.master} ${status !== UserStatus.active && styles.nonActiveUser}`}>
+    <div className={`${styles.userCard} ${styles[size]} 
+      ${role === UserRole.master && styles.master} 
+      ${status !== UserStatus.active && styles.nonActiveUser}`}
+    >
       {(role === UserRole.master && size === ElementSize.big) 
       && <img src={crown} alt="crown" className={styles.crown} />}
       <div className={styles.wrapper}>

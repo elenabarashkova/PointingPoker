@@ -18,9 +18,10 @@ import { setMessage } from './redux/actions/messages';
 interface AppProps extends RouteComponentProps {
   setUser: CallableFunction;
   setMessage: CallableFunction;
+  setUserDeleted: CallableFunction;
 }
 
-const App: FunctionComponent<AppProps> = ({ setUser: setNewUser, setMessage: setNewMessage }): ReactElement => {
+const App: FunctionComponent<AppProps> = ({ setUser: setNewUser, setMessage: setNewMessage, setUserDeleted: setUserDeletedStatus }): ReactElement => {
   useEffect(() => {
     socket.on('USER_CONNECTED', (data) => {
       setNewUser(data);
@@ -28,7 +29,14 @@ const App: FunctionComponent<AppProps> = ({ setUser: setNewUser, setMessage: set
     socket.on('RECEIVE_MESSAGE', (data) => {
       setNewMessage(data);
     });
-  }, [setNewUser, setNewMessage]);
+    socket.on('USER_IS_DELETED', (data) => {
+      setUserDeletedStatus(data);
+    });
+    socket.on('YOU_ARE_DELETED', (data) => {
+      // setUserDeletedStatus(data);
+      // todo: перенаправить на другую страницу?
+    });
+  }, []);
 
   return (
     <Switch>
@@ -55,6 +63,7 @@ const App: FunctionComponent<AppProps> = ({ setUser: setNewUser, setMessage: set
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setUser: (userData: UserData) => dispatch(setUser(userData)),
   setMessage: (message: Message) => dispatch(setMessage(message)),
+  setUserDeleted: (userData: UserData) => dispatch(setUser(userData)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

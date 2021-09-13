@@ -20,7 +20,7 @@ const KickButton: React.FC<KickButtonProps> = ({ users, userId }): ReactElement 
   
   const currentUserId = useTypedSelector((state) => state.currentUserId);
   const currentUserRole = users[currentUserId].role;
-  const usersNumber = Object.keys(users).length - 1;
+  const usersNumber = Object.values(users).filter((user) => user.role !== UserRole.master).length;
 
   const disabled = ((currentUserRole !== UserRole.master && usersNumber < 3) || isModalOpen);
 
