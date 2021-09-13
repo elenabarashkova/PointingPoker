@@ -25,10 +25,6 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
 
   const roomId = useTypedSelector((state) => state.game.roomId);
 
-  const cleanUpMessageInput = () => {
-    setMessageInput('');
-  };
-
   const handleTextArea = (textAreaValue: string) => {
     if (validationMessage) {
       setValidationMessage('');
@@ -43,7 +39,7 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
     if (!messageInput) {
       setValidationMessage(ValidationMessages.emptyField);
     } else {
-      setNewMessage(cleanUpMessageInput, roomId, messageInput);
+      setNewMessage({ onSuccess: () => setMessageInput('') }, roomId, messageInput);
     }
   };
 
