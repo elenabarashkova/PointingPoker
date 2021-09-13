@@ -1,5 +1,4 @@
 import { Message } from 'src/types/messages';
-import { RoomData } from 'src/types/room';
 import {
   ResponseStatus, SEND_MESSAGE, ERROR_RESULT, socket, 
 } from '../constants';
