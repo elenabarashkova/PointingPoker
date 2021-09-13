@@ -134,7 +134,19 @@ socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(respo
 
 {userId: user who you wont to kick, roomId: string}
 
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("KICK_USER", { userId, roomId }, (response) => { console.log(response) });
+
 ##### Success response
+
+{ status: 200, data: { kickedUserId: string, kickedUser: kickedUserObject} }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### IF RESPONSE WAS SUCCESS
 
 ###### Kicked user:
 
@@ -145,11 +157,6 @@ socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(respo
 
 - event: **USER_IS_KICKED**
 - data: **{ kickInitiator: string, kickedUserId: string, kickedUser: kickedUserObject}** _Kicked User has status "kicked"_
-
-##### Error response
-
-- event: **error**
-- data: **{ status: 500, message: "error" }**
 
 ##### Master can not be kicked, user cannot kick himself!
 

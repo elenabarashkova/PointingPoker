@@ -1,13 +1,14 @@
-import { ErrorResponse } from "./data";
-import { GameSettings } from "./game";
-import { Issue } from "./issue";
-import { Message } from "./message";
-import { Room } from "./room";
-import { User } from "./user";
+import { ErrorResponse } from './data';
+import { GameSettings } from './game';
+import { Issue } from './issue';
+import { Message } from './message';
+import { Room } from './room';
+import { User } from './user';
 
 type DataType =
   | { room: Room | null; roomId: string }
   | { userId: string; user: User }
+  | { kickedUserId: string; kickedUser: User }
   | { issueId: string; issue: Issue }
   | Message
   | GameSettings

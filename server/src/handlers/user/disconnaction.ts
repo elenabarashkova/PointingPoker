@@ -15,12 +15,15 @@ export const userDisconnectionHandler =
           room,
           socket.id
         );
-        await redisSetAsync(roomId, JSON.stringify(updatedRoom));
 
-        socket.to(roomId).emit(UserEvents.userDisconnected, {
-          disconnectedUserId,
-          disconnectedUser,
-        });
+        if (updatedRoom) {
+          await redisSetAsync(roomId, JSON.stringify(updatedRoom));
+
+          socket.to(roomId).emit(UserEvents.userDisconnected, {
+            disconnectedUserId,
+            disconnectedUser,
+          });
+        }
       }
     } catch (error) {
       console.log(error);
