@@ -37,9 +37,9 @@ export const CreateIssueModal: React.FC<CreateIssueModalProps> = ({ isOpen }) =>
       isOpen
       modalTitle="Create Issue"
       yesBtnTitle="Yes"
-      noBtnNoTitle="No"
+      noBtnTitle="No"
       yesBtnOnClick={() => console.log('close')}
-      noBtnNoOnClick={() => console.log('close')}
+      noBtnOnClick={() => console.log('close')}
     >
       <form>
         <TextInput
