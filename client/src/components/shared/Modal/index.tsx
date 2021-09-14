@@ -10,28 +10,31 @@ export interface ModalProps {
   isOpen: boolean;
   onClose?(): void;
   modalTitle: string;
-  Component: ReactElement;
   yesBtnTitle: string;
   yesBtnOnClick(MouseEvent): void;
   noBtnNoTitle: string;
   noBtnNoOnClick(MouseEvent): void;
 }
 
-export const Modal: FunctionComponent<ModalProps> = ({
-  isOpen,
-  onClose,
-  modalTitle,
-  Component,
-  yesBtnTitle,
-  yesBtnOnClick,
-  noBtnNoTitle,
-  noBtnNoOnClick,
-}): ReactElement => (
+export const Modal: FunctionComponent<ModalProps> = (
+  {
+    isOpen,
+    onClose,
+    modalTitle,
+    yesBtnTitle,
+    yesBtnOnClick,
+    noBtnNoTitle,
+    noBtnNoOnClick,
+    children,
+  },
+): ReactElement => (
   <div>
     <Dialog className={styles.modal} open={isOpen} onClose={onClose}>
       <div className={styles.inner}>
         <DialogTitle className={styles.title}>{modalTitle}</DialogTitle>
-        <DialogContent className={styles.component}>{Component}</DialogContent>
+        <DialogContent className={styles.component}>
+          {children}
+        </DialogContent>
         <DialogActions className={styles.buttons}>
           <Button action={yesBtnOnClick} variant="colored" content={yesBtnTitle} />
           <Button action={noBtnNoOnClick} variant="bordered" content={noBtnNoTitle} />

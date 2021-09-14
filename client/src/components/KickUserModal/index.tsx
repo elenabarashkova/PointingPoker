@@ -38,12 +38,13 @@ const KickUserModal: React.FC<KickUserModalProps> = ({
       <Modal 
         isOpen={isModalOpen} 
         modalTitle="" 
-        Component={modalComponent} 
-        yesBtnTitle="yes" 
+        yesBtnTitle="yes"
         yesBtnOnClick={handleSubmitBtn} 
         noBtnNoTitle="no" 
         noBtnNoOnClick={handleCancelBtn}
-      />
+      >
+        {modalComponent}
+      </Modal>
     </div>
   );
 };

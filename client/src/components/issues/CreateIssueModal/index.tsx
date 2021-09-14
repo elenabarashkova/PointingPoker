@@ -34,40 +34,39 @@ export const CreateIssueModal: React.FC<CreateIssueModalProps> = ({ isOpen }) =>
 
   return (
     <Modal
-      Component={(
-        <form>
-          <TextInput
-            name="issue-title"
-            value={issueTitle}
-            label="Title:"
-            onChange={handleIssueTitleChanging}
-            placeholder=""
-            errorMessage="This field must not be empty"
-          />
-          <TextInput
-            name="issue-theme"
-            value={issueTheme}
-            label="Theme:"
-            onChange={handleIssueThemeChanging}
-            placeholder="add few words about issue"
-            errorMessage="This field must not be empty"
-          />
-          <TextInput
-            name="issue-link"
-            value={issueLink}
-            label="Link:"
-            onChange={handleIssueLinkChanging}
-            placeholder=""
-            errorMessage="This field must not be empty"
-          />
-        </form>
-      )}
       isOpen
       modalTitle="Create Issue"
       yesBtnTitle="Yes"
       noBtnNoTitle="No"
       yesBtnOnClick={() => console.log('close')}
       noBtnNoOnClick={() => console.log('close')}
-    />
+    >
+      <form>
+        <TextInput
+          name="issue-title"
+          value={issueTitle}
+          label="Title:"
+          onChange={handleIssueTitleChanging}
+          placeholder=""
+          errorMessage="This field must not be empty"
+        />
+        <TextInput
+          name="issue-theme"
+          value={issueTheme}
+          label="Theme:"
+          onChange={handleIssueThemeChanging}
+          placeholder="add few words about issue"
+          errorMessage="This field must not be empty"
+        />
+        <TextInput
+          name="issue-link"
+          value={issueLink}
+          label="Link:"
+          onChange={handleIssueLinkChanging}
+          placeholder=""
+          errorMessage="This field must not be empty"
+        />
+      </form>
+    </Modal>
   );
 };
