@@ -1,22 +1,30 @@
 @import '../../../../scss/variables.scss';
 
 .kickBtn {
+  border: none;
   cursor: pointer;
   transition: .4s;
   background: transparent;
-  border: none;
   margin: 0;
   padding: 0;
-  &:hover {
-    transform: scale(1.1);
-  }
   &:active {
-    transform: scale(.9);
+    transform: scale(.8);
   }
   .kickIco {
     margin: 0;
     padding: 0;
     width: 20px;
     height: 20px;
+  }
+  &:disabled {
+    opacity: .5;
+    &:active {
+      transform: none;
+    }
+  }
+}
+.modalContent {
+  mark {
+    background-color: $light-yellow;
   }
 }
