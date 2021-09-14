@@ -43,11 +43,10 @@ const RegisterSection: React.FC = (): ReactElement => {
 
     setLoading(false);
 
-    if (isValid === true) {
+    if (isValid) {
       setRole(UserRole.player);
       setModalOpen(true); 
-    }
-    if (isValid === false) {
+    } else {
       setGameIdValidation('Invalid room Id');
     }         
   };
