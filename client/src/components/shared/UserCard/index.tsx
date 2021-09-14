@@ -26,8 +26,7 @@ const UserCard: React.FC<UserCardProps> = ({
   const isUserCurrentUser = (id === currentUserId);
 
   const handleClick = () => {
-    console.log('id', id);
-    // todo: отправить запрос на сервер с currentUserId и id для удаления игрока
+    // todo: отправить запрос на сервер с currentUserId и id для удаления игрока /console.log('id', id);
   };
 
   return (

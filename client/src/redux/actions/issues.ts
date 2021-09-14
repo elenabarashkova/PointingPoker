@@ -40,11 +40,13 @@ export const setIssuesError = (): Action => ({
   type: SET_ERROR,
 });
 
-export const addIssueRequest = (roomId: string, issue: Issue) => async (dispatch: Dispatch<AnyAction>) => {
+export const addIssueRequest = (roomId: string, issue: Issue) => async (
+  dispatch: Dispatch<AnyAction>,
+): Promise<void> => {
   try {
     dispatch(sendIssuesRequest());
     const response = await addIssue(roomId, issue);
-    console.log(response);
+
     dispatch(addIssueAction(response));
   } catch (error) {
     dispatch(setIssuesError());
