@@ -1,5 +1,8 @@
 import {
-  SET_IS_LOADING, SET_MESSAGE, SET_MESSAGES, SET_SERVER_ERROR, 
+  MESSAGE_ON_REQUEST,
+  MESSAGE_ON_RESPONCE,
+  MESSAGE_ON_RESPONCE_FAIL, 
+  SET_MESSAGES, 
 } from '../action-types';
 import { Messages, Message } from '../../types/messages';
 
@@ -13,14 +16,12 @@ export type MessageAction = {
   type: 'SET_MESSAGES';
   messages: Message[];
 } | {
-  type: 'SET_MESSAGE';
+  type: 'MESSAGE_ON_REQUEST';
+} | {
+  type: 'MESSAGE_ON_RESPONCE';
   message: Message;
 } | {
-  type: 'SET_SERVER_ERROR';
-  isError: boolean;
-} | {
-  type: 'SET_IS_LOADING';
-  isLoading: boolean;
+  type: 'MESSAGE_ON_RESPONCE_FAIL';
 };
 
 export const messages = (
@@ -33,25 +34,29 @@ export const messages = (
         ...state,
         messages: action.messages,
       };
-    case SET_MESSAGE: {
+    case MESSAGE_ON_REQUEST: {
       return {
         ...state, 
+        error: false,
+        isLoading: true,
+      };
+    }
+    case MESSAGE_ON_RESPONCE: 
+      return {
+        ...state,
         messages: [
           ...state.messages,
           action.message,
         ],
-      };
-    }
-    case SET_SERVER_ERROR: 
-      return {
-        ...state,
-        error: action.isError,
+        error: false,
+        isLoading: false,
       };
     
-    case SET_IS_LOADING: 
+    case MESSAGE_ON_RESPONCE_FAIL: 
       return {
         ...state,
-        isLoading: action.isLoading,
+        error: true,
+        isLoading: false,
       };
        
     default:
