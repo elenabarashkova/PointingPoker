@@ -16,20 +16,20 @@ export const CreateIssueModal: React.FC<CreateIssueModalProps> = ({ isOpen }) =>
   const [issueLink, setIssueLink] = useState<string>('');
   // const [issuePriority, setIssuePriority] = useState<keyof typeof IssuePriority>(IssuePriority.low);
 
-  const handleIssueTitleChanging = (event: ChangeEvent<HTMLInputElement>) => {
-    setIssueTitle(event.target.value);
+  const handleIssueTitleChanging = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setIssueTitle(target.value);
   };
 
-  const handleIssueThemeChanging = (event: ChangeEvent<HTMLInputElement>) => {
-    setIssueTitle(event.target.value);
+  const handleIssueThemeChanging = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setIssueTitle(target.value);
   };
 
-  const handleIssueLinkChanging = (event: ChangeEvent<HTMLInputElement>) => {
-    setIssueTitle(event.target.value);
+  const handleIssueLinkChanging = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setIssueTitle(target.value);
   };
 
-  // const handleIssuePriorityChanging = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setIssueTitle(event.target.value);
+  // const handleIssuePriorityChanging = ({ target }: ChangeEvent<HTMLInputElement>) => {
+  //   setIssueTitle(target.value);
   // };
 
   return (
