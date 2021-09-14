@@ -1,0 +1,44 @@
+@import '../../../scss/variables';
+@import '../../../scss/style';
+
+.palette {
+  position: absolute;
+  top: -70px;
+  left: calc(100% - 70px - 30px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  
+.round {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-family: 'Dancing Script';
+  color: #22485c;
+  box-shadow: 0 0.3rem 0.5rem #211b588a;
+  position: relative; 
+  span {
+    position: absolute;
+    top: 0;
+    left: -30px;
+  }
+  &:nth-child(1) {
+    background: $light-yellow;
+  }
+  &:nth-child(2) {
+    background: $emerald;
+  }
+  &:nth-child(3) {
+    background: $light-emerald;
+  }
+  &:nth-child(4) {
+    background: $light-blue;
+  }
+  &:nth-child(5) {
+    background: $blue;
+    margin-bottom: 50px;
+  }
+}
