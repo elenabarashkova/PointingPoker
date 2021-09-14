@@ -2,9 +2,9 @@ import {
   CREATE_ROOM,
   ResponseStatus,
   socket,
-} from './constants';
-import { User } from '../types/user';
-import { RoomData } from '../types/room';
+} from '../constants';
+import { User } from '../../types/user';
+import { RoomData } from '../../types/room';
 
 export const createRoom = (user: User): Promise<RoomData> => (
   new Promise<RoomData>((resolve, reject) => {
