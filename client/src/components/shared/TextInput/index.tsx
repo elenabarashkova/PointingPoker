@@ -36,7 +36,7 @@ export const TextInput: FunctionComponent<TextInputProps> = (
       <span className={styles.label}>{label}</span>
       <input
         id={name}
-        className={`${styles.input} ${errorMessage ? `${styles.invalid}` : ''}`}
+        className={`${styles.input} ${errorMessage && `${styles.invalid}`}`}
         type="text"
         value={value}
         onChange={handleChange}
