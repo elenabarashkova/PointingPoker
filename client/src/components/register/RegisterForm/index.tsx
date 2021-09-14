@@ -8,7 +8,6 @@ import React, {
 import { connect } from 'react-redux';
 import { RegisterTextInputs } from 'components/register/RegisterForm/textInputsSet';
 import { validate } from 'components/register/RegisterForm/validate';
-import { setNewUser } from 'components/register/RegisterForm/setNewUser';
 import { History } from 'history';
 import Switch from 'components/shared/Switch';
 import { UserRole } from 'src/types/user';
@@ -18,6 +17,7 @@ import FileInput from 'components/register/FileInput';
 import { withRouter } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 import { ElementSize } from 'src/types/additional';
+import { setNewUserAction } from '../../../redux/actions/setNewUserAction';
 import styles from './style.module.scss';
 import { Modal } from '../../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../../constants';
@@ -111,4 +111,4 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
   );
 };
 
-export default connect(null, { setNewUserConnected: setNewUser })(withRouter(RegisterForm));
+export default connect(null, { setNewUserConnected: setNewUserAction })(withRouter(RegisterForm));

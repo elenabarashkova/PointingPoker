@@ -7,11 +7,11 @@ import { setRoomIdAction } from 'src/redux/actions/room';
 import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { joinRoom } from 'src/services/joinRoom';
 import { Pages } from 'src/types/page';
-import { createRoom } from '../../../services/createRoom';
-import { Room, RoomData } from '../../../types/room';
-import { User, UserRole } from '../../../types/user';
+import { createRoom } from '../../services/createRoom';
+import { Room, RoomData } from '../../types/room';
+import { User, UserRole } from '../../types/user';
 
-export const setNewUser = (
+export const setNewUserAction = (
   fieldsState: Record<string, string>,
   userRole: keyof typeof UserRole,
   history: RouteComponentProps['history'],
