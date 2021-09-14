@@ -5,7 +5,7 @@ interface TextInputProps {
   name: string;
   value: string;
   label: string;
-  error: string;
+  errorMessage: string;
   onChange: CallableFunction;
   isInline?: boolean;
   placeholder: string;
@@ -18,7 +18,7 @@ export const TextInput: FunctionComponent<TextInputProps> = (
     name,
     value,
     label,
-    error,
+    errorMessage,
     onChange,
     isInline = false,
     placeholder,
@@ -36,14 +36,14 @@ export const TextInput: FunctionComponent<TextInputProps> = (
       <span className={styles.label}>{label}</span>
       <input
         id={name}
-        className={`${styles.input} ${error ? `${styles.invalid}` : ''}`}
+        className={`${styles.input} ${errorMessage ? `${styles.invalid}` : ''}`}
         type="text"
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
         maxLength={MAX_INPUT_LENGTH}
       />
-      <span className={styles.error}>{error}</span>
+      <span className={styles.error}>{errorMessage}</span>
     </label>
   );
 };
