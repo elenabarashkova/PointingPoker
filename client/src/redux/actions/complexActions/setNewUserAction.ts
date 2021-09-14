@@ -9,6 +9,7 @@ import { joinRoom } from 'src/services/room/joinRoom';
 import { createRoom } from '../../../services/room/createRoom';
 import { Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
+import { redirectToLobby, redirectToSettings } from '../../../shared';
 
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
   try {
@@ -20,6 +21,8 @@ export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promi
       dispatch(setCurrentUserAction(Object.keys(users)[0]));
       dispatch(setRoomIdAction(roomId));
     });
+
+    redirectToSettings();
   } catch (error) {
     // todo: common-cotifications Катя
   }
@@ -41,6 +44,8 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
       dispatch(setMessages(messages));
       dispatch(setIssuesAction(issues));
     });
+
+    redirectToLobby();
   } catch (error) {
     // todo: common-cotifications Катя
   }

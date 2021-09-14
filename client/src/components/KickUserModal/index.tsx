@@ -40,8 +40,8 @@ const KickUserModal: React.FC<KickUserModalProps> = ({
         modalTitle="" 
         yesBtnTitle="yes"
         yesBtnOnClick={handleSubmitBtn} 
-        noBtnNoTitle="no" 
-        noBtnNoOnClick={handleCancelBtn}
+        noBtnTitle="no"
+        noBtnOnClick={handleCancelBtn}
       >
         {modalComponent}
       </Modal>

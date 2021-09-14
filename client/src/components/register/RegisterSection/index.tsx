@@ -5,6 +5,7 @@ import RegisterForm from 'components/register/RegisterForm';
 import { UserRole } from 'src/types/user';
 import styles from './style.module.scss';
 import { isRoomValid } from '../../../services/room/isRoomValid';
+import { Modal } from '../../shared/Modal';
 
 const RegisterSection: React.FC = (): ReactElement => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -12,10 +13,7 @@ const RegisterSection: React.FC = (): ReactElement => {
   const [gameIdInput, setGameIdInput] = useState('');
   const [gameIdValidation, setGameIdValidation] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
+  const [submitAttempt, setSubmitAttempt] = useState(false);
 
   const handleIdInput = (name: string, idValue: string) => {
     if (gameIdValidation) {
@@ -59,6 +57,20 @@ const RegisterSection: React.FC = (): ReactElement => {
     setRole(newRole);
   };
 
+  const handleDeclineClick = () => {
+    setModalOpen(false);
+  };
+
+  const handleSubmitClick = () => {
+    setSubmitAttempt(true);
+  };
+
+  const onSubmit = (isSubmittedSuccessfully: boolean) => {
+    setSubmitAttempt(false);
+
+    setModalOpen(!isSubmittedSuccessfully);
+  };
+
   return (
     <div className={styles.registrField}>
       <div className={styles.registrEl}>
@@ -77,13 +89,23 @@ const RegisterSection: React.FC = (): ReactElement => {
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} loading={loading} />
       </div>
-      <RegisterForm 
-        isOpen={modalOpen} 
-        closeModal={handleCloseModal} 
-        role={role} 
-        changeRole={handleSwitch} 
-        gameIdInput={gameIdInput} 
-      />
+      <Modal
+        isOpen={modalOpen}
+        modalTitle="Sign in"
+        yesBtnTitle="Confirm"
+        yesBtnOnClick={handleSubmitClick}
+        noBtnTitle="Decline"
+        noBtnOnClick={handleDeclineClick}
+      >
+        {modalOpen ? (
+          <RegisterForm
+            role={role}
+            changeRole={handleSwitch}
+            gameIdInput={gameIdInput}
+            onSubmit={submitAttempt ? onSubmit : null}
+          />
+        ) : null}
+      </Modal>
     </div>
   );
 };
