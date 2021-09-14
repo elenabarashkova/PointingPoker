@@ -42,7 +42,7 @@ export const CreateIssueModal: React.FC<CreateIssueModalProps> = ({ isOpen }) =>
             label="Title:"
             onChange={handleIssueTitleChanging}
             placeholder=""
-            error="This field must not be empty"
+            errorMessage="This field must not be empty"
           />
           <TextInput
             name="issue-theme"
@@ -50,7 +50,7 @@ export const CreateIssueModal: React.FC<CreateIssueModalProps> = ({ isOpen }) =>
             label="Theme:"
             onChange={handleIssueThemeChanging}
             placeholder="add few words about issue"
-            error="This field must not be empty"
+            errorMessage="This field must not be empty"
           />
           <TextInput
             name="issue-link"
@@ -58,7 +58,7 @@ export const CreateIssueModal: React.FC<CreateIssueModalProps> = ({ isOpen }) =>
             label="Link:"
             onChange={handleIssueLinkChanging}
             placeholder=""
-            error="This field must not be empty"
+            errorMessage="This field must not be empty"
           />
         </form>
       )}

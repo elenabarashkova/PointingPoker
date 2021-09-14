@@ -72,7 +72,7 @@ const RegisterSection: React.FC = (): ReactElement => {
           value={gameIdInput}
           label=""
           placeholder="game ID"
-          error={gameIdValidation}
+          errorMessage={gameIdValidation}
           onChange={handleIdInput}
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} loading={loading} />

@@ -3,7 +3,7 @@ import { TextInput } from 'components/shared/TextInput';
 import React, { FunctionComponent, ReactElement } from 'react';
 
 interface RegisterTextInputsProps {
-  fields: Record<string, string | boolean>;
+  fields: Record<string, string>;
   validation: Record<string, string>;
   handler: CallableFunction;
 }
@@ -20,10 +20,10 @@ export const RegisterTextInputs: FunctionComponent<RegisterTextInputsProps> = (
       <TextInput
         key={name}
         name={name}
-        value={(fields[name] as string)}
+        value={fields[name]}
         label={label}
         onChange={handler}
-        error={validation[name]}
+        errorMessage={validation[name]}
         placeholder={label}
       />
     ))}
