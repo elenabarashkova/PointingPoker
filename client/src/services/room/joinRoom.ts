@@ -14,5 +14,4 @@ export const joinRoom = (roomId: string, user: User): Promise<RoomData> => (
       }
       reject(error);
     });
-    // todo: показать сообщение
-  }).catch((error) => error));
+  }));
