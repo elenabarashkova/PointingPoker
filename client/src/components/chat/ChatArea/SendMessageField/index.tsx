@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
 import styles from './style.module.scss';
-import { setNewMessageAction } from '../../../redux/actions/complexActions/setNewMessageAction';
+import { setNewMessageAction } from '../../../../redux/actions/complexActions/setNewMessageAction';
 
 interface SendMessageFieldProps {
   isLoading: boolean;

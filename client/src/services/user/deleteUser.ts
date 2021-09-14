@@ -1,4 +1,4 @@
-import { User, UserData } from 'src/types/user';
+import { UserData } from 'src/types/user';
 import {
   ResponseStatus, ERROR_RESULT, socket, DELETE_USER, 
 } from '../constants';

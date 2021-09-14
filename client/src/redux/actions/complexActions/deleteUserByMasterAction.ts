@@ -9,7 +9,7 @@ export const deleteUserByMasterAction = (
 ) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const result: DeleteUserResultType = await deleteUser(roomId, userId);
-    console.log(result);
+
     if (result === ERROR_RESULT) {
       // todo: Показать сообщение об ошибке
     } else {
