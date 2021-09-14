@@ -25,9 +25,8 @@ export const setNewUser = (
   };
 
   if (userRole === UserRole.master) {
-
     const { roomId, room } = await createRoom(newUser) as RoomData;
-
+    console.log(roomId);
     const { users } = room;
 
     dispatch(setUsersAction(users));

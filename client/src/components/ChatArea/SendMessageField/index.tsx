@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
 import styles from './style.module.scss';
-import { setNewMessageAction } from './setNewMessageAction';
+import { setNewMessageAction } from '../../../redux/actions/complexActions/setNewMessageAction';
 
 interface SendMessageFieldProps {
   isLoading: boolean;
@@ -25,10 +25,6 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
 
   const roomId = useTypedSelector((state) => state.game.roomId);
 
-  const cleanUpMessageInput = () => {
-    setMessageInput('');
-  };
-
   const handleTextArea = (textAreaValue: string) => {
     if (validationMessage) {
       setValidationMessage('');
@@ -43,7 +39,7 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
     if (!messageInput) {
       setValidationMessage(ValidationMessages.emptyField);
     } else {
-      setNewMessage(cleanUpMessageInput, roomId, messageInput);
+      setNewMessage({ onSuccess: () => setMessageInput('') }, roomId, messageInput);
     }
   };
 

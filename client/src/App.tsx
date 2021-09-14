@@ -8,44 +8,51 @@ import LobbyPage from './pages/LobbyPage';
 import GamePage from './pages/GamePage';
 import SettingsPage from './pages/Settings';
 import ErrorPage from './pages/ErrorPage';
-import { socket } from './services/constants';
+import {
+  RECEIVE_MESSAGE, socket, USER_CONNECTED, USER_IS_DELETED, YOU_ARE_DELETED, 
+} from './services/constants';
 import { AppDispatch } from './redux/store';
 import { UserData } from './types/user';
-import { setMessage, setUser } from './redux/actions';
 import { Message } from './types/messages';
+import { setUser } from './redux/actions/user';
+import { setMessageOnResponse } from './redux/actions/messages';
 
 interface AppProps extends RouteComponentProps {
-  setUser: CallableFunction;
-  setMessage: CallableFunction;
+  setUser: any;
+  setMessage: any;
+  setUserDeleted: any;
 }
 
-const App: FunctionComponent<AppProps> = ({ setUser: setNewUser, setMessage: setNewMessage }): ReactElement => {
+const App: FunctionComponent<AppProps> = ({ 
+  setUser: setNewUser, 
+  setMessage: setNewMessage, 
+  setUserDeleted: setUserDeletedStatus, 
+}): ReactElement => {
   useEffect(() => {
-    socket.on('USER_CONNECTED', (data) => {
-      setNewUser(data);
+    socket.on(USER_CONNECTED, setNewUser);
+    socket.on(RECEIVE_MESSAGE, setNewMessage);
+    socket.on(USER_IS_DELETED, setUserDeletedStatus);
+    socket.on(YOU_ARE_DELETED, (data) => {
+      // setUserDeletedStatus(data);
+      // todo: перенаправить на другую страницу?
     });
-    socket.on('RECEIVE_MESSAGE', (data) => {
-      setNewMessage(data);
-    });
-  }, [setNewUser, setNewMessage]);
+  }, []);
+
+  const routes = [
+    { path: '/', component: <MainPage />, key: 'main' },
+    { path: '/game', component: <GamePage />, key: 'game' },
+    { path: '/settings', component: <SettingsPage />, key: 'settings' },
+    { path: '/lobby', component: <LobbyPage />, key: 'lobby' },
+    { path: '/*', component: <ErrorPage />, key: 'error' },
+  ];
 
   return (
     <Switch>
-      <Route exact path="/">
-        <MainPage />
-      </Route>
-      <Route path="/game">
-        <GamePage />
-      </Route>
-      <Route path="/settings">
-        <SettingsPage />
-      </Route>
-      <Route path="/lobby">
-        <LobbyPage />
-      </Route>
-      <Route path={'/*'}>
-        <ErrorPage />
-      </Route>
+      {routes.map(({ path, component, key }) => (
+        <Route path={path} exact={key === 'main'} key={key}>
+          {component}
+        </Route>
+      ))}
     </Switch>
    
   );
@@ -53,7 +60,8 @@ const App: FunctionComponent<AppProps> = ({ setUser: setNewUser, setMessage: set
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setUser: (userData: UserData) => dispatch(setUser(userData)),
-  setMessage: (message: Message) => dispatch(setMessage(message)),
+  setMessage: (message: Message) => dispatch(setMessageOnResponse(message)),
+  setUserDeleted: (userData: UserData) => dispatch(setUser(userData)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));
