@@ -24,6 +24,7 @@ const UserCard: React.FC<UserCardProps> = ({
   const [firstName, lastName] = name.split(' ');
 
   const isUserCurrentUser = (id === currentUserId);
+  const canUserBeKicked = !isUserCurrentUser && role !== UserRole.master && status === UserStatus.active;
 
   return (
     <div className={`${styles.userCard} ${styles[size]} 
@@ -40,7 +41,7 @@ const UserCard: React.FC<UserCardProps> = ({
           <p className={styles.userName}>{name}</p>
           <p className={styles.jobPosition}>{jobPosition}</p>
         </div>
-        {(!isUserCurrentUser && role !== UserRole.master && status === UserStatus.active) && <KickButton userId={id} />}
+        {canUserBeKicked && <KickButton userId={id} />}
       </div>
     </div>
   );
