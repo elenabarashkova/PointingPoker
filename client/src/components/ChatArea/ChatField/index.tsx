@@ -24,7 +24,7 @@ const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
     if (!chatIsOpened && messages[messages.length - 1].userId !== currentUserId) {
       setIsMessagesUnshown(true);
     }
-  }, [messages]);
+  }, [messages, chatIsOpened, currentUserId]);
 
   const openCloseChat = () => {
     if (!chatIsOpened && isMessagesUnshown) {

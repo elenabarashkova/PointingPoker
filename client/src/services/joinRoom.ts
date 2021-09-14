@@ -10,8 +10,7 @@ export const joinRoom = (roomId: string, user: User): Promise<RoomData> => (
         return;
       }
       if (status === ResponseStatus.notFound) {
-        // todo: показать сообщение
-        alert('комната не найдена');
+        // todo: показать сообщение 'комната не найдена'
       }
       reject(error);
     });
