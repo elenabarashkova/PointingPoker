@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Pages } from 'src/types/page';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
-import Main from '../../components/Main(main-page)';
+import Footer from '../../components/page-components/Footer';
+import Header from '../../components/page-components/Header';
+import Main from '../../components/page-components/Main(main-page)';
 import styles from './style.module.scss';
 
 const MainPage: React.FC = (): ReactElement => (
