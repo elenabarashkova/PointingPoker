@@ -2,7 +2,7 @@ import React, {
   FormEvent,
   FunctionComponent,
   MouseEvent,
-  ReactElement,
+  ReactElement, useEffect,
   useState,
 } from 'react';
 import { connect } from 'react-redux';
@@ -10,14 +10,15 @@ import { RegisterTextInputs } from 'components/register/RegisterForm/textInputsS
 import { validate } from 'components/register/RegisterForm/validate';
 import { History } from 'history';
 import Switch from 'components/shared/Switch';
-import { UserRole } from 'src/types/user';
+import { User, UserRole } from 'src/types/user';
 import { SwitchType } from 'components/shared/Switch/types';
 import UserIco from 'components/shared/UserIco';
 import FileInput from 'components/register/FileInput';
 import { withRouter } from 'react-router';
 import { RouteComponentProps } from 'react-router-dom';
 import { ElementSize } from 'src/types/additional';
-import { setNewUserAction } from '../../../redux/actions/setNewUserAction';
+import { Pages } from 'src/types/page';
+import { setNewMaster, setNewUser } from '../../../redux/actions/complexActions/setNewUserAction';
 import styles from './style.module.scss';
 import { Modal } from '../../shared/Modal';
 import { DEFAULT_FIELDS_STATE } from '../../../constants';
@@ -27,9 +28,12 @@ interface RegisterFormProps extends RouteComponentProps {
   closeModal(): void;
   role: keyof typeof UserRole;
   changeRole: CallableFunction;
-  setNewUserConnected: CallableFunction;
+  setNewMasterAction: CallableFunction;
+  setNewUserAction: CallableFunction;
   history: History;
   gameIdInput: string;
+  userId: string;
+  roomId: string;
 }
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = (
@@ -38,9 +42,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     closeModal,
     role,
     changeRole,
-    setNewUserConnected,
+    setNewMasterAction,
+    setNewUserAction,
     history,
     gameIdInput,
+    userId,
+    roomId,
   },
 ): ReactElement => {
   const [fieldsState, setFieldsState] = useState(DEFAULT_FIELDS_STATE);
@@ -62,12 +69,38 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
     }    
   };
 
+  useEffect(
+    () => {
+      if (roomId && role === UserRole.master) {
+        history.push(`/${Pages.settings}`);
+      }
+    },
+    [roomId, history, role],
+  );
+
+  useEffect(
+    () => {
+      if (userId && role !== UserRole.master) {
+        history.push(`/${Pages.lobby}`);
+      }
+    },
+    [userId, history, role],
+  );
+
   const handleSubmit = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
     const validationErrors = validate(fieldsState);
 
     if (!Object.keys(validationErrors).length) {
-      setNewUserConnected(fieldsState, role, history, gameIdInput);
+      const newUser: User = {
+        name: `${fieldsState.firstName} ${fieldsState.lastName}`,
+        role,
+        jobPosition: fieldsState.jobPosition,
+        image: fieldsState.image,
+      };
+
+      const setUserAction = role === UserRole.master ? setNewMasterAction : setNewUserAction;
+      setUserAction(newUser, gameIdInput);
 
       setFieldsState(DEFAULT_FIELDS_STATE);
       setValidationState({});
@@ -111,4 +144,15 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
   );
 };
 
-export default connect(null, { setNewUserConnected: setNewUserAction })(withRouter(RegisterForm));
+const mapStateToProps = (state) => {
+  const { currentUserId, game } = state;
+  return {
+    userId: currentUserId,
+    roomId: game.roomId,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { setNewMasterAction: setNewMaster, setNewUserAction: setNewUser },
+)(withRouter(RegisterForm));

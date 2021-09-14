@@ -1,7 +1,7 @@
 import {
   IS_ROOM_VALID, ResponseStatus,
   socket,
-} from './constants';
+} from '../constants';
 
 export const isRoomValid = (roomId: string, showError: CallableFunction): Promise<unknown> => (
   new Promise((resolve, reject) => {
