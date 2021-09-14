@@ -15,4 +15,4 @@ export const createRoom = (user: User): Promise<RoomData> => (
       }
       reject(error);
     });
-  }).catch((error) => error));
+  }));

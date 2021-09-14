@@ -11,29 +11,37 @@ import { Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
 
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
-  const { roomId, room } = await createRoom(newUser) as RoomData;
-  const { users } = room;
+  try {
+    const { roomId, room } = await createRoom(newUser) as RoomData;
+    const { users } = room;
 
-  batch(() => {
-    dispatch(setUsersAction(users));
-    dispatch(setCurrentUserAction(Object.keys(users)[0]));
-    dispatch(setRoomIdAction(roomId));
-  });
+    batch(() => {
+      dispatch(setUsersAction(users));
+      dispatch(setCurrentUserAction(Object.keys(users)[0]));
+      dispatch(setRoomIdAction(roomId));
+    });
+  } catch (error) {
+    // todo: common-cotifications Катя
+  }
 };
 
 export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatch: Dispatch): Promise<void> => {
-  const { room, roomId, userId } = (await joinRoom(gameIdInput, newUser)) as RoomData;
-  const {
-    users, messages, issues, gameStatus, gameSettings,
-  } = room as Room;
+  try {
+    const { room, roomId, userId } = (await joinRoom(gameIdInput, newUser)) as RoomData;
+    const {
+      users, messages, issues, gameStatus, gameSettings,
+    } = room as Room;
 
-  batch(() => {
-    dispatch(setUsersAction(users));
-    dispatch(setCurrentUserAction(userId));
-    dispatch(setRoomIdAction(roomId));
-    dispatch(setGameStatus(gameStatus));
-    dispatch(setAllGameSettings(gameSettings));
-    dispatch(setMessages(messages));
-    dispatch(setIssuesAction(issues));
-  });
+    batch(() => {
+      dispatch(setUsersAction(users));
+      dispatch(setCurrentUserAction(userId));
+      dispatch(setRoomIdAction(roomId));
+      dispatch(setGameStatus(gameStatus));
+      dispatch(setAllGameSettings(gameSettings));
+      dispatch(setMessages(messages));
+      dispatch(setIssuesAction(issues));
+    });
+  } catch (error) {
+    // todo: common-cotifications Катя
+  }
 };
