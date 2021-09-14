@@ -16,8 +16,8 @@ const Textarea: FunctionComponent<TextareaProps> = (
     errorMessage,
   },
 ): ReactElement => {
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    onChange(event.target.value);
+  const handleChange = ({ target }: ChangeEvent<HTMLTextAreaElement>): void => {
+    onChange(target.value);
   };
 
   return (

@@ -7,8 +7,8 @@ interface FileInputProps {
 }
 
 const FileInput: React.FC<FileInputProps> = ({ name, handler }): ReactElement => {
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    const file = target.files[0];
     const reader = new FileReader();
     if (file && file.type.match('image.*')) {
       reader.readAsDataURL(file);
