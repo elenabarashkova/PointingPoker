@@ -118,21 +118,6 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
 
   return (
     <Modal
-      Component={(
-        <form className={styles.registerForm}>
-          <Switch name="switchRole" type={SwitchType.role} status={role} onChange={changeRole} />
-          <RegisterTextInputs fields={fieldsState} validation={validationState} handler={handleChange} />
-          <div className={styles.userIcoField}>
-            <FileInput name="userIcoInput" handler={handleChange} />
-            <UserIco 
-              firstName={fieldsState.firstName} 
-              lastName={fieldsState.lastName} 
-              imgSrc={fieldsState.image} 
-              size={ElementSize.big} 
-            />
-          </div>
-        </form>
-      )}
       isOpen={isOpen}
       onClose={closeModal}
       modalTitle="Sign in"
@@ -140,7 +125,21 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
       yesBtnOnClick={handleSubmit}
       noBtnNoTitle="Decline"
       noBtnNoOnClick={handleDecline}
-    />
+    >
+      <form className={styles.registerForm}>
+        <Switch name="switchRole" type={SwitchType.role} status={role} onChange={changeRole} />
+        <RegisterTextInputs fields={fieldsState} validation={validationState} handler={handleChange} />
+        <div className={styles.userIcoField}>
+          <FileInput name="userIcoInput" handler={handleChange} />
+          <UserIco
+            firstName={fieldsState.firstName}
+            lastName={fieldsState.lastName}
+            imgSrc={fieldsState.image}
+            size={ElementSize.big}
+          />
+        </div>
+      </form>
+    </Modal>
   );
 };
 
