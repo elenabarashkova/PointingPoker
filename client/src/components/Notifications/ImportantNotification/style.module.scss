@@ -1,0 +1,35 @@
+@import '../../../scss/variables.scss';
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.473);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modalWrapper {
+  box-sizing: border-box;
+  width: 300px;
+  height: 300px;
+  padding: 10px;
+  background-color: $light-yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 7px;
+  box-shadow: $shadow;
+  
+  p {
+    background: $light-blue;
+    color: $base-text-color-2;
+    font-family: $font-family-second;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: $shadow;
+    text-align: center;
+  }
+}

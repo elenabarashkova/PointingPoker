@@ -17,17 +17,17 @@ import { UserData } from './types/user';
 import { Message } from './types/messages';
 import { updateUser } from './redux/actions/user';
 import { setMessageOnResponse } from './redux/actions/messages';
-import { setVotingNotification } from './redux/actions/notifications';
-import { VotingData } from './types/notifications';
+import { setImportantNotification, setVotingNotification } from './redux/actions/notifications';
+import { ImportantNotifications, VotingData } from './types/notifications';
 import GoodbyePage from './pages/GoodbyePage';
 import { Pages } from './types/page';
-import useTypedSelector from './hooks/useTypedSelector';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
   setMessage: any;
   updateUser: any;
   setVoting: any;
+  setImportantNotification: any;
   history: History;
 }
 
@@ -36,6 +36,7 @@ const App: FunctionComponent<AppProps> = ({
   setMessage: setNewMessage, 
   updateUser: updateUserStatus, 
   setVoting: setStartVoting,
+  setImportantNotification: setNewImportantNotification,
   history,
 }): ReactElement => {
   useEffect(() => {
@@ -48,7 +49,7 @@ const App: FunctionComponent<AppProps> = ({
     });
     socket.on(YOU_ARE_KICKED, ({ kickInitiator, kickedUserId, kickedUser }) => {
       updateUserStatus({ userId: kickedUserId, user: kickedUser });
-      // todo: important-notification
+      setNewImportantNotification(ImportantNotifications.kick);
     });
     socket.on(USER_IS_DELETED, (data) => {
       console.log('USER_IS_DELETED data', data);
@@ -94,6 +95,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setMessage: (message: Message) => dispatch(setMessageOnResponse(message)),
   updateUser: (userData: UserData) => dispatch(updateUser(userData)),
   setVoting: (data: VotingData) => dispatch(setVotingNotification(data)),
+  setImportantNotification: (content: string) => dispatch(setImportantNotification(content)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));
