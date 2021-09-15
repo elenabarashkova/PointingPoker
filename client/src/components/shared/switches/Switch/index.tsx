@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
-import { UserRole } from '../../../types/user';
+import { UserRole } from '../../../../types/user';
 import { SwitchType, ChoiceType } from './types';
 
-interface SwitchProps {
+export interface SwitchProps {
   name: string;
   type: keyof typeof SwitchType;
   status: string; 
