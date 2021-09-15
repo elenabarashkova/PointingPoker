@@ -3,50 +3,52 @@ import Button from 'components/shared/buttons/Button';
 import { TextInput } from 'components/shared/TextInput';
 import RegisterForm from 'components/register/RegisterForm';
 import { UserRole } from 'src/types/user';
+import { validateGameId } from 'components/register/RegisterSection/gameIdCheck';
 import styles from './style.module.scss';
-import { isRoomValid } from '../../../services/room/isRoomValid';
 import { Modal } from '../../shared/Modal';
 
 const RegisterSection: React.FC = (): ReactElement => {
   const [modalOpen, setModalOpen] = useState(false);
   const [role, setRole] = useState(UserRole.master);
   const [gameIdInput, setGameIdInput] = useState('');
-  const [gameIdValidation, setGameIdValidation] = useState('');
+  const [gameIdValidationMessage, setGameIdValidationMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
   const handleIdInput = (name: string, idValue: string) => {
-    if (gameIdValidation) {
-      setGameIdValidation('');
+    if (gameIdValidationMessage) {
+      setGameIdValidationMessage('');
     }
     setGameIdInput(idValue);
+  };
+      
+  const handleClickBtnUser = async () => {
+    if (!gameIdInput) {
+      setGameIdValidationMessage('Fill in the field');
+      return;
+    }
+
+    const setError = (errorMessage) => {
+      setGameIdValidationMessage(errorMessage);
+    };
+
+    const setIsRoomValid = (isValid: boolean) => {
+      if (isValid) {
+        setRole(UserRole.player);
+        setModalOpen(true);
+      } else {
+        setGameIdValidationMessage('Invalid room Id');
+      }
+    };
+
+    setLoading(true);
+    validateGameId(gameIdInput, setError, setIsRoomValid);
+    setLoading(false);
   };
 
   const handleClickBtnMaster = () => {
     setRole(UserRole.master);
     setModalOpen(true);
-  };
-      
-  const handleClickBtnUser = async () => {
-    if (!gameIdInput) {
-      setGameIdValidation('Fill in the field');
-      return;
-    }
-
-    const showError = () => {
-      setGameIdValidation('Something is wrong. Try again');
-    };
-
-    setLoading(true);
-    const isValid = await isRoomValid(gameIdInput, showError);
-    setLoading(false);
-
-    if (isValid) {
-      setRole(UserRole.player);
-      setModalOpen(true); 
-    } else {
-      setGameIdValidation('Invalid room Id');
-    }         
   };
 
   const handleSwitch = () => {
@@ -81,7 +83,7 @@ const RegisterSection: React.FC = (): ReactElement => {
           value={gameIdInput}
           label=""
           placeholder="game ID"
-          errorMessage={gameIdValidation}
+          errorMessage={gameIdValidationMessage}
           onChange={handleIdInput}
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} loading={loading} />
