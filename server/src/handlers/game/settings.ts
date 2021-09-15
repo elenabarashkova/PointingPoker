@@ -1,23 +1,16 @@
-import { changeGameSettings } from "../../actions/game";
-import { GameEvents } from "../../constants/events";
-import { getRoom, handleError } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { EventCallback } from "../../types/callbacks";
-import { GameSettingsData } from "../../types/game";
+import { Socket } from 'socket.io';
+import { changeGameSettings } from '../../actions/game';
+import { GameEvents } from '../../constants/events';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
+import { EventCallback } from '../../types/callbacks';
+import { GameSettingsData } from '../../types/game';
 
 export const gameSettingsHandler =
-  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
-  async (
-    { roomId, settings }: GameSettingsData,
-    callback: EventCallback
-  ): Promise<void> => {
+  (socket: Socket) =>
+  ({ roomId, settings }: GameSettingsData, callback: EventCallback): void => {
     try {
-      const room = await getRoom(roomId, redisGetAsync);
-      const { updatedSettings, updatedRoom } = changeGameSettings(
-        room,
-        settings
-      );
-      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
+      const updatedSettings = changeGameSettings(roomId, settings, store);
       callback({ status: 200, data: updatedSettings });
       socket.to(roomId).emit(GameEvents.gameSettingsChanged, updatedSettings);
     } catch {

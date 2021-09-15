@@ -138,9 +138,13 @@ socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(respo
 
 socket.emit("KICK_USER", { userId, roomId }, (response) => { console.log(response) });
 
-##### Success response
+##### Success response if user can be kicked
 
 { status: 200, data: { kickedUserId: string, kickedUser: kickedUserObject} }
+
+##### Success response if user can not be kicked
+
+{ status: 403, data: 'User can not be kicked' }
 
 ##### Error response
 
@@ -168,9 +172,19 @@ socket.emit("KICK_USER", { userId, roomId }, (response) => { console.log(respons
 
 { confirm: true/false, roomId: string, kickedUserId: string }
 
+##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
+
+socket.emit("KICKING_VOTE", { confirm, roomId, kickedUserId }, (response) => { console.log(response) });
+
 ##### Success response
 
-IF ALL USERS HAVE VOTED AND THEY DECIDED TO DELETE USER
+callback({ status: 200, data: 'Your vote is accepted' });
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+##### IF ALL USERS HAVE VOTED AND THEY DECIDED TO DELETE USER
 
 ###### Kicked user:
 
@@ -194,10 +208,10 @@ IF ALL USERS HAVE VOTED BUT THEY DECIDED NOT TO DELETE USER
 - event: **USER_IS_NOT_DELETED**
 - data: **{ userId: string, user: userObject}** _/User has status "active"_
 
-##### Error response
+##### IF SOMETHING WENT WRONG WITH THE VOTE ALL USERS IN THE ROOM WILL RECEIVE:
 
-- event: **error**
-- data: **{ status: 500, message: "error" }**
+- event: **KICK_VOTING_ERROR**
+- data: **{ status: 500, message: "Voting error, user is not deleted" }**
 
 ---
 
@@ -353,14 +367,37 @@ socket.emit("UPDATE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ---
 
----
-
 ##### - IF USER DISCONNECTS (due to network problems):
 
 ###### Other users in this room should listen event:
 
 - event: **USER_DISCONNECTED**
 - data: **{ disconnectedUserId, disconnectedUser }**
+
+---
+
+---
+
+##### - IF USER RECONNECTS:
+
+###### On client side you should listen 'reconnect' event and then send to the server 'RECONNECTED' event:
+
+socket.emit("RECONNECTED", (response) => { console.log(response) });
+
+##### Success response
+
+{ newUserId, user, room }
+
+##### Error response
+
+{ status: 500, error: "error" }
+
+###### Other users in this room should listen event:
+
+- event: **USER_RECONNECTED**
+- data: **{ newUserId, user, messages}**
+
+---
 
 ---
 

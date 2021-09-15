@@ -1,19 +1,26 @@
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
+import { changeUserStatus } from '../../actions/user/changeStatus';
 import { getVoteResults } from '../../actions/user/vote';
 import { KickUserEvents } from '../../constants/events';
-import { getRoom } from '../../helpers';
-import { HandlerParams } from '../../types';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
+import { EventCallback } from '../../types/callbacks';
 import { VotingData } from '../../types/data';
+import { UserStatus } from '../../types/user';
 
 export const kickUserVotingHandler =
-  (io: Server, { socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
-  async ({ confirm, roomId, kickedUserId }: VotingData): Promise<void> => {
+  (io: Server, socket: Socket) =>
+  (
+    { confirm, roomId, kickedUserId }: VotingData,
+    callback: EventCallback
+  ): void => {
     try {
-      const room = await getRoom(roomId, redisGetAsync);
-      const { updatedUser, updatedRoom, votingIsNotFinished, userWasKicked } =
-        getVoteResults(room, socket.id, kickedUserId, confirm);
+      const { updatedUser, votingIsNotFinished, userWasKicked } =
+        getVoteResults(roomId, socket.id, kickedUserId, confirm, store);
 
-      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
+      if (updatedUser) {
+        callback({ status: 200, data: 'Your vote is accepted' });
+      }
 
       if (votingIsNotFinished) {
         return;
@@ -28,14 +35,27 @@ export const kickUserVotingHandler =
         ? KickUserEvents.userIsDeleted
         : KickUserEvents.userIsNotDeleted;
 
+      const kickedUserEvent = userWasKicked
+        ? KickUserEvents.youAreDeleted
+        : KickUserEvents.youAreNotDeleted;
+
       socket.emit(event, kickUserData);
       socket.to(roomId).except(kickedUserId).emit(event, kickUserData);
-      socket.to(kickedUserId).emit(event, kickUserData);
+      socket.to(kickedUserId).emit(kickedUserEvent, kickUserData);
 
       if (userWasKicked) {
         io.to(kickedUserId).disconnectSockets();
       }
     } catch {
-      socket.emit('error', { status: 500, message: 'error' });
+      handleError(socket, callback);
+      const response = {
+        status: 500,
+        message: 'Voting error, user is not deleted',
+      };
+      socket.emit(KickUserEvents.KICK_VOTING_ERROR, response);
+      socket.to(roomId).emit(KickUserEvents.KICK_VOTING_ERROR, response);
+      if (store[roomId] && store[roomId].users[kickedUserId]) {
+        changeUserStatus(roomId, kickedUserId, UserStatus.active, store);
+      }
     }
   };

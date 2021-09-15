@@ -1,30 +1,25 @@
+import { Socket } from 'socket.io';
 import { kickUser, userCanNotBeKicked } from '../../actions/user/kick';
 import { KickUserEvents } from '../../constants/events';
-import { getRoom, handleError } from '../../helpers';
-import { HandlerParams } from '../../types';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
 import { EventCallback } from '../../types/callbacks';
 import { UserData } from '../../types/data';
 
 export const kickUserHandler =
-  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
-  async (
-    { userId, roomId }: UserData,
-    callback: EventCallback
-  ): Promise<void> => {
+  (socket: Socket) =>
+  ({ userId, roomId }: UserData, callback: EventCallback): void => {
     try {
-      const room = await getRoom(roomId, redisGetAsync);
-      if (userCanNotBeKicked(socket.id, userId, room)) {
+      if (userCanNotBeKicked(socket.id, userId, roomId, store)) {
+        callback({ status: 403, data: 'User can not be kicked' });
         return;
       }
-      const { updatedRoom, kickedUser } = kickUser(room, userId);
-      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
-
+      const kickedUser = kickUser(roomId, socket.id, userId, store);
       const response = {
         kickInitiator: socket.id,
         kickedUserId: userId,
         kickedUser,
       };
-
       callback({ status: 200, data: { kickedUserId: userId, kickedUser } });
       socket.to(userId).emit(KickUserEvents.youAreKicked, response);
       socket

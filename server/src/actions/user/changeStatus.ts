@@ -1,33 +1,30 @@
-import { Room } from '../../types/room';
+import { Store } from '../../types/room';
 import { User, UserStatus } from '../../types/user';
 
 export const changeUserStatus = (
-  room: Room,
+  roomId: string,
   userId: string,
-  status: keyof typeof UserStatus
-): { updatedRoom: Room; updatedUser: User } => {
+  status: keyof typeof UserStatus,
+  store: Store
+): User => {
+  const room = store[roomId];
   const user = room.users[userId];
   const updatedUser = { ...user, status };
-  const updatedRoom = {
-    ...room,
-    users: { ...room.users, [userId]: updatedUser },
-  };
-  return { updatedRoom, updatedUser };
+  room.users = { ...room.users, [userId]: updatedUser };
+  return updatedUser;
 };
 
 export const addDisconnectedStatus = (
-  room: Room,
-  userId: string
-): { updatedRoom: Room | undefined; disconnectedUser: User | undefined } => {
+  roomId: string,
+  userId: string,
+  store: Store
+): User | undefined => {
+  const room = store[roomId];
   const user = room.users[userId];
-  if (user.status === UserStatus.active) {
+  if (user && user.status === UserStatus.active) {
     const disconnectedUser = { ...user, status: UserStatus.disconnected };
-    const updatedRoom = {
-      ...room,
-      users: { ...room.users, [userId]: disconnectedUser },
-    };
-    return { updatedRoom, disconnectedUser };
+    room.users = { ...room.users, [userId]: disconnectedUser };
+    return disconnectedUser;
   }
-
-  return { updatedRoom: undefined, disconnectedUser: undefined };
+  return undefined;
 };

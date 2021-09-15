@@ -1,20 +1,16 @@
+import { Socket } from 'socket.io';
 import { addIssue } from '../../actions/issue/add';
 import { IssueEvents } from '../../constants/events';
-import { getRoom, handleError } from '../../helpers';
-import { HandlerParams } from '../../types';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
 import { EventCallback } from '../../types/callbacks';
 import { NewIssueData } from '../../types/data';
 
 export const addIssueHandler =
-  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
-  async (
-    { roomId, issue }: NewIssueData,
-    callback: EventCallback
-  ): Promise<void> => {
+  (socket: Socket) =>
+  ({ roomId, issue }: NewIssueData, callback: EventCallback): void => {
     try {
-      const room = await getRoom(roomId, redisGetAsync);
-      const { issueId, createdIssue, updateRoom } = addIssue(room, issue);
-      await redisSetAsync(roomId, JSON.stringify(updateRoom));
+      const { issueId, createdIssue } = addIssue(roomId, issue, store);
       callback({ status: 200, data: { issueId, issue: createdIssue } });
       socket
         .to(roomId)

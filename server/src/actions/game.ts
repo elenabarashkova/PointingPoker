@@ -1,16 +1,22 @@
-import { GameSettings, GameStatus } from "../types/game";
-import { Room } from "../types/room";
+import { GameSettings, GameStatus } from '../types/game';
+import { Store } from '../types/room';
 
 export const changeGameSettings = (
-  room: Room,
-  settings: GameSettings
-): { updatedSettings: GameSettings; updatedRoom: Room } => {
+  roomId: string,
+  settings: GameSettings,
+  store: Store
+): GameSettings => {
+  const room = store[roomId];
   const updatedSettings = { ...room.gameSettings, ...settings };
-  const updatedRoom = { ...room, gameSettings: updatedSettings };
-  return { updatedSettings, updatedRoom };
+  room.gameSettings = { ...room.gameSettings, ...updatedSettings };
+  return updatedSettings;
 };
 
 export const changeGameStatus = (
-  room: Room,
-  gameStatus: keyof typeof GameStatus
-): Room => ({ ...room, gameStatus });
+  roomId: string,
+  gameStatus: keyof typeof GameStatus,
+  store: Store
+): void => {
+  const room = store[roomId];
+  room.gameStatus = gameStatus;
+};

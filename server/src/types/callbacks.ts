@@ -7,6 +7,7 @@ import { User } from './user';
 
 type DataType =
   | { room: Room | null; roomId: string }
+  | { room: Room | null; newUserId: string }
   | { userId: string; user: User }
   | { kickedUserId: string; kickedUser: User }
   | { issueId: string; issue: Issue }

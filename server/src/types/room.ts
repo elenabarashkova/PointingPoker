@@ -1,7 +1,7 @@
-import { GameSettings, GameStatus } from "./game";
-import { Issues } from "./issue";
-import { Message } from "./message";
-import { Users } from "./user";
+import { GameSettings, GameStatus } from './game';
+import { Issues } from './issue';
+import { Message } from './message';
+import { Users } from './user';
 
 export interface Room {
   users: Users;
@@ -12,5 +12,9 @@ export interface Room {
 }
 
 export interface StoreSchema {
+  [id: string]: Room;
+}
+
+export interface Store {
   [id: string]: Room;
 }
