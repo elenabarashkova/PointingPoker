@@ -4,4 +4,5 @@ export enum Pages {
   game = 'game',
   settings = 'settings',
   error = 'error',
+  goodbye = 'goodbye',
 }

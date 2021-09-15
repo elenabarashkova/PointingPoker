@@ -3,6 +3,7 @@ import {
   Switch, Route, withRouter, RouteComponentProps, 
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { History } from 'history';
 import MainPage from './pages/MainPage';
 import LobbyPage from './pages/LobbyPage';
 import GamePage from './pages/GamePage';
@@ -18,12 +19,16 @@ import { updateUser } from './redux/actions/user';
 import { setMessageOnResponse } from './redux/actions/messages';
 import { setVotingNotification } from './redux/actions/notifications';
 import { VotingData } from './types/notifications';
+import GoodbyePage from './pages/GoodbyePage';
+import { Pages } from './types/page';
+import useTypedSelector from './hooks/useTypedSelector';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
   setMessage: any;
   updateUser: any;
   setVoting: any;
+  history: History;
 }
 
 const App: FunctionComponent<AppProps> = ({ 
@@ -31,6 +36,7 @@ const App: FunctionComponent<AppProps> = ({
   setMessage: setNewMessage, 
   updateUser: updateUserStatus, 
   setVoting: setStartVoting,
+  history,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, setNewUser);
@@ -55,9 +61,8 @@ const App: FunctionComponent<AppProps> = ({
     });
     // todo: common_notif
     socket.on(YOU_ARE_DELETED, (data) => {
-      // setUserDeletedStatus(data);
-      // todo: перенаправить на другую страницу?
-      // todo: important_notification
+      console.log('YOU_ARE_DELETED', data);
+      history.push(`/${Pages.goodbye}`);
     });
     socket.on(YOU_ARE_NOT_DELETED, updateUserStatus);
     // todo: important_notif
@@ -65,9 +70,10 @@ const App: FunctionComponent<AppProps> = ({
 
   const routes = [
     { path: '/', component: <MainPage />, key: 'main' },
-    { path: '/game', component: <GamePage />, key: 'game' },
-    { path: '/settings', component: <SettingsPage />, key: 'settings' },
-    { path: '/lobby', component: <LobbyPage />, key: 'lobby' },
+    { path: `/${Pages.game}`, component: <GamePage />, key: 'game' },
+    { path: `/${Pages.settings}`, component: <SettingsPage />, key: 'settings' },
+    { path: `/${Pages.lobby}`, component: <LobbyPage />, key: 'lobby' },
+    { path: `/${Pages.goodbye}`, component: <GoodbyePage />, key: 'goodbye' },
     { path: '/*', component: <ErrorPage />, key: 'error' },
   ];
 
