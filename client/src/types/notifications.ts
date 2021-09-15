@@ -16,3 +16,6 @@ export interface VotingData {
   kickInitiator: string;
   kickedUserId: string;
 }
+export enum ImportantNotifications {
+  kick = 'Somebody wants to kick you. Now your team will vote.',
+}

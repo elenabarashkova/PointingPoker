@@ -7,7 +7,7 @@ import styles from './style.module.scss';
 
 interface VotingModalProps {
   isModalOpen: boolean;
-  setModalIsOpen: CallableFunction;
+  closeModal: CallableFunction;
   kickedUserId: string;
   kickInitiatorId: string;
   kickingVoteUser: CallableFunction;
@@ -15,7 +15,7 @@ interface VotingModalProps {
 
 const VotingModal: React.FC<VotingModalProps> = ({
   isModalOpen, 
-  setModalIsOpen, 
+  closeModal, 
   kickedUserId,
   kickInitiatorId,
   kickingVoteUser,
@@ -37,12 +37,12 @@ const VotingModal: React.FC<VotingModalProps> = ({
   );
   const handleSubmitBtn = () => {
     kickingVoteUser(true, roomId, kickedUserId);
-    setModalIsOpen();
+    closeModal();
   };
 
   const handleCancelBtn = () => {
     kickingVoteUser(false, roomId, kickedUserId);
-    setModalIsOpen();
+    closeModal();
   };
 
   return (
