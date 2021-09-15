@@ -39,19 +39,19 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (
   const [validationState, setValidationState] = useState({});
 
   const handleChange = (name: string, value: string): void => {
-    const state = {
-      ...fieldsState,
-      [name]: value,
-    };
-    setFieldsState(state);
-
     const validationErrors = validate({ [name]: value });
 
     if (!Object.keys(validationErrors).length) {
       const newValidationState = { ...validationState };
       delete newValidationState[name];
       setValidationState(newValidationState);
-    }    
+    }
+
+    const state = {
+      ...fieldsState,
+      [name]: value,
+    };
+    setFieldsState(state);
   };
 
   useEffect(
