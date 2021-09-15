@@ -1,7 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
   SET_ROOM_ID,
-  SET_IS_ROOM_VALID,
   SET_GAME_STATUS,
 } from '../action-types';
 import { Game } from '../../types/redusers';
@@ -20,13 +19,6 @@ export const game = (
     return {
       ...state,
       roomId: payload as string,
-    };
-  }
-
-  if (type === SET_IS_ROOM_VALID) {
-    return {
-      ...state,
-      isRoomValid: payload as boolean,
     };
   }
 

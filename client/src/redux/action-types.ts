@@ -3,7 +3,6 @@ export const SET_USER = 'SET_USER';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const SET_ROOM_ID = 'SET_ROOM_ID';
-export const SET_IS_ROOM_VALID = 'SET_IS_ROOM_VALID';
 export const SET_GAME_STATUS = 'SET_GAME_STATUS';
 
 export const SET_ALL_GAME_SETTINGS = 'SET_ALL_GAME_SETTINGS';
