@@ -1,4 +1,4 @@
-import { User, UserData } from 'src/types/user';
+import { UserData } from 'src/types/user';
 import {
   ResponseStatus, ERROR_RESULT, socket, DELETE_USER, 
 } from '../constants';
@@ -14,4 +14,4 @@ export const deleteUser = (roomId: string, userId: string): Promise<DeleteUserRe
       }
       reject(error);
     });
-  }).catch((error) => error));
+  }));
