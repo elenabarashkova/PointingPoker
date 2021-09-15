@@ -12,11 +12,11 @@ export const kickingVoteUser = (
 ): Promise<KickingVoteResultType> => (
   new Promise<KickingVoteResultType>((resolve, reject) => {
     socket.emit(KICKING_VOTE, { confirm, roomId, kickedUserId }, ({ status, data, error }) => {
-        console.log('ответ от сервера', status);
-      if (status === ResponseStatus.error) {
-        reject(error);
+      console.log('ответ от сервера', status);
+      if (status === ResponseStatus.ok) {
+        resolve(data);
         return;
       }
-      resolve(data);
+      reject(error);
     });
   }));

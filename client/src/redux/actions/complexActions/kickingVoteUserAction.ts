@@ -5,11 +5,10 @@ export const kickingVoteUserAction = (
   confirm: boolean, 
   roomId: string, 
   kickedUserId: string,
-) => (dispatch: Dispatch) => {
+) => async (dispatch: Dispatch): Promise<void> => {
   try {
-    // todo: венуть await  
-    kickingVoteUser(confirm, roomId, kickedUserId);
-    // todo: common-notifications
+    const responceData = await kickingVoteUser(confirm, roomId, kickedUserId);
+    // todo: common-notifications (responceData)
   } catch (error) {
     // todo: Показать сообщение об ошибке
     console.log('Блок catch:', error);
