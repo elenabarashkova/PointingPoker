@@ -26,10 +26,6 @@ const RegisterSection: React.FC = (): ReactElement => {
     setRole(UserRole.master);
     setModalOpen(true);
   };
-
-  const showError = () => {
-    setGameIdValidation('Something is wrong. Try again');
-  };
       
   const handleClickBtnUser = async () => {
     if (!gameIdInput) {
@@ -37,10 +33,12 @@ const RegisterSection: React.FC = (): ReactElement => {
       return;
     }
 
+    const showError = () => {
+      setGameIdValidation('Something is wrong. Try again');
+    };
+
     setLoading(true);
-
     const isValid = await isRoomValid(gameIdInput, showError);
-
     setLoading(false);
 
     if (isValid) {
