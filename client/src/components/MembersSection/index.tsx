@@ -13,8 +13,11 @@ interface MembersSectionProps {
  
 const MembersSection: FunctionComponent<MembersSectionProps> = ({ users }): ReactElement => {
   const currectUserId = useTypedSelector((state) => state.currentUserId);
+  console.log('currectUserId:', currectUserId);
   const roomMembersData = Object.entries(users);
-  const members = roomMembersData.filter(([, { role, status }]) => (role !== UserRole.master && status === UserStatus.active));
+  const members = roomMembersData.filter(([, { role, status }]) => (
+    role !== UserRole.master && (status === UserStatus.active || status === UserStatus.kicked)
+  ));
   return ( 
     <div className={styles.membersSection}>
       {!members.length && <p>No members</p>}
