@@ -7,17 +7,16 @@ import { IssueItem } from '../shared/IssueItem';
 export const IssueCard: React.FC<IssueCardProps> = ({
   id,
   title,
-  theme,
   priority,
+  editMode,
   deleteBtnAction,
-  editBtnAction,
+  editBtnAction
 }) => (
   <IssueItem
     id={id}
     title={title}
-    theme={theme}
     priority={priority}
-    editBtn={<EditButton onClick={editBtnAction} />}
+    editBtn={editMode && <EditButton onClick={editBtnAction} />}
     deleteBtn={<DeleteButton onClick={deleteBtnAction} />}
   />
 );

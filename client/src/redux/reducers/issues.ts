@@ -15,7 +15,7 @@ export const initialState: IssuesStore = {
   issues: {},
 };
 
-export const issues = (
+export const issuesStore = (
   state: IssuesStore = initialState,
   { type, payload }: AnyAction,
 ): IssuesStore => {
@@ -48,7 +48,7 @@ export const issues = (
     case DELETE_ISSUE:
       return {
         ...state,
-        issues: { ...state.issues, [payload.issueId]: payload.issue },
+        issues: Object.fromEntries(Object.entries(state.issues).filter(([key]) => key !== payload)),
         isLoading: false,
         error: false,
       };
