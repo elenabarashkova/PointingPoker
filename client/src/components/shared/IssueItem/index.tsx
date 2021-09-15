@@ -4,7 +4,6 @@ import styles from './style.module.scss';
 
 export const IssueItem: React.FC<IssueItemProps> = ({
   title,
-  theme,
   current,
   priority,
   editBtn,
@@ -14,7 +13,6 @@ export const IssueItem: React.FC<IssueItemProps> = ({
     <div className={styles.issueInfo}>
       <span className={styles.current}>{current && 'current'}</span>
       <span className={styles.title}>{title}</span>
-      <span className={styles.theme}>{theme}</span>
       <span className={styles.priority}>
         {priority}
         {' '}
