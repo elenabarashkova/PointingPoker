@@ -11,6 +11,5 @@ export const kickingVoteUserAction = (
     // todo: common-notifications (responceData)
   } catch (error) {
     // todo: Показать сообщение об ошибке
-    console.log('Блок catch:', error);
   }  
 };

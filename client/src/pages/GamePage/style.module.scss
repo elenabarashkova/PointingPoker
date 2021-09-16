@@ -1,5 +1,15 @@
 @import '../../scss/variables.scss';
 
 .wrapper {
+  width: 100%;
+  .main {
     width: 100%;
+    max-width: 1600px;
+    box-sizing: border-box;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 106px - 70px);
+  }
 }

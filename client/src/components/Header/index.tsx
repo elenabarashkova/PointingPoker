@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({
   importantNotification, 
   votingNotification,
   removeImportantNotification: removeLastImportantNotification,
- }): ReactElement => {
+}): ReactElement => {
   const [isVotingModalOpen, setVotingModalOpen] = useState(false);
   const { kickInitiator, kickedUserId } = votingNotification;
 
