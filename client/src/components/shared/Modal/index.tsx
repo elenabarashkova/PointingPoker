@@ -8,7 +8,7 @@ import styles from './style.module.scss';
 
 export interface ModalProps {
   isOpen: boolean;
-  // onClose?(): void;
+  onClose?(): void;
   modalTitle: string;
   yesBtnTitle: string;
   yesBtnOnClick(MouseEvent): void;
@@ -20,6 +20,7 @@ export interface ModalProps {
 export const Modal: FunctionComponent<ModalProps> = (
   {
     isOpen,
+    onClose,
     modalTitle,
     yesBtnTitle,
     yesBtnOnClick,
@@ -30,7 +31,7 @@ export const Modal: FunctionComponent<ModalProps> = (
   },
 ): ReactElement => (
   <div>
-    <Dialog className={styles.modal} open={isOpen} onClose={noBtnOnClick}>
+    <Dialog className={styles.modal} open={isOpen} onClose={onClose || noBtnOnClick}>
       <div className={styles.inner}>
         <DialogTitle className={styles.title}>{modalTitle}</DialogTitle>
         <DialogContent className={styles.component}>
