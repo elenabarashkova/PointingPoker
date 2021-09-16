@@ -10,7 +10,7 @@ export const IssueCard: React.FC<IssueCardProps> = ({
   priority,
   editMode,
   deleteBtnAction,
-  editBtnAction
+  editBtnAction,
 }) => (
   <IssueItem
     id={id}
