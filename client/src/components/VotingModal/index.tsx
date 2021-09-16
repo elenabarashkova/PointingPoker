@@ -51,12 +51,13 @@ const VotingModal: React.FC<VotingModalProps> = ({
       <Modal 
         isOpen={isModalOpen} 
         modalTitle="Kick user" 
-        Component={VotingModalContent} 
-        yesBtnTitle="yes" 
+        yesBtnTitle="yes"
         yesBtnOnClick={handleSubmitBtn} 
-        noBtnNoTitle="no" 
-        noBtnNoOnClick={handleCancelBtn}
-      />
+        noBtnTitle="no"
+        noBtnOnClick={handleCancelBtn}
+      >
+        {VotingModalContent}
+      </Modal>
     </div>
   );
 };
