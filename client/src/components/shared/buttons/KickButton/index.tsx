@@ -61,7 +61,7 @@ const KickButton: React.FC<KickButtonProps> = ({ users, userId }): ReactElement 
       >
         <KickUserModal 
           isModalOpen={isModalOpen} 
-          setModalIsOpen={handleClick} 
+          setModalOpen={handleClick}
           modalComponent={modalContent} 
           userIdToBeKicked={userId} 
           currentUserRole={currentUserRole}

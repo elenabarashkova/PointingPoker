@@ -46,10 +46,13 @@ const VotingModal: React.FC<VotingModalProps> = ({
     closeModal();
   };
 
+  const onClose = () => {};
+
   return (
     <div className={styles.modalWrapper}>
       <Modal 
-        isOpen={isModalOpen} 
+        isOpen={isModalOpen}
+        onClose={onClose}
         modalTitle="Kick user" 
         yesBtnTitle="yes"
         yesBtnOnClick={handleSubmitBtn} 

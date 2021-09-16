@@ -9,7 +9,7 @@ import styles from './style.module.scss';
 
 interface KickUserModalProps {
   isModalOpen: boolean;
-  setModalIsOpen: CallableFunction;
+  setModalOpen: CallableFunction;
   modalComponent: ReactElement;
   userIdToBeKicked: string;
   currentUserRole: keyof typeof UserRole;
@@ -19,7 +19,7 @@ interface KickUserModalProps {
 
 const KickUserModal: React.FC<KickUserModalProps> = ({
   isModalOpen,
-  setModalIsOpen,
+  setModalOpen,
   modalComponent,
   userIdToBeKicked,
   currentUserRole,
@@ -34,11 +34,11 @@ const KickUserModal: React.FC<KickUserModalProps> = ({
     } else {
       kickUserByUser(userIdToBeKicked, roomId);
     }
-    setModalIsOpen();
+    setModalOpen();
   };
 
   const handleCancelBtn = () => {
-    setModalIsOpen();
+    setModalOpen();
   };
 
   return (
