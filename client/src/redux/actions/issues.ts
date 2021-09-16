@@ -2,6 +2,8 @@ import {
   Action, AnyAction, Dispatch, PayloadAction, 
 } from '@reduxjs/toolkit';
 import { addIssue } from 'src/services/issues/addIssue';
+import { deleteIssue } from 'src/services/issues/deleteIssue';
+import { updateIssue } from 'src/services/issues/updateIssue';
 import { Issue, IssueData, Issues } from 'src/types/issues';
 import {
   ADD_ISSUE,
@@ -27,9 +29,9 @@ export const updateIssueAction = (data: IssueData): PayloadAction<IssueData> => 
   payload: data,
 });
 
-export const deleteIssueAction = (data: IssueData): PayloadAction<IssueData> => ({
+export const deleteIssueAction = (issueId: string): PayloadAction<string> => ({
   type: DELETE_ISSUE,
-  payload: data,
+  payload: issueId,
 });
 
 export const sendIssuesRequest = (): Action => ({
@@ -40,14 +42,31 @@ export const setIssuesError = (): Action => ({
   type: SET_ERROR,
 });
 
-export const addIssueRequest = (roomId: string, issue: Issue) => async (
-  dispatch: Dispatch<AnyAction>,
-): Promise<void> => {
+export const addIssueRequest = (roomId: string, issue: Issue) => async (dispatch: Dispatch<AnyAction>) => {
   try {
     dispatch(sendIssuesRequest());
     const response = await addIssue(roomId, issue);
-
     dispatch(addIssueAction(response));
+  } catch (error) {
+    dispatch(setIssuesError());
+  }
+};
+
+export const deleteIssueRequest = (roomId: string, issueId: string) => async (dispatch: Dispatch<AnyAction>) => {
+  try {
+    dispatch(sendIssuesRequest());
+    const response = await deleteIssue(roomId, issueId);
+    dispatch(deleteIssueAction(response));
+  } catch (error) {
+    dispatch(setIssuesError());
+  }
+};
+
+export const updateIssueRequest = (roomId: string, issueId: string, issue: Issue) => async (dispatch: Dispatch<AnyAction>) => {
+  try {
+    dispatch(sendIssuesRequest());
+    const response = await updateIssue(roomId, issueId, issue);
+    dispatch(updateIssueAction(response));
   } catch (error) {
     dispatch(setIssuesError());
   }

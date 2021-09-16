@@ -14,4 +14,4 @@ export const deleteUser = (roomId: string, userId: string): Promise<DeleteUserRe
       }
       reject(error);
     });
-  }).catch((error) => error));
+  }));

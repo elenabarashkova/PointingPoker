@@ -5,7 +5,7 @@ import { GameSettings } from './room';
 import { UsersStore } from './user';
 
 export interface RootStore {
-  issues: IssuesStore;
+  issuesStore: IssuesStore;
   users: UsersStore;
   messages: Messages;
   currentUserId: string;

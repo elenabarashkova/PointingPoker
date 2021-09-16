@@ -7,7 +7,7 @@ import styles from './style.module.scss';
 const GamePage: React.FC = (): ReactElement => (
   <div className={styles.wrapper}>
     <Header page={Pages.game} />
-    <h2>GamePage</h2>      
+    <main className={styles.main} />
     <Footer page={Pages.game} />
   </div>
 );

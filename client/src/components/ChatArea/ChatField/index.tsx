@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import ChatBtn from 'components/shared/buttons/ChatBtn';
+import ChatButton from 'components/shared/buttons/ChatButton';
 import { CSSTransition } from 'react-transition-group';
 import Chat from 'components/ChatArea/Chat';
 import { RootState } from 'src/redux/reducers';
@@ -39,7 +39,7 @@ const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
 
   return (
     <div className={styles.chatField}>
-      <ChatBtn openCloseChat={openCloseChat} notShownMessages={notShownMessages} />
+      <ChatButton openCloseChat={openCloseChat} notShownMessages={notShownMessages} />
       <CSSTransition 
         in={chatIsOpened}
         timeout={400}

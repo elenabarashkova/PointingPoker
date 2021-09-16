@@ -1,0 +1,27 @@
+@keyframes show-modal{
+  0% {
+    opacity: 0;
+    transform: translateY(-1500px);
+  }
+  50% {
+    opacity: .5;
+    transform: translateY(-500px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.modal {
+ transition: .8s;
+}
+.modal-show {
+  animation: show-modal .5s forwards;
+
+}
+.modal-active {
+  opacity: 1;
+}
+.modal-exit {
+  animation: show-modal .5s reverse;
+}

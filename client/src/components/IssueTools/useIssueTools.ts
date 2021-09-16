@@ -1,0 +1,55 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteIssueRequest } from 'src/redux/actions/issues';
+import { EditIssueValues, IssuePriority, UseIssueTools } from 'src/types/issues';
+import { RootStore } from 'src/types/store';
+
+export const useIssueTools = (): UseIssueTools => {
+  const [createIssueModalIsOpen, setCreateIssueModalIsOpen] = useState<boolean>(false);
+  const [updateIssueModalIsOpen, setUpdateIssueModalIsOpen] = useState<boolean>(false);
+  const [editIssueValues, setEditIssueValues] = useState<EditIssueValues>({
+    title: undefined,
+    url: undefined,
+    priority: undefined,
+    id: undefined,
+  });
+
+  const { issuesStore, game } = useSelector((store: RootStore) => store);
+  const { issues } = issuesStore;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (editIssueValues.title) {
+      setUpdateIssueModalIsOpen(true);
+    }
+  }, [editIssueValues]);
+
+  const editBtnAction = (title: string, url: string, priority: keyof typeof IssuePriority, id: string) => () => {
+    setEditIssueValues((prev) => ({
+      ...prev,
+      title,
+      url,
+      priority,
+      id,
+    }));
+  };
+
+  const deleteBtnAction = (id: string) => () => {
+    dispatch(deleteIssueRequest(game.roomId, id));
+  };
+  const openCreateIssueModal = () => setCreateIssueModalIsOpen(true);
+  const closeCreateIssueModal = () => setCreateIssueModalIsOpen(false);
+  const closeUpdateIssueModal = () => setUpdateIssueModalIsOpen(false);
+
+  return {
+    createIssueModalIsOpen,
+    updateIssueModalIsOpen,
+    editIssueValues,
+    issues,
+    editBtnAction,
+    deleteBtnAction,
+    openCreateIssueModal,
+    closeCreateIssueModal,
+    closeUpdateIssueModal,
+  };
+};
