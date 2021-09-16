@@ -8,3 +8,15 @@ export const redirectToSettings = (): void => {
 export const redirectToLobby = (): void => {
   history.push(`/${Pages.lobby}`);
 };
+
+export const redirectToGamePage = (): void => {
+  history.push(`/${Pages.game}`);
+};
+
+export const redirectToGoodbyePage = (): void => {
+  history.push(`/${Pages.goodbye}`);
+};
+
+export const redirectToMainPage = (): void => {
+  history.push('/');
+};

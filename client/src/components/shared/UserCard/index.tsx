@@ -35,7 +35,9 @@ const UserCard: React.FC<UserCardProps> = ({
       ${status !== UserStatus.active && styles.nonActiveUser}`}
     >
       {(role === UserRole.master && size === ElementSize.big) 
-      && <img src={crown} alt="crown" className={styles.crown} />}
+      && <img src={crown} alt="crown" className={styles.crown} /> }
+      {(role === UserRole.master && size === ElementSize.big) 
+      && <span className={styles.scramMaster}>Scram master</span>}
       <div className={styles.wrapper}>
         <UserIco firstName={firstName} lastName={lastName} imgSrc={image} size={size} userStatus={status} />
         <div className={styles.userInfo}>
