@@ -13,7 +13,6 @@ export const userDisconnectionHandler = (socket: Socket) => (): void => {
         disconnectedUserId,
         store
       );
-
       if (disconnectedUser) {
         socket.to(roomId).emit(UserEvents.userDisconnected, {
           disconnectedUserId,

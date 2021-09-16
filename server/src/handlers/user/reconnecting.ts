@@ -16,8 +16,6 @@ export const userReconnectingHandler =
         userId,
         store
       );
-      console.log(room);
-      socket.join(roomId);
       callback({
         status: 200,
         data: { room, newUserId: socket.id, user: updatedUser },
@@ -26,7 +24,9 @@ export const userReconnectingHandler =
         newUserId: socket.id,
         user: updatedUser,
         messages: room.messages,
+        room,
       });
+      socket.join(roomId);
     } catch (error) {
       handleError(socket, callback);
     }
