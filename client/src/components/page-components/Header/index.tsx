@@ -1,4 +1,4 @@
-import ChatField from 'components/chat/ChatArea/ChatField';
+import ChatField from 'components/ChatArea/ChatField';
 import React, { ReactElement } from 'react';
 import { Pages } from 'src/types/page';
 import styles from './style.module.scss';

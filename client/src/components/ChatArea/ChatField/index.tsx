@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import ChatBtn from 'components/shared/buttons/ChatBtn';
 import { CSSTransition } from 'react-transition-group';
-import Chat from 'components/chat/ChatArea/Chat';
+import Chat from 'components/ChatArea/Chat';
 import { RootState } from 'src/redux/reducers';
 import { Message } from 'src/types/messages';
 import useTypedSelector from 'src/hooks/useTypedSelector';
