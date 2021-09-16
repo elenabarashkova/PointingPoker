@@ -10,7 +10,9 @@ interface ImportantNotificationProps {
   closeModal: CallableFunction;
 }
  
-const ImportantNotification: React.FC<ImportantNotificationProps> = ({ content, isModalOpen, closeModal }):ReactElement => ( 
+const ImportantNotification: React.FC<ImportantNotificationProps> = (
+  { content, isModalOpen, closeModal },
+):ReactElement => ( 
   <CSSTransition 
     in={isModalOpen}
     timeout={400}
