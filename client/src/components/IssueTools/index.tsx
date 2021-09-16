@@ -18,14 +18,19 @@ const IssueTools: React.FC<IssueToolsProps> = ({ editMode, columnMode }) => {
     deleteBtnAction,
     openCreateIssueModal,
     closeCreateIssueModal,
-    closeUpdateIssueModal
+    closeUpdateIssueModal,
   } = useIssueTools();
 
   return (
     <div>
       <div className={styles.title}>Issues:</div>
       <div className={`${styles.issuesList} ${columnMode && styles.column}`}>
-        {Object.entries(issues).map(([id, { title, priority, current, link }]) => (
+        {Object.entries(issues).map(([id, {
+          title,
+          priority,
+          current,
+          link,
+        }]) => (
           <IssueCard
             key={`issue-${id}`}
             id={id}
@@ -63,7 +68,7 @@ const IssueTools: React.FC<IssueToolsProps> = ({ editMode, columnMode }) => {
 
 IssueTools.defaultProps = {
   editMode: true,
-  columnMode: false
+  columnMode: false,
 };
 
 export default IssueTools;
