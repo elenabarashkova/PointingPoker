@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react';
 import ChatIco from './comments.svg';
 import styles from './style.module.scss';
 
-interface ChatBtnProps {
+interface ChatButtonProps {
   openCloseChat: CallableFunction;
   notShownMessages: boolean;
 }
 
-const ChatBtn: React.FC<ChatBtnProps> = ({ openCloseChat, notShownMessages }): ReactElement => {
+const ChatButton: React.FC<ChatButtonProps> = ({ openCloseChat, notShownMessages }): ReactElement => {
   const handleClick = () => {
     openCloseChat();
   }; 
@@ -21,4 +21,4 @@ const ChatBtn: React.FC<ChatBtnProps> = ({ openCloseChat, notShownMessages }): R
   );
 };
 
-export default ChatBtn;
+export default ChatButton;

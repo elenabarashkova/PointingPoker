@@ -8,11 +8,13 @@ import styles from './style.module.scss';
 
 export interface ModalProps {
   isOpen: boolean;
+  // onClose?(): void;
   modalTitle: string;
   yesBtnTitle: string;
   yesBtnOnClick(MouseEvent): void;
   noBtnTitle: string;
   noBtnOnClick(MouseEvent): void;
+  loading?: boolean;
 }
 
 export const Modal: FunctionComponent<ModalProps> = (
@@ -24,6 +26,7 @@ export const Modal: FunctionComponent<ModalProps> = (
     noBtnTitle,
     noBtnOnClick,
     children,
+    loading,
   },
 ): ReactElement => (
   <div>
@@ -34,7 +37,12 @@ export const Modal: FunctionComponent<ModalProps> = (
           {children}
         </DialogContent>
         <DialogActions className={styles.buttons}>
-          <Button action={yesBtnOnClick} variant="colored" content={yesBtnTitle} />
+          <Button
+            action={yesBtnOnClick}
+            variant="colored"
+            content={yesBtnTitle}
+            loading={loading}
+          />
           <Button action={noBtnOnClick} variant="bordered" content={noBtnTitle} />
         </DialogActions>
       </div>
