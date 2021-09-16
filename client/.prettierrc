@@ -3,7 +3,7 @@
   "trailingComma": "none",
   "tabWidth": 2,
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
   "arrowParens": "always",
@@ -12,5 +12,5 @@
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
   "useTabs": false,
-  "htmlWhitespaceSensitivity": "css"
+  "htmlWhitespaceSensitivity": "css",
 }
