@@ -10,6 +10,7 @@ import GamePage from './pages/GamePage';
 import SettingsPage from './pages/Settings';
 import ErrorPage from './pages/ErrorPage';
 import {
+  GAME_STATUS_CHANGED,
   RECEIVE_MESSAGE, 
   socket, 
   USER_CONNECTED, 
@@ -32,6 +33,9 @@ import {
 import GoodbyePage from './pages/GoodbyePage';
 import { Pages } from './types/page';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
+import { redirectToGamePage, redirectToGoodbyePage, redirectToMainPage } from './shared';
+import { GameStatus } from './types/room';
+import { setGameStatus } from './redux/actions/game';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -41,6 +45,7 @@ interface AppProps extends RouteComponentProps {
   setImportantNotification: any;
   history: History;
   setCommonNotification: any;
+  updateGameStatusAction: any;
 }
 
 const App: FunctionComponent<AppProps> = ({ 
@@ -50,6 +55,7 @@ const App: FunctionComponent<AppProps> = ({
   setVoting: setStartVoting,
   setImportantNotification: setNewImportantNotification,
   setCommonNotification: setNewCommonNotification,
+  updateGameStatusAction: updateGameStatus,
   history,
 }): ReactElement => {
   useEffect(() => {
@@ -87,11 +93,20 @@ const App: FunctionComponent<AppProps> = ({
       setNewCommonNotification(notificationData);
     });
     socket.on(YOU_ARE_DELETED, () => {
-      history.push(`/${Pages.goodbye}`);
+      redirectToGoodbyePage();
     });
     socket.on(YOU_ARE_NOT_DELETED, (data) => {
       setNewImportantNotification(ImportantNotifications.notDeleted);
       updateUserStatus(data);
+    });
+    socket.on(GAME_STATUS_CHANGED, (data) => {
+      updateGameStatus(data);
+      if (data === GameStatus.canceled) {
+        setNewImportantNotification(ImportantNotifications.gameCanceled);
+      }
+      if (data === GameStatus.inProgress) {
+        redirectToGamePage();
+      }
     });
   }, []);
 
@@ -123,6 +138,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setVoting: (data: VotingData) => dispatch(setVotingNotification(data)),
   setImportantNotification: (content: string) => dispatch(setImportantNotification(content)),
   setCommonNotification: (notification: CommonNotification) => dispatch(setCommonNotification(notification)),
+  updateGameStatusAction: (status: keyof typeof GameStatus) => dispatch(setGameStatus(status)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

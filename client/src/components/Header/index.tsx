@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import { removeImportantNotification } from 'src/redux/actions/notifications';
 import { RootState } from 'src/redux/reducers';
 import { AppDispatch } from 'src/redux/store';
-import { VotingData } from 'src/types/notifications';
+import { redirectToMainPage } from 'src/shared';
+import { ImportantNotifications, VotingData } from 'src/types/notifications';
 import { Pages } from 'src/types/page';
 import styles from './style.module.scss';
 
@@ -41,6 +42,9 @@ const Header: React.FC<HeaderProps> = ({
   const hadleClickImportantNotification = () => {
     setNotificationModalOpen(false);
     removeLastImportantNotification();
+    if (importantNotification === ImportantNotifications.gameCanceled) {
+      redirectToMainPage();
+    }
   };
 
   return (

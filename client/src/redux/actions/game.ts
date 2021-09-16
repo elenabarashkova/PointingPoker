@@ -1,8 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { GameSettings } from 'src/types/room';
+import { GameSettings, GameStatus } from 'src/types/room';
 import { SET_ALL_GAME_SETTINGS, SET_GAME_STATUS } from '../action-types';
 
-export const setGameStatus = (gameStatus: string): PayloadAction<string> => ({
+export const setGameStatus = (gameStatus: keyof typeof GameStatus): PayloadAction<keyof typeof GameStatus> => ({
   type: SET_GAME_STATUS,
   payload: gameStatus,
 });

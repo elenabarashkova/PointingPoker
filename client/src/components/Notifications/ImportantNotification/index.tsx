@@ -1,6 +1,7 @@
-import CloseButton from 'components/shared/buttons/CloseButton';
 import React, { ReactElement } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { ImportantNotifications } from 'src/types/notifications';
+import CloseButton from '../../shared/buttons/CloseButton';
 import styles from './style.module.scss';
 import './transition.scss';
 
