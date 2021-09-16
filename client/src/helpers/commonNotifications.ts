@@ -43,7 +43,7 @@ export const createCommonNotificationAboutVouting = (
   const id = nanoid();
   return {
     key: id,
-    data: `Your vote was ${type === CommonNotificationType.error && 'not'} counted`,
+    data: `Your vote was ${(type === CommonNotificationType.error) ? 'not' : ''} counted`,
     type,
   };
 };
