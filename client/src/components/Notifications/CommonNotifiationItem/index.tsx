@@ -19,10 +19,10 @@ const CommonNotificationItem: React.FC<CommonNotificationItemProps> = ({
   notificationKey,
   removeCommonNotification: removeNotification,
 }): ReactElement => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setChecked] = useState(false);
 
   const handleChange = () => {
-    setIsChecked(true);
+    setChecked(true);
     removeNotification(notificationKey);
   };
     
