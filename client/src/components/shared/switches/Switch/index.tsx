@@ -6,7 +6,7 @@ import { SwitchType, ChoiceType } from './types';
 export interface SwitchProps {
   name: string;
   type: keyof typeof SwitchType;
-  status: string; 
+  status: string | boolean;
   onChange?: CallableFunction;
 }
 
@@ -31,7 +31,7 @@ const Switch:React.FC<SwitchProps> = (
   };
 
   const handleChange = () => {
-    onChange();
+    onChange(name);
   };
 
   return (
@@ -41,7 +41,7 @@ const Switch:React.FC<SwitchProps> = (
         type="checkbox" 
         className={styles.switchInput} 
         disabled={status === UserRole.master}
-        checked={status === UserRole.observer || status === ChoiceType.yes}
+        checked={status === (UserRole.observer as string) || status as boolean}
         onChange={handleChange}
       />
       <span 

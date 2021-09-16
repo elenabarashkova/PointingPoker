@@ -32,7 +32,7 @@ export interface IssueData {
 export enum IssuePriority {
   low = 'low',
   middle = 'middle',
-  hight = 'hight'
+  hight = 'hight',
 }
 
 export interface IssueProps {
