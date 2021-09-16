@@ -1,8 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import { SwitchWithLabel } from 'components/shared/switches/SwitchWithLabel/SwitchWithLabel';
-import { SWITCHES_CONFIG, SETTINGS_INITIAL_STATE } from 'components/settings/switches-config';
+import { SWITCHES_CONFIG, SETTINGS_INITIAL_STATE } from 'components/settings/settings-configs';
 import { SettingsSelect } from 'components/settings/SettingsSelect';
-import { ScoreType } from '../../types/room';
 
 export const SettingsSection: React.FC = ():ReactElement => {
   const [settings, setSettings] = useState(SETTINGS_INITIAL_STATE);
@@ -48,9 +47,7 @@ export const SettingsSection: React.FC = ():ReactElement => {
         <SettingsSelect
           name="scoreType"
           value={settings.scoreType}
-          title={}
           handleChange={handleChangeSelect}
-          valuesConfig={Object.values(ScoreType)}
         />
       </div>
     </div>

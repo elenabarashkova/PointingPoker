@@ -1,13 +1,11 @@
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { ChangeEvent } from 'react';
-import { ScoreType } from '../../types/room';
+import { SETTINGS_SCORE_TYPE_CONFIG } from 'components/settings/settings-configs';
 
 export interface SelectProps {
   value: string;
   name: string;
-  title:string;
-  valuesConfig: (keyof typeof ScoreType)[];
   additionalStyle?: string;
   handleChange: CallableFunction;
 }
@@ -22,9 +20,7 @@ export const SettingsSelect: React.FC<SelectProps> = (
   {
     value,
     name,
-    title,
     handleChange,
-    valuesConfig,
     additionalStyle,
   },
 ) => {
@@ -41,8 +37,8 @@ export const SettingsSelect: React.FC<SelectProps> = (
       name={name}
       className={`${classes.selectEmpty} ${additionalStyle}`}
     >
-      {valuesConfig.map((inputValue) => (
-        <option key={inputValue} value={inputValue}>
+      {SETTINGS_SCORE_TYPE_CONFIG.map(({ valueType, title }) => (
+        <option key={valueType} value={valueType}>
           {title}
         </option>
       ))}
