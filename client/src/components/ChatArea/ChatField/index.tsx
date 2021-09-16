@@ -15,27 +15,31 @@ interface ChatFieldProps {
 
 const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
   const [chatIsOpened, setChatIsOpened] = useState(false);
-  const [isMessagesUnshown, setIsMessagesUnshown] = useState(false);
+  const [notShownMessages, setNotShownMessages] = useState(false);
 
   const currentUserId = useTypedSelector((state) => state.currentUserId);
 
   useEffect(() => {
     if (!messages.length) return;
-    if (!chatIsOpened && messages[messages.length - 1].userId !== currentUserId) {
-      setIsMessagesUnshown(true);
+
+    const lastMessage = messages[messages.length - 1];
+    const currentUserIsNotAuthor = lastMessage.userId !== currentUserId;
+
+    if (!chatIsOpened && currentUserIsNotAuthor) {
+      setNotShownMessages(true);
     }
-  }, [messages, chatIsOpened, currentUserId]);
+  }, [messages]);
 
   const openCloseChat = () => {
-    if (!chatIsOpened && isMessagesUnshown) {
-      setIsMessagesUnshown(false);
+    if (!chatIsOpened && notShownMessages) {
+      setNotShownMessages(false);
     }
     setChatIsOpened((prev) => !prev);
   }; 
 
   return (
     <div className={styles.chatField}>
-      <ChatBtn openCloseChat={openCloseChat} isMessagesUnshown={isMessagesUnshown} />
+      <ChatBtn openCloseChat={openCloseChat} notShownMessages={notShownMessages} />
       <CSSTransition 
         in={chatIsOpened}
         timeout={400}
