@@ -1,0 +1,74 @@
+@import '../../scss/variables.scss';
+
+.wrapper {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background: $light-blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  box-sizing: border-box;
+  .modal {
+    width: 500px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 70px;
+    align-items: center;
+    box-shadow: $shadow;
+    border-radius: 10px;
+    margin-bottom: 20px; 
+    .img {
+      background: url(../../assets/suitcase.png);
+      width: 300px;
+      height: 300px;
+      background-position: center;
+      background-size: 300px;
+      background-repeat: no-repeat;
+    }
+    p {
+      color: $blue;
+      font-family: $font-family-second;
+      text-align:center;
+      line-height: 24px;
+      mark,
+      span {
+        text-transform: uppercase;
+      }
+      mark:nth-child(1) {
+        background-color: $light-yellow;
+      }
+      mark:nth-child(2) {
+        background-color: rgb(106, 190, 106);
+      }
+      mark:nth-child(3) {
+        background-color: rgba(241, 30, 76, 0.363);
+      }
+      span {
+        background-color: $light-blue;
+      }
+    }
+  }
+  .btn {
+    width: 200px;
+    height: 50px;
+    font-family: $font-family-second;
+    font-size: 18px;
+    background: $blue;
+    color: $light-blue;
+    border-radius: 7px;
+    border: none;
+    box-shadow: $shadow;
+    cursor: pointer;
+    transition: .4s;
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active {
+        transform: scale(.9);
+    }
+  }
+}

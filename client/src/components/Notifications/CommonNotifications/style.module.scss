@@ -1,0 +1,14 @@
+.wrapper {
+  position: absolute;
+  top: calc(-219px + 35px);
+  left: calc(100vw - 250px);
+  width: 250px;
+  max-height: 219px;
+  .container {
+    max-height: 219px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+}

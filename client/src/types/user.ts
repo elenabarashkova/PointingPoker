@@ -33,3 +33,7 @@ export interface UsersStore {
   isLoading: boolean;
   users: Users;
 }
+export interface KickUserdata {
+  kickedUserId: string;
+  kickedUser: User;
+}
