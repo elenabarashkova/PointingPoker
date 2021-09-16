@@ -88,23 +88,23 @@ const RegisterSection: React.FC = (): ReactElement => {
         />
         <Button content="connect" variant="colored" action={handleClickBtnUser} loading={loading} />
       </div>
-      <Modal
-        isOpen={modalOpen}
-        modalTitle="Sign in"
-        yesBtnTitle="Confirm"
-        yesBtnOnClick={handleSubmitClick}
-        noBtnTitle="Decline"
-        noBtnOnClick={handleDeclineClick}
-      >
-        {modalOpen ? (
+      {modalOpen ? (
+        <Modal
+          isOpen={modalOpen}
+          modalTitle="Sign in"
+          yesBtnTitle="Confirm"
+          yesBtnOnClick={handleSubmitClick}
+          noBtnTitle="Decline"
+          noBtnOnClick={handleDeclineClick}
+        >
           <RegisterForm
             role={role}
             changeRole={handleSwitch}
             gameIdInput={gameIdInput}
             onSubmit={submitAttempt ? onSubmit : null}
           />
-        ) : null}
-      </Modal>
+        </Modal>
+      ) : null}
     </div>
   );
 };
