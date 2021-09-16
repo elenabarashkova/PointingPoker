@@ -17,37 +17,36 @@ export const IssueModal: React.FC<IssueModalProps> = ({
   config,
 }) => (
   <Modal
-    Component={(
-      <form>
-        {Object.entries(config).map(([inputName, {
-          type, placeholder, label, errorText, 
-        }]) => (type === 'text' ? (
-          <TextInput
-            key={inputName}
-            name={inputName}
-            value={valuesConfig[inputName].value}
-            label={label}
-            onChange={handleChange(valuesConfig[inputName].action)}
-            placeholder={placeholder}
-            error={errors[inputName] && errorText}
-          />
-        ) : (
-          <Select
-            key={inputName}
-            value={valuesConfig[inputName].value}
-            valuesConfig={options}
-            name={inputName}
-            handleChange={handleSelect}
-          />
-        )))}
-      </form>
-    )}
     isOpen={isOpen}
     modalTitle="Create Issue"
     yesBtnTitle="Yes"
-    noBtnNoTitle="No"
+    noBtnTitle="No"
     yesBtnOnClick={addNewIssue}
-    noBtnNoOnClick={closeModal}
+    noBtnOnClick={closeModal}
     loading={isLoading}
-  />
+  >
+    <form>
+      {Object.entries(config).map(([inputName, {
+        type, placeholder, label, errorText,
+      }]) => (type === 'text' ? (
+        <TextInput
+          key={inputName}
+          name={inputName}
+          value={valuesConfig[inputName].value}
+          label={label}
+          onChange={handleChange(valuesConfig[inputName].action)}
+          placeholder={placeholder}
+          errorMessage={errors[inputName] && errorText}
+        />
+      ) : (
+        <Select
+          key={inputName}
+          value={valuesConfig[inputName].value}
+          valuesConfig={options}
+          name={inputName}
+          handleChange={handleSelect}
+        />
+      )))}
+    </form>
+  </Modal>
 );

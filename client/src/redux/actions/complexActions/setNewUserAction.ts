@@ -32,7 +32,7 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
   try {
     const { room, roomId, userId } = (await joinRoom(gameIdInput, newUser)) as RoomData;
     const {
-      users, messages, issues, gameStatus, gameSettings,
+      users, messages, issuesStore, gameStatus, gameSettings,
     } = room as Room;
 
     batch(() => {
@@ -42,7 +42,7 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
       dispatch(setGameStatus(gameStatus));
       dispatch(setAllGameSettings(gameSettings));
       dispatch(setMessages(messages));
-      dispatch(setIssuesAction(issues));
+      dispatch(setIssuesAction(issuesStore));
     });
 
     redirectToLobby();
