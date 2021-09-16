@@ -22,3 +22,18 @@ export const SETTINGS_INITIAL_STATE = {
   scoreType: ScoreType.storyPoint,
   roundTime: 2,
 };
+
+export const SETTINGS_SCORE_TYPE_CONFIG = [
+  {
+    valueType: ScoreType.storyPoint,
+    title: 'Story Point',
+  },
+  {
+    valueType: ScoreType.size,
+    title: 'Size',
+  },
+  {
+    valueType: ScoreType.calories,
+    title: 'Calories',
+  },
+];
