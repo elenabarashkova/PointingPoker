@@ -1,5 +1,8 @@
 import { Dispatch } from 'redux';
+import { createCommonNotificationAboutVouting } from 'src/helpers/commonNotifications';
 import { kickingVoteUser } from 'src/services/user/kickingVoteUser';
+import { CommonNotificationType } from 'src/types/notifications';
+import { setCommonNotification } from '../notifications';
 
 export const kickingVoteUserAction = (
   confirm: boolean, 
@@ -7,9 +10,12 @@ export const kickingVoteUserAction = (
   kickedUserId: string,
 ) => async (dispatch: Dispatch): Promise<void> => {
   try {
-    const responceData = await kickingVoteUser(confirm, roomId, kickedUserId);
-    // todo: common-notifications (responceData)
+    await kickingVoteUser(confirm, roomId, kickedUserId);
+    
+    const notification = createCommonNotificationAboutVouting(CommonNotificationType.success);
+    dispatch(setCommonNotification(notification));
   } catch (error) {
-    // todo: Показать сообщение об ошибке
+    const notification = createCommonNotificationAboutVouting(CommonNotificationType.error);
+    dispatch(setCommonNotification(notification));
   }  
 };
