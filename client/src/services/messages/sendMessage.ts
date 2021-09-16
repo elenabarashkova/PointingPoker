@@ -14,4 +14,4 @@ export const sendMessage = (roomId: string, text: string): Promise<SendMessageRe
       }
       reject(error);
     });
-  }).catch((error) => error));
+  }));

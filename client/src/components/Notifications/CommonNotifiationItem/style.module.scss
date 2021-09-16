@@ -1,0 +1,70 @@
+@import '../../../scss/variables.scss';
+
+.notificationItem {
+  width: 100%;
+  display: flex;
+  margin-bottom: 8px;
+  box-shadow: $shadow;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 3px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  .label {
+    position: relative;
+    border: 1px solid $blue;
+    border-radius: 3px;
+    width: 15px;
+    height: 15px;
+    box-sizing: border-box;
+    box-shadow: 0 0.1rem 0.3rem #211b588a;
+    input {
+      opacity: 0;
+      margin: 0;
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+  }
+  .circle {
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    opacity: 1;
+    animation: pulsate .8s linear infinite;
+  }
+ 
+  @keyframes pulsate {      
+    100% { opacity: .4; }
+  }
+  .circle.success {
+    background: rgb(106, 190, 106); 
+  }
+  .circle.error {
+    background: $red; 
+  }
+  p {
+    width: 75%;
+    font-family: $font-family-second;
+    color: $base-text-color-2;
+    font-size: 14px;
+    margin: 0;
+  }
+}
+.notificationItem.checked {
+  p {
+    text-decoration: line-through; 
+  }
+  .circle {
+    display: none;
+  }
+  img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -5px;
+    left: 0;
+  }
+}

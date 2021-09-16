@@ -4,6 +4,7 @@ import { game } from './game';
 import { gameSettings } from './gameSettings';
 import { issuesStore } from './issues';
 import { messages } from './messages';
+import { notifications } from './notifications';
 import { users } from './setUsers';
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   issuesStore,
   game,
   gameSettings,
+  notifications,
 });
 
 export default rootReducer;
