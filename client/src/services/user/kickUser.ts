@@ -1,4 +1,4 @@
-import { KickUserdata, UserData } from 'src/types/user';
+import { KickUserdata } from 'src/types/user';
 import {
   ResponseStatus, ERROR_RESULT, socket, KICK_USER, 
 } from '../constants';

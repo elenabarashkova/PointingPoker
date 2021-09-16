@@ -10,17 +10,28 @@ import GamePage from './pages/GamePage';
 import SettingsPage from './pages/Settings';
 import ErrorPage from './pages/ErrorPage';
 import {
-  RECEIVE_MESSAGE, socket, USER_CONNECTED, USER_IS_DELETED, USER_IS_KICKED, USER_IS_NOT_DELETED, YOU_ARE_DELETED, YOU_ARE_KICKED, YOU_ARE_NOT_DELETED, 
+  RECEIVE_MESSAGE, 
+  socket, 
+  USER_CONNECTED, 
+  USER_IS_DELETED, 
+  USER_IS_KICKED, 
+  USER_IS_NOT_DELETED, 
+  YOU_ARE_DELETED, 
+  YOU_ARE_KICKED, 
+  YOU_ARE_NOT_DELETED, 
 } from './services/constants';
 import { AppDispatch } from './redux/store';
 import { UserData } from './types/user';
 import { Message } from './types/messages';
 import { updateUser } from './redux/actions/user';
 import { setMessageOnResponse } from './redux/actions/messages';
-import { setImportantNotification, setVotingNotification } from './redux/actions/notifications';
-import { ImportantNotifications, VotingData } from './types/notifications';
+import { setCommonNotification, setImportantNotification, setVotingNotification } from './redux/actions/notifications';
+import {
+  CommonNotification, CommonNotificationAction, ImportantNotifications, VotingData, 
+} from './types/notifications';
 import GoodbyePage from './pages/GoodbyePage';
 import { Pages } from './types/page';
+import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -29,6 +40,7 @@ interface AppProps extends RouteComponentProps {
   setVoting: any;
   setImportantNotification: any;
   history: History;
+  setCommonNotification: any;
 }
 
 const App: FunctionComponent<AppProps> = ({ 
@@ -37,11 +49,18 @@ const App: FunctionComponent<AppProps> = ({
   updateUser: updateUserStatus, 
   setVoting: setStartVoting,
   setImportantNotification: setNewImportantNotification,
+  setCommonNotification: setNewCommonNotification,
   history,
 }): ReactElement => {
   useEffect(() => {
-    socket.on(USER_CONNECTED, setNewUser);
-    // todo: common_notification
+    socket.on(USER_CONNECTED, (data) => {
+      setNewUser(data);
+      const notificationData = createCommonNotificationAboutUser(
+        data, 
+        CommonNotificationAction.connect,
+      );
+      setNewCommonNotification(notificationData);
+    });
     socket.on(RECEIVE_MESSAGE, setNewMessage);
     socket.on(USER_IS_KICKED, ({ kickInitiator, kickedUserId, kickedUser }) => {
       updateUserStatus({ userId: kickedUserId, user: kickedUser });
@@ -52,21 +71,28 @@ const App: FunctionComponent<AppProps> = ({
       setNewImportantNotification(ImportantNotifications.kick);
     });
     socket.on(USER_IS_DELETED, (data) => {
-      console.log('USER_IS_DELETED data', data);
       updateUserStatus(data);
+      const notificationData = createCommonNotificationAboutUser(
+        data, 
+        CommonNotificationAction.deleted,
+      );
+      setNewCommonNotification(notificationData);
     });
-    // todo: common_notification
     socket.on(USER_IS_NOT_DELETED, (data) => {
-      console.log('USER_IS_NOT_DELETED data', data);
       updateUserStatus(data);
+      const notificationData = createCommonNotificationAboutUser(
+        data, 
+        CommonNotificationAction.isNotDeleted,
+      );
+      setNewCommonNotification(notificationData);
     });
-    // todo: common_notif
-    socket.on(YOU_ARE_DELETED, (data) => {
-      console.log('YOU_ARE_DELETED', data);
+    socket.on(YOU_ARE_DELETED, () => {
       history.push(`/${Pages.goodbye}`);
     });
-    socket.on(YOU_ARE_NOT_DELETED, updateUserStatus);
-    // todo: important_notif
+    socket.on(YOU_ARE_NOT_DELETED, (data) => {
+      setNewImportantNotification(ImportantNotifications.notDeleted);
+      updateUserStatus(data);
+    });
   }, []);
 
   const routes = [
@@ -96,6 +122,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   updateUser: (userData: UserData) => dispatch(updateUser(userData)),
   setVoting: (data: VotingData) => dispatch(setVotingNotification(data)),
   setImportantNotification: (content: string) => dispatch(setImportantNotification(content)),
+  setCommonNotification: (notification: CommonNotification) => dispatch(setCommonNotification(notification)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

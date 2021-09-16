@@ -1,12 +1,21 @@
 import { CommonNotification, VotingData } from 'src/types/notifications';
 import {
-  SET_COMMON_NOTIFICATION, SET_IMPORTANT_NOTIFICATION, SET_VOTING_NOTIFICATION, REMOVE_IMPORTANT_NOTIFICATION, 
+  SET_COMMON_NOTIFICATION, 
+  SET_IMPORTANT_NOTIFICATION, 
+  SET_VOTING_NOTIFICATION, 
+  REMOVE_IMPORTANT_NOTIFICATION, 
+  REMOVE_COMMON_NOTIFICATION, 
 } from '../action-types';
 import { NotificationAction } from '../reducers/notifications';
 
 export const setCommonNotification = (notification: CommonNotification): NotificationAction => ({
   type: SET_COMMON_NOTIFICATION,
   commonNotification: notification,
+});
+
+export const removeCommonNotification = (key: string): NotificationAction => ({
+  type: REMOVE_COMMON_NOTIFICATION,
+  notificationKey: key,
 });
   
 export const setImportantNotification = (notification: string): NotificationAction => ({

@@ -4,7 +4,7 @@ export interface Notifications {
   voting: VotingData;
 }
 export interface CommonNotification {
-  key: number;
+  key: string;
   data: string;
   type: keyof typeof CommonNotificationType;
 }
@@ -18,4 +18,10 @@ export interface VotingData {
 }
 export enum ImportantNotifications {
   kick = 'Somebody wants to kick you. Now your team will vote.',
+  notDeleted = 'Congratulations. Your team decided to keep you in the game session.',
+}
+export enum CommonNotificationAction {
+  connect = 'connect',
+  deleted = 'deleted',
+  isNotDeleted = 'isNotDeleted',
 }

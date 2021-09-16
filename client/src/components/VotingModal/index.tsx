@@ -31,6 +31,7 @@ const VotingModal: React.FC<VotingModalProps> = ({
       <mark>{kickInitiatorName}</mark>
       {' '}
       wants to kick member
+      {' '}
       <mark>{userToBeKickedName}</mark>
       . Do you agree?
     </p>

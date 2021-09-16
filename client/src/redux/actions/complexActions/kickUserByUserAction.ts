@@ -1,7 +1,6 @@
-import { copyFileSync } from 'fs';
 import { Dispatch } from 'redux';
 import { kickUser } from 'src/services/user/kickUser';
-import { KickUserdata, UserData } from 'src/types/user';
+import { KickUserdata } from 'src/types/user';
 import { updateUser } from '../user';
 
 export const kickUserByUserAction = (

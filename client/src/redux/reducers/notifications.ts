@@ -1,5 +1,6 @@
 import { CommonNotification, Notifications, VotingData } from 'src/types/notifications';
 import {
+  REMOVE_COMMON_NOTIFICATION,
   REMOVE_IMPORTANT_NOTIFICATION, SET_COMMON_NOTIFICATION, SET_IMPORTANT_NOTIFICATION, SET_VOTING_NOTIFICATION, 
 } from '../action-types';
   
@@ -15,6 +16,9 @@ export const initialState = {
 export type NotificationAction = {
   type: 'SET_COMMON_NOTIFICATION';
   commonNotification: CommonNotification;
+} | {
+  type: 'REMOVE_COMMON_NOTIFICATION';
+  notificationKey: string;
 } | {
   type: 'SET_IMPORTANT_NOTIFICATION';
   importantNotification: string;
@@ -38,6 +42,14 @@ export const notifications = (
         ],
       };
     }
+    case REMOVE_COMMON_NOTIFICATION: {
+      return {
+        ...state,
+        common: [
+          ...state.common.filter((item) => item.key !== action.notificationKey),
+        ],
+      };
+    }
     case SET_IMPORTANT_NOTIFICATION: {
       return {
         ...state, 
@@ -51,7 +63,6 @@ export const notifications = (
       };
     }  
     case SET_VOTING_NOTIFICATION: {
-      console.log('data;', action.voting);
       return {
         ...state, 
         voting: action.voting,
