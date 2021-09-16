@@ -14,7 +14,7 @@ interface HeaderProps {
   page: keyof typeof Pages;
   importantNotification: string;
   votingNotification: VotingData;
-  removeImportantNotification: any;
+  removeImportantNotification: CallableFunction;
 }
 
 const Header: React.FC<HeaderProps> = ({ 

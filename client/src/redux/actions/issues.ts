@@ -42,7 +42,10 @@ export const setIssuesError = (): Action => ({
   type: SET_ERROR,
 });
 
-export const addIssueRequest = (roomId: string, issue: Issue) => async (dispatch: Dispatch<AnyAction>) => {
+export const addIssueRequest = (
+  roomId: string,
+  issue: Issue,
+) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
   try {
     dispatch(sendIssuesRequest());
     const response = await addIssue(roomId, issue);
@@ -52,7 +55,10 @@ export const addIssueRequest = (roomId: string, issue: Issue) => async (dispatch
   }
 };
 
-export const deleteIssueRequest = (roomId: string, issueId: string) => async (dispatch: Dispatch<AnyAction>) => {
+export const deleteIssueRequest = (
+  roomId: string,
+  issueId: string,
+) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
   try {
     dispatch(sendIssuesRequest());
     const response = await deleteIssue(roomId, issueId);
@@ -62,7 +68,11 @@ export const deleteIssueRequest = (roomId: string, issueId: string) => async (di
   }
 };
 
-export const updateIssueRequest = (roomId: string, issueId: string, issue: Issue) => async (dispatch: Dispatch<AnyAction>) => {
+export const updateIssueRequest = (
+  roomId: string,
+  issueId: string,
+  issue: Issue,
+) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
   try {
     dispatch(sendIssuesRequest());
     const response = await updateIssue(roomId, issueId, issue);
