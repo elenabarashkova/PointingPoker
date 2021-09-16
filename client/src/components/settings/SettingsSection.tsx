@@ -1,20 +1,57 @@
 import React, { ReactElement, useState } from 'react';
-import { ChoiceType } from 'components/shared/switches/Switch/types';
 import { SwitchWithLabel } from 'components/shared/switches/SwitchWithLabel/SwitchWithLabel';
+import { SWITCHES_CONFIG, SETTINGS_INITIAL_STATE } from 'components/settings/switches-config';
+import { SettingsSelect } from 'components/settings/SettingsSelect';
+import { ScoreType } from '../../types/room';
 
 export const SettingsSection: React.FC = ():ReactElement => {
-  const [yes, setYes] = useState(ChoiceType.yes);
+  const [settings, setSettings] = useState(SETTINGS_INITIAL_STATE);
 
-  const handleChange = () => {
-    const newYes = yes === ChoiceType.yes ? ChoiceType.no : ChoiceType.yes;
-    setYes(newYes);
+  const handleChangeSwitch = (name) => {
+    const newStatus = !settings[name];
+
+    const state = {
+      ...settings,
+      [name]: newStatus,
+    };
+    setSettings(state);
   };
+
+  const handleChangeSelect = (name, value) => {
+    const state = {
+      ...settings,
+      [name]: value,
+    };
+    setSettings(state);
+  };
+
+  const switchesSet = ():ReactElement => (
+    <>
+      {SWITCHES_CONFIG.map(({ label, name }) => (
+        <SwitchWithLabel
+          key={name}
+          name={name}
+          label={label}
+          onChange={handleChangeSwitch}
+          type="choice"
+          status={settings[name]}
+        />
+      ))}
+    </>
+  );
 
   return (
     <div>
       <h2>Game Settings:</h2>
       <div className="settings-inner">
-        <SwitchWithLabel label="Scram master as player:" name="1" type="choice" status={yes} onChange={handleChange} />
+        {switchesSet()}
+        <SettingsSelect
+          name="scoreType"
+          value={settings.scoreType}
+          title={}
+          handleChange={handleChangeSelect}
+          valuesConfig={Object.values(ScoreType)}
+        />
       </div>
     </div>
   );
