@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import ChatBtn from 'components/shared/buttons/ChatBtn';
+import ChatButton from 'components/shared/buttons/ChatButton';
 import { CSSTransition } from 'react-transition-group';
 import Chat from 'components/ChatArea/Chat';
 import { RootState } from 'src/redux/reducers';
@@ -15,27 +15,27 @@ interface ChatFieldProps {
 
 const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
   const [chatIsOpened, setChatIsOpened] = useState(false);
-  const [isMessagesUnshown, setIsMessagesUnshown] = useState(false);
+  const [notShownMessages, setNotShownMessages] = useState(false);
 
   const currentUserId = useTypedSelector((state) => state.currentUserId);
 
   useEffect(() => {
     if (!messages.length) return;
     if (!chatIsOpened && messages[messages.length - 1].userId !== currentUserId) {
-      setIsMessagesUnshown(true);
+      setNotShownMessages(true);
     }
   }, [messages]);
 
   const openCloseChat = () => {
-    if (!chatIsOpened && isMessagesUnshown) {
-      setIsMessagesUnshown(false);
+    if (!chatIsOpened && notShownMessages) {
+      setNotShownMessages(false);
     }
     setChatIsOpened((prev) => !prev);
   }; 
 
   return (
     <div className={styles.chatField}>
-      <ChatBtn openCloseChat={openCloseChat} isMessagesUnshown={isMessagesUnshown} />
+      <ChatButton openCloseChat={openCloseChat} notShownMessages={notShownMessages} />
       <CSSTransition 
         in={chatIsOpened}
         timeout={400}
