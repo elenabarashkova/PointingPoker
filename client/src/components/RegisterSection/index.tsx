@@ -1,9 +1,12 @@
-import React, { ReactElement, useState } from 'react';
+import React, {
+  ReactElement, useContext, useEffect, useState, 
+} from 'react';
 import Button from 'components/shared/buttons/Button';
 import { TextInput } from 'components/shared/TextInput';
 import RegisterForm from 'components/RegisterForm';
 import { UserRole } from 'src/types/user';
 import { validateGameId } from 'components/RegisterSection/gameIdCheck';
+import Context from 'src/helpers/context';
 import styles from './style.module.scss';
 import { Modal } from '../shared/Modal';
 
@@ -14,6 +17,13 @@ const RegisterSection: React.FC = (): ReactElement => {
   const [gameIdValidationMessage, setGameIdValidationMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitAttempt, setSubmitAttempt] = useState(false);
+
+  const roomId = useContext(Context);
+  useEffect(() => {
+    if (roomId) {
+      setGameIdInput(roomId);
+    }
+  }, []);
 
   const handleIdInput = (name: string, idValue: string) => {
     if (gameIdValidationMessage) {

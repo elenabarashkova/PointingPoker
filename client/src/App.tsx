@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import {
-  Switch, Route, withRouter, RouteComponentProps, 
+  Switch, Route, withRouter, RouteComponentProps, useLocation, 
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { History } from 'history';
@@ -36,6 +36,8 @@ import { createCommonNotificationAboutUser } from './helpers/commonNotifications
 import { redirectToGamePage, redirectToGoodbyePage, redirectToMainPage } from './shared';
 import { GameStatus } from './types/room';
 import { setGameStatus } from './redux/actions/game';
+import { useQuery } from './helpers/query';
+import Context from './helpers/context';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -110,8 +112,17 @@ const App: FunctionComponent<AppProps> = ({
     });
   }, []);
 
+  const roomId = useQuery();
+
   const routes = [
-    { path: '/', component: <MainPage />, key: 'main' },
+    {
+      path: '/',
+      component: 
+  <Context.Provider value={roomId}>
+    <MainPage />
+  </Context.Provider>, 
+      key: 'main', 
+    },
     { path: `/${Pages.game}`, component: <GamePage />, key: 'game' },
     { path: `/${Pages.settings}`, component: <SettingsPage />, key: 'settings' },
     { path: `/${Pages.lobby}`, component: <LobbyPage />, key: 'lobby' },
@@ -122,7 +133,7 @@ const App: FunctionComponent<AppProps> = ({
   return (
     <Switch>
       {routes.map(({ path, component, key }) => (
-        <Route path={path} exact={key === 'main'} key={key}>
+        <Route exact={key === 'main'} path={(key === 'main') ? (path || '/?roomId=roomId') : path} key={key}>
           {component}
         </Route>
       ))}
