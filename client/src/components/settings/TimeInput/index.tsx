@@ -1,5 +1,6 @@
 import React, { ChangeEvent, ReactElement } from 'react';
 import { Time } from 'components/settings/SettingsSection';
+import styles from './style.module.scss';
 
 interface TimeInputProps {
   handleChange(event: ChangeEvent<HTMLInputElement>): void;
@@ -7,31 +8,28 @@ interface TimeInputProps {
 }
 
 export const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value }): ReactElement => (
-  <div>
-    <label htmlFor="settingsMinutes">
-      <span>Minutes</span>
+  <div className={styles.time}>
+    <label className={styles.wrapper} htmlFor="settingsMinutes">
+      <div className={styles.label}>Minutes</div>
       <input
         id="settingsMinutes"
         type="number"
         name="minutes"
         onChange={handleChange}
-        min={0}
-        max={59}
-        maxLength={2}
         value={value.minutes}
+        className={styles.input}
       />
     </label>
-    <label htmlFor="settingsSeconds">
-      <span>Seconds</span>
+    <div className={styles.separator}>:</div>
+    <label className={styles.wrapper} htmlFor="settingsSeconds">
+      <div className={styles.label}>Seconds</div>
       <input
         id="settingsSeconds"
         type="number"
         name="seconds"
         onChange={handleChange}
-        min={0}
-        max={59}
-        maxLength={2}
         value={value.seconds}
+        className={styles.input}
       />
     </label>
   </div>

@@ -7,6 +7,7 @@ import Button from 'components/shared/buttons/Button';
 import { connect } from 'react-redux';
 import VotingCardsField from 'components/VotingCardsField';
 import { Select } from 'components/shared/Select';
+import styles from './style.module.scss';
 import { setAllGameSettings } from '../../redux/actions/game';
 
 export interface Time {
@@ -95,24 +96,36 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
   };
 
   return (
-    <div>
-      <h2>Game Settings:</h2>
-      <div className="settings-inner">
-        <Button variant="colored" content="Save Settings" action={handleClick} />
-        {switchesSet()}
-        <SettingsSelect
-          name="scoreType"
-          value={settings.scoreType}
-          handleChange={handleChangeSelect}
-        />
-        <Select
-          name="cardsQuantity"
-          value={cardsQuantity}
-          handleChange={handleChangeCardsQuantity}
-          valuesConfig={['3', '4', '5', '6']}
-        />
+    <div className={styles.settings}>
+      <div className={styles.header}>
+        <h2>Game Settings:</h2>
       </div>
-      <TimeInput value={time} handleChange={handleTimeInputChange} />
+      <div className={styles.inner}>
+        {switchesSet()}
+        <div className={styles.block}>
+          <div className={styles.label}>Score Type:</div>
+          <SettingsSelect
+            name="scoreType"
+            value={settings.scoreType}
+            handleChange={handleChangeSelect}
+          />
+        </div>
+        <div className={styles.block}>
+          <div className={styles.label}>Cards in game:</div>
+          <Select
+            additionalStyle={styles.select}
+            name="cardsQuantity"
+            value={cardsQuantity}
+            handleChange={handleChangeCardsQuantity}
+            valuesConfig={['3', '4', '5', '6']}
+          />
+        </div>
+        <div className={styles.block}>
+          <div className={styles.label}>Round time:</div>
+          <TimeInput value={time} handleChange={handleTimeInputChange} />
+        </div>
+      </div>
+      <Button variant="colored" content="Save Settings" action={handleClick} />
       <VotingCardsField scoreType={settings.scoreType} number={parseInt(cardsQuantity, 10)} />
     </div>
   );
