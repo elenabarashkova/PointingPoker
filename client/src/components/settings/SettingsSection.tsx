@@ -123,10 +123,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
             valuesConfig={['3', '4', '5', '6']}
           />
         </div>
-        <div className={styles.block}>
-          <div className={styles.label}>Round time:</div>
-          <TimeInput value={time} handleChange={handleTimeInputChange} />
-        </div>
+        {settings.timerOn ? (
+          <div className={styles.block}>
+            <div className={styles.label}>Round time:</div>
+            <TimeInput value={time} handleChange={handleTimeInputChange} />
+          </div>
+        ) : null}
       </div>
       <Button variant="colored" content="Save Settings" action={handleClick} />
       <VotingCardsField scoreType={settings.scoreType} number={settings.cardsNumber} />
