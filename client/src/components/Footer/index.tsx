@@ -27,7 +27,7 @@ const Footer: React.FC<FooterProps> = ({ page, commonNotifications }): ReactElem
         {teamMembers.map((el) => <a href={`https://github.com/${el}`} className={styles.githubIco} key={el}> </a>)}
       </div>
       {/* todo: добавить ссылку на видео */}
-      <a href="https://www.youtube.com/" className={styles.youtubeLink}>
+      <a href="https://www.youtube.com/" className={styles.youtubeLink} rel="noreferrer" target="_blank">
         <img src={youtubeIcoSrc} alt="youtube ico" />
       </a>
     

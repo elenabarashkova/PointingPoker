@@ -6,9 +6,9 @@ import React, {
 import { connect } from 'react-redux';
 import { RegisterTextInputs } from 'components/RegisterForm/textInputsSet';
 import { validate } from 'components/RegisterForm/validate';
-import Switch from 'components/shared/Switch';
+import Switch from 'components/shared/switches/Switch';
 import { User, UserRole } from 'src/types/user';
-import { SwitchType } from 'components/shared/Switch/types';
+import { SwitchType } from 'components/shared/switches/Switch/types';
 import UserIco from 'components/shared/UserIco';
 import FileInput from 'components/FileInput';
 import { ElementSize } from 'src/types/additional';
