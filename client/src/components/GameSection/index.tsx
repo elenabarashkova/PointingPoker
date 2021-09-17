@@ -10,9 +10,11 @@ import styles from './style.module.scss';
 
 export interface GameSectionProps {
   updateGameStatus: CallableFunction;
+  areIssuesCreated: boolean;
+  areSettingsCustom: boolean;
 }
 
-const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus }): ReactElement => {
+const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus, areIssuesCreated, areSettingsCustom }): ReactElement => {
   const [isCopied, setCopied] = useState(false);
 
   const currectUserId = useTypedSelector(({ currentUserId }) => currentUserId);
@@ -33,6 +35,10 @@ const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus }): ReactEle
     updateGameStatus(gameId, GameStatus.canceled);
   };
 
+  const buttonSubmitAddContent = (areSettingsCustom)
+    ? 'with custom setting' 
+    : 'with default setting';
+
   return ( 
     <div className={styles.gameSection}>
       <UserCard user={currectUserData} id={currectUserId} currentUserId={currectUserId} size={ElementSize.big} />
@@ -49,7 +55,7 @@ const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus }): ReactEle
           />
         </div>
         <div className={styles.btnWrapper}>
-          <Button content="Start Game" variant="colored" action={handleSubmit} />
+          <Button content="Start Game" variant="colored" action={handleSubmit} disabled={!areIssuesCreated} addContent={buttonSubmitAddContent} />
           <Button content="Cancel Game" variant="bordered" action={handleCancel} /> 
         </div>
       </div>

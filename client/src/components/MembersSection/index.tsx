@@ -18,18 +18,21 @@ const MembersSection: FunctionComponent<MembersSectionProps> = ({ users }): Reac
     role !== UserRole.master && (status === UserStatus.active || status === UserStatus.kicked)
   ));
   return ( 
-    <div className={styles.membersSection}>
-      {!members.length && <p>No members</p>}
-      {members.map(([userId, userInfo]) => (
-        <UserCard 
-          user={userInfo} 
-          id={userId} 
-          currentUserId={currectUserId} 
-          size={ElementSize.big} 
-          key={userId} 
-        />
-      ))}
-    </div>
+    <>
+      <p className={styles.cap}>Members</p>
+      <div className={styles.membersSection}>
+        {!members.length && <p>No members</p>}
+        {members.map(([userId, userInfo]) => (
+          <UserCard 
+            user={userInfo} 
+            id={userId} 
+            currentUserId={currectUserId} 
+            size={ElementSize.big} 
+            key={userId} 
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
