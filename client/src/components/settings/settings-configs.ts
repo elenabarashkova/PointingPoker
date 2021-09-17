@@ -23,6 +23,11 @@ export const SETTINGS_INITIAL_STATE = {
   roundTime: 2,
 };
 
+export const INITIAL_TIME = {
+  minutes: 2,
+  seconds: 0,
+};
+
 export const SETTINGS_SCORE_TYPE_CONFIG = [
   {
     valueType: ScoreType.storyPoint,
