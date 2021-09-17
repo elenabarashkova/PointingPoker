@@ -2,14 +2,28 @@
 @import '../../scss/style';
 
 .footer.main {
-  position: absolute;
-  top: 600px;
-  left: calc(100% - 80px);
-  display: flex;
-  flex-direction: column;
-  .githubIco {
-    margin-bottom: 10px;
+  .githubIcos {
+    position: absolute;
+    top: 560px;
+    left: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    .githubIco {
+      margin-bottom: 10px;
+    }
   }
+  .youtubeLink {
+    position: absolute;
+    top: 690px;
+    left: calc(100% - 85px);
+  }
+  .rsSchoolLink {
+    position: absolute;
+    top: calc(100vh - 70px);
+    left: 20px;
+  }
+
+  
 }
 .footer.lobby,
 .footer.game,
@@ -21,10 +35,40 @@
   display: flex;
   background: $light-yellow;
   align-items: center;
-  padding: 20px calc((100% - 120px) / 2);
+  padding: 20px 100px;
   justify-content: space-between;
   height: 70px;
   box-sizing: border-box;
+  .githubIcos {
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .rsSchoolLink {
+    position: relative;
+  }
+}
+.youtubeLink {
+  img {
+    border-radius: 8px;
+    box-shadow: $shadow;
+    width: 40px;
+  }
+}
+
+.rsSchoolLink {
+  img {
+    width: 120px;
+  }
+  span {
+    color: $base-text-color-2;
+    font-weight: bolder;
+    font-size: 24px;
+    font-family: $font-family-second;
+    position: absolute;
+    top: 18px;
+    left: 130px;
+  }
 }
 
 .githubIco {
