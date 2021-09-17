@@ -21,6 +21,7 @@ export interface GameSettings {
   timer: boolean;
   scoreType: keyof typeof ScoreType;
   roundTime: number;
+  cardsNumber: number;
 }
 
 export interface Room {
