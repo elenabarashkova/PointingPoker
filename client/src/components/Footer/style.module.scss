@@ -1,5 +1,4 @@
-@import '../../scss/variables';
-@import '../../scss/style';
+@import '../../scss/variables.scss';
 
 .footer.main {
   .githubIcos {
@@ -23,7 +22,7 @@
     left: 20px;
   }
 
-  
+
 }
 .footer.lobby,
 .footer.game,
