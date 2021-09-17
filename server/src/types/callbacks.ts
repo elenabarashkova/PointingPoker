@@ -1,8 +1,8 @@
 import { ErrorResponse } from './data';
-import { GameSettings } from './game';
+import { GameSettings, GameStatus } from './game';
 import { Issue } from './issue';
 import { Message } from './message';
-import { Room } from './room';
+import { Room, Round } from './room';
 import { User } from './user';
 
 type DataType =
@@ -10,7 +10,13 @@ type DataType =
   | { room: Room | null; newUserId: string }
   | { userId: string; user: User }
   | { kickedUserId: string; kickedUser: User }
-  | { issueId: string; issue: Issue }
+  | {
+      issueId: string;
+      issue?: Issue;
+      finalVote?: string;
+      gameStatus?: keyof typeof GameStatus;
+    }
+  | { currentRound: Round | null }
   | Message
   | GameSettings
   | Issue

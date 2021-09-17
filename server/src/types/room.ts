@@ -9,6 +9,7 @@ export interface Room {
   issues: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
+  currentRound: Round | null;
 }
 
 export interface StoreSchema {
@@ -17,4 +18,8 @@ export interface StoreSchema {
 
 export interface Store {
   [id: string]: Room;
+}
+
+export interface Round {
+  issueId: string;
 }

@@ -38,6 +38,21 @@ export enum GameEvents {
   gameSettingsChanged = 'GAME_SETTINGS_CHANGED',
   changeGameStatus = 'CHANGE_GAME_STATUS',
   gameStatusChanged = 'GAME_STATUS_CHANGED',
+  startGame = 'START_GAME',
+  gameIsStarted = 'GAME_IS_STARTED',
+  activateIssue = 'ACTIVATE_ISSUE',
+  issueIsActive = 'ISSUE_IS_ACTIVE',
+  issueVote = 'ISSUE_VOTE',
+  userHasVoted = 'USER_HAS_VOTED',
+  issueVotingResult = 'ISSUE_VOTING_RESULT',
+  finishGame = 'FINISH_GAME',
+  stopGame = 'STOP_GAME',
+  startRound = 'START_ROUND',
+  roundIsStarted = 'ROUND_IS_STARTED',
+  stopRound = 'STOP_ROUND',
+  roundIsStopped = 'ROUND_IS_STOPPED',
+  setFinalVote = 'SET_FINAL_VOTE',
+  finalVote = 'FINAL_VOTE',
 }
 
 export enum IssueEvents {
