@@ -1,0 +1,30 @@
+@import '../../scss/variables.scss';
+
+.gameSection {
+  display: flex;
+  height: 100px;
+  margin-bottom: 50px;
+  .wrapper {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .inputWrapper {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      input {
+        width: 200px;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid $blue;
+        font-size: 18px;
+        color: $base-text-color-2;
+      }
+    }
+    .btnWrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

@@ -14,9 +14,23 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ page, commonNotifications }): ReactElement => {
   const teamMembers = ['elenabarashkova', 'StacieKot', 'EkaterinaMosina'];
 
+  const youtubeIcoSrc = (page === Pages.main) ? '../../assets/youtubeMain.png' : '../../assets/youtube.png';
+  const rsSchoolIcoSrc = (page === Pages.main) ? '../../assets/logorsschoolMain.png' : '../../assets/logorsschool.png';
+
   return (
     <footer className={`${styles.footer} ${styles[page]}`}>
-      {teamMembers.map((el) => <a href={`https://github.com/${el}`} className={styles.githubIco} key={el}> </a>)}
+      <a href="https://rs.school/" className={styles.rsSchoolLink}>
+        <img src={rsSchoolIcoSrc} alt="rsSchool ico" />
+        <span>2021</span>
+      </a>
+      <div className={styles.githubIcos}>
+        {teamMembers.map((el) => <a href={`https://github.com/${el}`} className={styles.githubIco} key={el}> </a>)}
+      </div>
+      {/* todo: добавить ссылку на видео */}
+      <a href="https://www.youtube.com/" className={styles.youtubeLink}>
+        <img src={youtubeIcoSrc} alt="youtube ico" />
+      </a>
+    
       {commonNotifications.length !== 0 && <CommonNotifications notifications={commonNotifications} />}
     </footer>
   );

@@ -8,6 +8,19 @@
     font-family: "Montserrat";
     box-shadow: $shadow;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        span {
+            font-size: 12px;
+        }
+    }
+    
 }
 
 .btn_colored {
@@ -34,4 +47,10 @@
     &:active {
         transform: scale(.9);
     }
+}
+.btn_colored:disabled,
+.btn_bordered:disabled {
+    background: rgba(128, 128, 128, 0.452);
+    border: 2px solid grey;
+    cursor: auto;
 }
