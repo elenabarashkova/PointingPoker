@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Pages } from 'src/types/page';
 import MembersSection from 'components/MembersSection';
-import { SettingsSection } from 'components/settings/SettingsSection';
+import SettingsSection from 'components/settings/SettingsSection';
 import styles from './style.module.scss';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -11,7 +11,7 @@ const SettingsPage: React.FC = (): ReactElement => (
     <Header page={Pages.settings} />
     <main className={styles.main}>
       <MembersSection />
-      <SettingsSection />
+      <SettingsSection settingsChangeHandler={() => {}} />
     </main>
     <Footer page={Pages.settings} />
   </div>

@@ -6,7 +6,7 @@ import { IssuePriority } from 'src/types/issues';
 export interface SelectProps {
   value: string;
   name: string;
-  valuesConfig: (keyof typeof IssuePriority)[];
+  valuesConfig: (keyof typeof IssuePriority)[] | Array<string>;
   additionalStyle?: string;
   handleChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
