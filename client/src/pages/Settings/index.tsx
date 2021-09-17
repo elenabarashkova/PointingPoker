@@ -4,11 +4,11 @@ import MembersSection from 'components/MembersSection';
 import GameSection from 'components/GameSection';
 import { RootState } from 'src/redux/reducers';
 import SettingsSection from 'components/settings/SettingsSection';
+import { Issues } from 'src/types/issues';
+import { connect } from 'react-redux';
 import styles from './style.module.scss';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { connect } from 'react-redux';
-import { Issues } from 'src/types/issues';
 
 export interface SettingsPageProps {
   issues: Issues;
