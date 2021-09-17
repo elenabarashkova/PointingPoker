@@ -16,14 +16,15 @@ export interface GameSectionProps {
 
 const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus, areIssuesCreated, areSettingsCustom }): ReactElement => {
   const [isCopied, setCopied] = useState(false);
-
   const currectUserId = useTypedSelector(({ currentUserId }) => currentUserId);
   const roomUsers = useTypedSelector(({ users }) => users);
   const currectUserData = roomUsers[currectUserId];
   const gameId = useTypedSelector(({ game }) => game.roomId);
 
+  const gameLink = `http://localhost:8080/?roomId=${gameId}`;  
+
   const copyText = () => {
-    navigator.clipboard.writeText(gameId);
+    navigator.clipboard.writeText(gameLink);
     setCopied(true);
   };
 
@@ -45,17 +46,17 @@ const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus, areIssuesCr
       <div className={styles.wrapper}>
         <div className={styles.inputWrapper}>
           <label htmlFor="gameId">
-            <input type="text" name="" id="gameId" value={gameId} disabled />
+            <input type="text" name="" id="gameId" value={gameLink} disabled size={40} />
           </label>
+          <Button content="Start Game" variant="colored" action={handleSubmit} disabled={!areIssuesCreated} addContent={buttonSubmitAddContent} />
+        </div>
+        <div className={styles.btnWrapper}>
           <Button 
             content={isCopied ? 'Copied ✓' : 'Copy'} 
             variant={isCopied ? 'bordered' : 'colored'} 
             action={copyText} 
             disabled={isCopied} 
           />
-        </div>
-        <div className={styles.btnWrapper}>
-          <Button content="Start Game" variant="colored" action={handleSubmit} disabled={!areIssuesCreated} addContent={buttonSubmitAddContent} />
           <Button content="Cancel Game" variant="bordered" action={handleCancel} /> 
         </div>
       </div>
