@@ -22,6 +22,8 @@ export interface GameSettings {
   scoreType: keyof typeof ScoreType;
   roundTime: number;
   cardsNumber: number;
+  autoAdmitNewUsers: boolean;
+  autoFlip: boolean;
 }
 
 export interface Room {

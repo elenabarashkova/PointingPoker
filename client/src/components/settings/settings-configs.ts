@@ -10,6 +10,14 @@ export const SWITCHES_CONFIG = [
     name: 'canChangeCardOnRoundEnd',
   },
   {
+    label: 'Auto-admit new users:',
+    name: 'autoAdmitNewUsers',
+  },
+  {
+    label: 'Cards auto flip after vote:',
+    name: 'autoFlip',
+  },
+  {
     label: 'Is timer needed:',
     name: 'timerOn',
   },
@@ -22,6 +30,8 @@ export const SETTINGS_INITIAL_STATE = {
   scoreType: ScoreType.storyPoint,
   cardsNumber: 6,
   roundTime: 2,
+  autoAdmitNewUsers: true,
+  autoFlip: true,
 };
 
 export const INITIAL_TIME = {
