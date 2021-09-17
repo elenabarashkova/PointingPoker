@@ -34,4 +34,7 @@ export const YOU_ARE_NOT_DELETED = 'YOU_ARE_NOT_DELETED';
 export const USER_IS_NOT_DELETED = 'USER_IS_NOT_DELETED';
 export const KICKING_VOTE = 'KICKING_VOTE';
 
+export const CHANGE_GAME_STATUS = 'CHANGE_GAME_STATUS';
+export const GAME_STATUS_CHANGED = 'GAME_STATUS_CHANGED';
+
 export const ERROR_RESULT = 'error';

@@ -8,6 +8,7 @@ interface ButtonProps {
   action(MouseEvent): void;
   disabled?: boolean;
   loading?: boolean;
+  addContent?: string;
 }
 
 const Button: React.FC<ButtonProps> = (
@@ -17,21 +18,35 @@ const Button: React.FC<ButtonProps> = (
     action,
     disabled,
     loading,
+    addContent,
   },
-): ReactElement => (
-  <button
-    type="button"
-    className={`${styles.btn} ${styles[`btn_${variant}`]}`}
-    onClick={action}
-    disabled={disabled}
-  >
-    {loading ? <LinearProgress /> : content}
-  </button> 
-);
+): ReactElement => {
+  const addButtonContent = (
+    <p>
+      {content}
+      <span>{addContent}</span>
+    </p>
+  );
+  return (
+    <button
+      type="button"
+      className={`${styles.btn} ${styles[`btn_${variant}`]}`}
+      onClick={action}
+      disabled={disabled}
+    >
+      {loading 
+        ? <LinearProgress /> 
+        : addContent 
+          ? addButtonContent
+          : content}
+    </button> 
+  );
+};
 
 Button.defaultProps = {
   disabled: false,
   loading: false,
+  addContent: '',
 };
 
 export default Button;

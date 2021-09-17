@@ -19,6 +19,7 @@ export interface VotingData {
 export enum ImportantNotifications {
   kick = 'Somebody wants to kick you. Now your team will vote.',
   notDeleted = 'Congratulations. Your team decided to keep you in the game session.',
+  gameCanceled = 'Game is canceled',
 }
 export enum CommonNotificationAction {
   connect = 'connect',

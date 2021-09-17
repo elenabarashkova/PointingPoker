@@ -8,6 +8,7 @@ export const initialState = {
   timer: true,
   scoreType: ScoreType.storyPoint,
   roundTime: 140,
+  cardsNumber: 6,
 };
 
 export const gameSettings = (
