@@ -1,10 +1,9 @@
-@import '../../scss/variables';
-@import '../../scss/style';
+@import '../../scss/variables.scss';
 
 .containerSloganField {
   position: relative;
   width: 60%;
-  height: 525px;
+  height: 510px;
   background: url(../../assets/base-bg.jpg);
   background-position: center;
   background-size: cover;

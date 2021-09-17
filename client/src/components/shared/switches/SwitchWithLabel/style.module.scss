@@ -1,0 +1,17 @@
+@import '../../../../scss/variables';
+
+.switchWithLabel {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  .label {
+    font-family: $font-family-second;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+}

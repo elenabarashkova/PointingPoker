@@ -3,6 +3,7 @@ import { Pages } from 'src/types/page';
 import MembersSection from 'components/MembersSection';
 import GameSection from 'components/GameSection';
 import { RootState } from 'src/redux/reducers';
+import SettingsSection from 'components/settings/SettingsSection';
 import styles from './style.module.scss';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -23,8 +24,8 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => 
     }
   }, [issues]);
 
-  const addCustomSettings = () => {
-    setCustomSettings(true);
+  const addCustomSettings = (isGameCustom: boolean) => {
+    setCustomSettings(isGameCustom);
   };
 
   return (
@@ -33,6 +34,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => 
       <main className={styles.main}>
         <GameSection areIssuesCreated={areIssuesCreated} areSettingsCustom={areSettingsCustom} />
         <MembersSection />
+        <SettingsSection settingsChangeHandler={addCustomSettings} />
       </main>
       <Footer page={Pages.settings} />
     </div>
