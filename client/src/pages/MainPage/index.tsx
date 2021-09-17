@@ -1,3 +1,5 @@
+import { IssueFromFile } from 'components/IssuesFromFile';
+import IssueTools from 'components/IssueTools';
 import React, { ReactElement } from 'react';
 import { Pages } from 'src/types/page';
 import Footer from '../../components/Footer';
@@ -10,6 +12,8 @@ const MainPage: React.FC = (): ReactElement => (
     <Header page={Pages.main} />
     <Main />
     <Footer page={Pages.main} />
+    <IssueTools />
+    <IssueFromFile />
   </div>
 );
 
