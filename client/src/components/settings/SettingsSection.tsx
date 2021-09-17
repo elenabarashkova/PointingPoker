@@ -28,7 +28,6 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
 ):ReactElement => {
   const [settings, setSettings] = useState(SETTINGS_INITIAL_STATE);
   const [time, setTime] = useState<Time>(INITIAL_TIME);
-  const [cardsQuantity, setCardsQuantity] = useState('6');
 
   const handleChangeSwitch = (name) => {
     const newStatus = !settings[name];
@@ -64,7 +63,11 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
   };
 
   const handleChangeCardsQuantity = ({ target }: ChangeEvent<HTMLSelectElement>) => {
-    setCardsQuantity(target.value);
+    const state = {
+      ...settings,
+      cardsNumber: parseInt(target.value, 10),
+    };
+    setSettings(state);
   };
 
   const handleTimeInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -115,7 +118,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
           <Select
             additionalStyle={styles.select}
             name="cardsQuantity"
-            value={cardsQuantity}
+            value={`${settings.cardsNumber}`}
             handleChange={handleChangeCardsQuantity}
             valuesConfig={['3', '4', '5', '6']}
           />
@@ -126,7 +129,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
         </div>
       </div>
       <Button variant="colored" content="Save Settings" action={handleClick} />
-      <VotingCardsField scoreType={settings.scoreType} number={parseInt(cardsQuantity, 10)} />
+      <VotingCardsField scoreType={settings.scoreType} number={settings.cardsNumber} />
     </div>
   );
 };

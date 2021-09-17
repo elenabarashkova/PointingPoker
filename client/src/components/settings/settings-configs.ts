@@ -20,6 +20,7 @@ export const SETTINGS_INITIAL_STATE = {
   canChangeCardOnRoundEnd: false,
   timerOn: true,
   scoreType: ScoreType.storyPoint,
+  cardsNumber: 6,
   roundTime: 2,
 };
 
