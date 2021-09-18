@@ -1,4 +1,4 @@
-import IssueTools from 'components/IssueTools';
+import IssueTools from 'components/issues/IssueTools';
 import MembersSection from 'components/MembersSection';
 import SettingsSection from 'components/settings/SettingsSection';
 import GameTitle from 'components/shared/GameTitle';
@@ -7,8 +7,9 @@ import { connect } from 'react-redux';
 import { RootState } from 'src/redux/reducers';
 import { Issues } from 'src/types/issues';
 import { Pages } from 'src/types/page';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
+import GameSection from 'components/GameSection';
+import Footer from '../../components/page-parts/Footer';
+import Header from '../../components/page-parts/Header';
 import styles from './style.module.scss';
 
 export interface SettingsPageProps {

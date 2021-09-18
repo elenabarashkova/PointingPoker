@@ -1,0 +1,14 @@
+@import '../../../scss/variables';
+
+.modalWrapper {
+    position: fixed;
+    top: 20px;
+    left: calc((100vh - 300px) / 2);
+}
+.modalContent {
+    mark {
+        background-color: $light-yellow;
+        font-size: 24px;
+        font-weight: bolder;
+    }
+}

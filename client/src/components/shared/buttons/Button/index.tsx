@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   action,
   disabled,
   loading,
-  addContent
+  addContent,
 }): ReactElement => {
   const addButtonContent = (
     <p>
@@ -40,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
 Button.defaultProps = {
   disabled: false,
   loading: false,
-  addContent: ''
+  addContent: '',
 };
 
 export default Button;
