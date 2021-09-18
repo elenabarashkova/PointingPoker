@@ -12,6 +12,10 @@ export interface Issue {
   current?: boolean;
   statistics?: IssueStatistics;
   vote?: IssueVote;
+  date?: number;
+}
+export interface ExtendedIssue extends Issue {
+  id: string;
 }
 
 export interface Issues {
@@ -44,7 +48,7 @@ export interface IssueData {
 export enum IssuePriority {
   low = 'low',
   middle = 'middle',
-  hight = 'hight',
+  hight = 'hight'
 }
 
 export interface IssueProps {
@@ -64,7 +68,6 @@ export interface IssueItemProps extends IssueProps {
 
 export interface IssueCardProps extends IssueProps {
   editMode: boolean;
-
   deleteBtnAction: () => void;
   editBtnAction: () => void;
 }
@@ -159,7 +162,7 @@ export interface UseIssueTools {
   createIssueModalIsOpen: boolean;
   updateIssueModalIsOpen: boolean;
   editIssueValues: EditIssueValues;
-  issues: Issues;
+  sortedIssues: ExtendedIssue[];
   editBtnAction: (
     title: string,
     url: string,
@@ -173,7 +176,7 @@ export interface UseIssueTools {
 }
 
 export interface IssueListProps {
-  issues: Issues;
+  sortedIssues: ExtendedIssue[];
 }
 
 export interface IssueToolsProps {

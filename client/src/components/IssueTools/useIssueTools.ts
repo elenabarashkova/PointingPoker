@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { sortByDate } from 'src/helpers/sortByDate';
 import { deleteIssueRequest } from 'src/redux/actions/issues';
 import { EditIssueValues, IssuePriority, UseIssueTools } from 'src/types/issues';
 import { RootStore } from 'src/types/store';
@@ -40,12 +41,13 @@ export const useIssueTools = (): UseIssueTools => {
   const openCreateIssueModal = () => setCreateIssueModalIsOpen(true);
   const closeCreateIssueModal = () => setCreateIssueModalIsOpen(false);
   const closeUpdateIssueModal = () => setUpdateIssueModalIsOpen(false);
+  const sortedIssues = sortByDate(issues);
 
   return {
     createIssueModalIsOpen,
     updateIssueModalIsOpen,
     editIssueValues,
-    issues,
+    sortedIssues,
     editBtnAction,
     deleteBtnAction,
     openCreateIssueModal,

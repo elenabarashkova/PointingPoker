@@ -38,3 +38,10 @@ export const CHANGE_GAME_STATUS = 'CHANGE_GAME_STATUS';
 export const GAME_STATUS_CHANGED = 'GAME_STATUS_CHANGED';
 
 export const ERROR_RESULT = 'error';
+
+export enum Events {
+  addIssue = 'ADD_ISSUE',
+  deleteIssue = 'DELETE_ISSUE',
+  updateIssue = 'UPDATE_ISSUE',
+  activateIssue = 'ACTIVATE_ISSUE',
+}
