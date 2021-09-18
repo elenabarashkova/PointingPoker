@@ -10,8 +10,8 @@ import { connect } from 'react-redux';
 import { leaveRoomAction } from 'src/redux/actions/complexActions/leaveRoomAction';
 import GameTitle from 'components/shared/GameTitle';
 import styles from './style.module.scss';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/page-parts/Header';
+import Footer from '../../components/page-parts/Footer';
 
 export interface LobbyPageProps {
   leaveRoom: CallableFunction;

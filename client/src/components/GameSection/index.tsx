@@ -14,7 +14,13 @@ export interface GameSectionProps {
   areSettingsCustom: boolean;
 }
 
-const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus, areIssuesCreated, areSettingsCustom }): ReactElement => {
+const GameSection: React.FC<GameSectionProps> = (
+  {
+    updateGameStatus,
+    areIssuesCreated,
+    areSettingsCustom,
+  },
+): ReactElement => {
   const [isCopied, setCopied] = useState(false);
   const currectUserId = useTypedSelector(({ currentUserId }) => currentUserId);
   const roomUsers = useTypedSelector(({ users }) => users);
@@ -48,7 +54,13 @@ const GameSection: React.FC<GameSectionProps> = ({ updateGameStatus, areIssuesCr
           <label htmlFor="gameId">
             <input type="text" name="" id="gameId" value={gameLink} disabled size={40} />
           </label>
-          <Button content="Start Game" variant="colored" action={handleSubmit} disabled={!areIssuesCreated} addContent={buttonSubmitAddContent} />
+          <Button
+            content="Start Game"
+            variant="colored"
+            action={handleSubmit}
+            disabled={!areIssuesCreated}
+            addContent={buttonSubmitAddContent}
+          />
         </div>
         <div className={styles.btnWrapper}>
           <Button 

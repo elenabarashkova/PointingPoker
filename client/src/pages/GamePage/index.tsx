@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Pages } from 'src/types/page';
 import GameTitle from 'components/shared/GameTitle';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '../../components/page-parts/Header';
+import Footer from '../../components/page-parts/Footer';
 import styles from './style.module.scss';
 
 const GamePage: React.FC = (): ReactElement => (

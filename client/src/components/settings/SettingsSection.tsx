@@ -5,7 +5,7 @@ import { SettingsSelect } from 'components/settings/SettingsSelect';
 import { TimeInput } from 'components/settings/TimeInput';
 import Button from 'components/shared/buttons/Button';
 import { connect } from 'react-redux';
-import VotingCardsField from 'components/VotingCardsField';
+import VotingCardsField from 'components/voting/VotingCardsField';
 import { Select } from 'components/shared/Select';
 import styles from './style.module.scss';
 import { setAllGameSettings } from '../../redux/actions/game';
