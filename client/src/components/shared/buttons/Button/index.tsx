@@ -11,16 +11,14 @@ interface ButtonProps {
   addContent?: string;
 }
 
-const Button: React.FC<ButtonProps> = (
-  {
-    content,
-    variant,
-    action,
-    disabled,
-    loading,
-    addContent,
-  },
-): ReactElement => {
+const Button: React.FC<ButtonProps> = ({
+  content,
+  variant,
+  action,
+  disabled,
+  loading,
+  addContent
+}): ReactElement => {
   const addButtonContent = (
     <p>
       {content}
@@ -30,23 +28,19 @@ const Button: React.FC<ButtonProps> = (
   return (
     <button
       type="button"
-      className={`${styles.btn} ${styles[`btn_${variant}`]}`}
+      className={`${styles.btn} ${styles[`btn_${variant}`]} ${loading && styles.not_clickable}`}
       onClick={action}
       disabled={disabled}
     >
-      {loading 
-        ? <LinearProgress /> 
-        : addContent 
-          ? addButtonContent
-          : content}
-    </button> 
+      {loading ? <LinearProgress /> : addContent ? addButtonContent : content}
+    </button>
   );
 };
 
 Button.defaultProps = {
   disabled: false,
   loading: false,
-  addContent: '',
+  addContent: ''
 };
 
 export default Button;

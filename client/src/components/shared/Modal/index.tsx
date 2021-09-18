@@ -17,26 +17,22 @@ export interface ModalProps {
   loading?: boolean;
 }
 
-export const Modal: FunctionComponent<ModalProps> = (
-  {
-    isOpen,
-    onClose,
-    modalTitle,
-    yesBtnTitle,
-    yesBtnOnClick,
-    noBtnTitle,
-    noBtnOnClick,
-    children,
-    loading,
-  },
-): ReactElement => (
+export const Modal: FunctionComponent<ModalProps> = ({
+  isOpen,
+  onClose,
+  modalTitle,
+  yesBtnTitle,
+  yesBtnOnClick,
+  noBtnTitle,
+  noBtnOnClick,
+  children,
+  loading,
+}): ReactElement => (
   <div>
     <Dialog className={styles.modal} open={isOpen} onClose={onClose || noBtnOnClick}>
       <div className={styles.inner}>
         <DialogTitle className={styles.title}>{modalTitle}</DialogTitle>
-        <DialogContent className={styles.component}>
-          {children}
-        </DialogContent>
+        <DialogContent className={styles.component}>{children}</DialogContent>
         <DialogActions className={styles.buttons}>
           <Button
             action={yesBtnOnClick}
