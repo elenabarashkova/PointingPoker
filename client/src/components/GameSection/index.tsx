@@ -35,7 +35,7 @@ const GameSection: React.FC<GameSectionProps> = (
   };
 
   const handleSubmit = () => {
-    updateGameStatus(gameId, GameStatus.inProgress);
+    updateGameStatus(gameId, GameStatus.active);
   };
 
   const handleCancel = () => {

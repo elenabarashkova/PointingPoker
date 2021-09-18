@@ -10,6 +10,11 @@
   .header {
     text-align: center;
     margin-bottom: 35px;
+    h2 {
+      font-family: $font-family-first;
+      font-size: 36px;
+      color: $base-text-color-2;
+    }
   }
 
   .inner {

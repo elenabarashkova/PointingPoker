@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { createCommonNotificationAboutError } from 'src/helpers/commonNotifications';
 import { leaveRoom } from 'src/services/room/leaveRoom';
-import { CommonNotificationType, ImportantNotifications } from 'src/types/notifications';
+import {  ImportantNotifications } from 'src/types/notifications';
 import { UserData } from 'src/types/user';
 import { setCommonNotification, setImportantNotification } from '../notifications';
 import { updateUser } from '../user';
