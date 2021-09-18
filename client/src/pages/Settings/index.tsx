@@ -4,7 +4,7 @@ import MembersSection from 'components/MembersSection';
 import GameSection from 'components/GameSection';
 import { RootState } from 'src/redux/reducers';
 import SettingsSection from 'components/settings/SettingsSection';
-import SettingsTitle from 'components/settings/SettingsTitle';
+import GameTitle from 'components/shared/GameTitle';
 import { Issues } from 'src/types/issues';
 import { connect } from 'react-redux';
 import styles from './style.module.scss';
@@ -33,7 +33,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => 
     <div className={styles.wrapper}>
       <Header page={Pages.settings} />
       <main className={styles.main}>
-        <SettingsTitle editable />
+        <GameTitle editable />
         <MembersSection />
         <SettingsSection settingsChangeHandler={addCustomSettings} />
       </main>

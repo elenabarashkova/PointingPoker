@@ -7,13 +7,13 @@ import { setGameTitle } from '../../../redux/actions/game';
 import { RootState } from '../../../redux/reducers';
 import { Issues } from '../../../types/issues';
 
-interface SettingsTitleProps {
+interface GameTitleProps {
   setGameTitleAction: CallableFunction;
   issues: Issues;
   editable: boolean;
 }
 
-const SettingsTitle: React.FC<SettingsTitleProps> = (
+const GameTitle: React.FC<GameTitleProps> = (
   {
     setGameTitleAction,
     issues,
@@ -57,4 +57,4 @@ const mapStateToProps = (state: RootState) => ({
   issues: state.issuesStore.issues,
 });
 
-export default connect(mapStateToProps, { setGameTitleAction: setGameTitle })(SettingsTitle);
+export default connect(mapStateToProps, { setGameTitleAction: setGameTitle })(GameTitle);
