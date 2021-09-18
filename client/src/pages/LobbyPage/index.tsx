@@ -8,9 +8,10 @@ import { ElementSize } from 'src/types/additional';
 import Button from 'components/shared/buttons/Button';
 import { connect } from 'react-redux';
 import { leaveRoomAction } from 'src/redux/actions/complexActions/leaveRoomAction';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
+import GameTitle from 'components/shared/GameTitle';
 import styles from './style.module.scss';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 export interface LobbyPageProps {
   leaveRoom: CallableFunction;
@@ -30,6 +31,7 @@ const LobbyPage: React.FC<LobbyPageProps> = ({ leaveRoom }): ReactElement => {
     <div className={styles.wrapper}>
       <Header page={Pages.lobby} />
       <main className={styles.main}>
+        <GameTitle editable={false} />
         <div className={styles.container}>
           <UserCard user={masterData} id={masterId} currentUserId={userId} size={ElementSize.big} />
           <Button content="exit" variant="colored" action={handleExit} />

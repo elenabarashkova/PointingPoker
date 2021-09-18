@@ -14,7 +14,6 @@ import { redirectToLobby, redirectToSettings } from '../../../shared';
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const { roomId, room } = await createRoom(newUser) as RoomData;
-    console.log(roomId);
     const { users } = room;
 
     batch(() => {
