@@ -1,17 +1,19 @@
-import { getIssueId } from "../../helpers";
-import { Issue, IssueStatus } from "../../types/issue";
-import { Room } from "../../types/room";
+import { getIssueId } from '../../helpers';
+import { Issue, IssueStatus } from '../../types/issue';
+import { Store } from '../../types/room';
 
 export const addIssue = (
-  room: Room,
-  issue: Issue
-): { issueId: string; createdIssue: Issue; updateRoom: Room } => {
+  roomId: string,
+  issue: Issue,
+  store: Store
+): { issueId: string; createdIssue: Issue } => {
+  const room = store[roomId];
   const issueId = getIssueId(room.issues);
-  const createdIssue = { ...issue, status: IssueStatus.pending };
-  const updateRoom = {
-    ...room,
-    issues: { ...room.issues, [issueId]: createdIssue },
+  const createdIssue = {
+    ...issue,
+    status: IssueStatus.pending,
+    date: new Date().getTime(),
   };
-
-  return { issueId, createdIssue, updateRoom };
+  room.issues = { ...room.issues, [issueId]: createdIssue };
+  return { issueId, createdIssue };
 };

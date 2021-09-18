@@ -1,9 +1,16 @@
-import { Issue } from "./issue";
-import { User } from "./user";
+import { Issue } from './issue';
+import { User } from './user';
 
 export interface NewUserData {
   roomId: string;
   user: User;
+}
+
+export interface AccessData {
+  roomId: string;
+  user: User;
+  userId: string;
+  confirmation: boolean;
 }
 
 export interface MessageData {
@@ -20,6 +27,18 @@ export interface VotingData {
   confirm: boolean;
   kickedUserId: string;
   roomId: string;
+}
+
+export interface GameData {
+  issueId: string;
+  roomId: string;
+  finalVote?: string;
+}
+
+export interface GameVotingData {
+  issueId: string;
+  roomId: string;
+  vote: string;
 }
 
 export interface ErrorResponse {

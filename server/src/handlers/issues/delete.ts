@@ -1,20 +1,16 @@
-import { deleteIssue } from "../../actions/issue/delete";
-import { IssueEvents } from "../../constants/events";
-import { getRoom, handleError } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { EventCallback } from "../../types/callbacks";
-import { IssueData } from "../../types/data";
+import { Socket } from 'socket.io';
+import { deleteIssue } from '../../actions/issue/delete';
+import { IssueEvents } from '../../constants/events';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
+import { EventCallback } from '../../types/callbacks';
+import { IssueData } from '../../types/data';
 
 export const deleteIssueHandler =
-  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
-  async (
-    { roomId, issueId }: IssueData,
-    callback: EventCallback
-  ): Promise<void> => {
+  (socket: Socket) =>
+  ({ roomId, issueId }: IssueData, callback: EventCallback): void => {
     try {
-      const room = await getRoom(roomId, redisGetAsync);
-      const updateRoom = deleteIssue(room, issueId);
-      await redisSetAsync(roomId, JSON.stringify(updateRoom));
+      deleteIssue(roomId, issueId, store);
       callback({ status: 200, data: issueId });
       socket.to(roomId).emit(IssueEvents.issueHasBeenDeleted, issueId);
     } catch {
