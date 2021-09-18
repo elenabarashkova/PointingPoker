@@ -1,15 +1,15 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { Pages } from 'src/types/page';
+import IssueTools from 'components/IssueTools';
 import MembersSection from 'components/MembersSection';
-import GameSection from 'components/GameSection';
-import { RootState } from 'src/redux/reducers';
 import SettingsSection from 'components/settings/SettingsSection';
 import GameTitle from 'components/shared/GameTitle';
-import { Issues } from 'src/types/issues';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import styles from './style.module.scss';
-import Header from '../../components/Header';
+import { RootState } from 'src/redux/reducers';
+import { Issues } from 'src/types/issues';
+import { Pages } from 'src/types/page';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import styles from './style.module.scss';
 
 export interface SettingsPageProps {
   issues: Issues;
@@ -18,7 +18,7 @@ export interface SettingsPageProps {
 const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => {
   const [areSettingsCustom, setCustomSettings] = useState(false);
   const [areIssuesCreated, setCreatedIssues] = useState(false);
-  
+
   useEffect(() => {
     if (Object.keys(issues).length === 1) {
       setCreatedIssues(true);
@@ -35,6 +35,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => 
       <main className={styles.main}>
         <GameTitle editable />
         <MembersSection />
+        <IssueTools />
         <SettingsSection settingsChangeHandler={addCustomSettings} />
       </main>
       <Footer page={Pages.settings} />

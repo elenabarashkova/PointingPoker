@@ -27,7 +27,7 @@ export const IssueModal: React.FC<IssueModalProps> = ({
   >
     <form>
       {Object.entries(config).map(([inputName, {
-        type, placeholder, label, errorText,
+        type, placeholder, label, errorText, 
       }]) => (type === 'text' ? (
         <TextInput
           key={inputName}
