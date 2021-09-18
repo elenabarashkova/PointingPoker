@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { useParams } from 'react-router';
 import { Pages } from 'src/types/page';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
