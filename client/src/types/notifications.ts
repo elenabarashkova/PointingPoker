@@ -20,6 +20,7 @@ export enum ImportantNotifications {
   kick = 'Somebody wants to kick you. Now your team will vote.',
   notDeleted = 'Congratulations. Your team decided to keep you in the game session.',
   gameCanceled = 'Game is canceled',
+  userExitGame = 'You are out of the game',
 }
 export enum CommonNotificationAction {
   connect = 'connect',

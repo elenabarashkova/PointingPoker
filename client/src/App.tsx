@@ -3,7 +3,6 @@ import {
   Switch, Route, withRouter, RouteComponentProps, 
 } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { History } from 'history';
 import MainPage from './pages/MainPage';
 import LobbyPage from './pages/LobbyPage';
 import GamePage from './pages/GamePage';
@@ -33,9 +32,11 @@ import {
 import GoodbyePage from './pages/GoodbyePage';
 import { Pages } from './types/page';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
-import { redirectToGamePage, redirectToGoodbyePage, redirectToMainPage } from './shared';
+import { redirectToGamePage, redirectToGoodbyePage } from './shared';
 import { GameStatus } from './types/room';
 import { setGameStatus } from './redux/actions/game';
+import { useQuery } from './helpers/query';
+import Context from './helpers/context';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -43,7 +44,6 @@ interface AppProps extends RouteComponentProps {
   updateUser: any;
   setVoting: any;
   setImportantNotification: any;
-  history: History;
   setCommonNotification: any;
   updateGameStatusAction: any;
 }
@@ -56,7 +56,6 @@ const App: FunctionComponent<AppProps> = ({
   setImportantNotification: setNewImportantNotification,
   setCommonNotification: setNewCommonNotification,
   updateGameStatusAction: updateGameStatus,
-  history,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -110,8 +109,17 @@ const App: FunctionComponent<AppProps> = ({
     });
   }, []);
 
+  const roomId = useQuery();
+
   const routes = [
-    { path: '/', component: <MainPage />, key: 'main' },
+    {
+      path: '/',
+      component: 
+  <Context.Provider value={roomId}>
+    <MainPage />
+  </Context.Provider>, 
+      key: 'main', 
+    },
     { path: `/${Pages.game}`, component: <GamePage />, key: 'game' },
     { path: `/${Pages.settings}`, component: <SettingsPage />, key: 'settings' },
     { path: `/${Pages.lobby}`, component: <LobbyPage />, key: 'lobby' },
@@ -122,7 +130,7 @@ const App: FunctionComponent<AppProps> = ({
   return (
     <Switch>
       {routes.map(({ path, component, key }) => (
-        <Route path={path} exact={key === 'main'} key={key}>
+        <Route exact={key === 'main'} path={(key === 'main') ? (path || '/?roomId=roomId') : path} key={key}>
           {component}
         </Route>
       ))}

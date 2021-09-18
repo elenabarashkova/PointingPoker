@@ -42,7 +42,8 @@ const Header: React.FC<HeaderProps> = ({
   const hadleClickImportantNotification = () => {
     setNotificationModalOpen(false);
     removeLastImportantNotification();
-    if (importantNotification === ImportantNotifications.gameCanceled) {
+    if (importantNotification === ImportantNotifications.gameCanceled 
+      || importantNotification === ImportantNotifications.userExitGame) {
       redirectToMainPage();
     }
   };
