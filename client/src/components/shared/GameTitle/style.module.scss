@@ -13,12 +13,17 @@
     border: none;
     background: transparent;
     font-size: 34px;
-    width: auto;
+  }
+
+  .input {
+    border: none;
+    border-bottom: 1px solid grey;
+    font-family: $font-family-first;
+    font-size: 34px;
   }
 
   .buttonWrap {
-
-
+    margin-left: 15px;
   }
 
   .notEditable {

@@ -40,7 +40,7 @@ const GameTitle: React.FC<GameTitleProps> = (
       {isInputDisabled ? (
         <span className={styles.name}>{title}</span>
       ) : (
-        <input className="" value={title} disabled={isInputDisabled} onChange={handleInput} />
+        <input className={styles.input} value={title} disabled={isInputDisabled} onChange={handleInput} />
       )}
       <div className={`${styles.buttonWrap} ${editable ? '' : styles.notEditable}`}>
         {isInputDisabled ? (
