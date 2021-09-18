@@ -1,9 +1,8 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import {
-  Switch, Route, withRouter, RouteComponentProps, useLocation, 
+  Switch, Route, withRouter, RouteComponentProps, 
 } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { History } from 'history';
 import MainPage from './pages/MainPage';
 import LobbyPage from './pages/LobbyPage';
 import GamePage from './pages/GamePage';
@@ -33,7 +32,7 @@ import {
 import GoodbyePage from './pages/GoodbyePage';
 import { Pages } from './types/page';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
-import { redirectToGamePage, redirectToGoodbyePage, redirectToMainPage } from './shared';
+import { redirectToGamePage, redirectToGoodbyePage } from './shared';
 import { GameStatus } from './types/room';
 import { setGameStatus } from './redux/actions/game';
 import { useQuery } from './helpers/query';
@@ -45,7 +44,6 @@ interface AppProps extends RouteComponentProps {
   updateUser: any;
   setVoting: any;
   setImportantNotification: any;
-  history: History;
   setCommonNotification: any;
   updateGameStatusAction: any;
 }
@@ -58,7 +56,6 @@ const App: FunctionComponent<AppProps> = ({
   setImportantNotification: setNewImportantNotification,
   setCommonNotification: setNewCommonNotification,
   updateGameStatusAction: updateGameStatus,
-  history,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
