@@ -127,7 +127,6 @@ const App: FunctionComponent<AppProps> = ({
         </Route>
       ))}
     </Switch>
-   
   );
 };
 

@@ -1,0 +1,27 @@
+@import '../../../scss/variables.scss';
+
+.title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .name {
+    font-family: $font-family-first;
+    border: none;
+    background: transparent;
+    font-size: 34px;
+    width: auto;
+  }
+
+  .buttonWrap {
+
+
+  }
+
+  .notEditable {
+    display: none;
+  }
+}
