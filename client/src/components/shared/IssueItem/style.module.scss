@@ -1,22 +1,32 @@
 @import '../../../scss/variables.scss';
 
 .issueCard {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  width: 300px;
+  box-sizing: border-box;
+  padding: 10px;
+  flex-basis: calc((700px - 30px) / 3);
+  margin: 0 5px 10px 5px;
+  background-color: #7ecfc9;
+  transition: 0.15s ease-out;
+  box-shadow: 0 0.3rem 0.5rem #6451838a;
+  border-radius: 7px;
+  font-size: 20px;
+  font-family: 'Montserrat';
   display: flex;
   justify-content: space-between;
-  font-family: 'Montserrat';
-  padding: 20px;
+  align-items: center;
+  color: white;
+  min-height: 70px;
 }
 
 .issueInfo {
   display: flex;
   flex-direction: column;
+  flex: 0 0 65%;
 }
 
 .currentIssue {
-  background: rgba(96, 218, 191, 0.33);
+  color: #22485c;
+  background: #facf24;
 }
 
 .current {
@@ -28,12 +38,13 @@
 
 .title {
   font-weight: 300;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 30px;
 }
 
 .priority {
   font-weight: 300;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 12px;
+  padding-top: 5px;
 }

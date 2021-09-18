@@ -49,6 +49,7 @@ export const useCreateIssueModal = (config: FormConfig, noBtnAction: () => void)
 
   useEffect(() => {
     closeModal();
+    console.log('ssss');
   }, [issues, error]);
 
   const handleChange = (setValue: Dispatch<SetStateAction<string>>) => (name: string, value: string) => {
