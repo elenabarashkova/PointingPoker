@@ -16,6 +16,7 @@ import {
   USER_IS_DELETED, 
   USER_IS_KICKED, 
   USER_IS_NOT_DELETED, 
+  USER_LEFT, 
   YOU_ARE_DELETED, 
   YOU_ARE_KICKED, 
   YOU_ARE_NOT_DELETED, 
@@ -63,6 +64,14 @@ const App: FunctionComponent<AppProps> = ({
       const notificationData = createCommonNotificationAboutUser(
         data, 
         CommonNotificationAction.connect,
+      );
+      setNewCommonNotification(notificationData);
+    });
+    socket.on(USER_LEFT, (data) => {
+      updateUserStatus(data);
+      const notificationData = createCommonNotificationAboutUser(
+        data, 
+        CommonNotificationAction.left,
       );
       setNewCommonNotification(notificationData);
     });
