@@ -1,4 +1,9 @@
-import React, { ReactElement, useState, ChangeEvent } from 'react';
+import React, {
+  ReactElement,
+  useState,
+  ChangeEvent,
+  useEffect,
+} from 'react';
 import { connect } from 'react-redux';
 import { EditButton } from 'components/shared/buttons/EditButton';
 import { ConfirmButton } from 'components/shared/buttons/ConfirmButton';
@@ -22,6 +27,16 @@ const GameTitle: React.FC<GameTitleProps> = (
 ):ReactElement => {
   const [title, setTitle] = useState('Sprint Plan');
   const [isInputDisabled, setInputDisabled] = useState(true);
+  const [issuesList, setIssuesList] = useState('');
+
+  useEffect(() => {
+    let namesString = '';
+    Object.keys(issues).map((id) => {
+      namesString = namesString.length ? `${namesString} , ${issues[id].title}` : issues[id].title;
+      return id;
+    });
+    setIssuesList(namesString);
+  });
 
   const handleInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setTitle(target.value);
@@ -29,7 +44,8 @@ const GameTitle: React.FC<GameTitleProps> = (
 
   const handleClick = () => {
     if (!isInputDisabled) {
-      setGameTitleAction(title);
+      const fullTitle = `${title} ${issuesList}`;
+      setGameTitleAction(fullTitle);
     }
 
     setInputDisabled(!isInputDisabled);
@@ -42,6 +58,7 @@ const GameTitle: React.FC<GameTitleProps> = (
       ) : (
         <input className={styles.input} value={title} disabled={isInputDisabled} onChange={handleInput} />
       )}
+      <span className={styles.issues}>{`${issuesList.length ? `(${issuesList})` : ''}`}</span>
       <div className={`${styles.buttonWrap} ${editable ? '' : styles.notEditable}`}>
         {isInputDisabled ? (
           <EditButton onClick={handleClick} disabled={!editable} />
