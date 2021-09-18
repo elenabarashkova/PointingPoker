@@ -34,6 +34,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => 
       <Header page={Pages.settings} />
       <main className={styles.main}>
         <GameTitle editable />
+        <GameSection areIssuesCreated={areIssuesCreated} areSettingsCustom={areSettingsCustom} />
         <MembersSection />
         <SettingsSection settingsChangeHandler={addCustomSettings} />
       </main>
