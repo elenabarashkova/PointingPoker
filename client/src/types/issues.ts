@@ -29,6 +29,18 @@ export interface IssueData {
   issue: Issue;
 }
 
+// {
+//   type: 'ADD_ISSUE',
+//     payload: {
+//   issueId: 'string',
+//     issue: {
+//     title: 'Lena',
+//       link: 'LenaLink',
+//       priority: 'low',
+//   },
+// }
+// }
+
 export enum IssuePriority {
   low = 'low',
   middle = 'middle',

@@ -9,6 +9,8 @@ export const initialState = {
   scoreType: ScoreType.storyPoint,
   roundTime: 140,
   cardsNumber: 6,
+  autoAdmitNewUsers: true,
+  autoFlip: true,
 };
 
 export const gameSettings = (

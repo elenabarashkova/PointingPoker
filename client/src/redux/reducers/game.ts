@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
   SET_ROOM_ID,
-  SET_GAME_STATUS,
+  SET_GAME_STATUS, SET_GAME_TITLE,
 } from '../action-types';
 import { Game } from '../../types/redusers';
 
@@ -9,6 +9,7 @@ export const initialState = {
   gameStatus: '',
   roomId: '',
   isRoomValid: false,
+  gameTitle: '',
 };
 
 export const game = (
@@ -26,6 +27,13 @@ export const game = (
     return {
       ...state,
       gameStatus: payload as string,
+    };
+  }
+
+  if (type === SET_GAME_TITLE) {
+    return {
+      ...state,
+      gameTitle: payload as string,
     };
   }
 
