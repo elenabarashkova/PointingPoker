@@ -1,5 +1,5 @@
-import { Room } from "../../types/room";
-import { KickResults, UserStatus, Vote } from "../../types/user";
+import { Store } from '../../types/room';
+import { KickResults, UserStatus, Vote } from '../../types/user';
 
 export const getKickVoteResult = (kickingVote: Array<Vote>): boolean => {
   const result = kickingVote?.reduce((acc, { vote }) => acc + Number(vote), 0);
@@ -8,11 +8,13 @@ export const getKickVoteResult = (kickingVote: Array<Vote>): boolean => {
 };
 
 export const getVoteResults = (
-  room: Room,
+  roomId: string,
   votingUserId: string,
   kickedUserId: string,
-  confirm: boolean
+  confirm: boolean,
+  store: Store
 ): KickResults => {
+  const room = store[roomId];
   const currentVote = confirm ? 1 : 0;
   const user = room.users[kickedUserId];
   const kickingVote = user.kickingVote?.map(({ id, vote }) => ({
@@ -37,8 +39,6 @@ export const getVoteResults = (
     updatedUser.status = userWasKicked ? UserStatus.deleted : UserStatus.active;
   }
 
-  const updatedRoom = { ...room };
-  updatedRoom.users[kickedUserId] = updatedUser;
-
-  return { updatedUser, updatedRoom, votingIsNotFinished, userWasKicked };
+  room.users = { ...room.users, [kickedUserId]: updatedUser };
+  return { updatedUser, votingIsNotFinished, userWasKicked };
 };

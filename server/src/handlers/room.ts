@@ -1,16 +1,15 @@
-import { createRoom, createRoomId } from "../actions/room";
-import { handleError } from "../helpers";
-import { HandlerParams } from "../types";
-import { EventCallback } from "../types/callbacks";
-import { User } from "../types/user";
+import { Socket } from 'socket.io';
+import { createRoom, roomExists } from '../actions/room';
+import { handleError } from '../helpers';
+import { store } from '../store';
+import { EventCallback } from '../types/callbacks';
+import { User } from '../types/user';
 
 export const createRoomHandler =
-  ({ socket, redisSetAsync }: HandlerParams) =>
-  async (user: User, callback: EventCallback): Promise<void> => {
+  (socket: Socket) =>
+  (user: User, callback: EventCallback): void => {
     try {
-      const roomId = createRoomId();
-      const room = createRoom(socket.id, user);
-      await redisSetAsync(roomId, JSON.stringify(room));
+      const { room, roomId } = createRoom(socket.id, user, store);
       socket.join(roomId);
       callback({ status: 200, data: { room, roomId } });
     } catch {
@@ -19,11 +18,10 @@ export const createRoomHandler =
   };
 
 export const checkRoomHandler =
-  ({ socket, redisGetAsync }: HandlerParams) =>
-  async (roomId: string, callback: EventCallback): Promise<void> => {
+  (socket: Socket) =>
+  (roomId: string, callback: EventCallback): void => {
     try {
-      const room = await redisGetAsync(roomId);
-      callback({ status: 200, data: !!room });
+      callback({ status: 200, data: !!roomExists(roomId, store) });
     } catch {
       handleError(socket, callback);
     }

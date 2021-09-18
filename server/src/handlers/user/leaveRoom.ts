@@ -1,21 +1,21 @@
-import { changeUserStatus } from "../../actions/user/changeStatus";
-import { UserEvents } from "../../constants/events";
-import { getRoom, handleError } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { EventCallback } from "../../types/callbacks";
-import { UserStatus } from "../../types/user";
+import { Socket } from 'socket.io';
+import { changeUserStatus } from '../../actions/user/changeStatus';
+import { UserEvents } from '../../constants/events';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
+import { EventCallback } from '../../types/callbacks';
+import { UserStatus } from '../../types/user';
 
 export const leaveRoomHandler =
-  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
-  async (roomId: string, callback: EventCallback): Promise<void> => {
+  (socket: Socket) =>
+  (roomId: string, callback: EventCallback): void => {
     try {
-      const room = await getRoom(roomId, redisGetAsync);
-      const { updatedRoom, updatedUser } = changeUserStatus(
-        room,
+      const updatedUser = changeUserStatus(
+        roomId,
         socket.id,
-        UserStatus.left
+        UserStatus.left,
+        store
       );
-      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
       callback({ status: 200, data: { userId: socket.id, user: updatedUser } });
       socket
         .to(roomId)
