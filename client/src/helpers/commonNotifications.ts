@@ -10,16 +10,16 @@ export const createCommonNotificationAboutUser = (
   let content: string;
   switch (action) {
     case CommonNotificationAction.connect:
-      content = 'joined the game session'
+      content = 'joined the game session';
       break;
     case CommonNotificationAction.deleted:
-        content = 'was removed from the game session'
-        break;
+      content = 'was removed from the game session';
+      break;
     case CommonNotificationAction.isNotDeleted:
-      content = 'was not removed from the game session'
+      content = 'was not removed from the game session';
       break; 
     case CommonNotificationAction.left:
-      content = 'left the game session'
+      content = 'left the game session';
       break;   
     default:
       break;

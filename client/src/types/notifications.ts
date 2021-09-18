@@ -26,5 +26,5 @@ export enum CommonNotificationAction {
   connect = 'connect',
   deleted = 'deleted',
   isNotDeleted = 'isNotDeleted',
-  left = 'left'
+  left = 'left',
 }

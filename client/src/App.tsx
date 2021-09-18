@@ -112,7 +112,7 @@ const App: FunctionComponent<AppProps> = ({
       if (data === GameStatus.canceled) {
         setNewImportantNotification(ImportantNotifications.gameCanceled);
       }
-      if (data === GameStatus.inProgress) {
+      if (data === GameStatus.active) {
         redirectToGamePage();
       }
     });

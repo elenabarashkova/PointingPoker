@@ -3,6 +3,7 @@ import { Message } from './messages';
 import { Users } from './user';
 
 export enum GameStatus {
+  active = 'active',
   pending = 'pending',
   inProgress = 'inProgress',
   finished = 'finished',
