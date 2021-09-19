@@ -3,7 +3,6 @@ import {
 } from '@reduxjs/toolkit';
 import { addIssue } from 'src/services/issues/addIssue';
 import { deleteIssue } from 'src/services/issues/deleteIssue';
-import { activateIssue } from 'src/services/issues/setActiveIssue';
 import { updateIssue } from 'src/services/issues/updateIssue';
 import { Issue, IssueData, Issues } from 'src/types/issues';
 import {
@@ -68,16 +67,6 @@ export const updateIssueRequest = (roomId: string, issueId: string, issue: Issue
     dispatch(sendIssuesRequest());
     const response = await updateIssue(roomId, issueId, issue);
     dispatch(updateIssueAction(response));
-  } catch (error) {
-    dispatch(setIssuesError());
-  }
-};
-
-export const activateIssueRequest = (roomId: string, issueId: string) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
-  try {
-    dispatch(sendIssuesRequest());
-    const response = await activateIssue(roomId, issueId);
-    dispatch(setIssuesAction(response));
   } catch (error) {
     dispatch(setIssuesError());
   }

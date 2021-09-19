@@ -1,6 +1,7 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { activateIssueRequest, deleteIssueRequest } from 'src/redux/actions/issues';
+import { startRoundRequest } from 'src/redux/actions/complexActions/startRoundAction';
+import { deleteIssueRequest } from 'src/redux/actions/issues';
 import { EditIssueValues, IssuePriority, UseIssueTools } from 'src/types/issues';
 import { GameStatus } from 'src/types/room';
 import { RootStore } from 'src/types/store';
@@ -42,7 +43,7 @@ export const useIssueTools = (): UseIssueTools => {
 
   const activateIssue = (id: string) => () => {
     if (gameStatus === GameStatus.active) {
-      dispatch(activateIssueRequest(roomId, id));
+      dispatch(startRoundRequest(roomId, id));
     }
   };
 

@@ -45,8 +45,11 @@ export const ERROR_RESULT = 'error';
 
 export enum Events {
   addIssue = 'ADD_ISSUE',
+  issueHasBeenAdded = 'ISSUE_HAS_BEEN_ADDED',
   deleteIssue = 'DELETE_ISSUE',
+  issueHasBeenDeleted = 'ISSUE_HAS_BEEN_DELETED',
   updateIssue = 'UPDATE_ISSUE',
-  activateIssue = 'ACTIVATE_ISSUE',
-  issueIsActive = 'ISSUE_IS_ACTIVE',
+  issueHasBeenUpdated = 'ISSUE_HAS_BEEN_UPDATED',
+  startRound = 'START_ROUND',
+  roundIsStarted = 'ROUND_IS_STARTED',
 }
