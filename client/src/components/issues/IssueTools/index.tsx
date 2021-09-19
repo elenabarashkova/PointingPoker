@@ -1,6 +1,9 @@
 import { CreateIssue } from 'components/issues/CreateIssue';
 import { IssueCard } from 'components/issues/IssueCard';
-import { CREATE_ISSUE_FORM_CONFIG, ISSUE_PRIORITY_CONFIG } from 'components/issues/IssueModals/config';
+import {
+  CREATE_ISSUE_FORM_CONFIG,
+  ISSUE_PRIORITY_CONFIG,
+} from 'components/issues/IssueModals/config';
 import { CreateIssueModal } from 'components/issues/IssueModals/CreateIssueModal';
 import { UpdateIssueModal } from 'components/issues/IssueModals/UpdateIssueModal';
 import React from 'react';
@@ -22,7 +25,7 @@ const IssueTools: React.FC<IssueToolsProps> = ({ editMode, columnMode }) => {
   } = useIssueTools();
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.row_wrapper} ${columnMode && styles.column_wrapper}`}>
       <div className={styles.title}>Issues:</div>
       <div className={`${styles.issuesList} ${columnMode && styles.column}`}>
         {sortedIssues.map(({

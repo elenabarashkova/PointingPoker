@@ -5,7 +5,9 @@ import styles from './style.module.scss';
 
 export const IssueList: React.FC<IssueListProps> = ({ sortedIssues }) => (
   <div className={styles.issueList}>
-    {sortedIssues.map(({ id, title, priority, current }) => (
+    {sortedIssues.map(({
+      id, title, priority, current, 
+    }) => (
       <IssueItem key={`issue-${id}`} title={title} priority={priority} current={current} />
     ))}
   </div>
