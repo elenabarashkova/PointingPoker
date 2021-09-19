@@ -514,7 +514,7 @@ socket.emit("STOP_ROUND", roomId, (response) => { console.log(response) });
 
 ##### Success response
 
-{ status: 200, data: { currentRound: null, issue: Issue}
+{ status: 200, data: { roundIsActive: false, issueId, issue : Issue with statistics} }
 
 ##### Error response
 
@@ -522,8 +522,8 @@ socket.emit("STOP_ROUND", roomId, (response) => { console.log(response) });
 
 ###### Other users in this room should listen event:
 
-- event: **ROUND_IS_STOPPED**
-- data: **{ currentRound: null, issue: Issue}**
+- event: ROUND_IS_STOPPED
+- data: { roundIsActive: false, issueId, issue : Issue with statistics}
 
 ---
 
