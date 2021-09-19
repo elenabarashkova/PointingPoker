@@ -10,5 +10,3 @@ export const startRound = (roomId: string, issueId: string): Promise<StartRoundD
     reject(new Error(error));
   });
 });
-
-

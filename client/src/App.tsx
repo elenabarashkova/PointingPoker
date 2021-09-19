@@ -12,8 +12,10 @@ import GoodbyePage from './pages/GoodbyePage';
 import LobbyPage from './pages/LobbyPage';
 import MainPage from './pages/MainPage';
 import SettingsPage from './pages/Settings';
-import { setGameStatus } from './redux/actions/game';
-import { setIssuesAction } from './redux/actions/issues';
+import { setGameStatus, startRoundAction } from './redux/actions/game';
+import {
+  addIssueAction, deleteIssueAction, setIssuesAction, updateIssueAction, 
+} from './redux/actions/issues';
 import { setMessageOnResponse } from './redux/actions/messages';
 import {
   setCommonNotification,
@@ -36,7 +38,8 @@ import {
   YOU_ARE_NOT_DELETED,
 } from './services/constants';
 import { redirectToGamePage, redirectToGoodbyePage } from './shared';
-import { Issues } from './types/issues';
+import { StartRoundData } from './types/game';
+import { IssueData, Issues } from './types/issues';
 import { Message } from './types/messages';
 import {
   CommonNotification,
@@ -57,6 +60,10 @@ interface AppProps extends RouteComponentProps {
   setCommonNotification: any;
   updateGameStatusAction: any;
   setIssues: any;
+  startRound: any;
+  addIssue: any;
+  deleteIssue: any;
+  updateIssue: any;
 }
 
 const App: FunctionComponent<AppProps> = ({
@@ -68,6 +75,10 @@ const App: FunctionComponent<AppProps> = ({
   setCommonNotification: setNewCommonNotification,
   updateGameStatusAction: updateGameStatus,
   setIssues,
+  startRound,
+  addIssue,
+  deleteIssue,
+  updateIssue,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -120,9 +131,28 @@ const App: FunctionComponent<AppProps> = ({
       }
     });
     
-    socket.on(Events.issueIsActive, (issues) => {
+    socket.on(Events.roundIsStarted, ({ currentIssueId, issues, roundIsActive }) => {
       if (issues) {
         setIssues(issues);
+        startRound({ currentIssueId, roundIsActive });
+      }
+    });
+
+    socket.on(Events.issueHasBeenAdded, (issueData) => {
+      if (issueData) {
+        addIssue(issueData);
+      }
+    });
+
+    socket.on(Events.issueHasBeenDeleted, (issueId) => {
+      if (issueId) {
+        deleteIssue(issueId);
+      }
+    });
+
+    socket.on(Events.issueHasBeenUpdated, (issueData) => {
+      if (issueData) {
+        updateIssue(issueData);
       }
     });
   }, []);
@@ -170,6 +200,10 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setCommonNotification: (notification: CommonNotification) => dispatch(setCommonNotification(notification)),
   updateGameStatusAction: (status: keyof typeof GameStatus) => dispatch(setGameStatus(status)),
   setIssues: (issues: Issues) => dispatch(setIssuesAction(issues)),
+  startRound: (roundData: StartRoundData) => dispatch(startRoundAction(roundData)),
+  addIssue: (issue: IssueData) => dispatch(addIssueAction(issue)),
+  deleteIssue: (issueId: string) => dispatch(deleteIssueAction(issueId)),
+  updateIssue: (issue: IssueData) => dispatch(updateIssueAction(issue)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

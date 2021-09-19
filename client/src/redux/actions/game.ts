@@ -1,7 +1,9 @@
 import { Action, PayloadAction } from '@reduxjs/toolkit';
 import { StartRoundData } from 'src/types/game';
 import { GameSettings, GameStatus } from 'src/types/room';
-import { SEND_REQUEST, SET_ALL_GAME_SETTINGS, SET_ERROR, SET_GAME_STATUS, SET_GAME_TITLE, START_ROUND } from '../action-types';
+import {
+  SEND_GAME_REQUEST, SET_ALL_GAME_SETTINGS, SET_GAME_ERROR, SET_GAME_STATUS, SET_GAME_TITLE, START_ROUND,
+} from '../action-types';
 
 export const setGameStatus = (gameStatus: keyof typeof GameStatus): PayloadAction<keyof typeof GameStatus> => ({
   type: SET_GAME_STATUS,
@@ -24,9 +26,9 @@ export const startRoundAction = (startRoundData: StartRoundData): PayloadAction<
 });
 
 export const sendGameRequest = (): Action => ({
-  type: SEND_REQUEST,
+  type: SEND_GAME_REQUEST,
 });
 
 export const setGameError = (): Action => ({
-  type: SET_ERROR,
+  type: SET_GAME_ERROR,
 });
