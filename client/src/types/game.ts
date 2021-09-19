@@ -11,4 +11,3 @@ export interface StartRoundData {
   currentIssueId: string;
   issues?: Issues;
 }
-

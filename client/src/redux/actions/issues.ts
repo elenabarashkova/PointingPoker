@@ -1,5 +1,5 @@
 import {
-  Action, AnyAction, Dispatch, PayloadAction
+  Action, AnyAction, Dispatch, PayloadAction,
 } from '@reduxjs/toolkit';
 import { addIssue } from 'src/services/issues/addIssue';
 import { deleteIssue } from 'src/services/issues/deleteIssue';
@@ -11,7 +11,7 @@ import {
   SEND_REQUEST,
   SET_ERROR,
   SET_ISSUES,
-  UPDATE_ISSUE
+  UPDATE_ISSUE,
 } from '../action-types';
 
 export const setIssuesAction = (issues: Issues): PayloadAction<Issues> => ({
@@ -71,4 +71,3 @@ export const updateIssueRequest = (roomId: string, issueId: string, issue: Issue
     dispatch(setIssuesError());
   }
 };
-

@@ -16,6 +16,9 @@ export const MESSAGE_ON_RESPONCE_FAIL = 'MESSAGE_ON_RESPONCE_FAIL';
 export const SEND_REQUEST = 'SEND_REQUEST';
 export const SET_ERROR = 'SET_ERROR';
 
+export const SEND_GAME_REQUEST = 'SEND_REQUEST';
+export const SET_GAME_ERROR = 'SET_ERROR';
+
 export const SET_ISSUES = 'SET_ISSUES';
 export const ADD_ISSUE = 'ADD_ISSUE';
 export const UPDATE_ISSUE = 'UPDATE_ISSUE';
