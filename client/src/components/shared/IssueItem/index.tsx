@@ -19,6 +19,7 @@ export const IssueItem: React.FC<IssueItemProps> = ({
     onClick={onClick}
     onKeyDown={onClick}
     role="button"
+    tabIndex={0}
   >
     <div className={styles.issueInfo}>
       <span className={styles.current}>{current && 'current'}</span>

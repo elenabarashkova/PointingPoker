@@ -31,6 +31,7 @@ export interface Room {
   users: Users;
   messages: Array<Message>;
   issuesStore: Issues;
+  issues?: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
 }

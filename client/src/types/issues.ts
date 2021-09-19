@@ -1,15 +1,21 @@
-import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import React, {
+  ChangeEvent, Dispatch, MouseEvent, SetStateAction,
+} from 'react';
 
 export type IssueStatistics = Array<string>;
 export type IssueVote = Array<string>;
 
-enum IssueStatus {}
+export enum IssueStatus {
+  pending = 'pending',
+  active = 'active',
+  finished = 'finished',
+}
 
 export interface Issue {
   title: string;
   link: string;
   priority: keyof typeof IssuePriority;
-  current?: boolean;
+  status?: keyof typeof IssueStatus;
   statistics?: IssueStatistics;
   vote?: IssueVote;
   date?: number;
@@ -44,6 +50,7 @@ export interface IssueProps {
   title: string;
   current?: boolean;
   priority: keyof typeof IssuePriority;
+  columnMode?: boolean;
   onClick?: () => void;
 }
 
@@ -51,18 +58,18 @@ export interface IssueItemProps extends IssueProps {
   editBtn?: React.ReactNode;
   deleteBtn?: React.ReactNode;
   disabled?: boolean;
-  columnMode?: boolean;
   handleTitleChange?: () => void;
   handlePriorityChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export interface IssueCardProps extends IssueProps {
   editMode: boolean;
-  deleteBtnAction: () => void;
-  editBtnAction: () => void;
+  deleteBtnAction: (event: MouseEvent) => void;
+  editBtnAction: (event: MouseEvent) => void;
 }
 
 export interface CreateIssueProps {
+  columnMode?: boolean;
   addBtnAction: () => void;
 }
 
@@ -152,22 +159,17 @@ export interface UseIssueTools {
   createIssueModalIsOpen: boolean;
   updateIssueModalIsOpen: boolean;
   editIssueValues: EditIssueValues;
-  sortedIssues: ExtendedIssue[];
   editBtnAction: (
     title: string,
     url: string,
     priority: keyof typeof IssuePriority,
     id: string
-  ) => () => void;
-  deleteBtnAction: (id: string) => () => void;
+  ) => (event: MouseEvent) => void;
+  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
   activateIssue: (id: string) => () => void;
   openCreateIssueModal: () => void;
   closeCreateIssueModal: () => void;
   closeUpdateIssueModal: () => void;
-}
-
-export interface IssueListProps {
-  sortedIssues: ExtendedIssue[];
 }
 
 export interface IssueToolsProps {
