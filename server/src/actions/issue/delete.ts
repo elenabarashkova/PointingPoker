@@ -1,14 +1,16 @@
-import { Room } from "../../types/room";
+import { Store } from '../../types/room';
 
-export const deleteIssue = (room: Room, issueId: string): Room => {
+export const deleteIssue = (
+  roomId: string,
+  issueId: string,
+  store: Store
+): void => {
+  const room = store[roomId];
   const {
     // eslint-disable-next-line no-empty-pattern
     [issueId]: {},
     ...rest
   } = room.issues;
 
-  return {
-    ...room,
-    issues: rest,
-  };
+  room.issues = rest;
 };

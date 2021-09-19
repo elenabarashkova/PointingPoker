@@ -14,20 +14,18 @@ export interface GameSectionProps {
   areSettingsCustom: boolean;
 }
 
-const GameSection: React.FC<GameSectionProps> = (
-  {
-    updateGameStatus,
-    areIssuesCreated,
-    areSettingsCustom,
-  },
-): ReactElement => {
+const GameSection: React.FC<GameSectionProps> = ({
+  updateGameStatus,
+  areIssuesCreated,
+  areSettingsCustom,
+}): ReactElement => {
   const [isCopied, setCopied] = useState(false);
   const currectUserId = useTypedSelector(({ currentUserId }) => currentUserId);
   const roomUsers = useTypedSelector(({ users }) => users);
   const currectUserData = roomUsers[currectUserId];
   const gameId = useTypedSelector(({ game }) => game.roomId);
 
-  const gameLink = `http://localhost:8080/?roomId=${gameId}`;  
+  const gameLink = `http://localhost:8080/?roomId=${gameId}`;
 
   const copyText = () => {
     navigator.clipboard.writeText(gameLink);
@@ -42,13 +40,16 @@ const GameSection: React.FC<GameSectionProps> = (
     updateGameStatus(gameId, GameStatus.canceled);
   };
 
-  const buttonSubmitAddContent = (areSettingsCustom)
-    ? 'with custom setting' 
-    : 'with default setting';
+  const buttonSubmitAddContent = areSettingsCustom ? 'with custom setting' : 'with default setting';
 
-  return ( 
+  return (
     <div className={styles.gameSection}>
-      <UserCard user={currectUserData} id={currectUserId} currentUserId={currectUserId} size={ElementSize.big} />
+      <UserCard
+        user={currectUserData}
+        id={currectUserId}
+        currentUserId={currectUserId}
+        size={ElementSize.big}
+      />
       <div className={styles.wrapper}>
         <div className={styles.inputWrapper}>
           <label htmlFor="gameId">
@@ -63,17 +64,17 @@ const GameSection: React.FC<GameSectionProps> = (
           />
         </div>
         <div className={styles.btnWrapper}>
-          <Button 
-            content={isCopied ? 'Copied ✓' : 'Copy'} 
-            variant={isCopied ? 'bordered' : 'colored'} 
-            action={copyText} 
-            disabled={isCopied} 
+          <Button
+            content={isCopied ? 'Copied ✓' : 'Copy'}
+            variant={isCopied ? 'bordered' : 'colored'}
+            action={copyText}
+            disabled={isCopied}
           />
-          <Button content="Cancel Game" variant="bordered" action={handleCancel} /> 
+          <Button content="Cancel Game" variant="bordered" action={handleCancel} />
         </div>
       </div>
     </div>
   );
 };
- 
+
 export default connect(null, { updateGameStatus: updateGameStatusAction })(GameSection);

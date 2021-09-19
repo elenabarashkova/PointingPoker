@@ -1,16 +1,14 @@
-import { Issue } from "../../types/issue";
-import { Room } from "../../types/room";
+import { Issue } from '../../types/issue';
+import { Store } from '../../types/room';
 
 export const updateIssue = (
-  room: Room,
+  roomId: string,
   issueId: string,
-  issue: Issue
-): { updatedIssue: Issue; updatedRoom: Room } => {
+  issue: Issue,
+  store: Store
+): Issue => {
+  const room = store[roomId];
   const updatedIssue = { ...room.issues[issueId], ...issue };
-  const updatedRoom = {
-    ...room,
-    issue: { ...room.issues, [issueId]: updatedIssue },
-  };
-
-  return { updatedIssue, updatedRoom };
+  room.issues = { ...room.issues, [issueId]: updatedIssue };
+  return updatedIssue;
 };

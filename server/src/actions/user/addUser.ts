@@ -1,15 +1,14 @@
-import { Room } from "../../types/room";
-import { User, UserStatus } from "../../types/user";
+import { Room, Store } from '../../types/room';
+import { User, UserStatus } from '../../types/user';
 
 export const addUser = (
-  room: Room,
+  roomId: string,
   userId: string,
-  user: User
-): { updatedRoom: Room; joinedUser: User } => {
+  user: User,
+  store: Store
+): { room: Room; joinedUser: User } => {
+  const room = store[roomId];
   const joinedUser = { ...user, status: UserStatus.active };
-  const updatedRoom = {
-    ...room,
-    users: { ...room.users, [userId]: joinedUser },
-  };
-  return { updatedRoom, joinedUser };
+  room.users = { ...room.users, [userId]: joinedUser };
+  return { room, joinedUser };
 };

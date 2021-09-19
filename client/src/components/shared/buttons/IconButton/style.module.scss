@@ -12,6 +12,10 @@
   &:active {
     transform: scale(0.9);
   }
+  &:disabled {
+    cursor: default;
+    transform: none;
+  }
 }
 
 .icon {
