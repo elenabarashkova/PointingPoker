@@ -34,6 +34,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
 ):ReactElement => {
   const [settings, setSettings] = useState(gameSettings);
   const [time, setTime] = useState<Time>(INITIAL_TIME);
+  const [settingsEdited, setSettingsEdited] = useState(false);
 
   const handleChangeSwitch = (name) => {
     const newStatus = !settings[name];
@@ -43,6 +44,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
       [name]: newStatus,
     };
     setSettings(state);
+    setSettingsEdited(true);
   };
 
   const switchesSet = ():ReactElement => (
@@ -66,6 +68,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
       [name]: value,
     };
     setSettings(state);
+    setSettingsEdited(true);
   };
 
   const handleChangeCardsQuantity = ({ target }: ChangeEvent<HTMLSelectElement>) => {
@@ -74,6 +77,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
       cardsNumber: parseInt(target.value, 10),
     };
     setSettings(state);
+    setSettingsEdited(true);
   };
 
   const handleTimeInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +100,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
         roundTime: timeInSeconds,
       };
       setSettings(state);
+      setSettingsEdited(true);
     }
   };
 
@@ -136,7 +141,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
           </div>
         ) : null}
       </div>
-      <Button variant="colored" content="Save Settings" action={handleClick} />
+      <Button variant="colored" content="Save Settings" action={handleClick} disabled={!settingsEdited} />
       <VotingCardsField scoreType={settings.scoreType} number={settings.cardsNumber} />
     </div>
   );
