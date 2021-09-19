@@ -3,4 +3,8 @@ export interface Game {
   roomId: string;
   isRoomValid: boolean;
   gameTitle: string;
+  currentIssueId: string;
+  roundIsActive: boolean;
+  error: boolean;
+  isLoading: boolean;
 }
