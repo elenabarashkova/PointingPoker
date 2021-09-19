@@ -532,7 +532,7 @@ socket.emit("STOP_ROUND", roomId, (response) => { console.log(response) });
 
 ##### Expected data
 
-{ roomId: string, issueId : string }
+{ roomId: string, issueId : string, vote: string }
 
 ##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
@@ -540,7 +540,7 @@ socket.emit("ISSUE_VOTE", { roomId, issueId, vote }, (response) => { console.log
 
 ##### Success response
 
-{ status: 200, data: { issueId, issue } }
+{ status: 200, data: { issueId, userId, vote: string } }
 
 ##### Error response
 
@@ -549,7 +549,7 @@ socket.emit("ISSUE_VOTE", { roomId, issueId, vote }, (response) => { console.log
 ###### Other users in this room should listen event:
 
 - event: **USER_HAS_VOTED**
-- data: **{ issueId, issue }**
+- data: **{ issueId, userId, vote: string }**
 
 ---
 
