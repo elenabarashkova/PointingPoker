@@ -1,9 +1,8 @@
 import {
-  Action, AnyAction, Dispatch, PayloadAction,
+  Action, AnyAction, Dispatch, PayloadAction
 } from '@reduxjs/toolkit';
 import { addIssue } from 'src/services/issues/addIssue';
 import { deleteIssue } from 'src/services/issues/deleteIssue';
-import { activateIssue } from 'src/services/issues/setActiveIssue';
 import { updateIssue } from 'src/services/issues/updateIssue';
 import { Issue, IssueData, Issues } from 'src/types/issues';
 import {
@@ -12,7 +11,7 @@ import {
   SEND_REQUEST,
   SET_ERROR,
   SET_ISSUES,
-  UPDATE_ISSUE,
+  UPDATE_ISSUE
 } from '../action-types';
 
 export const setIssuesAction = (issues: Issues): PayloadAction<Issues> => ({
@@ -73,12 +72,3 @@ export const updateIssueRequest = (roomId: string, issueId: string, issue: Issue
   }
 };
 
-export const activateIssueRequest = (roomId: string, issueId: string) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
-  try {
-    dispatch(sendIssuesRequest());
-    const response = await activateIssue(roomId, issueId);
-    dispatch(setIssuesAction(response));
-  } catch (error) {
-    dispatch(setIssuesError());
-  }
-};

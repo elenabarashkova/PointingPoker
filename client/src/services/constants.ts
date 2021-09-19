@@ -47,6 +47,6 @@ export enum Events {
   addIssue = 'ADD_ISSUE',
   deleteIssue = 'DELETE_ISSUE',
   updateIssue = 'UPDATE_ISSUE',
-  activateIssue = 'ACTIVATE_ISSUE',
-  issueIsActive = 'ISSUE_IS_ACTIVE',
+  startRound = 'START_ROUND',
+  roundIsStarted = 'ROUND_IS_STARTED',
 }
