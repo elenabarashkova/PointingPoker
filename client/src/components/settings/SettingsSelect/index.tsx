@@ -27,7 +27,7 @@ export const SettingsSelect: React.FC<SelectProps> = (
       value={value}
       onChange={onChange}
       name={name}
-      className={`${additionalStyle} ${styles.settingsSelect} ${styles.select}`}
+      className={`${additionalStyle} ${styles.settingsSelect}`}
     >
       {SETTINGS_SCORE_TYPE_CONFIG.map(({ valueType, title }) => (
         <option key={valueType} value={valueType}>
