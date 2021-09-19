@@ -1,5 +1,5 @@
 import VotingCard from 'components/voting/VotingCard';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ScoreType } from 'src/types/room';
 import styles from './style.module.scss';
 
@@ -9,6 +9,11 @@ interface VotingCardsFieldProps {
 }
 
 const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ scoreType, number }):ReactElement => {
+  const [isDisabled, setDisabled] = useState(true);
+  const toSetDisable = (disabled: boolean) => {
+    setDisabled(disabled);
+  };
+  
   const config = {
     [ScoreType.size]: ['coffee', 'xs', 's', 'm', 'l', 'xl'],
     [ScoreType.storyPoint]: ['coffee', '1', '2', '3', '5', '8'],
@@ -16,14 +21,18 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ scoreType, number }
   };
 
   const points: string[] = config[scoreType];
-
-  // todo: данные брать из стора
-
-  // todo: передавать в карточку номер карты, которой проголосал юзер или просто выделять ее???
   
   return (
     <div className={styles.cardsField}>
-      {points.slice(0, number).map((el) => <VotingCard scoreType={scoreType} point={el} key={el} />)}
+      {points.slice(0, number).map((el) => (
+        <VotingCard 
+          scoreType={scoreType} 
+          point={el} 
+          key={el} 
+          isDisabled={isDisabled} 
+          toSetDisable={toSetDisable} 
+        />
+      ))}
     </div>
   );
 };

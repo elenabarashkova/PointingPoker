@@ -1,5 +1,7 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ScoreType } from 'src/types/room';
+import { connect } from 'react-redux';
+import { RootState } from 'src/redux/reducers';
 import styles from './style.module.scss';
 import coffee from './coffee-cup.svg';
 import blueShirt from './shirt-blue.svg';
@@ -16,15 +18,24 @@ import burger from './burger.svg';
 interface VotingCardProps {
   scoreType: keyof typeof ScoreType;
   point: string;
+  isDisabled: boolean;
+  toSetDisable: CallableFunction;
 }
 
-const VotingCard: React.FC<VotingCardProps> = ({ scoreType, point }):ReactElement => {
+const VotingCard: React.FC<VotingCardProps> = ({
+  scoreType, point, isDisabled, toSetDisable, 
+}):ReactElement => {
   const config = {
     [ScoreType.size]: 'clothing size',
     [ScoreType.storyPoint]: 'story point',
     [ScoreType.calories]: 'food calories',
   };
-  const handle = (e) => console.log(e.currentTarget.getAttribute('id'));
+
+  const handleClick = (e) => {
+    toSetDisable(true);
+    // todo: отправить на сервер голос
+    console.log(e.currentTarget.getAttribute('id'));
+  };
 
   const shirts = {
     xs: middleBlueShirt,
@@ -47,9 +58,9 @@ const VotingCard: React.FC<VotingCardProps> = ({ scoreType, point }):ReactElemen
 
   return (
     <div
-      className={`${styles.card} ${styles[scoreType]}`}
-      onClick={handle}
-      onKeyPress={handle}
+      className={`${styles.card} ${styles[scoreType]} ${isDisabled && styles.disabled}`}
+      onClick={handleClick}
+      onKeyPress={handleClick}
       role="button"
       tabIndex={0}   
       id={point}  
@@ -69,4 +80,8 @@ const VotingCard: React.FC<VotingCardProps> = ({ scoreType, point }):ReactElemen
   );
 };
 
-export default VotingCard;
+const mapStateToProps = (state: RootState) => ({
+  gameSettings: state.issuesStore.issues,
+});
+
+export default connect()(VotingCard);

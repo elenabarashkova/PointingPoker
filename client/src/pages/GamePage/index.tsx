@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Pages } from 'src/types/page';
 import GameTitle from 'components/shared/GameTitle';
+import VotingArea from 'components/voting/VotingArea';
 import Header from '../../components/page-parts/Header';
 import Footer from '../../components/page-parts/Footer';
 import styles from './style.module.scss';
@@ -10,6 +11,7 @@ const GamePage: React.FC = (): ReactElement => (
     <Header page={Pages.game} />
     <main className={styles.main}>
       <GameTitle editable={false} />
+      <VotingArea />
     </main>
     <Footer page={Pages.game} />
   </div>
