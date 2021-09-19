@@ -9,6 +9,9 @@ import VotingCardsField from 'components/voting/VotingCardsField';
 import { Select } from 'components/shared/Select';
 import styles from './style.module.scss';
 import { setAllGameSettings } from '../../redux/actions/game';
+import { changeGameSettingsAction } from '../../redux/actions/complexActions/changeGameSettingsAction';
+import { RootState } from '../../redux/reducers';
+import { GameSettings } from '../../types/room';
 
 export interface Time {
   minutes: number;
@@ -18,15 +21,21 @@ export interface Time {
 interface SettingsSectionProps {
   settingsChangeHandler: CallableFunction;
   setGameSettings: CallableFunction;
+  changeGameSettings: CallableFunction;
+  roomId: string;
+  gameSettings: GameSettings;
 }
 
 const SettingsSection: React.FC<SettingsSectionProps> = (
   {
     settingsChangeHandler,
     setGameSettings,
+    changeGameSettings,
+    roomId,
+    gameSettings,
   },
 ):ReactElement => {
-  const [settings, setSettings] = useState(SETTINGS_INITIAL_STATE);
+  const [settings, setSettings] = useState(gameSettings);
   const [time, setTime] = useState<Time>(INITIAL_TIME);
 
   const handleChangeSwitch = (name) => {
@@ -94,7 +103,10 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
   };
 
   const handleClick = () => {
-    setGameSettings(settings);
+    console.log(settings);
+    changeGameSettings(roomId, settings);
+
+    // setGameSettings(settings);
     settingsChangeHandler(true);
   };
 
@@ -123,7 +135,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
             valuesConfig={['3', '4', '5', '6']}
           />
         </div>
-        {settings.timerOn ? (
+        {settings.timer ? (
           <div className={styles.block}>
             <div className={styles.label}>Round time:</div>
             <TimeInput value={time} handleChange={handleTimeInputChange} />
@@ -136,4 +148,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
   );
 };
 
-export default connect(null, { setGameSettings: setAllGameSettings })(SettingsSection);
+const mapStateToProps = ({ game, gameSettings }: RootState) => ({
+  roomId: game.roomId,
+  gameSettings,
+});
+
+export default connect(mapStateToProps, {
+  setGameSettings: setAllGameSettings,
+  changeGameSettings: changeGameSettingsAction,
+})(SettingsSection);

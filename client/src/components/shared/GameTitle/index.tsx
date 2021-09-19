@@ -31,12 +31,13 @@ const GameTitle: React.FC<GameTitleProps> = (
 
   useEffect(() => {
     let namesString = '';
-    Object.keys(issues).map((id) => {
+
+    Object.keys(issues).forEach((id) => {
       namesString = namesString.length ? `${namesString} , ${issues[id].title}` : issues[id].title;
-      return id;
     });
+
     setIssuesList(namesString);
-  });
+  }, [title, issues]);
 
   const handleInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setTitle(target.value);
