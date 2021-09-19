@@ -23,16 +23,16 @@ export const SWITCHES_CONFIG = [
   },
 ];
 
-export const SETTINGS_INITIAL_STATE: GameSettings = {
-  masterAsPlayer: true,
-  changingCardInRoundEnd: false,
-  timer: true,
-  scoreType: ScoreType.storyPoint,
-  cardsNumber: 6,
-  roundTime: 2,
-  autoAdmitNewUsers: true,
-  autoFlip: true,
-};
+// export const SETTINGS_INITIAL_STATE: GameSettings = {
+//   masterAsPlayer: true,
+//   changingCardInRoundEnd: false,
+//   timer: true,
+//   scoreType: ScoreType.storyPoint,
+//   cardsNumber: 6,
+//   roundTime: 2,
+//   autoAdmitNewUsers: true,
+//   autoFlip: true,
+// };
 
 export const INITIAL_TIME = {
   minutes: 2,
