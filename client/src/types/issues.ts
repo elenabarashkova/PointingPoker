@@ -166,7 +166,7 @@ export interface UseIssueTools {
     id: string
   ) => (event: MouseEvent) => void;
   deleteBtnAction: (id: string) => (event: MouseEvent) => void;
-  activateIssue: (id: string) => () => void;
+  startRound: (id: string) => () => void;
   openCreateIssueModal: () => void;
   closeCreateIssueModal: () => void;
   closeUpdateIssueModal: () => void;
