@@ -15,10 +15,10 @@ export const initialState = {
 
 export const gameSettings = (
   state: GameSettings = initialState,
-  { type, payload }: PayloadAction<GameSettings | keyof typeof ScoreType | boolean | number>,
+  { type, payload }: PayloadAction<GameSettings>,
 ): GameSettings => {
   if (type === SET_ALL_GAME_SETTINGS) {
-    return payload as GameSettings;
+    return { ...state, ...payload };
   }
 
   return state;
