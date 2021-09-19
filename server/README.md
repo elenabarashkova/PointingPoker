@@ -565,7 +565,7 @@ socket.emit("SET_FINAL_VOTE", { roomId, issueId, finalVote }, (response) => { co
 
 ##### Success response
 
-{ status: 200, data: { currentRound: null, issue: Issue}
+{ status: 200, data: { issueId, finalVote}
 
 ##### Error response
 
@@ -574,7 +574,7 @@ socket.emit("SET_FINAL_VOTE", { roomId, issueId, finalVote }, (response) => { co
 ###### Other users in this room should listen event:
 
 - event: **FINAL_VOTE**
-- data: **{ currentRound: null, issue: Issue}**
+- data: **{ issueId, finalVote}**
 
 ---
 
