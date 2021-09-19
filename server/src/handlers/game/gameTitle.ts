@@ -1,18 +1,18 @@
 import { Socket } from 'socket.io';
-import { changeGameStatus } from '../../actions/game/changeGameStatus';
+import { changeGameTitle } from '../../actions/game/changeGameTitle';
 import { GameEvents } from '../../constants/events';
 import { handleError } from '../../helpers';
 import { store } from '../../store';
 import { EventCallback } from '../../types/callbacks';
 import { GameData } from '../../types/game';
 
-export const gameStatusHandler =
+export const gameTitleHandler =
   (socket: Socket) =>
-  ({ roomId, gameStatus }: GameData, callback: EventCallback): void => {
+  ({ roomId, gameTitle }: GameData, callback: EventCallback): void => {
     try {
-      changeGameStatus(roomId, gameStatus, store);
-      callback({ status: 200, data: gameStatus });
-      socket.to(roomId).emit(GameEvents.gameStatusChanged, gameStatus);
+      const title = changeGameTitle(roomId, gameTitle, store);
+      callback({ status: 200, data: title });
+      socket.to(roomId).emit(GameEvents.gameTitleChanged, title);
     } catch {
       handleError(socket, callback);
     }
