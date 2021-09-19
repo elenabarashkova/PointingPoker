@@ -477,8 +477,6 @@ socket.emit("RECONNECTED", (response) => { console.log(response) });
 
 ---
 
----
-
 ##### - START_ROUND
 
 ##### Expected data
@@ -491,7 +489,7 @@ socket.emit("START_ROUND", { roomId, issueId }, (response) => { console.log(resp
 
 ##### Success response
 
-{ status: 200, data: { currentRound: {issueId: string} }
+{ status: 200, data: { currentIssueId, issues, roundIsActive: true } }
 
 ##### Error response
 
@@ -500,7 +498,7 @@ socket.emit("START_ROUND", { roomId, issueId }, (response) => { console.log(resp
 ###### Other users in this room should listen event:
 
 - event: **ROUND_IS_STARTED**
-- data: **currentRound: {issueId: string}**
+- data: **currentRound: { currentIssueId, issues, roundIsActive: true } **
 
 ---
 
@@ -529,36 +527,12 @@ socket.emit("STOP_ROUND", roomId, (response) => { console.log(response) });
 
 ---
 
-##### - ACTIVATE_ISSUE
-
-##### Expected data
-
-{ roomId: string, issueId : string }
-
-##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
-
-socket.emit("ACTIVATE_ISSUE", { roomId, issueId }, (response) => { console.log(response) });
-
-##### Success response
-
-{ status: 200, data: { issueId, issue } }
-
-##### Error response
-
-{ status: 500, error: "error" }
-
-###### Other users in this room should listen event:
-
-- event: **ISSUE_IS_ACTIVE**
-- data: **{ issueId, issue }**
-
----
 
 ##### - ISSUE_VOTE
 
 ##### Expected data
 
-{ roomId: string, issueId : string, vote : string }
+{ roomId: string, issueId : string }
 
 ##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
