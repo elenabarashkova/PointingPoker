@@ -24,6 +24,10 @@
     font-size: 34px;
   }
 
+  .invalid {
+    border-color: $error-color;
+  }
+
   .buttonWrap {
     margin-left: 15px;
   }

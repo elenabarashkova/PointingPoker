@@ -9,7 +9,7 @@ export const initialState = {
   gameStatus: '',
   roomId: '',
   isRoomValid: false,
-  gameTitle: '',
+  gameTitle: 'Sprint Plan',
 };
 
 export const game = (
