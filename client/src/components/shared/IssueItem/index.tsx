@@ -8,8 +8,18 @@ export const IssueItem: React.FC<IssueItemProps> = ({
   priority,
   editBtn,
   deleteBtn,
+  columnMode,
+  onClick,
 }) => (
-  <div className={`${styles.issueCard} ${current ? styles.currentIssue : ''}`}>
+  <div
+    className={`
+      ${styles.issueCard} 
+      ${current && styles.currentIssue} 
+      ${columnMode && styles.column_mode}`}
+    onClick={onClick}
+    onKeyDown={onClick}
+    role="button"
+  >
     <div className={styles.issueInfo}>
       <span className={styles.current}>{current && 'current'}</span>
       <span className={styles.title}>{title}</span>
@@ -25,3 +35,9 @@ export const IssueItem: React.FC<IssueItemProps> = ({
     </div>
   </div>
 );
+
+IssueItem.defaultProps = {
+  columnMode: false,
+};
+
+export default IssueItem;

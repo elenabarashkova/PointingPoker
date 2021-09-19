@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sortByDate } from 'src/helpers/sortByDate';
-import { deleteIssueRequest } from 'src/redux/actions/issues';
+import { activateIssueRequest, deleteIssueRequest } from 'src/redux/actions/issues';
 import { EditIssueValues, IssuePriority, UseIssueTools } from 'src/types/issues';
+import { GameStatus } from 'src/types/room';
 import { RootStore } from 'src/types/store';
 
 export const useIssueTools = (): UseIssueTools => {
@@ -17,6 +18,7 @@ export const useIssueTools = (): UseIssueTools => {
 
   const { issuesStore, game } = useSelector((store: RootStore) => store);
   const { issues } = issuesStore;
+  const { roomId, gameStatus } = game;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,11 +38,19 @@ export const useIssueTools = (): UseIssueTools => {
   };
 
   const deleteBtnAction = (id: string) => () => {
-    dispatch(deleteIssueRequest(game.roomId, id));
+    if (gameStatus === GameStatus.active) {
+      dispatch(deleteIssueRequest(roomId, id));
+    }
   };
+
+  const activateIssue = (id: string) => () => {
+    dispatch(activateIssueRequest(roomId, id));
+  };
+
   const openCreateIssueModal = () => setCreateIssueModalIsOpen(true);
   const closeCreateIssueModal = () => setCreateIssueModalIsOpen(false);
   const closeUpdateIssueModal = () => setUpdateIssueModalIsOpen(false);
+
   const sortedIssues = sortByDate(issues);
 
   return {
@@ -53,5 +63,6 @@ export const useIssueTools = (): UseIssueTools => {
     openCreateIssueModal,
     closeCreateIssueModal,
     closeUpdateIssueModal,
+    activateIssue,
   };
 };

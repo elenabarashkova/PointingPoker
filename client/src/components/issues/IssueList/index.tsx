@@ -1,4 +1,4 @@
-import { IssueItem } from 'components/shared/IssueItem';
+import IssueItem from 'components/shared/IssueItem';
 import React from 'react';
 import { IssueListProps } from 'src/types/issues';
 import styles from './style.module.scss';

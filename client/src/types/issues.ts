@@ -44,12 +44,14 @@ export interface IssueProps {
   title: string;
   current?: boolean;
   priority: keyof typeof IssuePriority;
+  onClick?: () => void;
 }
 
 export interface IssueItemProps extends IssueProps {
   editBtn?: React.ReactNode;
   deleteBtn?: React.ReactNode;
   disabled?: boolean;
+  columnMode?: boolean;
   handleTitleChange?: () => void;
   handlePriorityChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -158,6 +160,7 @@ export interface UseIssueTools {
     id: string
   ) => () => void;
   deleteBtnAction: (id: string) => () => void;
+  activateIssue: (id: string) => () => void;
   openCreateIssueModal: () => void;
   closeCreateIssueModal: () => void;
   closeUpdateIssueModal: () => void;
