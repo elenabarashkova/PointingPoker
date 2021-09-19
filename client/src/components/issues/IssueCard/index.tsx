@@ -9,6 +9,8 @@ export const IssueCard: React.FC<IssueCardProps> = ({
   title,
   priority,
   editMode,
+  columnMode,
+  current,
   onClick,
   deleteBtnAction,
   editBtnAction,
@@ -17,6 +19,8 @@ export const IssueCard: React.FC<IssueCardProps> = ({
     id={id}
     title={title}
     priority={priority}
+    current={current}
+    columnMode={columnMode}
     onClick={onClick}
     editBtn={editMode && <EditButton onClick={editBtnAction} whiteColor />}
     deleteBtn={<DeleteButton onClick={deleteBtnAction} />}

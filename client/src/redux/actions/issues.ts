@@ -1,5 +1,5 @@
 import {
-  Action, AnyAction, Dispatch, PayloadAction, 
+  Action, AnyAction, Dispatch, PayloadAction,
 } from '@reduxjs/toolkit';
 import { addIssue } from 'src/services/issues/addIssue';
 import { deleteIssue } from 'src/services/issues/deleteIssue';
@@ -77,7 +77,7 @@ export const activateIssueRequest = (roomId: string, issueId: string) => async (
   try {
     dispatch(sendIssuesRequest());
     const response = await activateIssue(roomId, issueId);
-    dispatch(updateIssueAction(response));
+    dispatch(setIssuesAction(response));
   } catch (error) {
     dispatch(setIssuesError());
   }

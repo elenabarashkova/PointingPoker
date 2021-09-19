@@ -44,4 +44,5 @@ export enum Events {
   deleteIssue = 'DELETE_ISSUE',
   updateIssue = 'UPDATE_ISSUE',
   activateIssue = 'ACTIVATE_ISSUE',
+  issueIsActive = 'ISSUE_IS_ACTIVE',
 }

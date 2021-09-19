@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sortByDate } from 'src/helpers/sortByDate';
 import { activateIssueRequest, deleteIssueRequest } from 'src/redux/actions/issues';
 import { EditIssueValues, IssuePriority, UseIssueTools } from 'src/types/issues';
 import { GameStatus } from 'src/types/room';
@@ -16,9 +15,7 @@ export const useIssueTools = (): UseIssueTools => {
     id: undefined,
   });
 
-  const { issuesStore, game } = useSelector((store: RootStore) => store);
-  const { issues } = issuesStore;
-  const { roomId, gameStatus } = game;
+  const { roomId, gameStatus } = useSelector((store: RootStore) => store.game);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +24,8 @@ export const useIssueTools = (): UseIssueTools => {
     }
   }, [editIssueValues]);
 
-  const editBtnAction = (title: string, url: string, priority: keyof typeof IssuePriority, id: string) => () => {
+  const editBtnAction = (title: string, url: string, priority: keyof typeof IssuePriority, id: string) => (event: MouseEvent) => {
+    event.stopPropagation();
     setEditIssueValues((prev) => ({
       ...prev,
       title,
@@ -37,27 +35,25 @@ export const useIssueTools = (): UseIssueTools => {
     }));
   };
 
-  const deleteBtnAction = (id: string) => () => {
-    if (gameStatus === GameStatus.active) {
-      dispatch(deleteIssueRequest(roomId, id));
-    }
+  const deleteBtnAction = (id: string) => (event: MouseEvent) => {
+    event.stopPropagation();
+    dispatch(deleteIssueRequest(roomId, id));
   };
 
   const activateIssue = (id: string) => () => {
-    dispatch(activateIssueRequest(roomId, id));
+    if (gameStatus === GameStatus.active) {
+      dispatch(activateIssueRequest(roomId, id));
+    }
   };
 
   const openCreateIssueModal = () => setCreateIssueModalIsOpen(true);
   const closeCreateIssueModal = () => setCreateIssueModalIsOpen(false);
   const closeUpdateIssueModal = () => setUpdateIssueModalIsOpen(false);
 
-  const sortedIssues = sortByDate(issues);
-
   return {
     createIssueModalIsOpen,
     updateIssueModalIsOpen,
     editIssueValues,
-    sortedIssues,
     editBtnAction,
     deleteBtnAction,
     openCreateIssueModal,

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import IconButton from '../IconButton';
 import styles from './style.module.scss';
 
 interface DeleteButtonProps {
-  onClick: () => void;
+  onClick: (event: MouseEvent) => void;
 }
 
 export const DeleteButton: React.FC<DeleteButtonProps> = ({ onClick }) => (

@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run lint && webpack serve --config webpack.config.ts --env development",
+    "start:dev": "./node_modules/.bin/webpack-cli serve --mode=development --env development --open --hot",
     "build": "./node_modules/.bin/webpack --mode=production --env production --progress",
-    "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+    "lint": "./node_modules/.bin/eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "eslint --fix --ext .ts,.tsx .",
     "test": "npx jest test",
     "test:coverage": "npx jest --coverage"
