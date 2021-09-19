@@ -24,6 +24,10 @@
     font-size: 34px;
   }
 
+  .invalid {
+    border-color: $error-color;
+  }
+
   .buttonWrap {
     margin-left: 15px;
   }
@@ -36,5 +40,15 @@
     font-family: "Dancing Script", serif;
     font-size: 26px;
     margin-left: 15px;
+  }
+
+  .error {
+    font-size: 12px;
+    color: $error-color;
+  }
+
+  .inputWrap {
+    display: flex;
+    flex-direction: column;
   }
 }
