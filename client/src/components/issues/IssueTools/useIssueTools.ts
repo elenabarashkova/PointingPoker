@@ -16,7 +16,7 @@ export const useIssueTools = (): UseIssueTools => {
     id: undefined,
   });
 
-  const { roomId, gameStatus } = useSelector((store: RootStore) => store.game);
+  const { roomId, gameStatus, roundIsActive } = useSelector((store: RootStore) => store.game);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,8 +41,8 @@ export const useIssueTools = (): UseIssueTools => {
     dispatch(deleteIssueRequest(roomId, id));
   };
 
-  const activateIssue = (id: string) => () => {
-    if (gameStatus === GameStatus.active) {
+  const startRound = (id: string) => () => {
+    if (gameStatus === GameStatus.active && !roundIsActive) {
       dispatch(startRoundRequest(roomId, id));
     }
   };
@@ -60,6 +60,6 @@ export const useIssueTools = (): UseIssueTools => {
     openCreateIssueModal,
     closeCreateIssueModal,
     closeUpdateIssueModal,
-    activateIssue,
+    startRound,
   };
 };
