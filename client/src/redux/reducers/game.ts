@@ -1,20 +1,25 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import {
-  SET_ROOM_ID,
-  SET_GAME_STATUS, SET_GAME_TITLE,
-} from '../action-types';
+import { StartRoundData } from 'src/types/game';
 import { Game } from '../../types/redusers';
+import {
+  SEND_GAME_REQUEST, SET_GAME_ERROR,
+  SET_GAME_STATUS, SET_GAME_TITLE, SET_ROOM_ID, START_ROUND,
+} from '../action-types';
 
 export const initialState = {
   gameStatus: '',
   roomId: '',
   isRoomValid: false,
-  gameTitle: '',
+  gameTitle: 'Sprint Plan',
+  currentIssueId: '',
+  roundIsActive: false,
+  error: false,
+  isLoading: false,
 };
 
 export const game = (
   state: Game = initialState,
-  { type, payload }: PayloadAction<string | boolean>,
+  { type, payload }: PayloadAction<string | boolean | StartRoundData>,
 ): Game => {
   if (type === SET_ROOM_ID) {
     return {
@@ -35,6 +40,21 @@ export const game = (
       ...state,
       gameTitle: payload as string,
     };
+  }
+
+  if (type === START_ROUND) {
+    const { roundIsActive, currentIssueId } = payload as StartRoundData;
+    return {
+      ...state, currentIssueId, roundIsActive, isLoading: false,
+    };
+  }
+
+  if (type === SEND_GAME_REQUEST) {
+    return { ...state, isLoading: true, error: false };
+  }
+
+  if (type === SET_GAME_ERROR) {
+    return { ...state, isLoading: false, error: true };
   }
 
   return state;

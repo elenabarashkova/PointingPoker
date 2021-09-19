@@ -1,39 +1,32 @@
-import { kickUser, userCanNotBeKicked } from "../../actions/user/kick";
-import { KickUserEvents } from "../../constants/events";
-import { getRoom } from "../../helpers";
-import { HandlerParams } from "../../types";
-import { UserData } from "../../types/data";
+import { Socket } from 'socket.io';
+import { kickUser, userCanNotBeKicked } from '../../actions/user/kick';
+import { KickUserEvents } from '../../constants/events';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
+import { EventCallback } from '../../types/callbacks';
+import { UserData } from '../../types/data';
 
 export const kickUserHandler =
-  ({ socket, redisGetAsync, redisSetAsync }: HandlerParams) =>
-  async ({ userId, roomId }: UserData): Promise<void> => {
+  (socket: Socket) =>
+  ({ userId, roomId }: UserData, callback: EventCallback): void => {
     try {
-      const room = await getRoom(roomId, redisGetAsync);
-      if (userCanNotBeKicked(socket.id, userId, room)) {
+      if (userCanNotBeKicked(socket.id, userId, roomId, store)) {
+        callback({ status: 403, data: 'User can not be kicked' });
         return;
       }
-      const { updatedRoom, kickedUser } = kickUser(room, userId);
-      await redisSetAsync(roomId, JSON.stringify(updatedRoom));
-
+      const kickedUser = kickUser(roomId, socket.id, userId, store);
       const response = {
         kickInitiator: socket.id,
         kickedUserId: userId,
         kickedUser,
       };
-
-      socket.emit(KickUserEvents.userIsKicked, response);
+      callback({ status: 200, data: { kickedUserId: userId, kickedUser } });
       socket.to(userId).emit(KickUserEvents.youAreKicked, response);
       socket
         .to(roomId)
         .except(userId)
         .emit(KickUserEvents.userIsKicked, response);
     } catch (error) {
-      socket.emit("error", { status: 500, message: "error" });
+      handleError(socket, callback);
     }
   };
-
-// export const disconnectingUserHandler = (socket: Socket) => (): void => {
-//   const [userId, roomId] = Array.from(socket.rooms);
-//   addDisconnectStatus(store, roomId, userId);
-//   console.log(store[roomId].users[userId]);
-// };

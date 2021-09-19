@@ -8,70 +8,90 @@ import { connect } from 'react-redux';
 import { EditButton } from 'components/shared/buttons/EditButton';
 import { ConfirmButton } from 'components/shared/buttons/ConfirmButton';
 import styles from './style.module.scss';
-import { setGameTitle } from '../../../redux/actions/game';
 import { RootState } from '../../../redux/reducers';
 import { Issues } from '../../../types/issues';
+import { setGameTitleAction } from '../../../redux/actions/complexActions/setGameTitleAction';
 
 interface GameTitleProps {
-  setGameTitleAction: CallableFunction;
+  setGameTitle: CallableFunction;
   issues: Issues;
+  roomId: string;
+  gameTitle: string;
   editable: boolean;
 }
 
 const GameTitle: React.FC<GameTitleProps> = (
   {
-    setGameTitleAction,
+    setGameTitle,
     issues,
     editable,
+    roomId,
+    gameTitle,
   },
 ):ReactElement => {
-  const [title, setTitle] = useState('Sprint Plan');
-  const [isInputDisabled, setInputDisabled] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   const [issuesList, setIssuesList] = useState('');
+  const [inputTitleValue, setInputTitleValue] = useState(gameTitle);
+  const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
     let namesString = '';
-    Object.keys(issues).map((id) => {
-      namesString = namesString.length ? `${namesString} , ${issues[id].title}` : issues[id].title;
-      return id;
+
+    Object.keys(issues).forEach((id) => {
+      const issueTitle = issues[id].title;
+      namesString = namesString.length ? `${namesString} , ${issueTitle}` : issueTitle;
     });
+
     setIssuesList(namesString);
-  });
+  }, [issues]);
 
   const handleInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setTitle(target.value);
+    setInputTitleValue(target.value);
+    setIsValid(!!target.value);
   };
 
   const handleClick = () => {
-    if (!isInputDisabled) {
-      const fullTitle = `${title} ${issuesList}`;
-      setGameTitleAction(fullTitle);
+    if (!isValid) {
+      return;
     }
 
-    setInputDisabled(!isInputDisabled);
+    if (editMode) {
+      setGameTitle(roomId, inputTitleValue);
+    }
+
+    setEditMode(!editMode);
   };
 
   return (
     <div className={styles.title}>
-      {isInputDisabled ? (
-        <span className={styles.name}>{title}</span>
+      {editMode ? (
+        <div className={styles.inputWrap}>
+          <input
+            className={`${styles.input} ${!isValid && styles.invalid}`}
+            value={inputTitleValue}
+            onChange={handleInput}
+          />
+          {isValid ? null : (<span className={styles.error}>Fill in the field</span>)}
+        </div>
       ) : (
-        <input className={styles.input} value={title} disabled={isInputDisabled} onChange={handleInput} />
+        <span className={styles.name}>{gameTitle}</span>
       )}
       <span className={styles.issues}>{`${issuesList.length ? `(${issuesList})` : ''}`}</span>
       <div className={`${styles.buttonWrap} ${editable ? '' : styles.notEditable}`}>
-        {isInputDisabled ? (
-          <EditButton onClick={handleClick} disabled={!editable} />
+        {editMode ? (
+          <ConfirmButton onClick={handleClick} disabled={!isValid} />
         ) : (
-          <ConfirmButton onClick={handleClick} />
+          <EditButton onClick={handleClick} disabled={!editable} />
         )}
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  issues: state.issuesStore.issues,
+const mapStateToProps = ({ issuesStore, game }: RootState) => ({
+  issues: issuesStore.issues,
+  roomId: game.roomId,
+  gameTitle: game.gameTitle,
 });
 
-export default connect(mapStateToProps, { setGameTitleAction: setGameTitle })(GameTitle);
+export default connect(mapStateToProps, { setGameTitle: setGameTitleAction })(GameTitle);

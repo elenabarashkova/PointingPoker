@@ -1,15 +1,15 @@
 import { batch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { setAllGameSettings, setGameStatus } from 'src/redux/actions/game';
+import { setAllGameSettings, setGameStatus, setTitle } from 'src/redux/actions/game';
 import { setIssuesAction } from 'src/redux/actions/issues';
 import { setMessages } from 'src/redux/actions/messages';
 import { setRoomIdAction } from 'src/redux/actions/room';
 import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { joinRoom } from 'src/services/room/joinRoom';
 import { createRoom } from '../../../services/room/createRoom';
+import { redirectToLobby, redirectToSettings } from '../../../shared';
 import { Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
-import { redirectToLobby, redirectToSettings } from '../../../shared';
 
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
   try {
@@ -32,7 +32,7 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
   try {
     const { room, roomId, userId } = (await joinRoom(gameIdInput, newUser)) as RoomData;
     const {
-      users, messages, issuesStore, gameStatus, gameSettings,
+      users, messages, issues, gameStatus, gameSettings, gameTitle,
     } = room as Room;
 
     batch(() => {
@@ -42,7 +42,8 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
       dispatch(setGameStatus(gameStatus));
       dispatch(setAllGameSettings(gameSettings));
       dispatch(setMessages(messages));
-      dispatch(setIssuesAction(issuesStore));
+      dispatch(setIssuesAction(issues));
+      dispatch(setTitle(gameTitle));
     });
 
     redirectToLobby();

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ReactElement, useState } from 'react';
 import { SwitchWithLabel } from 'components/shared/switches/SwitchWithLabel/SwitchWithLabel';
-import { SWITCHES_CONFIG, SETTINGS_INITIAL_STATE, INITIAL_TIME } from 'components/settings/settings-configs';
+import { SWITCHES_CONFIG, INITIAL_TIME } from 'components/settings/settings-configs';
 import { SettingsSelect } from 'components/settings/SettingsSelect';
 import { TimeInput } from 'components/settings/TimeInput';
 import Button from 'components/shared/buttons/Button';
@@ -8,7 +8,9 @@ import { connect } from 'react-redux';
 import VotingCardsField from 'components/voting/VotingCardsField';
 import { Select } from 'components/shared/Select';
 import styles from './style.module.scss';
-import { setAllGameSettings } from '../../redux/actions/game';
+import { changeGameSettingsAction } from '../../redux/actions/complexActions/changeGameSettingsAction';
+import { RootState } from '../../redux/reducers';
+import { GameSettings } from '../../types/room';
 
 export interface Time {
   minutes: number;
@@ -17,17 +19,22 @@ export interface Time {
 
 interface SettingsSectionProps {
   settingsChangeHandler: CallableFunction;
-  setGameSettings: CallableFunction;
+  changeGameSettings: CallableFunction;
+  roomId: string;
+  gameSettings: GameSettings;
 }
 
 const SettingsSection: React.FC<SettingsSectionProps> = (
   {
     settingsChangeHandler,
-    setGameSettings,
+    changeGameSettings,
+    roomId,
+    gameSettings,
   },
 ):ReactElement => {
-  const [settings, setSettings] = useState(SETTINGS_INITIAL_STATE);
+  const [settings, setSettings] = useState(gameSettings);
   const [time, setTime] = useState<Time>(INITIAL_TIME);
+  const [settingsEdited, setSettingsEdited] = useState(false);
 
   const handleChangeSwitch = (name) => {
     const newStatus = !settings[name];
@@ -37,6 +44,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
       [name]: newStatus,
     };
     setSettings(state);
+    setSettingsEdited(true);
   };
 
   const switchesSet = ():ReactElement => (
@@ -60,6 +68,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
       [name]: value,
     };
     setSettings(state);
+    setSettingsEdited(true);
   };
 
   const handleChangeCardsQuantity = ({ target }: ChangeEvent<HTMLSelectElement>) => {
@@ -68,6 +77,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
       cardsNumber: parseInt(target.value, 10),
     };
     setSettings(state);
+    setSettingsEdited(true);
   };
 
   const handleTimeInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +100,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
         roundTime: timeInSeconds,
       };
       setSettings(state);
+      setSettingsEdited(true);
     }
   };
 
   const handleClick = () => {
-    setGameSettings(settings);
+    changeGameSettings(roomId, settings);
     settingsChangeHandler(true);
   };
 
@@ -123,17 +134,24 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
             valuesConfig={['3', '4', '5', '6']}
           />
         </div>
-        {settings.timerOn ? (
+        {settings.timer ? (
           <div className={styles.block}>
             <div className={styles.label}>Round time:</div>
             <TimeInput value={time} handleChange={handleTimeInputChange} />
           </div>
         ) : null}
       </div>
-      <Button variant="colored" content="Save Settings" action={handleClick} />
+      <Button variant="colored" content="Save Settings" action={handleClick} disabled={!settingsEdited} />
       <VotingCardsField scoreType={settings.scoreType} number={settings.cardsNumber} />
     </div>
   );
 };
 
-export default connect(null, { setGameSettings: setAllGameSettings })(SettingsSection);
+const mapStateToProps = ({ game, gameSettings }: RootState) => ({
+  roomId: game.roomId,
+  gameSettings,
+});
+
+export default connect(mapStateToProps, {
+  changeGameSettings: changeGameSettingsAction,
+})(SettingsSection);
