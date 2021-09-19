@@ -18,6 +18,12 @@
   min-height: 70px;
 }
 
+.column {
+  .issueCard {
+    flex-basis: auto;
+  }
+}
+
 .issueInfo {
   display: flex;
   flex-direction: column;
