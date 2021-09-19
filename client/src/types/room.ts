@@ -4,7 +4,7 @@ import { Users } from './user';
 
 export enum GameStatus {
   pending = 'pending',
-  inProgress = 'inProgress',
+  active = 'active',
   finished = 'finished',
   canceled = 'canceled',
 }
@@ -31,6 +31,7 @@ export interface Room {
   users: Users;
   messages: Array<Message>;
   issuesStore: Issues;
+  issues?: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
   gameTitle: string;

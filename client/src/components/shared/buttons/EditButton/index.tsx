@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import IconButton from '../IconButton';
 
 interface EditButtonProps {
-  onClick: () => void;
+  onClick: (event: MouseEvent) => void;
   disabled?: boolean;
   whiteColor?: boolean;
 }
