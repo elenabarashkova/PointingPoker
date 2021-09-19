@@ -10,9 +10,7 @@ export const changeGameSettingsAction = (
   gameSettings: GameSettings,
 ) => async (dispatch: Dispatch): Promise<void> => {
   try {
-    console.log('!!');
     const settings = await changeGameSettings(currentRoomId, gameSettings);
-    console.log(settings);
     dispatch(setAllGameSettings(settings));
   } catch (error) {
     const notification = createCommonNotificationAboutError();

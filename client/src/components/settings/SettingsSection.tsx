@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ReactElement, useState } from 'react';
 import { SwitchWithLabel } from 'components/shared/switches/SwitchWithLabel/SwitchWithLabel';
-import { SWITCHES_CONFIG, SETTINGS_INITIAL_STATE, INITIAL_TIME } from 'components/settings/settings-configs';
+import { SWITCHES_CONFIG, INITIAL_TIME } from 'components/settings/settings-configs';
 import { SettingsSelect } from 'components/settings/SettingsSelect';
 import { TimeInput } from 'components/settings/TimeInput';
 import Button from 'components/shared/buttons/Button';
@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import VotingCardsField from 'components/voting/VotingCardsField';
 import { Select } from 'components/shared/Select';
 import styles from './style.module.scss';
-import { setAllGameSettings } from '../../redux/actions/game';
 import { changeGameSettingsAction } from '../../redux/actions/complexActions/changeGameSettingsAction';
 import { RootState } from '../../redux/reducers';
 import { GameSettings } from '../../types/room';
@@ -20,7 +19,6 @@ export interface Time {
 
 interface SettingsSectionProps {
   settingsChangeHandler: CallableFunction;
-  setGameSettings: CallableFunction;
   changeGameSettings: CallableFunction;
   roomId: string;
   gameSettings: GameSettings;
@@ -29,7 +27,6 @@ interface SettingsSectionProps {
 const SettingsSection: React.FC<SettingsSectionProps> = (
   {
     settingsChangeHandler,
-    setGameSettings,
     changeGameSettings,
     roomId,
     gameSettings,
@@ -103,10 +100,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
   };
 
   const handleClick = () => {
-    console.log(settings);
     changeGameSettings(roomId, settings);
-
-    // setGameSettings(settings);
     settingsChangeHandler(true);
   };
 
@@ -154,6 +148,5 @@ const mapStateToProps = ({ game, gameSettings }: RootState) => ({
 });
 
 export default connect(mapStateToProps, {
-  setGameSettings: setAllGameSettings,
   changeGameSettings: changeGameSettingsAction,
 })(SettingsSection);
