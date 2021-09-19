@@ -522,7 +522,7 @@ socket.emit("STOP_ROUND", roomId, (response) => { console.log(response) });
 
 ###### Other users in this room should listen event:
 
-- event: ROUND_IS_STOPPED
+- event: ROUND_IS_FINISHED
 - data: { roundIsActive: false, issueId, issue : Issue with statistics}
 
 ---
