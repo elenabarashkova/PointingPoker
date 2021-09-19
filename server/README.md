@@ -558,7 +558,7 @@ socket.emit("ACTIVATE_ISSUE", { roomId, issueId }, (response) => { console.log(r
 
 ##### Expected data
 
-{ roomId: string, issueId : string }
+{ roomId: string, issueId : string, vote : string }
 
 ##### On user side you should add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
