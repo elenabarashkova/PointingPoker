@@ -33,6 +33,7 @@ export interface Room {
   issuesStore: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
+  gameTitle: string;
 }
 
 export interface RoomData {

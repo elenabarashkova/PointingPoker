@@ -29,9 +29,10 @@ const GameTitle: React.FC<GameTitleProps> = (
     gameTitle,
   },
 ):ReactElement => {
-  const [isInputDisabled, setInputDisabled] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   const [issuesList, setIssuesList] = useState('');
-  // const [invalidInput, setInputInvalid] = useState(false);
+  const [inputTitleValue, setInputTitleValue] = useState(gameTitle);
+  const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
     let namesString = '';
@@ -45,35 +46,42 @@ const GameTitle: React.FC<GameTitleProps> = (
   }, [issues]);
 
   const handleInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    // if (target.value.length === 0) {
-    //   setInputInvalid(true);
-    // }
-
-    setGameTitle(roomId, target.value);
+    setInputTitleValue(target.value);
+    setIsValid(!!target.value);
   };
 
   const handleClick = () => {
-    setInputDisabled(!isInputDisabled);
+    if (!isValid) {
+      return;
+    }
+
+    if (editMode) {
+      setGameTitle(roomId, inputTitleValue);
+    }
+
+    setEditMode(!editMode);
   };
 
   return (
     <div className={styles.title}>
-      {isInputDisabled ? (
-        <span className={styles.name}>{gameTitle}</span>
+      {editMode ? (
+        <div className={styles.inputWrap}>
+          <input
+            className={`${styles.input} ${!isValid && styles.invalid}`}
+            value={inputTitleValue}
+            onChange={handleInput}
+          />
+          {isValid ? null : (<span className={styles.error}>Fill in the field</span>)}
+        </div>
       ) : (
-        <input
-          className={`${styles.input}`}
-          value={gameTitle}
-          disabled={isInputDisabled}
-          onChange={handleInput}
-        />
+        <span className={styles.name}>{gameTitle}</span>
       )}
       <span className={styles.issues}>{`${issuesList.length ? `(${issuesList})` : ''}`}</span>
       <div className={`${styles.buttonWrap} ${editable ? '' : styles.notEditable}`}>
-        {isInputDisabled ? (
-          <EditButton onClick={handleClick} disabled={!editable} />
+        {editMode ? (
+          <ConfirmButton onClick={handleClick} disabled={!isValid} />
         ) : (
-          <ConfirmButton onClick={handleClick} />
+          <EditButton onClick={handleClick} disabled={!editable} />
         )}
       </div>
     </div>
