@@ -4,7 +4,7 @@ import { Users } from './user';
 
 export enum GameStatus {
   pending = 'pending',
-  inProgress = 'inProgress',
+  active = 'active',
   finished = 'finished',
   canceled = 'canceled',
 }

@@ -22,6 +22,7 @@ const IssueTools: React.FC<IssueToolsProps> = ({ editMode, columnMode }) => {
     openCreateIssueModal,
     closeCreateIssueModal,
     closeUpdateIssueModal,
+    activateIssue,
   } = useIssueTools();
 
   return (
@@ -38,6 +39,7 @@ const IssueTools: React.FC<IssueToolsProps> = ({ editMode, columnMode }) => {
             priority={priority}
             current={current}
             editMode={editMode}
+            onClick={activateIssue(id)}
             deleteBtnAction={deleteBtnAction(id)}
             editBtnAction={editBtnAction(title, link, priority, id)}
           />
