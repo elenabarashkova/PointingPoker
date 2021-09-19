@@ -12,7 +12,7 @@ export const setAllGameSettings = (gameSettings: GameSettings): PayloadAction<Ga
   payload: gameSettings,
 });
 
-export const setGameTitle = (gameTitle: string): PayloadAction<string> => ({
+export const setTitle = (gameTitle: string): PayloadAction<string> => ({
   type: SET_GAME_TITLE,
   payload: gameTitle,
 });
