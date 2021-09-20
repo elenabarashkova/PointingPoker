@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  margin-right: 5px;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid white;
+  outline: none;
+  background-color: transparent;
+  width: 35px;
+  color: white;
+  font-size: 16px;
+}
+
+.completed {
+  pointer-events: none;
+
+  button {
+    display: none;
+  }
+
+  .input {
+    border-bottom: none;
+  }
+}

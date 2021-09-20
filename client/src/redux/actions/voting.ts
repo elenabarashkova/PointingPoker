@@ -12,7 +12,7 @@ export const setVotingStatistics = (statistics: StatisticsData): VotingAction =>
   statistics,
 });
 
-export const setFinalVote = (finalVote: FinalVoteData): VotingAction => ({
+export const setFinalVoteAction = (finalVote: FinalVoteData): VotingAction => ({
   type: SET_FINAL_VOTE,
   finalVote,
 });

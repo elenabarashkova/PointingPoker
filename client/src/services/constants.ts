@@ -4,6 +4,10 @@ export const socket = io('https://arcane-thicket-43676.herokuapp.com/', {
   transports: ['websocket', 'polling'],
 });
 
+// export const socket = io('http://localhost:5000/', {
+//   transports: ['websocket', 'polling'],
+// });
+
 export enum ResponseStatus {
   ok = 200,
   notFound = 404,
@@ -58,6 +62,8 @@ export enum Events {
   issueHasBeenUpdated = 'ISSUE_HAS_BEEN_UPDATED',
   startRound = 'START_ROUND',
   roundIsStarted = 'ROUND_IS_STARTED',
+  setFinalVote = 'SET_FINAL_VOTE',
+  finalVote = 'FINAL_VOTE',
   stopRound = 'STOP_ROUND',
   roundIsFinished = 'ROUND_IS_FINISHED',
 }

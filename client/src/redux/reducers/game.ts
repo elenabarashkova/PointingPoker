@@ -48,6 +48,13 @@ export const game = (
       ...state, currentIssueId, roundIsActive, isLoading: false,
     };
   }
+  
+  if (type === START_ROUND) {
+    const { roundIsActive, currentIssueId } = payload as StartRoundData;
+    return {
+      ...state, currentIssueId, roundIsActive, isLoading: false,
+    };
+  }
 
   if (type === STOP_ROUND) {
     return {
@@ -58,10 +65,6 @@ export const game = (
 
   if (type === SEND_GAME_REQUEST) {
     return { ...state, isLoading: true, error: false };
-  }
-
-  if (type === SET_GAME_ERROR) {
-    return { ...state, isLoading: false, error: true };
   }
 
   return state;
