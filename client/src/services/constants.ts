@@ -35,7 +35,11 @@ export const USER_IS_NOT_DELETED = 'USER_IS_NOT_DELETED';
 export const KICKING_VOTE = 'KICKING_VOTE';
 
 export const CHANGE_GAME_STATUS = 'CHANGE_GAME_STATUS';
+export const START_GAME = 'START_GAME';
 export const GAME_STATUS_CHANGED = 'GAME_STATUS_CHANGED';
+export const GAME_IS_STARTED = 'GAME_IS_STARTED';
+
+export const USER_HAS_VOTED = 'USER_HAS_VOTED';
 
 export const CHANGE_GAME_SETTINGS = 'CHANGE_GAME_SETTINGS';
 
@@ -43,9 +47,15 @@ export const CHANGE_GAME_TITLE = 'CHANGE_GAME_TITLE';
 
 export const ERROR_RESULT = 'error';
 
+export const ISSUE_VOTE = 'ISSUE_VOTE';
+
 export enum Events {
   addIssue = 'ADD_ISSUE',
+  issueHasBeenAdded = 'ISSUE_HAS_BEEN_ADDED',
   deleteIssue = 'DELETE_ISSUE',
+  issueHasBeenDeleted = 'ISSUE_HAS_BEEN_DELETED',
   updateIssue = 'UPDATE_ISSUE',
-  activateIssue = 'ACTIVATE_ISSUE',
+  issueHasBeenUpdated = 'ISSUE_HAS_BEEN_UPDATED',
+  startRound = 'START_ROUND',
+  roundIsStarted = 'ROUND_IS_STARTED',
 }

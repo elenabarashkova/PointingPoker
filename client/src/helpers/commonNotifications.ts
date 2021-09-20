@@ -7,11 +7,24 @@ export const createCommonNotificationAboutUser = (
   action: keyof typeof CommonNotificationAction,
 ): CommonNotification => {
   const { name, role } = user;
-  const content = (action === CommonNotificationAction.connect) 
-    ? 'joined the game session'
-    : (action === CommonNotificationAction.deleted) 
-      ? 'was removed from the game session'
-      : 'was not removed from the game session';
+  let content: string;
+  switch (action) {
+    case CommonNotificationAction.connect:
+      content = 'joined the game session';
+      break;
+    case CommonNotificationAction.deleted:
+      content = 'was removed from the game session';
+      break;
+    case CommonNotificationAction.isNotDeleted:
+      content = 'was not removed from the game session';
+      break; 
+    case CommonNotificationAction.left:
+      content = 'left the game session';
+      break;   
+    default:
+      break;
+  }
+  
   const id = nanoid(); 
 
   return {

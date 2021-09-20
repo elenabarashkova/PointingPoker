@@ -1,10 +1,10 @@
 import {
-  ChangeEvent, Dispatch, SetStateAction, useEffect, useMemo, useState, 
+  ChangeEvent, Dispatch, SetStateAction, useEffect, useMemo, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addIssueRequest } from 'src/redux/actions/issues';
 import {
-  FormConfig, FormValues, IssuePriority, UseIssueModal, 
+  FormConfig, FormValues, IssuePriority, UseIssueModal,
 } from 'src/types/issues';
 import { RootStore } from 'src/types/store';
 import { getNextIssueNumber } from '../helpers';
@@ -49,7 +49,6 @@ export const useCreateIssueModal = (config: FormConfig, noBtnAction: () => void)
 
   useEffect(() => {
     closeModal();
-    console.log('ssss');
   }, [issues, error]);
 
   const handleChange = (setValue: Dispatch<SetStateAction<string>>) => (name: string, value: string) => {

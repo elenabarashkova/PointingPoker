@@ -1,17 +1,15 @@
-import { Room } from "./room";
-
 export enum UserStatus {
-  active = "active",
-  kicked = "kicked",
-  deleted = "deleted",
-  disconnected = "disconnected",
-  left = "left",
+  active = 'active',
+  kicked = 'kicked',
+  deleted = 'deleted',
+  disconnected = 'disconnected',
+  left = 'left',
 }
 
 export enum UserRole {
-  master = "master",
-  player = "player",
-  observer = "observer",
+  master = 'master',
+  player = 'player',
+  observer = 'observer',
 }
 
 export interface Vote {
@@ -33,7 +31,6 @@ export interface Users {
 }
 
 export interface KickResults {
-  updatedRoom: Room;
   votingIsNotFinished: boolean | undefined;
   userWasKicked: boolean | undefined;
   updatedUser: User;

@@ -3,8 +3,8 @@ import { Message } from './messages';
 import { Users } from './user';
 
 export enum GameStatus {
+  active = 'active',
   pending = 'pending',
-  inProgress = 'inProgress',
   finished = 'finished',
   canceled = 'canceled',
 }
@@ -31,6 +31,7 @@ export interface Room {
   users: Users;
   messages: Array<Message>;
   issuesStore: Issues;
+  issues?: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
   gameTitle: string;
