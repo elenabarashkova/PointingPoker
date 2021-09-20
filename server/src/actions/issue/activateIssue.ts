@@ -10,7 +10,7 @@ export const setActiveIssue = (
   const activeIssue = {
     ...room.issues[activeIssueId],
     status: IssueStatus.active,
-    vote: [],
+    votes: [],
   };
 
   const {issues }= room;

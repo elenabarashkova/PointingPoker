@@ -9,10 +9,10 @@ export const addVote = (
   store: Store
 ): void => {
   const room = store[roomId];
+
   const issue = {
     ...room.issues[issueId],
-    vote: [...(room.issues[issueId].votes as IssueVote[]), { vote, userId }],
+    votes: [...(room.issues[issueId].votes as IssueVote[]), { vote, userId }],
   };
-
   room.issues = { ...room.issues, [issueId]: issue };
 };
