@@ -146,7 +146,6 @@ const App: FunctionComponent<AppProps> = ({
     });
     
     socket.on(Events.roundIsStarted, ({ currentIssueId, issues, roundIsActive }) => {
-      console.log('слушаем roundIsStarted', roundIsActive);
       if (issues) {
         setIssues(issues);
         startRound({ currentIssueId, roundIsActive });
