@@ -1,12 +1,16 @@
-import { Room } from "../../types/room";
-import { User, UserRole, UserStatus } from "../../types/user";
+import { Store } from '../../types/room';
+import { User, UserRole, UserStatus } from '../../types/user';
 
 export const kickUser = (
-  room: Room,
-  userId: string
-): { updatedRoom: Room; kickedUser: User } => {
+  roomId: string,
+  kickInitiator: string,
+  userId: string,
+  store: Store
+): User => {
+  const room = store[roomId];
   const votingUsersInRoom = Object.entries(room.users).filter(
-    ([id, { status }]) => id !== userId && status === UserStatus.active
+    ([id, { status }]) =>
+      id !== userId && id !== kickInitiator && status === UserStatus.active
   );
   const kickingVote = votingUsersInRoom.map(([id]) => ({
     id: id,
@@ -17,17 +21,15 @@ export const kickUser = (
     status: UserStatus.kicked,
     kickingVote,
   };
-  const updatedRoom = {
-    ...room,
-    users: { ...room.users, [userId]: kickedUser },
-  };
-
-  return { updatedRoom, kickedUser };
+  room.users = { ...room.users, [userId]: kickedUser };
+  return kickedUser;
 };
 
 export const userCanNotBeKicked = (
   userId: string,
   kickedUserId: string,
-  room: Room
+  roomId: string,
+  store: Store
 ): boolean =>
-  userId === kickedUserId || room.users[kickedUserId].role === UserRole.master;
+  userId === kickedUserId ||
+  store[roomId].users[kickedUserId].role === UserRole.master;

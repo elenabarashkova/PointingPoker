@@ -1,4 +1,4 @@
-import { GameSettings, ScoreType } from "../types/game";
+import { GameSettings, ScoreType } from '../types/game';
 
 export const INIT_GAME_SETTINGS: GameSettings = {
   masterAsPlayer: true,
@@ -6,4 +6,7 @@ export const INIT_GAME_SETTINGS: GameSettings = {
   timer: true,
   scoreType: ScoreType.storyPoint,
   roundTime: 140,
+  cardsNumber: 6,
+  autoAdmitNewUsers: true,
+  autoFlip: true,
 };

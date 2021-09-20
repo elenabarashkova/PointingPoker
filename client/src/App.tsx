@@ -1,42 +1,59 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
-import {
-  Switch, Route, withRouter, RouteComponentProps, 
-} from 'react-router-dom';
 import { connect } from 'react-redux';
-import MainPage from './pages/MainPage';
-import LobbyPage from './pages/LobbyPage';
-import GamePage from './pages/GamePage';
-import SettingsPage from './pages/Settings';
-import ErrorPage from './pages/ErrorPage';
 import {
-  GAME_STATUS_CHANGED,
-  RECEIVE_MESSAGE, 
-  socket, 
-  USER_CONNECTED, 
-  USER_IS_DELETED, 
-  USER_IS_KICKED, 
-  USER_IS_NOT_DELETED, 
-  YOU_ARE_DELETED, 
-  YOU_ARE_KICKED, 
-  YOU_ARE_NOT_DELETED, 
-} from './services/constants';
-import { AppDispatch } from './redux/store';
-import { UserData } from './types/user';
-import { Message } from './types/messages';
-import { updateUser } from './redux/actions/user';
-import { setMessageOnResponse } from './redux/actions/messages';
-import { setCommonNotification, setImportantNotification, setVotingNotification } from './redux/actions/notifications';
-import {
-  CommonNotification, CommonNotificationAction, ImportantNotifications, VotingData, 
-} from './types/notifications';
-import GoodbyePage from './pages/GoodbyePage';
-import { Pages } from './types/page';
+  Route, RouteComponentProps, Switch, withRouter,
+} from 'react-router-dom';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
-import { redirectToGamePage, redirectToGoodbyePage } from './shared';
-import { GameStatus } from './types/room';
-import { setGameStatus } from './redux/actions/game';
-import { useQuery } from './helpers/query';
 import Context from './helpers/context';
+import { useQuery } from './helpers/query';
+import ErrorPage from './pages/ErrorPage';
+import GamePage from './pages/GamePage';
+import GoodbyePage from './pages/GoodbyePage';
+import LobbyPage from './pages/LobbyPage';
+import MainPage from './pages/MainPage';
+import SettingsPage from './pages/Settings';
+import { setGameStatus, startRoundAction } from './redux/actions/game';
+import {
+  addIssueAction, deleteIssueAction, setIssuesAction, updateIssueAction, 
+} from './redux/actions/issues';
+import { setMessageOnResponse } from './redux/actions/messages';
+import {
+  setCommonNotification,
+  setImportantNotification,
+  setVotingNotification,
+} from './redux/actions/notifications';
+import { updateUser } from './redux/actions/user';
+import { setUserVote } from './redux/actions/voting';
+import { AppDispatch } from './redux/store';
+import {
+  Events,
+  GAME_STATUS_CHANGED,
+  RECEIVE_MESSAGE,
+  socket,
+  USER_CONNECTED,
+  USER_HAS_VOTED,
+  USER_IS_DELETED,
+  USER_IS_KICKED,
+  USER_IS_NOT_DELETED,
+  USER_LEFT,
+  YOU_ARE_DELETED,
+  YOU_ARE_KICKED,
+  YOU_ARE_NOT_DELETED,
+} from './services/constants';
+import { redirectToGamePage, redirectToGoodbyePage } from './shared';
+import { StartRoundData } from './types/game';
+import { IssueData, Issues } from './types/issues';
+import { Message } from './types/messages';
+import {
+  CommonNotification,
+  CommonNotificationAction,
+  ImportantNotifications,
+  VotingData,
+} from './types/notifications';
+import { Pages } from './types/page';
+import { GameStatus } from './types/room';
+import { UserData } from './types/user';
+import { UserVotingData } from './types/voting';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -46,23 +63,43 @@ interface AppProps extends RouteComponentProps {
   setImportantNotification: any;
   setCommonNotification: any;
   updateGameStatusAction: any;
+  setIssues: any;
+  startRound: any;
+  addIssue: any;
+  deleteIssue: any;
+  updateIssue: any;
+  setUserVote: any;
 }
 
-const App: FunctionComponent<AppProps> = ({ 
-  setUser: setNewUser, 
-  setMessage: setNewMessage, 
-  updateUser: updateUserStatus, 
+const App: FunctionComponent<AppProps> = ({
+  setUser: setNewUser,
+  setMessage: setNewMessage,
+  updateUser: updateUserStatus,
   setVoting: setStartVoting,
   setImportantNotification: setNewImportantNotification,
   setCommonNotification: setNewCommonNotification,
   updateGameStatusAction: updateGameStatus,
+  setIssues,
+  startRound,
+  addIssue,
+  deleteIssue,
+  updateIssue,
+  setUserVote: setNewUserVote,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
       setNewUser(data);
       const notificationData = createCommonNotificationAboutUser(
-        data, 
+        data,
         CommonNotificationAction.connect,
+      );
+      setNewCommonNotification(notificationData);
+    });
+    socket.on(USER_LEFT, (data) => {
+      updateUserStatus(data);
+      const notificationData = createCommonNotificationAboutUser(
+        data, 
+        CommonNotificationAction.left,
       );
       setNewCommonNotification(notificationData);
     });
@@ -78,7 +115,7 @@ const App: FunctionComponent<AppProps> = ({
     socket.on(USER_IS_DELETED, (data) => {
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
-        data, 
+        data,
         CommonNotificationAction.deleted,
       );
       setNewCommonNotification(notificationData);
@@ -86,7 +123,7 @@ const App: FunctionComponent<AppProps> = ({
     socket.on(USER_IS_NOT_DELETED, (data) => {
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
-        data, 
+        data,
         CommonNotificationAction.isNotDeleted,
       );
       setNewCommonNotification(notificationData);
@@ -103,10 +140,38 @@ const App: FunctionComponent<AppProps> = ({
       if (data === GameStatus.canceled) {
         setNewImportantNotification(ImportantNotifications.gameCanceled);
       }
-      if (data === GameStatus.inProgress) {
+      if (data === GameStatus.active) {
         redirectToGamePage();
       }
     });
+    
+    socket.on(Events.roundIsStarted, ({ currentIssueId, issues, roundIsActive }) => {
+      console.log('слушаем roundIsStarted', roundIsActive);
+      if (issues) {
+        setIssues(issues);
+        startRound({ currentIssueId, roundIsActive });
+      }
+    });
+
+    socket.on(Events.issueHasBeenAdded, (issueData) => {
+      if (issueData) {
+        addIssue(issueData);
+      }
+    });
+
+    socket.on(Events.issueHasBeenDeleted, (issueId) => {
+      if (issueId) {
+        deleteIssue(issueId);
+      }
+    });
+
+    socket.on(Events.issueHasBeenUpdated, (issueData) => {
+      if (issueData) {
+        updateIssue(issueData);
+      }
+    });
+
+    socket.on(USER_HAS_VOTED, setNewUserVote);
   }, []);
 
   const roomId = useQuery();
@@ -114,11 +179,12 @@ const App: FunctionComponent<AppProps> = ({
   const routes = [
     {
       path: '/',
-      component: 
-  <Context.Provider value={roomId}>
-    <MainPage />
-  </Context.Provider>, 
-      key: 'main', 
+      component: (
+        <Context.Provider value={roomId}>
+          <MainPage />
+        </Context.Provider>
+      ),
+      key: 'main',
     },
     { path: `/${Pages.game}`, component: <GamePage />, key: 'game' },
     { path: `/${Pages.settings}`, component: <SettingsPage />, key: 'settings' },
@@ -130,7 +196,11 @@ const App: FunctionComponent<AppProps> = ({
   return (
     <Switch>
       {routes.map(({ path, component, key }) => (
-        <Route exact={key === 'main'} path={(key === 'main') ? (path || '/?roomId=roomId') : path} key={key}>
+        <Route
+          exact={key === 'main'}
+          path={key === 'main' ? path || '/?roomId=roomId' : path}
+          key={key}
+        >
           {component}
         </Route>
       ))}
@@ -146,6 +216,12 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setImportantNotification: (content: string) => dispatch(setImportantNotification(content)),
   setCommonNotification: (notification: CommonNotification) => dispatch(setCommonNotification(notification)),
   updateGameStatusAction: (status: keyof typeof GameStatus) => dispatch(setGameStatus(status)),
+  setIssues: (issues: Issues) => dispatch(setIssuesAction(issues)),
+  startRound: (roundData: StartRoundData) => dispatch(startRoundAction(roundData)),
+  addIssue: (issue: IssueData) => dispatch(addIssueAction(issue)),
+  deleteIssue: (issueId: string) => dispatch(deleteIssueAction(issueId)),
+  updateIssue: (issue: IssueData) => dispatch(updateIssueAction(issue)),
+  setUserVote: (votingData: UserVotingData) => dispatch(setUserVote(votingData)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

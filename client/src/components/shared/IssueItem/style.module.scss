@@ -18,6 +18,11 @@
   min-height: 70px;
 }
 
+.column_mode {
+  flex-basis: auto;
+  padding: 5px 10px;
+}
+
 .issueInfo {
   display: flex;
   flex-direction: column;

@@ -179,3 +179,11 @@
     }
   }
 }
+.disabled {
+  pointer-events: none;
+  opacity: .5;
+}
+.votedCard {
+  opacity: 1;
+  border: 2px solid green;
+}
