@@ -1,3 +1,4 @@
+import GameTimer from 'components/GameTimer';
 import { IssueList } from 'components/issues/IssueList';
 import IssueTools from 'components/issues/IssueTools';
 import Button from 'components/shared/buttons/Button';
@@ -32,6 +33,8 @@ const GamePage: React.FC<GamePageProps> = ({ leaveRoom, updateGameStatus }): Rea
   const roomUsers = useTypedSelector(({ users }) => users);
   const [masterId, masterData] = Object.entries(roomUsers).filter(([, user]) => user.role === UserRole.master)[0];
 
+  const isTimerNeeded = useTypedSelector(({ gameSettings }) => gameSettings.timer);
+
   const handleStopGame = () => {
     updateGameStatus(roomId, GameStatus.canceled);
   };
@@ -50,7 +53,10 @@ const GamePage: React.FC<GamePageProps> = ({ leaveRoom, updateGameStatus }): Rea
         <GameTitle editable={false} />
         <div className={styles.container}>
           <UserCard user={masterData} id={masterId} currentUserId={currentUserId} size={ElementSize.big} />
-          <Button content={ButtonContent} variant="colored" action={ButtonAction} />
+          {isTimerNeeded && <GameTimer />}
+          <div style={{ marginBottom: '45px' }}>
+            <Button content={ButtonContent} variant="colored" action={ButtonAction} />
+          </div>
         </div>
         <Scores />
         {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
