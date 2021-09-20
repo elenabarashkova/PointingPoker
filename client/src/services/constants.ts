@@ -39,11 +39,15 @@ export const START_GAME = 'START_GAME';
 export const GAME_STATUS_CHANGED = 'GAME_STATUS_CHANGED';
 export const GAME_IS_STARTED = 'GAME_IS_STARTED';
 
+export const USER_HAS_VOTED = 'USER_HAS_VOTED';
+
 export const CHANGE_GAME_SETTINGS = 'CHANGE_GAME_SETTINGS';
 
 export const CHANGE_GAME_TITLE = 'CHANGE_GAME_TITLE';
 
 export const ERROR_RESULT = 'error';
+
+export const ISSUE_VOTE = 'ISSUE_VOTE';
 
 export enum Events {
   addIssue = 'ADD_ISSUE',

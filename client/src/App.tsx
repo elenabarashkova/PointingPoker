@@ -23,6 +23,7 @@ import {
   setVotingNotification,
 } from './redux/actions/notifications';
 import { updateUser } from './redux/actions/user';
+import { setUserVote } from './redux/actions/voting';
 import { AppDispatch } from './redux/store';
 import {
   Events,
@@ -30,6 +31,7 @@ import {
   RECEIVE_MESSAGE,
   socket,
   USER_CONNECTED,
+  USER_HAS_VOTED,
   USER_IS_DELETED,
   USER_IS_KICKED,
   USER_IS_NOT_DELETED,
@@ -51,6 +53,7 @@ import {
 import { Pages } from './types/page';
 import { GameStatus } from './types/room';
 import { UserData } from './types/user';
+import { UserVotingData } from './types/voting';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -65,6 +68,7 @@ interface AppProps extends RouteComponentProps {
   addIssue: any;
   deleteIssue: any;
   updateIssue: any;
+  setUserVote: any;
 }
 
 const App: FunctionComponent<AppProps> = ({
@@ -80,6 +84,7 @@ const App: FunctionComponent<AppProps> = ({
   addIssue,
   deleteIssue,
   updateIssue,
+  setUserVote: setNewUserVote,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -141,6 +146,7 @@ const App: FunctionComponent<AppProps> = ({
     });
     
     socket.on(Events.roundIsStarted, ({ currentIssueId, issues, roundIsActive }) => {
+      console.log('слушаем roundIsStarted', roundIsActive);
       if (issues) {
         setIssues(issues);
         startRound({ currentIssueId, roundIsActive });
@@ -164,6 +170,8 @@ const App: FunctionComponent<AppProps> = ({
         updateIssue(issueData);
       }
     });
+
+    socket.on(USER_HAS_VOTED, setNewUserVote);
   }, []);
 
   const roomId = useQuery();
@@ -213,6 +221,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   addIssue: (issue: IssueData) => dispatch(addIssueAction(issue)),
   deleteIssue: (issueId: string) => dispatch(deleteIssueAction(issueId)),
   updateIssue: (issue: IssueData) => dispatch(updateIssueAction(issue)),
+  setUserVote: (votingData: UserVotingData) => dispatch(setUserVote(votingData)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

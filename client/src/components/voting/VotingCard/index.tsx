@@ -2,6 +2,8 @@ import React, { ReactElement, useState } from 'react';
 import { ScoreType } from 'src/types/room';
 import { connect } from 'react-redux';
 import { RootState } from 'src/redux/reducers';
+import useTypedSelector from 'src/hooks/useTypedSelector';
+import { setVoteAction } from 'src/redux/actions/complexActions/setVoteAction';
 import styles from './style.module.scss';
 import coffee from './coffee-cup.svg';
 import blueShirt from './shirt-blue.svg';
@@ -20,21 +22,30 @@ interface VotingCardProps {
   point: string;
   isDisabled: boolean;
   toSetDisable: CallableFunction;
+  toSetVotedCardId: CallableFunction;
+  votedCardId: string;
+  setVote: CallableFunction;
 }
 
 const VotingCard: React.FC<VotingCardProps> = ({
-  scoreType, point, isDisabled, toSetDisable, 
+  scoreType, point, isDisabled, toSetDisable, toSetVotedCardId, votedCardId, setVote,
 }):ReactElement => {
+  const roomId = useTypedSelector(({ game }) => game.roomId);
+  const currentIssueId = useTypedSelector(({ game }) => game.currentIssueId);
+
   const config = {
     [ScoreType.size]: 'clothing size',
     [ScoreType.storyPoint]: 'story point',
     [ScoreType.calories]: 'food calories',
   };
 
-  const handleClick = (e) => {
+  const handleClick = ({ currentTarget }) => {
     toSetDisable(true);
-    // todo: отправить на сервер голос
-    console.log(e.currentTarget.getAttribute('id'));
+
+    const vote = currentTarget.getAttribute('id');
+    
+    toSetVotedCardId(vote);
+    setVote(roomId, currentIssueId, vote);
   };
 
   const shirts = {
@@ -53,12 +64,11 @@ const VotingCard: React.FC<VotingCardProps> = ({
     '360 kcal': burger,
   };
 
-  // todo: подсветить карточку, которой проголосовал юзер
-  // после ответа сервера - выделить ее и показать как-то, что голос засчитан
+  const isVotedCard = votedCardId === point;
 
   return (
     <div
-      className={`${styles.card} ${styles[scoreType]} ${isDisabled && styles.disabled}`}
+      className={`${styles.card} ${styles[scoreType]} ${isDisabled && styles.disabled} ${isVotedCard && styles.votedCard}`}
       onClick={handleClick}
       onKeyPress={handleClick}
       role="button"
@@ -80,8 +90,4 @@ const VotingCard: React.FC<VotingCardProps> = ({
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  gameSettings: state.issuesStore.issues,
-});
-
-export default connect()(VotingCard);
+export default connect(null, { setVote: setVoteAction })(VotingCard);
