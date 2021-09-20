@@ -31,7 +31,6 @@ const Switch:React.FC<SwitchProps> = (
   };
 
   const handleChange = () => {
-    console.log('свитч');
     onChange(name);
   };
 

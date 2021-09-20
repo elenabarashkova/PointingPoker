@@ -63,8 +63,6 @@ const RegisterSection: React.FC = (): ReactElement => {
 
   const handleSwitch = () => {
     const newRole = role === UserRole.player ? UserRole.observer : UserRole.player;
-    console.log('role:', role);
-    console.log('newRole:', newRole);
     setRole(newRole);
   };
 
