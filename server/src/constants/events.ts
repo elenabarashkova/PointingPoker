@@ -45,8 +45,6 @@ export enum GameEvents {
   gameTitleChanged = 'GAME_TITLE_CHANGED',
   startGame = 'START_GAME',
   gameIsStarted = 'GAME_IS_STARTED',
-  activateIssue = 'ACTIVATE_ISSUE',
-  issueIsActive = 'ISSUE_IS_ACTIVE',
   issueVote = 'ISSUE_VOTE',
   userHasVoted = 'USER_HAS_VOTED',
   issueVotingResult = 'ISSUE_VOTING_RESULT',
@@ -55,7 +53,7 @@ export enum GameEvents {
   startRound = 'START_ROUND',
   roundIsStarted = 'ROUND_IS_STARTED',
   stopRound = 'STOP_ROUND',
-  roundIsStopped = 'ROUND_IS_STOPPED',
+  roundIsFinished = 'ROUND_IS_FINISHED',
   setFinalVote = 'SET_FINAL_VOTE',
   finalVote = 'FINAL_VOTE',
 }

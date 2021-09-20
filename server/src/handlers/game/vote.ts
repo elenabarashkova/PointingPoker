@@ -13,15 +13,12 @@ export const voteHandler =
     callback: EventCallback
   ): void => {
     try {
-      const issue = addVote(roomId, socket.id, issueId, vote, store);
+      addVote(roomId, socket.id, issueId, vote, store);
       callback({
         status: 200,
-        data: { issueId, issue },
+        data: { issueId, userId: socket.id, vote },
       });
-      socket.to(roomId).emit(GameEvents.userHasVoted, {
-        issueId,
-        issue,
-      });
+      socket.to(roomId).emit(GameEvents.userHasVoted, { issueId, userId: socket.id, vote });
     } catch {
       handleError(socket, callback);
     }
