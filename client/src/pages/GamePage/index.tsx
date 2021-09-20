@@ -18,7 +18,7 @@ const GamePage: React.FC = (): ReactElement => {
       <main className={styles.main}>
         <GameTitle editable={false} />
         {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
-        {isGameMaster && <VotingArea />}
+        {!isGameMaster && <VotingArea />}
       </main>
       <Footer page={Pages.game} />
     </div>

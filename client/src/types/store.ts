@@ -3,6 +3,7 @@ import { Messages } from './messages';
 import { Game } from './redusers';
 import { GameSettings } from './room';
 import { UsersStore } from './user';
+import { Voting } from './voting';
 
 export interface RootStore {
   issuesStore: IssuesStore;
@@ -11,4 +12,5 @@ export interface RootStore {
   currentUserId: string;
   game: Game;
   gameSettings: GameSettings;
+  voting: Voting;
 }

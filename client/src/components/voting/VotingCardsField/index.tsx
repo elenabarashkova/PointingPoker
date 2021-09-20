@@ -1,19 +1,46 @@
 import VotingCard from 'components/voting/VotingCard';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { RootState } from 'src/redux/reducers';
 import { ScoreType } from 'src/types/room';
 import styles from './style.module.scss';
 
 interface VotingCardsFieldProps {
   scoreType: keyof typeof ScoreType;
   number: number;
+  roundIsActive: boolean;
+  currentIssueId: string;
 }
 
-const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ scoreType, number }):ReactElement => {
+const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ 
+  scoreType, 
+  number, 
+  roundIsActive, 
+  currentIssueId, 
+}):ReactElement => {
   const [isDisabled, setDisabled] = useState(true);
+  const [votedCardId, setVotedCardId] = useState('');
+
   const toSetDisable = (disabled: boolean) => {
     setDisabled(disabled);
   };
-  
+
+  const toSetVotedCardId = (vote: string) => {
+    setVotedCardId(vote);
+  };
+
+  // useEffect(() => {
+  //   if (roundIsActive) {
+  //     setDisabled(false);
+  //   }
+  // }, [roundIsActive]);
+
+  useEffect(() => {
+    if (!currentIssueId) return;
+    setDisabled(false);
+    setVotedCardId('');
+  }, [currentIssueId]);
+
   const config = {
     [ScoreType.size]: ['coffee', 'xs', 's', 'm', 'l', 'xl'],
     [ScoreType.storyPoint]: ['coffee', '1', '2', '3', '5', '8'],
@@ -31,10 +58,16 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ scoreType, number }
           key={el} 
           isDisabled={isDisabled} 
           toSetDisable={toSetDisable} 
+          toSetVotedCardId={toSetVotedCardId}
+          votedCardId={votedCardId}
         />
       ))}
     </div>
   );
 };
+const mapStateToProps = (state: RootState) => ({
+  roundIsActive: state.game.roundIsActive,
+  currentIssueId: state.game.currentIssueId,
+});
 
-export default VotingCardsField;
+export default connect(mapStateToProps)(VotingCardsField);
