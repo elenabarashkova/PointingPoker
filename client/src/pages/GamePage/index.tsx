@@ -4,6 +4,8 @@ import GameTitle from 'components/shared/GameTitle';
 import VotingArea from 'components/voting/VotingArea';
 import React, { ReactElement, useMemo } from 'react';
 import { isMaster } from 'src/shared/isMaster';
+import { isObserver } from 'src/shared/isObserver';
+import { isPlayer } from 'src/shared/isPlayer';
 import { Pages } from 'src/types/page';
 import Footer from '../../components/page-parts/Footer';
 import Header from '../../components/page-parts/Header';

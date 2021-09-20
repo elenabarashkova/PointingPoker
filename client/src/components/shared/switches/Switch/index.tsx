@@ -31,6 +31,7 @@ const Switch:React.FC<SwitchProps> = (
   };
 
   const handleChange = () => {
+    console.log('свитч');
     onChange(name);
   };
 
@@ -41,7 +42,7 @@ const Switch:React.FC<SwitchProps> = (
         type="checkbox" 
         className={styles.switchInput} 
         disabled={status === UserRole.master}
-        checked={status === (UserRole.observer as string) || status as boolean}
+        checked={status === UserRole.observer || status === true}
         onChange={handleChange}
       />
       <span 
