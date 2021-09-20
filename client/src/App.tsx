@@ -12,7 +12,7 @@ import GoodbyePage from './pages/GoodbyePage';
 import LobbyPage from './pages/LobbyPage';
 import MainPage from './pages/MainPage';
 import SettingsPage from './pages/Settings';
-import { setGameStatus, startRoundAction } from './redux/actions/game';
+import { setGameStatus, startRoundAction, stopRound } from './redux/actions/game';
 import {
   addIssueAction, deleteIssueAction, setIssuesAction, updateIssueAction, 
 } from './redux/actions/issues';
@@ -23,7 +23,7 @@ import {
   setVotingNotification,
 } from './redux/actions/notifications';
 import { updateUser } from './redux/actions/user';
-import { setUserVote } from './redux/actions/voting';
+import { setUserVote, setVotingStatistics } from './redux/actions/voting';
 import { AppDispatch } from './redux/store';
 import {
   Events,
@@ -53,7 +53,7 @@ import {
 import { Pages } from './types/page';
 import { GameStatus } from './types/room';
 import { UserData } from './types/user';
-import { UserVotingData } from './types/voting';
+import { StatisticsData, UserVotingData } from './types/voting';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -69,6 +69,8 @@ interface AppProps extends RouteComponentProps {
   deleteIssue: any;
   updateIssue: any;
   setUserVote: any;
+  stopRound: any;
+  setVotingStatistics: any;
 }
 
 const App: FunctionComponent<AppProps> = ({
@@ -85,6 +87,8 @@ const App: FunctionComponent<AppProps> = ({
   deleteIssue,
   updateIssue,
   setUserVote: setNewUserVote,
+  stopRound: stopGameRound,
+  setVotingStatistics: setCommonVotingStatistics,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -150,6 +154,11 @@ const App: FunctionComponent<AppProps> = ({
         setIssues(issues);
         startRound({ currentIssueId, roundIsActive });
       }
+    });
+
+    socket.on(Events.roundIsFinished, ({ roundIsActive, issueId, issue }) => {
+      stopGameRound(roundIsActive);
+      setCommonVotingStatistics({ issueId, statistics: issue.statistics });
     });
 
     socket.on(Events.issueHasBeenAdded, (issueData) => {
@@ -221,6 +230,8 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   deleteIssue: (issueId: string) => dispatch(deleteIssueAction(issueId)),
   updateIssue: (issue: IssueData) => dispatch(updateIssueAction(issue)),
   setUserVote: (votingData: UserVotingData) => dispatch(setUserVote(votingData)),
+  stopRound: (roundIsActive: boolean) => dispatch(stopRound(roundIsActive)),
+  setVotingStatistics: (statisticsData: StatisticsData) => dispatch(setVotingStatistics(statisticsData)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

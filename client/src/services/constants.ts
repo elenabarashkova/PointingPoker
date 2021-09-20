@@ -58,4 +58,6 @@ export enum Events {
   issueHasBeenUpdated = 'ISSUE_HAS_BEEN_UPDATED',
   startRound = 'START_ROUND',
   roundIsStarted = 'ROUND_IS_STARTED',
+  stopRound = 'STOP_ROUND',
+  roundIsFinished = 'ROUND_IS_FINISHED',
 }
