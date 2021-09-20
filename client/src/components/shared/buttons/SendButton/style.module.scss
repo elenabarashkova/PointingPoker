@@ -1,0 +1,8 @@
+.sendBtn {
+  width: 30px;
+  height: 40px;
+}
+
+.sendBtn[disabled='true'] {
+  opacity: 0.5;
+}
