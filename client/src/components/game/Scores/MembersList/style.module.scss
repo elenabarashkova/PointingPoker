@@ -1,0 +1,23 @@
+@import '../../../../scss/variables.scss';
+
+//.cap {
+//  margin: 0;
+//  font-family: $font-family-first;
+//  font-size: 36px;
+//  color: $base-text-color-2;
+//  margin-bottom: 50px;
+//}
+//.membersSection {
+//  display: flex;
+//  flex-wrap: wrap;
+//  p {
+//    font-family: $font-family-second;
+//    margin: 0;
+//  }
+//}
+
+.membersList {
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+}

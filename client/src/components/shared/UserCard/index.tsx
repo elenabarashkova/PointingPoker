@@ -15,9 +15,14 @@ interface UserCardProps {
   size: keyof typeof ElementSize;
 }
 
-const UserCard: React.FC<UserCardProps> = ({
-  user, id, currentUserId, size, 
-}): ReactElement => {
+const UserCard: React.FC<UserCardProps> = (
+  {
+    user,
+    id,
+    currentUserId,
+    size,
+  },
+): ReactElement => {
   const { 
     name, role, jobPosition, image, status,
   } = user;
