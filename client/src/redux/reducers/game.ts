@@ -2,7 +2,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { StartRoundData } from 'src/types/game';
 import { Game } from '../../types/redusers';
 import {
-  SEND_GAME_REQUEST, SET_GAME_STATUS, SET_GAME_TITLE, SET_ROOM_ID, START_ROUND,
+  SEND_GAME_REQUEST, SET_GAME_ERROR,
+  SET_GAME_STATUS, SET_GAME_TITLE, SET_ROOM_ID, START_ROUND, STOP_ROUND,
 } from '../action-types';
 
 export const initialState = {
@@ -52,6 +53,13 @@ export const game = (
     const { roundIsActive, currentIssueId } = payload as StartRoundData;
     return {
       ...state, currentIssueId, roundIsActive, isLoading: false,
+    };
+  }
+
+  if (type === STOP_ROUND) {
+    return {
+      ...state,
+      roundIsActive: payload as boolean,
     };
   }
 
