@@ -6,15 +6,26 @@ import {
   SET_GAME_STATUS, SET_GAME_TITLE, SET_ROOM_ID, START_ROUND,
 } from '../action-types';
 
+// export const initialState = {
+//   gameStatus: '',
+//   roomId: '',
+//   isRoomValid: false,
+//   gameTitle: 'Sprint Plan',
+//   currentIssueId: '',
+//   roundIsActive: false,
+//   error: false,
+//   isLoading: false,
+// };
+
 export const initialState = {
-  gameStatus: '',
-  roomId: '',
+  gameStatus: 'active',
+  roomId: '1632148613679',
   isRoomValid: false,
   gameTitle: 'Sprint Plan',
   currentIssueId: '',
   roundIsActive: false,
   error: false,
-  isLoading: false,
+  isLoading: true,
 };
 
 export const game = (

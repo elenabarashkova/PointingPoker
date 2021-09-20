@@ -14,6 +14,7 @@ import { ElementSize } from 'src/types/additional';
 import { Pages } from 'src/types/page';
 import { GameStatus } from 'src/types/room';
 import { UserRole } from 'src/types/user';
+import { Scores } from 'components/game/Scores';
 import Footer from '../../components/page-parts/Footer';
 import Header from '../../components/page-parts/Header';
 import styles from './style.module.scss';
@@ -51,6 +52,7 @@ const GamePage: React.FC<GamePageProps> = ({ leaveRoom, updateGameStatus }): Rea
           <UserCard user={masterData} id={masterId} currentUserId={currentUserId} size={ElementSize.big} />
           <Button content={ButtonContent} variant="colored" action={ButtonAction} />
         </div>
+        <Scores />
         {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
         {!isGameMaster && <VotingArea />}
       </main>
