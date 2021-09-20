@@ -1,8 +1,8 @@
 import React, {
   ChangeEvent, Dispatch, MouseEvent, SetStateAction, 
 } from 'react';
+import { Statistics } from './voting';
 
-export type IssueStatistics = Array<string>;
 export type IssueVote = Array<string>;
 
 export enum IssueStatus {
@@ -16,7 +16,7 @@ export interface Issue {
   link: string;
   priority: keyof typeof IssuePriority;
   status?: keyof typeof IssueStatus;
-  statistics?: IssueStatistics;
+  statistics?: Statistics;
   vote?: IssueVote;
   date?: number;
 }

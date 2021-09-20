@@ -5,9 +5,10 @@ import styles from './style.module.scss';
 interface TimeInputProps {
   handleChange(event: ChangeEvent<HTMLInputElement>): void;
   value: Time;
+  disabled?: boolean;
 }
 
-export const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value }): ReactElement => (
+const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value, disabled }): ReactElement => (
   <div className={styles.time}>
     <label className={styles.wrapper} htmlFor="settingsMinutes">
       <div className={styles.label}>Minutes</div>
@@ -18,6 +19,7 @@ export const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value }): Rea
         onChange={handleChange}
         value={value.minutes}
         className={styles.input}
+        disabled={disabled}
       />
     </label>
     <div className={styles.separator}>:</div>
@@ -30,7 +32,14 @@ export const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value }): Rea
         onChange={handleChange}
         value={value.seconds}
         className={styles.input}
+        disabled={disabled}
       />
     </label>
   </div>
 );
+
+TimeInput.defaultProps = {
+  disabled: false,
+};
+
+export default TimeInput;

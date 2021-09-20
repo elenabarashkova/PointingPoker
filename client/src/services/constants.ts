@@ -64,4 +64,6 @@ export enum Events {
   roundIsStarted = 'ROUND_IS_STARTED',
   setFinalVote = 'SET_FINAL_VOTE',
   finalVote = 'FINAL_VOTE',
+  stopRound = 'STOP_ROUND',
+  roundIsFinished = 'ROUND_IS_FINISHED',
 }

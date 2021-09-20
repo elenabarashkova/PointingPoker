@@ -12,7 +12,7 @@ import GoodbyePage from './pages/GoodbyePage';
 import LobbyPage from './pages/LobbyPage';
 import MainPage from './pages/MainPage';
 import SettingsPage from './pages/Settings';
-import { setGameStatus, startRoundAction } from './redux/actions/game';
+import { setGameStatus, startRoundAction, stopRound } from './redux/actions/game';
 import {
   addIssueAction,
   deleteIssueAction,
@@ -26,7 +26,7 @@ import {
   setVotingNotification,
 } from './redux/actions/notifications';
 import { updateUser } from './redux/actions/user';
-import { setFinalVoteAction, setUserVote } from './redux/actions/voting';
+import { setFinalVoteAction, setUserVote, setVotingStatistics } from './redux/actions/voting';
 import { AppDispatch } from './redux/store';
 import {
   Events,
@@ -56,7 +56,7 @@ import {
 import { Pages } from './types/page';
 import { GameStatus } from './types/room';
 import { UserData } from './types/user';
-import { FinalVoteData, UserVotingData } from './types/voting';
+import { FinalVoteData, StatisticsData, UserVotingData } from './types/voting';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -73,6 +73,8 @@ interface AppProps extends RouteComponentProps {
   updateIssue: any;
   setUserVote: any;
   setFinalVote: any;
+  stopRound: any;
+  setVotingStatistics: any;
 }
 
 const App: FunctionComponent<AppProps> = ({
@@ -90,6 +92,8 @@ const App: FunctionComponent<AppProps> = ({
   updateIssue,
   setFinalVote,
   setUserVote: setNewUserVote,
+  stopRound: stopGameRound,
+  setVotingStatistics: setCommonVotingStatistics,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -151,7 +155,6 @@ const App: FunctionComponent<AppProps> = ({
     });
 
     socket.on(Events.roundIsStarted, ({ currentIssueId, issues, roundIsActive }) => {
-      console.log('слушаем roundIsStarted', roundIsActive);
       if (issues) {
         setIssues(issues);
         startRound({ currentIssueId, roundIsActive });
@@ -162,6 +165,12 @@ const App: FunctionComponent<AppProps> = ({
     socket.on(Events.issueHasBeenDeleted, (issueId) => deleteIssue(issueId));
     socket.on(Events.issueHasBeenUpdated, (issueData) => updateIssue(issueData));
     socket.on(Events.finalVote, (finalVote) => setFinalVote(finalVote));
+    
+    socket.on(Events.roundIsFinished, ({ roundIsActive, issueId, issue }) => {
+      stopGameRound(roundIsActive);
+      setCommonVotingStatistics({ issueId, statistics: issue.statistics });
+    });
+
     socket.on(USER_HAS_VOTED, setNewUserVote);
   }, []);
 
@@ -214,6 +223,8 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   updateIssue: (issue: IssueData) => dispatch(updateIssueAction(issue)),
   setUserVote: (votingData: UserVotingData) => dispatch(setUserVote(votingData)),
   setFinalVote: (finalVote: FinalVoteData) => dispatch(setFinalVoteAction(finalVote)),
+  stopRound: (roundIsActive: boolean) => dispatch(stopRound(roundIsActive)),
+  setVotingStatistics: (statisticsData: StatisticsData) => dispatch(setVotingStatistics(statisticsData)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

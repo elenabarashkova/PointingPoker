@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   addContent,
 }): ReactElement => {
   const addButtonContent = (
-    <p>
+    <p className={styles.buttonContent}>
       {content}
       <span>{addContent}</span>
     </p>
