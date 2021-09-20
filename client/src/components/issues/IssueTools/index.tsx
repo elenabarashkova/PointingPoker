@@ -17,12 +17,17 @@ const IssueTools: React.FC<IssueToolsProps> = ({ editMode, columnMode }) => {
     createIssueModalIsOpen,
     updateIssueModalIsOpen,
     editIssueValues,
+    isLoading,
     editBtnAction,
     deleteBtnAction,
+    sendBtnAction,
     openCreateIssueModal,
     closeCreateIssueModal,
     closeUpdateIssueModal,
     startRound,
+    isCompleted,
+    voteMode,
+    finalVoteInputAction,
   } = useIssueTools();
 
   const { sortedIssues } = useSortedIssues();
@@ -35,14 +40,19 @@ const IssueTools: React.FC<IssueToolsProps> = ({ editMode, columnMode }) => {
           id, title, priority, status, link, 
         }) => (
           <IssueCard
-            key={`issue-card-${id}`}
+            key={id}
             id={id}
             title={title}
             priority={priority}
             current={status === IssueStatus.active}
             editMode={editMode}
+            voteMode={voteMode(id)}
             columnMode={columnMode}
+            isCompleted={isCompleted(id)}
+            isSending={isLoading}
             onClick={startRound(id)}
+            inputAction={finalVoteInputAction}
+            sendBtnAction={sendBtnAction(id)}
             deleteBtnAction={deleteBtnAction(id)}
             editBtnAction={editBtnAction(title, link, priority, id)}
           />
