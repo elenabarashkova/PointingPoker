@@ -18,6 +18,9 @@ export const updateGameStatusAction = (currentRoomId: string, newGameStatus: key
     if (gameStatus === GameStatus.canceled) {
       dispatch(setImportantNotification(ImportantNotifications.gameCanceled));
     }
+    if (gameStatus === GameStatus.active) {
+      redirectToGamePage();
+    }
   } catch (error) {
     const notification = createCommonNotificationAboutError();
     dispatch(setCommonNotification(notification));

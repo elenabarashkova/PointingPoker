@@ -3,8 +3,8 @@ import { Message } from './messages';
 import { Users } from './user';
 
 export enum GameStatus {
-  pending = 'pending',
   active = 'active',
+  pending = 'pending',
   finished = 'finished',
   canceled = 'canceled',
 }

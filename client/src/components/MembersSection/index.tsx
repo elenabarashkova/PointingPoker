@@ -19,7 +19,7 @@ const MembersSection: FunctionComponent<MembersSectionProps> = ({ users }): Reac
   ));
   return ( 
     <>
-      <p className={styles.cap}>Members</p>
+      <p className={styles.cap}>Members:</p>
       <div className={styles.membersSection}>
         {!members.length && <p>No members</p>}
         {members.map(([userId, userInfo]) => (

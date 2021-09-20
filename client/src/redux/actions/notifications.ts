@@ -1,4 +1,4 @@
-import { CommonNotification, ImportantNotifications, VotingData } from 'src/types/notifications';
+import { CommonNotification, VotingData } from 'src/types/notifications';
 import {
   SET_COMMON_NOTIFICATION, 
   SET_IMPORTANT_NOTIFICATION, 
