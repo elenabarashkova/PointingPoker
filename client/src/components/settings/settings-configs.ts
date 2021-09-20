@@ -36,7 +36,7 @@ export const SWITCHES_CONFIG = [
 
 export const INITIAL_TIME = {
   minutes: 2,
-  seconds: 0,
+  seconds: 20,
 };
 
 export const SETTINGS_SCORE_TYPE_CONFIG = [

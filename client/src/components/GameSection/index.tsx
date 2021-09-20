@@ -25,6 +25,7 @@ const GameSection: React.FC<GameSectionProps> = ({
   const currectUserData = roomUsers[currectUserId];
   const gameId = useTypedSelector(({ game }) => game.roomId);
 
+  // todo: поменять gameLink
   const gameLink = `http://localhost:8080/?roomId=${gameId}`;
 
   const copyText = () => {

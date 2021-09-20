@@ -2,7 +2,7 @@ import React, { ChangeEvent, ReactElement, useState } from 'react';
 import { SwitchWithLabel } from 'components/shared/switches/SwitchWithLabel/SwitchWithLabel';
 import { SWITCHES_CONFIG, INITIAL_TIME } from 'components/settings/settings-configs';
 import { SettingsSelect } from 'components/settings/SettingsSelect';
-import { TimeInput } from 'components/settings/TimeInput';
+import TimeInput from 'components/settings/TimeInput';
 import Button from 'components/shared/buttons/Button';
 import { connect } from 'react-redux';
 import VotingCardsField from 'components/voting/VotingCardsField';
