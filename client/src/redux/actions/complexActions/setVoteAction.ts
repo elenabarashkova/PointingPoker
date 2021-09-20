@@ -5,7 +5,11 @@ import { CommonNotificationType } from 'src/types/notifications';
 import { setCommonNotification } from '../notifications';
 import { setUserVote } from '../voting';
 
-export const setVoteAction = (roomId: string, issueId : string, vote: string) => async (dispatch: Dispatch): Promise<void> => {
+export const setVoteAction = (
+  roomId: string, 
+  issueId : string, 
+  vote: string,
+) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const votingData = await sendVote(roomId, issueId, vote);
     dispatch(setUserVote(votingData)); 
