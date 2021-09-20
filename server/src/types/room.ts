@@ -9,7 +9,8 @@ export interface Room {
   issues: Issues;
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
-  currentRound: Round | null;
+  currentIssueId: string;
+  roundIsActive: boolean;
   gameTitle: string;
   masterId: string;
 }
@@ -22,6 +23,3 @@ export interface Store {
   [id: string]: Room;
 }
 
-export interface Round {
-  issueId: string;
-}

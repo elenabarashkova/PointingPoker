@@ -37,7 +37,8 @@ export const createRoom = (
     issues: {},
     gameStatus: GameStatus.pending,
     gameSettings: INIT_GAME_SETTINGS,
-    currentRound: null,
+    currentIssueId: '',
+    roundIsActive: false,
     gameTitle: '',
     masterId: userId,
   };

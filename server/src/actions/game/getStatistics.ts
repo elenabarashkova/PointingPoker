@@ -8,7 +8,7 @@ export const getVotingStatistics = (
 ): Issue => {
   const room = store[roomId];
   const activeIssue = room.issues[issueId];
-  const voteArray = activeIssue.vote;
+  const voteArray = activeIssue.votes;
   const statistics: IssueStatistics = {};
   const totalVoters = voteArray?.length;
 

@@ -13,9 +13,9 @@ export const setFinalVoteHandler =
       addFinalVote(roomId, issueId, finalVote as string, store);
       callback({
         status: 200,
-        data: { issueId, finalVote },
+        data: { issueId, finalVote},
       });
-      socket.to(roomId).emit(GameEvents.finalVote, { issueId, finalVote });
+      socket.to(roomId).emit(GameEvents.finalVote, { issueId, finalVote});
     } catch {
       handleError(socket, callback);
     }
