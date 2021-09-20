@@ -1,6 +1,7 @@
 import { IssueList } from 'components/issues/IssueList';
 import IssueTools from 'components/issues/IssueTools';
 import GameTitle from 'components/shared/GameTitle';
+import VotingArea from 'components/voting/VotingArea';
 import React, { ReactElement, useMemo } from 'react';
 import { isMaster } from 'src/shared/isMaster';
 import { Pages } from 'src/types/page';
@@ -17,6 +18,7 @@ const GamePage: React.FC = (): ReactElement => {
       <main className={styles.main}>
         <GameTitle editable={false} />
         {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
+        {!isGameMaster && <VotingArea />}
       </main>
       <Footer page={Pages.game} />
     </div>

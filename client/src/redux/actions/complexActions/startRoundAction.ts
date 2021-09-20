@@ -7,6 +7,7 @@ export const startRoundRequest = (roomId: string, issueId: string) => async (dis
   try {
     dispatch(sendGameRequest());
     const { currentIssueId, issues, roundIsActive } = await startRound(roomId, issueId);
+    console.log('startRound:', issueId);
     dispatch(startRoundAction({ currentIssueId, roundIsActive }));
     dispatch(setIssuesAction(issues));
   } catch (error) {
