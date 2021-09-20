@@ -7,13 +7,17 @@ import { ElementSize } from 'src/types/additional';
 import { UserRole, Users, UserStatus } from 'src/types/user';
 import styles from './style.module.scss';
 import { GameSettings } from '../../../../types/room';
+import { UserVote } from '../../../../types/voting';
 
 interface MembersSectionProps {
   users: Users;
   gameSettings: GameSettings;
+  votes: UserVote[];
 }
 
-const MembersList: FunctionComponent<MembersSectionProps> = ({ users, gameSettings }): ReactElement => {
+const MembersList: FunctionComponent<MembersSectionProps> = (
+  { users, gameSettings, votes },
+): ReactElement => {
   const currectUserId = useTypedSelector((state) => state.currentUserId);
   const roomMembersData = Object.entries(users);
   const activeMembers = roomMembersData.filter(([, { status }]) => (
@@ -28,22 +32,45 @@ const MembersList: FunctionComponent<MembersSectionProps> = ({ users, gameSettin
     <div className={styles.membersList}>
       {!activeMembers.length && <p>No members</p>}
       {gameSettings.masterAsPlayer ? (
-        <UserCard
-          user={masterInfo}
-          id={masterId}
-          currentUserId={currectUserId}
-          size={ElementSize.small}
-          key={masterId}
-        />
+        <div className={styles.item}>
+          <div className="vote">
+            {votes.map(({ userId, vote }) => {
+              if (userId === masterId) {
+                return (
+                  <div key={masterId}>{vote}</div>
+                );
+              }
+              return null;
+            })}
+          </div>
+          <UserCard
+            user={masterInfo}
+            id={masterId}
+            currentUserId={currectUserId}
+            size={ElementSize.small}
+            key={masterId}
+          />
+        </div>
       ) : null}
-      {players.map(([userId, userInfo]) => (
-        <UserCard
-          user={userInfo}
-          id={userId}
-          currentUserId={currectUserId}
-          size={ElementSize.small}
-          key={userId}
-        />
+      {players.map(([id, userInfo]) => (
+        <div key={id} className={styles.item}>
+          <div className="vote">
+            {votes.map(({ userId, vote }) => {
+              if (userId === id) {
+                return (
+                  <div>{vote}</div>
+                );
+              }
+              return null;
+            })}
+          </div>
+          <UserCard
+            user={userInfo}
+            id={id}
+            currentUserId={currectUserId}
+            size={ElementSize.small}
+          />
+        </div>
       ))}
       {observers.map(([userId, userInfo]) => (
         <UserCard
@@ -58,9 +85,20 @@ const MembersList: FunctionComponent<MembersSectionProps> = ({ users, gameSettin
   );
 };
 
-const mapStateToProps = ({ users, gameSettings }: RootState) => ({
-  users,
-  gameSettings,
-});
+const mapStateToProps = (
+  {
+    users,
+    gameSettings,
+    voting,
+    game,
+  }: RootState,
+) => {
+  const { currentIssueId } = game;
+  return ({
+    users,
+    gameSettings,
+    votes: voting[currentIssueId].votes,
+  });
+};
 
 export default connect(mapStateToProps)(MembersList);

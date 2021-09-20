@@ -22,7 +22,7 @@ export const initialState = {
   roomId: '1632148613679',
   isRoomValid: false,
   gameTitle: 'Sprint Plan',
-  currentIssueId: '',
+  currentIssueId: '1237',
   roundIsActive: false,
   error: false,
   isLoading: true,
