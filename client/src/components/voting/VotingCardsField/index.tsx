@@ -1,7 +1,10 @@
 import VotingCard from 'components/voting/VotingCard';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, {
+  ReactElement, useEffect, useMemo, useState, 
+} from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'src/redux/reducers';
+import { isPlayer } from 'src/shared/isPlayer';
 import { ScoreType } from 'src/types/room';
 import styles from './style.module.scss';
 
@@ -21,6 +24,8 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
   const [isDisabled, setDisabled] = useState(true);
   const [votedCardId, setVotedCardId] = useState('');
 
+  const isUserPlayer = useMemo(() => isPlayer(), []);
+
   const toSetDisable = (disabled: boolean) => {
     setDisabled(disabled);
   };
@@ -37,8 +42,10 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
 
   useEffect(() => {
     if (!currentIssueId) return;
-    setDisabled(false);
-    setVotedCardId('');
+    if (isUserPlayer) {
+      setDisabled(false);
+      setVotedCardId('');
+    }
   }, [currentIssueId]);
 
   const config = {
