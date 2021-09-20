@@ -1,7 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { ScoreType } from 'src/types/room';
 import { connect } from 'react-redux';
-import { RootState } from 'src/redux/reducers';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { setVoteAction } from 'src/redux/actions/complexActions/setVoteAction';
 import styles from './style.module.scss';
@@ -68,7 +67,12 @@ const VotingCard: React.FC<VotingCardProps> = ({
 
   return (
     <div
-      className={`${styles.card} ${styles[scoreType]} ${isDisabled && styles.disabled} ${isVotedCard && styles.votedCard}`}
+      className={`
+      ${styles.card} 
+      ${styles[scoreType]}
+      ${isDisabled && styles.disabled} 
+      ${isVotedCard && styles.votedCard}
+      `}
       onClick={handleClick}
       onKeyPress={handleClick}
       role="button"
