@@ -3,7 +3,9 @@ import React, {
   ReactElement, useEffect, useMemo, useState, 
 } from 'react';
 import { connect } from 'react-redux';
+import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
+import { isMaster } from 'src/shared/isMaster';
 import { isPlayer } from 'src/shared/isPlayer';
 import { ScoreType } from 'src/types/room';
 import styles from './style.module.scss';
@@ -12,19 +14,22 @@ interface VotingCardsFieldProps {
   scoreType: keyof typeof ScoreType;
   number: number;
   roundIsActive: boolean;
-  currentIssueId: string;
 }
 
 const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ 
   scoreType, 
   number, 
   roundIsActive, 
-  currentIssueId, 
 }):ReactElement => {
+  const isMasterPlayer = useTypedSelector(({ gameSettings }) => gameSettings.masterAsPlayer);
+
   const [isDisabled, setDisabled] = useState(true);
   const [votedCardId, setVotedCardId] = useState('');
 
   const isUserPlayer = useMemo(() => isPlayer(), []);
+  const isUserMaster = useMemo(() => isMaster(), []);
+
+  const isUserMasterAsPlayer = (isUserMaster && isMasterPlayer);
 
   const toSetDisable = (disabled: boolean) => {
     setDisabled(disabled);
@@ -34,19 +39,15 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
     setVotedCardId(vote);
   };
 
-  // useEffect(() => {
-  //   if (roundIsActive) {
-  //     setDisabled(false);
-  //   }
-  // }, [roundIsActive]);
-
   useEffect(() => {
-    if (!currentIssueId) return;
-    if (isUserPlayer) {
+    if (!roundIsActive) {
+      setDisabled(true);
+    } 
+    if (roundIsActive && (isUserPlayer || isUserMasterAsPlayer)) {
       setDisabled(false);
       setVotedCardId('');
     }
-  }, [currentIssueId]);
+  }, [roundIsActive]);
 
   const config = {
     [ScoreType.size]: ['coffee', 'xs', 's', 'm', 'l', 'xl'],
@@ -74,7 +75,6 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
 };
 const mapStateToProps = (state: RootState) => ({
   roundIsActive: state.game.roundIsActive,
-  currentIssueId: state.game.currentIssueId,
 });
 
 export default connect(mapStateToProps)(VotingCardsField);
