@@ -8,7 +8,7 @@ import {
   SET_GAME_TITLE,
   SET_ROOM_ID,
   START_ROUND,
-  STOP_ROUND
+  STOP_ROUND,
 } from '../action-types';
 
 export const initialState = {
@@ -19,31 +19,31 @@ export const initialState = {
   currentIssueId: '',
   roundIsActive: false,
   error: false,
-  isLoading: false
+  isLoading: false,
 };
 
 export const game = (
   state: Game = initialState,
-  { type, payload }: PayloadAction<string | boolean | StartRoundData>
+  { type, payload }: PayloadAction<string | boolean | StartRoundData>,
 ): Game => {
   if (type === SET_ROOM_ID) {
     return {
       ...state,
-      roomId: payload as string
+      roomId: payload as string,
     };
   }
 
   if (type === SET_GAME_STATUS) {
     return {
       ...state,
-      gameStatus: payload as string
+      gameStatus: payload as string,
     };
   }
 
   if (type === SET_GAME_TITLE) {
     return {
       ...state,
-      gameTitle: payload as string
+      gameTitle: payload as string,
     };
   }
 
@@ -53,14 +53,14 @@ export const game = (
       ...state,
       currentIssueId,
       roundIsActive,
-      isLoading: false
+      isLoading: false,
     };
   }
 
   if (type === STOP_ROUND) {
     return {
       ...state,
-      roundIsActive: payload as boolean
+      roundIsActive: payload as boolean,
     };
   }
 
