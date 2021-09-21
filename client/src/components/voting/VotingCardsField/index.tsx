@@ -34,19 +34,15 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
     setVotedCardId(vote);
   };
 
-  // useEffect(() => {
-  //   if (roundIsActive) {
-  //     setDisabled(false);
-  //   }
-  // }, [roundIsActive]);
-
   useEffect(() => {
-    if (!currentIssueId) return;
-    if (isUserPlayer) {
+    if (!roundIsActive) {
+      setDisabled(true);
+    } 
+    if (roundIsActive && isUserPlayer) {
       setDisabled(false);
       setVotedCardId('');
     }
-  }, [currentIssueId]);
+  }, [roundIsActive]);
 
   const config = {
     [ScoreType.size]: ['coffee', 'xs', 's', 'm', 'l', 'xl'],
