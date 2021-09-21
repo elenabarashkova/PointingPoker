@@ -26,7 +26,7 @@ const Scores: React.FC<ScoresProps> = (
 
   return (
     <div className={styles.scores}>
-      <MembersList />
+      <MembersList isRoundActive={roundIsActive} />
     </div>
   );
 };

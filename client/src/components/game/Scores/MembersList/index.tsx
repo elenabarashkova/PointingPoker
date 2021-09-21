@@ -12,10 +12,16 @@ interface MembersSectionProps {
   users: Users;
   gameSettings: GameSettings;
   votes: UserVote[];
+  isRoundActive: boolean;
 }
 
 const MembersList: FunctionComponent<MembersSectionProps> = (
-  { users, gameSettings, votes },
+  {
+    users,
+    gameSettings,
+    votes,
+    isRoundActive,
+  },
 ): ReactElement => {
   const currectUserId = useTypedSelector((state) => state.currentUserId);
   const roomMembersData = Object.entries(users);
@@ -30,10 +36,10 @@ const MembersList: FunctionComponent<MembersSectionProps> = (
     <div className={styles.membersList}>
       {!activeMembers.length && <p>No members</p>}
       {gameSettings.masterAsPlayer ? (
-        <UsersItem users={master} votes={votes} currectUserId={currectUserId} />
+        <UsersItem users={master} votes={votes} currectUserId={currectUserId} isRoundActive={isRoundActive} />
       ) : null}
-      <UsersItem users={players} votes={votes} currectUserId={currectUserId} />
-      <UsersItem users={observers} votes={votes} currectUserId={currectUserId} />
+      <UsersItem users={players} votes={votes} currectUserId={currectUserId} isRoundActive={isRoundActive} />
+      <UsersItem users={observers} votes={votes} currectUserId={currectUserId} isRoundActive={isRoundActive} />
     </div>
   );
 };

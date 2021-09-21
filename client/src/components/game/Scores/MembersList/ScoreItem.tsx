@@ -6,19 +6,25 @@ import coffee from '../../../voting/VotingCard/coffee-cup.svg';
 interface MembersSectionProps {
   id: string;
   votes: UserVote[];
+  isRoundActive: boolean;
 }
 
 export const ScoresItem: FunctionComponent<MembersSectionProps> = (
-  { votes, id },
+  { votes, id, isRoundActive },
 ): ReactElement => (
   <div className={styles.vote}>
     {votes.map(({ userId, vote }) => {
       if (userId === id) {
         return (
           <>
-            {vote ? (
-              vote === 'coffee' ? (<img key={id} src={coffee} alt="coffee" />) : (<span key={id}>{vote}</span>)
-            ) : '-' }
+            {isRoundActive ? (
+              <span key={userId}>Pending</span>
+            ) : (vote ? (
+              vote === 'coffee' ? (
+                <img key={userId} src={coffee} alt="coffee" />
+              ) : (
+                <span key={userId}>{vote}</span>
+              )) : (<span key={userId}>—</span>))}
           </>
         );
       }
