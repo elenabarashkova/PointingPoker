@@ -1,4 +1,3 @@
-import { useSortedIssues } from 'components/issues/hooks/useSortedIssues';
 import { SettingsIssueCards } from 'components/issues/IssueCards/SettingsIssueCards';
 import {
   CREATE_ISSUE_FORM_CONFIG,
@@ -14,12 +13,12 @@ export const SettingsIssueTools: React.FC = () => {
   const {
     updateIssueModalIsOpen,
     editIssueValues,
+    sortedIssues,
     editBtnAction,
     deleteBtnAction,
     closeUpdateIssueModal,
   } = useSettingsIssueTools();
 
-  const { sortedIssues } = useSortedIssues();
   const {
     title, url, priority, id, 
   } = editIssueValues;

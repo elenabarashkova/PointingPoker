@@ -1,8 +1,7 @@
+import { useSortedIssues } from 'components/issues/hooks/useSortedIssues';
 import { MouseEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import useTypedSelector from 'src/hooks/useTypedSelector';
-import { deleteIssueRequest } from 'src/redux/actions/issues';
 import { EditIssueValues, IssuePriority, UseSettingsIssueTools } from 'src/types/issues';
+import { useDeleteIssues } from '../useDeleteIssue';
 
 export const useSettingsIssueTools = (): UseSettingsIssueTools => {
   const [updateIssueModalIsOpen, setUpdateIssueModalIsOpen] = useState<boolean>(false);
@@ -13,8 +12,8 @@ export const useSettingsIssueTools = (): UseSettingsIssueTools => {
     id: undefined,
   });
 
-  const { roomId } = useTypedSelector((store) => store.game);
-  const dispatch = useDispatch();
+  const { deleteBtnAction } = useDeleteIssues();
+  const { sortedIssues } = useSortedIssues();
 
   useEffect(() => {
     if (editIssueValues.title) {
@@ -33,16 +32,12 @@ export const useSettingsIssueTools = (): UseSettingsIssueTools => {
     }));
   };
 
-  const deleteBtnAction = (id: string) => (event: MouseEvent) => {
-    event.stopPropagation();
-    dispatch(deleteIssueRequest(roomId, id));
-  };
-
   const closeUpdateIssueModal = () => setUpdateIssueModalIsOpen(false);
 
   return {
     updateIssueModalIsOpen,
     editIssueValues,
+    sortedIssues,
     editBtnAction,
     deleteBtnAction,
     closeUpdateIssueModal,
