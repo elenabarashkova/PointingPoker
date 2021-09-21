@@ -11,10 +11,16 @@ interface MembersSectionProps {
   users: Array<any>;
   currectUserId: string;
   votes: UserVote[];
+  isRoundActive: boolean;
 }
 
 export const UsersItem: FunctionComponent<MembersSectionProps> = (
-  { users, currectUserId, votes },
+  {
+    users,
+    currectUserId,
+    votes,
+    isRoundActive,
+  },
 ): ReactElement => (
   <>
     {users.map(([id, userInfo]) => (
@@ -23,7 +29,7 @@ export const UsersItem: FunctionComponent<MembersSectionProps> = (
           <div className={styles.vote}>
             <img src={observer} alt="eyes" />
           </div>
-        ) : (<ScoresItem votes={votes} id={id} />)}
+        ) : (<ScoresItem isRoundActive={isRoundActive} votes={votes} id={id} />)}
         <UserCard
           user={userInfo}
           id={id}
