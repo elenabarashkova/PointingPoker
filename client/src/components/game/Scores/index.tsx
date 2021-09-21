@@ -81,13 +81,17 @@ const mapStateToProps = (
   }: RootState,
 ) => {
   const { currentIssueId, roundIsActive, roomId } = game;
-  return ({
+  const result = {
     users,
     gameSettings,
-    votes: voting[currentIssueId].votes,
+    votes: [],
     roundIsActive,
     roomId,
-  });
+  };
+  if (voting[currentIssueId]) {
+    result.votes = voting[currentIssueId].votes;
+  }
+  return result;
 };
 
 export default connect(mapStateToProps, { stopRound: stopRoundAction })(Scores);
