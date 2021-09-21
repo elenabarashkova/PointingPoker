@@ -22,16 +22,14 @@ export const ScoresItem: FunctionComponent<MembersSectionProps> = (
     {votes.map(({ userId, vote }) => {
       if (userId === id) {
         return (
-          <>
-            {isRoundActive ? (
-              <span key={userId}>Pending</span>
-            ) : (vote ? (
-              vote === 'coffee' ? (
-                <img key={userId} src={coffee} alt="coffee" />
-              ) : (
-                <span key={userId}>{vote}</span>
-              )) : (<span key={userId}>—</span>))}
-          </>
+          isRoundActive ? (
+            <span key={userId}>Pending</span>
+          ) : (vote ? (
+            vote === 'coffee' ? (
+              <img key={userId} src={coffee} alt="coffee" />
+            ) : (
+              <span key={userId}>{vote}</span>
+            )) : (<span key={userId}>—</span>))
         );
       }
       return null;

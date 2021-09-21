@@ -79,10 +79,12 @@ const GamePage: React.FC<GamePageProps> = ({
             <Button content={ButtonContent} variant="colored" action={ButtonAction} />
           </div>
         </div>
-        <Scores />
-        <div className={styles.statContainer}>
-          {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
-          {(!roundIsActive && showStatistics) && <Statistics issueId={issueId} />}
+        <div className={styles.container}>
+          <div className={styles.statContainer}>
+            {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
+            {(!roundIsActive && showStatistics) && <Statistics issueId={issueId} />}
+          </div>
+          <Scores />
         </div>
         <VotingArea />
       </main>
