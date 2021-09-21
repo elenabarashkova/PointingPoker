@@ -94,11 +94,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
       };
       setTime(newTime);
 
-      const timeInSeconds = time.minutes * 60 + time.seconds;
+      const timeInSeconds = (+newTime.minutes) * 60 + (+newTime.seconds);
       const state = {
         ...settings,
         roundTime: timeInSeconds,
       };
+
       setSettings(state);
       setSettingsEdited(true);
     }
