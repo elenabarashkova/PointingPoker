@@ -47,10 +47,14 @@ const mapStateToProps = (
   }: RootState,
 ) => {
   const { currentIssueId } = game;
-  return ({
+  const result = {
     gameSettings,
-    votes: voting[currentIssueId].votes,
-  });
+    votes: [],
+  };
+  if (voting[currentIssueId]) {
+    result.votes = voting[currentIssueId].votes;
+  }
+  return result;
 };
 
 export default connect(mapStateToProps)(MembersList);
