@@ -26,7 +26,9 @@ import {
   setVotingNotification,
 } from './redux/actions/notifications';
 import { updateUser } from './redux/actions/user';
-import { setFinalVoteAction, setUserVote, setVotingStatistics } from './redux/actions/voting';
+import {
+  initVoting, setFinalVoteAction, setUserVote, setVotingStatistics, 
+} from './redux/actions/voting';
 import { AppDispatch } from './redux/store';
 import {
   Events,
@@ -75,6 +77,7 @@ interface AppProps extends RouteComponentProps {
   setFinalVote: any;
   stopRound: any;
   setVotingStatistics: any;
+  initVoting: any;
 }
 
 const App: FunctionComponent<AppProps> = ({
@@ -94,6 +97,7 @@ const App: FunctionComponent<AppProps> = ({
   setUserVote: setNewUserVote,
   stopRound: stopGameRound,
   setVotingStatistics: setCommonVotingStatistics,
+  initVoting: initRoundVoting,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -158,6 +162,7 @@ const App: FunctionComponent<AppProps> = ({
       if (issues) {
         setIssues(issues);
         startRound({ currentIssueId, roundIsActive });
+        initRoundVoting(currentIssueId);
       }
     });
 
@@ -225,6 +230,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setFinalVote: (finalVote: FinalVoteData) => dispatch(setFinalVoteAction(finalVote)),
   stopRound: (roundIsActive: boolean) => dispatch(stopRound(roundIsActive)),
   setVotingStatistics: (statisticsData: StatisticsData) => dispatch(setVotingStatistics(statisticsData)),
+  initVoting: (issueId: string) => dispatch(initVoting(issueId)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));
