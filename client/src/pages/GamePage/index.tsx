@@ -1,6 +1,6 @@
 import GameTimer from 'components/GameTimer';
 import { IssueList } from 'components/issues/IssueList';
-import IssueTools from 'components/issues/IssueTools';
+import { GameIssueTools } from 'components/issues/IssueTools/GameIssueTools';
 import Button from 'components/shared/buttons/Button';
 import GameTitle from 'components/shared/GameTitle';
 import UserCard from 'components/shared/UserCard';
@@ -79,7 +79,7 @@ const GamePage: React.FC<GamePageProps> = ({
           </div>
         </div>
         <div className={styles.statContainer}>
-          {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
+          {isGameMaster ? <GameIssueTools /> : <IssueList />}
           {(!roundIsActive && showStatistics) && <Statistics issueId={issueId} />}
         </div>
         <VotingArea />

@@ -1,4 +1,4 @@
-import React, {
+import {
   ChangeEvent, Dispatch, MouseEvent, SetStateAction, 
 } from 'react';
 import { Statistics } from './voting';
@@ -65,18 +65,18 @@ export interface IssueItemProps extends IssueProps {
 }
 
 export interface IssueCardProps extends IssueProps {
-  editMode: boolean;
+  editMode?: boolean;
   isSending?: boolean;
   isCompleted?: boolean;
   inputValue?: string;
   deleteBtnAction: (event: MouseEvent) => void;
-  editBtnAction: (event: MouseEvent) => void;
+  editBtnAction?: (event: MouseEvent) => void;
   sendBtnAction?: (event: MouseEvent) => void;
   inputAction?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface CreateIssueProps {
-  columnMode?: boolean;
+  additionalStyle?: string;
   addBtnAction: () => void;
 }
 
@@ -162,29 +162,60 @@ export interface EditIssueValues {
   id: string;
 }
 
+type EditBtnAction = (
+  title: string,
+  url: string,
+  priority: keyof typeof IssuePriority,
+  id: string
+) => (event: MouseEvent) => void;
+
 export interface UseIssueTools {
   createIssueModalIsOpen: boolean;
-  updateIssueModalIsOpen: boolean;
-  isLoading: boolean;
-  editIssueValues: EditIssueValues;
-  voteMode: (id: string) => boolean;
-  isCompleted: (id: string) => boolean;
-  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
-  sendBtnAction: (id: string) => (event: MouseEvent) => void;
-  startRound: (id: string) => () => void;
   openCreateIssueModal: () => void;
   closeCreateIssueModal: () => void;
+}
+
+export interface UseSettingsIssueTools {
+  updateIssueModalIsOpen: boolean;
+  editIssueValues: EditIssueValues;
+  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
   closeUpdateIssueModal: () => void;
+  editBtnAction: EditBtnAction;
+}
+
+export interface UseGameIssueTools {
+  isLoading: boolean;
+  voteMode: (id: string) => boolean;
+  isCompleted: (id: string) => boolean;
+  sendBtnAction: (id: string) => (event: MouseEvent) => void;
+  startRound: (id: string) => () => void;
   finalVoteInputAction: (event: ChangeEvent<HTMLInputElement>) => void;
-  editBtnAction: (
-    title: string,
-    url: string,
-    priority: keyof typeof IssuePriority,
-    id: string
-  ) => (event: MouseEvent) => void;
+  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
 }
 
 export interface IssueToolsProps {
-  editMode?: boolean;
-  columnMode?: boolean;
+  wrapperStyle?: string;
+  listStyle?: string;
+  titleStyle?: string;
+  createIssueStyle?: string;
+  cards: React.ReactNode;
+  modal?: React.ReactNode;
+  modalIsOpen?: boolean;
+}
+
+export interface SettingsIssueCardsProps {
+  issues: ExtendedIssue[];
+  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
+  editBtnAction: EditBtnAction;
+}
+
+export interface GameIssueCardsProps {
+  issues: ExtendedIssue[];
+  isLoading: boolean;
+  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
+  sendBtnAction: (id: string) => (event: MouseEvent) => void;
+  finalVoteInputAction: (event: ChangeEvent<HTMLInputElement>) => void;
+  voteMode: (id: string) => boolean;
+  isCompleted: (id: string) => boolean;
+  startRound: (id: string) => () => void;
 }
