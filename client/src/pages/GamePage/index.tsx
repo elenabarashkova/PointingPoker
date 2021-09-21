@@ -1,13 +1,13 @@
 import GameTimer from 'components/GameTimer';
 import { IssueList } from 'components/issues/IssueList';
-import IssueTools from 'components/issues/IssueTools';
+import { GameIssueTools } from 'components/issues/IssueTools/GameIssueTools';
 import Button from 'components/shared/buttons/Button';
 import GameTitle from 'components/shared/GameTitle';
 import UserCard from 'components/shared/UserCard';
 import Statistics from 'components/Statistics';
 import VotingArea from 'components/voting/VotingArea';
 import React, {
-  ReactElement, useEffect, useMemo, useState,
+  ReactElement, useEffect, useMemo, useState, 
 } from 'react';
 import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
@@ -32,10 +32,10 @@ export interface GamePageProps {
   updateGameStatus: CallableFunction;
 }
 
-const GamePage: React.FC<GamePageProps> = ({
-  voting,
-  roundIsActive,
-  leaveRoom,
+const GamePage: React.FC<GamePageProps> = ({ 
+  voting, 
+  roundIsActive, 
+  leaveRoom, 
   updateGameStatus,
 }): ReactElement => {
   const [showStatistics, setShowStatistics] = useState(false);
@@ -81,7 +81,7 @@ const GamePage: React.FC<GamePageProps> = ({
         </div>
         <div className={styles.container}>
           <div className={styles.statContainer}>
-            {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
+            {isGameMaster ? <GameIssueTools /> : <IssueList />}
             {(!roundIsActive && showStatistics) && <Statistics issueId={issueId} />}
           </div>
           <Scores />
@@ -98,7 +98,7 @@ const mapStateToProps = (state: RootState) => ({
   roundIsActive: state.game.roundIsActive,
 });
 
-export default connect(mapStateToProps, {
+export default connect(mapStateToProps, { 
   leaveRoom: leaveRoomAction,
   updateGameStatus: updateGameStatusAction,
 })(GamePage);

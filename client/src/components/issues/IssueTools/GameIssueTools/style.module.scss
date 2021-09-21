@@ -1,0 +1,20 @@
+.issues_list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.column_wrapper {
+  margin-bottom: 20px;
+  width: 250px;
+
+  .issues_title {
+    width: 100%;
+  }
+}
+
+.create_issue {
+  flex-basis: auto;
+  padding: 20px 10px;
+}
