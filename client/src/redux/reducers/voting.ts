@@ -56,7 +56,7 @@ const initialState = {
   },
 };
 
-export const voting = (state: Voting = {}, action: VotingAction): Voting => {
+export const voting = (state: Voting = initialState, action: VotingAction): Voting => {
   switch (action.type) {
     case INIT_VOTING: {
       return {

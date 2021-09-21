@@ -19,6 +19,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 3px solid #49aaa3;
+  box-sizing: border-box;
+  box-shadow: 0 0.3rem 0.5rem #211b588a;
+  border-radius: 7px;
+  background: #f7de7b;
+
+  &.master {
+    border-color: #2d5b74;
+    background: #facf24;
+  }
 
   & > span {
     font-size: 30px;
