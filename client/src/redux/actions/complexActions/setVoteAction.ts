@@ -6,11 +6,13 @@ import { UserVotingData } from 'src/types/voting';
 import { setCommonNotification } from '../notifications';
 import { setUserVote } from '../voting';
 
-export const setVoteAction = (roomId: string, issueId: string, vote: string) => async (dispatch: Dispatch): Promise<void> => {
+export const setVoteAction = (
+  roomId: string, 
+  issueId: string, 
+  vote: string,
+) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const votingData = await sendVote(roomId, issueId, vote) as UserVotingData;
-    console.log('vote Отправляем на сервер:', vote);
-    console.log('votingData от сервера:', votingData);
     dispatch(setUserVote(votingData));
 
     const notification = createCommonNotificationAboutVouting(CommonNotificationType.success);

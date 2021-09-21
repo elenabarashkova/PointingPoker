@@ -7,6 +7,7 @@ import useTypedSelector from 'src/hooks/useTypedSelector';
 import { startRoundRequest } from 'src/redux/actions/complexActions/startRoundAction';
 import { stopRoundAction } from 'src/redux/actions/complexActions/stopRoundAction';
 import { RootState } from 'src/redux/reducers';
+import { isMaster } from 'src/shared/isMaster';
 import { Voting } from 'src/types/voting';
 import styles from './style.module.scss';
 
@@ -27,6 +28,8 @@ const GameTimer: React.FC<GameTimerPrors> = ({
   const changingCardInRoundEnd = useTypedSelector(({ gameSettings }) => gameSettings.changingCardInRoundEnd);
   const roomId = useTypedSelector(({ game }) => game.roomId);
   const issueId = useTypedSelector(({ game }) => game.currentIssueId);
+
+  const isUserMaster = isMaster();
 
   const { minutes, seconds } = calcTime(roundTime);
 
@@ -49,11 +52,12 @@ const GameTimer: React.FC<GameTimerPrors> = ({
   useEffect(() => {
     if (!roundIsActive) return;
     if (timerMitunes === 0 && timerSeconds === 0) {
-      stopRound(roomId);
-      if (changingCardInRoundEnd) {
-        setRestartButtonNeeded(true);
-      }
-      return;
+      if (isUserMaster) {
+        stopRound(roomId);
+        if (changingCardInRoundEnd) {
+          setRestartButtonNeeded(true);
+        }
+      } return;
     }
     if (timerSeconds === 0) {
       setTimeout(() => {
