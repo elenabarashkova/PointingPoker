@@ -1,9 +1,9 @@
+import FinalVoteInput from 'components/issues/FinalVoteInput';
+import { DeleteButton } from 'components/shared/buttons/DeleteButton';
+import { EditButton } from 'components/shared/buttons/EditButton';
 import IssueItem from 'components/shared/IssueItem';
 import React from 'react';
 import { IssueCardProps } from 'src/types/issues';
-import { DeleteButton } from '../../shared/buttons/DeleteButton';
-import { EditButton } from '../../shared/buttons/EditButton';
-import FinalVoteInput from '../FinalVoteInput';
 
 export const IssueCard: React.FC<IssueCardProps> = ({
   id,
