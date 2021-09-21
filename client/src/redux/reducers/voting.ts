@@ -23,40 +23,40 @@ export type VotingAction =
     finalVote: FinalVoteData;
   };
 
-const initialState = {
-  1237: {
-    finalVote: '5',
-    votes: [
-      {
-        userId: '2Qo1JANROXXoPWY0AAAV',
-        vote: 'coffee',
-      },
-      {
-        userId: 'gnzffoXjbH8YpYMAAAAX',
-        vote: '1',
-      },
-      {
-        userId: 'hw_mhp39ltw4YYUWAAAZ',
-        vote: '2',
-      },
-      {
-        userId: '7baKPM0JqQPNNoknAAAb',
-        vote: '3',
-      },
-      {
-        userId: '94CXszdD4lh9C-BaAAAd',
-        vote: '5',
-      },
-      {
-        userId: 'pL1CE-IzQ8k4zm0pAAAf',
-        vote: '',
-      },
-    ],
-    statistics: {},
-  },
-};
+// const initialState = {
+//   1237: {
+//     finalVote: '5',
+//     votes: [
+//       {
+//         userId: '2Qo1JANROXXoPWY0AAAV',
+//         vote: 'coffee',
+//       },
+//       {
+//         userId: 'gnzffoXjbH8YpYMAAAAX',
+//         vote: '1',
+//       },
+//       {
+//         userId: 'hw_mhp39ltw4YYUWAAAZ',
+//         vote: '2',
+//       },
+//       {
+//         userId: '7baKPM0JqQPNNoknAAAb',
+//         vote: '3',
+//       },
+//       {
+//         userId: '94CXszdD4lh9C-BaAAAd',
+//         vote: '5',
+//       },
+//       {
+//         userId: 'pL1CE-IzQ8k4zm0pAAAf',
+//         vote: '',
+//       },
+//     ],
+//     statistics: {},
+//   },
+// };
 
-export const voting = (state: Voting = initialState, action: VotingAction): Voting => {
+export const voting = (state: Voting = {}, action: VotingAction): Voting => {
   switch (action.type) {
     case INIT_VOTING: {
       return {

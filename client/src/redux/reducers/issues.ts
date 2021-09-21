@@ -9,25 +9,25 @@ import {
   UPDATE_ISSUE,
 } from '../action-types';
 
-// export const initialState: IssuesStore = {
-//   error: false,
-//   isLoading: false,
-//   issues: {},
-// };
-
 export const initialState: IssuesStore = {
   error: false,
   isLoading: false,
-  issues: {
-    1237: {
-      title: 'Issue 1',
-      link: 'http://localhost:8080/?roomId=',
-      priority: 'low',
-      status: 'pending',
-      date: 1632148700161,
-    },
-  },
+  issues: {},
 };
+
+// export const initialState: IssuesStore = {
+//   error: false,
+//   isLoading: false,
+//   issues: {
+//     1237: {
+//       title: 'Issue 1',
+//       link: 'http://localhost:8080/?roomId=',
+//       priority: 'low',
+//       status: 'pending',
+//       date: 1632148700161,
+//     },
+//   },
+// };
 
 export const issuesStore = (
   state: IssuesStore = initialState,

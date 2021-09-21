@@ -11,27 +11,27 @@ import {
   STOP_ROUND,
 } from '../action-types';
 
-// export const initialState = {
-//   gameStatus: '',
-//   roomId: '',
-//   isRoomValid: false,
-//   gameTitle: 'Sprint Plan',
-//   currentIssueId: '',
-//   roundIsActive: false,
-//   error: false,
-//   isLoading: false,
-// };
-
 export const initialState = {
-  gameStatus: 'active',
-  roomId: '1632148613679',
+  gameStatus: '',
+  roomId: '',
   isRoomValid: false,
   gameTitle: 'Sprint Plan',
-  currentIssueId: '1237',
+  currentIssueId: '',
   roundIsActive: false,
   error: false,
-  isLoading: true,
+  isLoading: false,
 };
+
+// export const initialState = {
+//   gameStatus: 'active',
+//   roomId: '1632148613679',
+//   isRoomValid: false,
+//   gameTitle: 'Sprint Plan',
+//   currentIssueId: '1237',
+//   roundIsActive: false,
+//   error: false,
+//   isLoading: true,
+// };
 
 export const game = (
   state: Game = initialState,

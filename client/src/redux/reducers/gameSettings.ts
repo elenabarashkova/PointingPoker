@@ -2,17 +2,6 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { GameSettings, ScoreType } from '../../types/room';
 import { SET_ALL_GAME_SETTINGS } from '../action-types';
 
-// export const initialState = {
-//   masterAsPlayer: true,
-//   changingCardInRoundEnd: false,
-//   timer: true,
-//   scoreType: ScoreType.storyPoint,
-//   roundTime: 140,
-//   cardsNumber: 6,
-//   autoAdmitNewUsers: true,
-//   autoFlip: true,
-// };
-
 export const initialState = {
   masterAsPlayer: true,
   changingCardInRoundEnd: false,
@@ -23,6 +12,17 @@ export const initialState = {
   autoAdmitNewUsers: true,
   autoFlip: true,
 };
+
+// export const initialState = {
+//   masterAsPlayer: true,
+//   changingCardInRoundEnd: false,
+//   timer: true,
+//   scoreType: ScoreType.storyPoint,
+//   roundTime: 140,
+//   cardsNumber: 6,
+//   autoAdmitNewUsers: true,
+//   autoFlip: true,
+// };
 
 export const gameSettings = (
   state: GameSettings = initialState,
