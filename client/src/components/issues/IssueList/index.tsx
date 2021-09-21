@@ -22,4 +22,4 @@ export const IssueList: React.FC = () => {
       ))}
     </div>
   );
-}; 
+};

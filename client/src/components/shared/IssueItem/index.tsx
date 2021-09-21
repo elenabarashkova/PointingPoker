@@ -8,6 +8,7 @@ export const IssueItem: React.FC<IssueItemProps> = ({
   priority,
   editBtn,
   deleteBtn,
+  input,
   columnMode,
   onClick,
 }) => (
@@ -30,7 +31,8 @@ export const IssueItem: React.FC<IssueItemProps> = ({
         priority
       </span>
     </div>
-    <div>
+    <div className={styles.buttonsWrapper}>
+      {input}
       {editBtn}
       {deleteBtn}
     </div>
@@ -39,6 +41,7 @@ export const IssueItem: React.FC<IssueItemProps> = ({
 
 IssueItem.defaultProps = {
   columnMode: false,
+  voteMode: false,
 };
 
 export default IssueItem;

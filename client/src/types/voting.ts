@@ -15,23 +15,23 @@ export interface UserVote {
 
 export interface Statistics {
   [vote: string]: {
-    votersAmount: number; 
+    votersAmount: number;
     percentage: number;
   };
 }
 
 export interface UserVotingData {
-  issueId: string; 
-  userId: string; 
+  issueId: string;
+  userId: string;
   vote: string;
 }
 
 export interface StatisticsData {
-  issueId: string; 
+  issueId: string;
   statistics: Statistics;
 }
 
 export interface FinalVoteData {
-  issueId: string; 
+  issueId: string;
   finalVote: string;
 }

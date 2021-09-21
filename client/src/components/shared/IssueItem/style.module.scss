@@ -18,20 +18,26 @@
   min-height: 70px;
 }
 
-.column_mode {
-  flex-basis: auto;
-  padding: 5px 10px;
-}
-
 .issueInfo {
   display: flex;
   flex-direction: column;
   flex: 0 0 65%;
 }
 
+.column_mode {
+  flex-basis: auto;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  .issueInfo {
+    flex: 0 0 auto;
+  }
+}
+
 .currentIssue {
   color: #22485c;
   background: #facf24;
+  cursor: inherit;
 }
 
 .current {
@@ -52,4 +58,8 @@
   font-size: 12px;
   line-height: 12px;
   padding-top: 5px;
+}
+
+.buttonsWrapper {
+  display: flex;
 }
