@@ -1,0 +1,57 @@
+@import '../../scss/variables.scss';
+
+.statArea {
+  display: flex;
+}
+.statItem {
+  font-family: $font-family-second;
+  color: $base-text-color-2;
+  font-size: larger;
+  width: 60px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 10px;
+  p {
+    margin: 0;
+  }
+  .block {
+    width: 60px;
+    border-radius: 5px;
+    box-shadow: $shadow;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }   
+}
+.statItem:nth-child(1) {
+  .block{
+    background: $light-blue;
+  }
+}
+.statItem:nth-child(2) {
+  .block {
+    background: $blue;
+  }
+}
+.statItem:nth-child(3) {
+  .block {
+    background: $yellow;
+  }   
+}
+.statItem:nth-child(4) {
+  .block {
+    background: $light-emerald;
+  }
+}
+.statItem:nth-child(5) {
+  .block {
+    background: $light-yellow;
+  }   
+}
+.statItem:nth-child(6) {
+  .block {
+    background: $emerald;
+  } 
+}

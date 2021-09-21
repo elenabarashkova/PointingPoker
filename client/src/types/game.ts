@@ -1,6 +1,5 @@
 import { Issue, Issues } from './issues';
 import { GameStatus } from './room';
-import { Statistics } from './voting';
 
 export interface ChangeGameStatusData {
   roomId: string;
