@@ -73,10 +73,11 @@ const GameTimer: React.FC<GameTimerPrors> = ({
   }, [timerSeconds]);
 
   useEffect(() => {
-    if (!roundIsActive) return;
-    if (roundIsActive) {
+    if (!roundIsActive) {
+      setTimerMinutes(0);
+      setTimerSeconds(0);
+    } else {
       setTimerMinutes(minutes);
-      setTimerSeconds(seconds);
     }
   }, [roundIsActive]);
 
@@ -94,4 +95,7 @@ const mapStateToProps = (state: RootState) => ({
   voting: state.voting,
 });
  
-export default connect(mapStateToProps, { startRound: startRoundRequest, stopRound: stopRoundAction })(GameTimer);
+export default connect(
+  mapStateToProps,
+  { startRound: startRoundRequest, stopRound: stopRoundAction },
+)(GameTimer);

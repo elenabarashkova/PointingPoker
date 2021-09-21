@@ -2,39 +2,34 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
-import { UserRole, Users, UserStatus } from 'src/types/user';
 import { UsersItem } from 'components/game/Scores/MembersList/UsersItem';
 import styles from './style.module.scss';
 import { GameSettings } from '../../../../types/room';
 import { UserVote } from '../../../../types/voting';
 
 interface MembersSectionProps {
-  users: Users;
+  gameMembers: Record<string, any>;
   gameSettings: GameSettings;
   votes: UserVote[];
   isRoundActive: boolean;
+  hasActiveMembers: boolean;
 }
 
 const MembersList: FunctionComponent<MembersSectionProps> = (
   {
-    users,
+    gameMembers,
     gameSettings,
     votes,
     isRoundActive,
+    hasActiveMembers,
   },
 ): ReactElement => {
   const currectUserId = useTypedSelector((state) => state.currentUserId);
-  const roomMembersData = Object.entries(users);
-  const activeMembers = roomMembersData.filter(([, { status }]) => (
-    (status === UserStatus.active || status === UserStatus.kicked)
-  ));
-  const master = activeMembers.filter(([, { role }]) => role === UserRole.master);
-  const observers = activeMembers.filter(([, { role }]) => role === UserRole.observer);
-  const players = activeMembers.filter(([, { role }]) => role === UserRole.player);
+  const { master, observers, players } = gameMembers;
 
   return (
     <div className={styles.membersList}>
-      {!activeMembers.length && <p>No members</p>}
+      {hasActiveMembers && <p>No members</p>}
       {gameSettings.masterAsPlayer ? (
         <UsersItem users={master} votes={votes} currectUserId={currectUserId} isRoundActive={isRoundActive} />
       ) : null}
@@ -46,7 +41,6 @@ const MembersList: FunctionComponent<MembersSectionProps> = (
 
 const mapStateToProps = (
   {
-    users,
     gameSettings,
     voting,
     game,
@@ -54,7 +48,6 @@ const mapStateToProps = (
 ) => {
   const { currentIssueId } = game;
   return ({
-    users,
     gameSettings,
     votes: voting[currentIssueId].votes,
   });
