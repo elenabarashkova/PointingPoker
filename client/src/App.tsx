@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
-  Route, RouteComponentProps, Switch, withRouter,
+  Route, RouteComponentProps, Switch, withRouter, 
 } from 'react-router-dom';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
 import Context from './helpers/context';
@@ -14,7 +14,10 @@ import MainPage from './pages/MainPage';
 import SettingsPage from './pages/Settings';
 import { setGameStatus, startRoundAction, stopRound } from './redux/actions/game';
 import {
-  addIssueAction, deleteIssueAction, setIssuesAction, updateIssueAction, 
+  addIssueAction,
+  deleteIssueAction,
+  setIssuesAction,
+  updateIssueAction,
 } from './redux/actions/issues';
 import { setMessageOnResponse } from './redux/actions/messages';
 import {
@@ -23,7 +26,9 @@ import {
   setVotingNotification,
 } from './redux/actions/notifications';
 import { updateUser } from './redux/actions/user';
-import { setUserVote, setVotingStatistics } from './redux/actions/voting';
+import {
+  initVoting, setFinalVoteAction, setUserVote, setVotingStatistics, 
+} from './redux/actions/voting';
 import { AppDispatch } from './redux/store';
 import {
   Events,
@@ -53,7 +58,7 @@ import {
 import { Pages } from './types/page';
 import { GameStatus } from './types/room';
 import { UserData } from './types/user';
-import { StatisticsData, UserVotingData } from './types/voting';
+import { FinalVoteData, StatisticsData, UserVotingData } from './types/voting';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -69,8 +74,10 @@ interface AppProps extends RouteComponentProps {
   deleteIssue: any;
   updateIssue: any;
   setUserVote: any;
+  setFinalVote: any;
   stopRound: any;
   setVotingStatistics: any;
+  initVoting: any;
 }
 
 const App: FunctionComponent<AppProps> = ({
@@ -86,9 +93,11 @@ const App: FunctionComponent<AppProps> = ({
   addIssue,
   deleteIssue,
   updateIssue,
+  setFinalVote,
   setUserVote: setNewUserVote,
   stopRound: stopGameRound,
   setVotingStatistics: setCommonVotingStatistics,
+  initVoting: initRoundVoting,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -102,7 +111,7 @@ const App: FunctionComponent<AppProps> = ({
     socket.on(USER_LEFT, (data) => {
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
-        data, 
+        data,
         CommonNotificationAction.left,
       );
       setNewCommonNotification(notificationData);
@@ -148,35 +157,23 @@ const App: FunctionComponent<AppProps> = ({
         redirectToGamePage();
       }
     });
-    
+
     socket.on(Events.roundIsStarted, ({ currentIssueId, issues, roundIsActive }) => {
       if (issues) {
         setIssues(issues);
         startRound({ currentIssueId, roundIsActive });
+        initRoundVoting(currentIssueId);
       }
     });
 
+    socket.on(Events.issueHasBeenAdded, (issueData) => addIssue(issueData));
+    socket.on(Events.issueHasBeenDeleted, (issueId) => deleteIssue(issueId));
+    socket.on(Events.issueHasBeenUpdated, (issueData) => updateIssue(issueData));
+    socket.on(Events.finalVote, (finalVote) => setFinalVote(finalVote));
+    
     socket.on(Events.roundIsFinished, ({ roundIsActive, issueId, issue }) => {
       stopGameRound(roundIsActive);
       setCommonVotingStatistics({ issueId, statistics: issue.statistics });
-    });
-
-    socket.on(Events.issueHasBeenAdded, (issueData) => {
-      if (issueData) {
-        addIssue(issueData);
-      }
-    });
-
-    socket.on(Events.issueHasBeenDeleted, (issueId) => {
-      if (issueId) {
-        deleteIssue(issueId);
-      }
-    });
-
-    socket.on(Events.issueHasBeenUpdated, (issueData) => {
-      if (issueData) {
-        updateIssue(issueData);
-      }
     });
 
     socket.on(USER_HAS_VOTED, setNewUserVote);
@@ -230,8 +227,10 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   deleteIssue: (issueId: string) => dispatch(deleteIssueAction(issueId)),
   updateIssue: (issue: IssueData) => dispatch(updateIssueAction(issue)),
   setUserVote: (votingData: UserVotingData) => dispatch(setUserVote(votingData)),
+  setFinalVote: (finalVote: FinalVoteData) => dispatch(setFinalVoteAction(finalVote)),
   stopRound: (roundIsActive: boolean) => dispatch(stopRound(roundIsActive)),
   setVotingStatistics: (statisticsData: StatisticsData) => dispatch(setVotingStatistics(statisticsData)),
+  initVoting: (issueId: string) => dispatch(initVoting(issueId)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));

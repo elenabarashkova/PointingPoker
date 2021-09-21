@@ -1,9 +1,13 @@
 import { nanoid } from 'nanoid/non-secure';
-import { CommonNotification, CommonNotificationAction, CommonNotificationType } from 'src/types/notifications';
+import {
+  CommonNotification,
+  CommonNotificationAction,
+  CommonNotificationType,
+} from 'src/types/notifications';
 import { User, UserData } from 'src/types/user';
 
 export const createCommonNotificationAboutUser = (
-  { user }: UserData, 
+  { user }: UserData,
   action: keyof typeof CommonNotificationAction,
 ): CommonNotification => {
   const { name, role } = user;
@@ -17,15 +21,15 @@ export const createCommonNotificationAboutUser = (
       break;
     case CommonNotificationAction.isNotDeleted:
       content = 'was not removed from the game session';
-      break; 
+      break;
     case CommonNotificationAction.left:
       content = 'left the game session';
-      break;   
+      break;
     default:
       break;
   }
-  
-  const id = nanoid(); 
+
+  const id = nanoid();
 
   return {
     key: id,
@@ -36,12 +40,12 @@ export const createCommonNotificationAboutUser = (
 
 export const createCommonNotificationAboutKicking = (
   type: keyof typeof CommonNotificationType,
-  kickedUser?: User, 
+  kickedUser?: User,
 ): CommonNotification => {
   const { name, role } = kickedUser;
-  const content = (type === CommonNotificationType.success) 
-    ? `You nominated ${role} ${name} for removal` 
-    : 'Your nomination failed. try again'; 
+  const content = type === CommonNotificationType.success
+    ? `You nominated ${role} ${name} for removal`
+    : 'Your nomination failed. try again';
   const id = nanoid();
   return {
     key: id,
@@ -56,7 +60,17 @@ export const createCommonNotificationAboutVouting = (
   const id = nanoid();
   return {
     key: id,
-    data: `Your vote was ${(type === CommonNotificationType.error) ? 'not' : ''} counted`,
+    data: `Your vote was ${type === CommonNotificationType.error ? 'not' : ''} counted`,
+    type,
+  };
+};
+export const createCommonNotificationAboutFinalVote = (
+  type: keyof typeof CommonNotificationType,
+): CommonNotification => {
+  const id = nanoid();
+  return {
+    key: id,
+    data: `Final vote was  ${type === CommonNotificationType.error ? 'not' : ''} accepted`,
     type,
   };
 };

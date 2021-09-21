@@ -7,44 +7,57 @@ import useTypedSelector from 'src/hooks/useTypedSelector';
 import { startRoundRequest } from 'src/redux/actions/complexActions/startRoundAction';
 import { stopRoundAction } from 'src/redux/actions/complexActions/stopRoundAction';
 import { RootState } from 'src/redux/reducers';
+import { isMaster } from 'src/shared/isMaster';
+import { Voting } from 'src/types/voting';
 import styles from './style.module.scss';
 
 export interface GameTimerPrors {
   roundIsActive: boolean;
   startRound: CallableFunction;
   stopRound: CallableFunction;
+  voting: Voting;
 }
  
 const GameTimer: React.FC<GameTimerPrors> = ({ 
   roundIsActive, 
   startRound, 
   stopRound, 
+  voting,
 }): ReactElement => {
   const roundTime = useTypedSelector(({ gameSettings }) => gameSettings.roundTime);
   const changingCardInRoundEnd = useTypedSelector(({ gameSettings }) => gameSettings.changingCardInRoundEnd);
   const roomId = useTypedSelector(({ game }) => game.roomId);
   const issueId = useTypedSelector(({ game }) => game.currentIssueId);
 
+  const isUserMaster = isMaster();
+
   const { minutes, seconds } = calcTime(roundTime);
 
   const [timerMitunes, setTimerMinutes] = useState(0);
   const [timerSeconds, setTimerSeconds] = useState(0);
-  const [timeIsUp, setTimeIsUp] = useState(false);
-  const isRestartButtonNeeded = timeIsUp && changingCardInRoundEnd;
+  const [isRestartButtonNeeded, setRestartButtonNeeded] = useState(false);
 
-  // todo: скрыть кнопку, если мастер выставил finalVote
+  useEffect(() => {
+    if (!voting[issueId]) return;
+    if (voting[issueId].finalVote) {
+      setRestartButtonNeeded(false);
+    }
+  }, [voting]);
 
   const handleRestartRound = () => {
-    setTimeIsUp(false);
+    setRestartButtonNeeded(false);
     startRound(roomId, issueId);
   };
 
   useEffect(() => {
     if (!roundIsActive) return;
     if (timerMitunes === 0 && timerSeconds === 0) {
-      stopRound(roomId);
-      setTimeIsUp(true);
-      return;
+      if (isUserMaster) {
+        stopRound(roomId);
+        if (changingCardInRoundEnd) {
+          setRestartButtonNeeded(true);
+        }
+      } return;
     }
     if (timerSeconds === 0) {
       setTimeout(() => {
@@ -78,6 +91,7 @@ const GameTimer: React.FC<GameTimerPrors> = ({
 
 const mapStateToProps = (state: RootState) => ({
   roundIsActive: state.game.roundIsActive,
+  voting: state.voting,
 });
  
 export default connect(mapStateToProps, { startRound: startRoundRequest, stopRound: stopRoundAction })(GameTimer);

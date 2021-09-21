@@ -1,5 +1,5 @@
 import React, {
-  ChangeEvent, Dispatch, MouseEvent, SetStateAction,
+  ChangeEvent, Dispatch, MouseEvent, SetStateAction, 
 } from 'react';
 import { Statistics } from './voting';
 
@@ -51,12 +51,14 @@ export interface IssueProps {
   current?: boolean;
   priority: keyof typeof IssuePriority;
   columnMode?: boolean;
+  voteMode?: boolean;
   onClick?: () => void;
 }
 
 export interface IssueItemProps extends IssueProps {
   editBtn?: React.ReactNode;
   deleteBtn?: React.ReactNode;
+  input?: React.ReactNode;
   disabled?: boolean;
   handleTitleChange?: () => void;
   handlePriorityChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
@@ -64,8 +66,13 @@ export interface IssueItemProps extends IssueProps {
 
 export interface IssueCardProps extends IssueProps {
   editMode: boolean;
+  isSending?: boolean;
+  isCompleted?: boolean;
+  inputValue?: string;
   deleteBtnAction: (event: MouseEvent) => void;
   editBtnAction: (event: MouseEvent) => void;
+  sendBtnAction?: (event: MouseEvent) => void;
+  inputAction?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface CreateIssueProps {
@@ -158,18 +165,23 @@ export interface EditIssueValues {
 export interface UseIssueTools {
   createIssueModalIsOpen: boolean;
   updateIssueModalIsOpen: boolean;
+  isLoading: boolean;
   editIssueValues: EditIssueValues;
+  voteMode: (id: string) => boolean;
+  isCompleted: (id: string) => boolean;
+  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
+  sendBtnAction: (id: string) => (event: MouseEvent) => void;
+  startRound: (id: string) => () => void;
+  openCreateIssueModal: () => void;
+  closeCreateIssueModal: () => void;
+  closeUpdateIssueModal: () => void;
+  finalVoteInputAction: (event: ChangeEvent<HTMLInputElement>) => void;
   editBtnAction: (
     title: string,
     url: string,
     priority: keyof typeof IssuePriority,
     id: string
   ) => (event: MouseEvent) => void;
-  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
-  startRound: (id: string) => () => void;
-  openCreateIssueModal: () => void;
-  closeCreateIssueModal: () => void;
-  closeUpdateIssueModal: () => void;
 }
 
 export interface IssueToolsProps {
