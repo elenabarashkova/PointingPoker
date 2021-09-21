@@ -1,4 +1,3 @@
-import { useSortedIssues } from 'components/issues/hooks/useSortedIssues';
 import { GameIssueCards } from 'components/issues/IssueCards/GameIssueCards';
 import React from 'react';
 import { IssueTools } from '..';
@@ -8,14 +7,16 @@ import { useGameIssueTools } from './useGameIssueTools';
 export const GameIssueTools: React.FC = () => {
   const {
     isLoading,
+    sortedIssues,
+    finalVoteInputValue,
     voteMode,
     sendBtnAction,
     finalVoteInputAction,
     startRound,
     isCompleted,
     deleteBtnAction,
+    getFinalVoteValue,
   } = useGameIssueTools();
-  const { sortedIssues } = useSortedIssues();
 
   return (
     <IssueTools
@@ -26,12 +27,14 @@ export const GameIssueTools: React.FC = () => {
       cards={(
         <GameIssueCards
           issues={sortedIssues}
+          finalVoteInputValue={finalVoteInputValue}
+          isLoading={isLoading}
           deleteBtnAction={deleteBtnAction}
           sendBtnAction={sendBtnAction}
+          getFinalVoteValue={getFinalVoteValue}
           finalVoteInputAction={finalVoteInputAction}
           voteMode={voteMode}
           isCompleted={isCompleted}
-          isLoading={isLoading}
           startRound={startRound}
         />
       )}

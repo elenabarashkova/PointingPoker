@@ -1,11 +1,12 @@
+import { useSortedIssues } from 'components/issues/hooks/useSortedIssues';
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { setFinalVoteRequest } from 'src/redux/actions/complexActions/setFinalVoteAction';
 import { startRoundRequest } from 'src/redux/actions/complexActions/startRoundAction';
-import { deleteIssueRequest } from 'src/redux/actions/issues';
 import { UseGameIssueTools } from 'src/types/issues';
 import { GameStatus } from 'src/types/room';
+import { useDeleteIssues } from '../useDeleteIssue';
 
 export const useGameIssueTools = (): UseGameIssueTools => {
   const [finalVote, setFinalVote] = useState<string>('');
@@ -15,17 +16,17 @@ export const useGameIssueTools = (): UseGameIssueTools => {
   const {
     roomId, gameStatus, roundIsActive, currentIssueId, 
   } = game;
+
   const dispatch = useDispatch();
 
-  const deleteBtnAction = (id: string) => (event: MouseEvent) => {
-    event.stopPropagation();
-    dispatch(deleteIssueRequest(roomId, id));
-  };
+  const { deleteBtnAction } = useDeleteIssues();
+  const { sortedIssues } = useSortedIssues();
 
   const sendBtnAction = (id: string) => (event: MouseEvent) => {
     event.stopPropagation();
     if (finalVote) {
       dispatch(setFinalVoteRequest(roomId, id, finalVote, setIsLoading));
+      setFinalVote('');
     }
   };
 
@@ -41,11 +42,16 @@ export const useGameIssueTools = (): UseGameIssueTools => {
     }
   };
 
+  const getFinalVoteValue = (id: string) => voting[id]?.finalVote || undefined;
+
   const voteMode = (id: string): boolean => currentIssueId === id && !roundIsActive;
   const isCompleted = (id: string): boolean => !!voting[id]?.finalVote;
 
   return {
     isLoading,
+    sortedIssues,
+    finalVoteInputValue: finalVote,
+    getFinalVoteValue,
     voteMode,
     sendBtnAction,
     finalVoteInputAction,
