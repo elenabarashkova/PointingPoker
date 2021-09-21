@@ -3,9 +3,9 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { ElementSize } from 'src/types/additional';
 import { ScoresItem } from 'components/game/Scores/MembersList/ScoreItem';
 import observer from 'components/shared/UserCard/observer.svg';
-import styles from './style.module.scss';
-import { UserVote } from '../../../../types/voting';
-import { UserRole } from '../../../../types/user';
+import styles from '../style.module.scss';
+import { UserVote } from '../../../../../types/voting';
+import { UserRole } from '../../../../../types/user';
 
 interface MembersSectionProps {
   users: Array<any>;
@@ -29,7 +29,14 @@ export const UsersItem: FunctionComponent<MembersSectionProps> = (
           <div className={styles.vote}>
             <img src={observer} alt="eyes" />
           </div>
-        ) : (<ScoresItem isRoundActive={isRoundActive} votes={votes} id={id} />)}
+        ) : (
+          <ScoresItem
+            isMaster={userInfo.role === UserRole.master}
+            isRoundActive={isRoundActive}
+            votes={votes}
+            id={id}
+          />
+        )}
         <UserCard
           user={userInfo}
           id={id}

@@ -1,18 +1,24 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import { UserVote } from '../../../../types/voting';
-import styles from './style.module.scss';
-import coffee from '../../../voting/VotingCard/coffee-cup.svg';
+import { UserVote } from '../../../../../types/voting';
+import styles from '../style.module.scss';
+import coffee from '../../../../voting/VotingCard/coffee-cup.svg';
 
 interface MembersSectionProps {
   id: string;
   votes: UserVote[];
   isRoundActive: boolean;
+  isMaster: boolean;
 }
 
 export const ScoresItem: FunctionComponent<MembersSectionProps> = (
-  { votes, id, isRoundActive },
+  {
+    votes,
+    id,
+    isRoundActive,
+    isMaster,
+  },
 ): ReactElement => (
-  <div className={styles.vote}>
+  <div className={`${styles.vote} ${isMaster ? styles.master : ''}`}>
     {votes.map(({ userId, vote }) => {
       if (userId === id) {
         return (

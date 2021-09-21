@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
-import { UsersItem } from 'components/game/Scores/MembersList/UsersItem';
+import { UsersItem } from 'components/game/Scores/MembersList/UserItem';
 import styles from './style.module.scss';
 import { GameSettings } from '../../../../types/room';
 import { UserVote } from '../../../../types/voting';
@@ -29,7 +29,7 @@ const MembersList: FunctionComponent<MembersSectionProps> = (
 
   return (
     <div className={styles.membersList}>
-      {hasActiveMembers && <p>No members</p>}
+      {!hasActiveMembers && <p>No members</p>}
       {gameSettings.masterAsPlayer ? (
         <UsersItem users={master} votes={votes} currectUserId={currectUserId} isRoundActive={isRoundActive} />
       ) : null}
