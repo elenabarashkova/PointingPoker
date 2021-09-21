@@ -12,7 +12,13 @@ export const IssueList: React.FC = () => {
       {sortedIssues.map(({
         id, title, priority, status, 
       }) => (
-        <IssueItem key={`issue-${id}`} title={title} priority={priority} current={status === IssueStatus.active} columnMode />
+        <IssueItem
+          key={`issue-${id}`}
+          title={title}
+          priority={priority}
+          current={status === IssueStatus.active}
+          columnMode
+        />
       ))}
     </div>
   );

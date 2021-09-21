@@ -1,9 +1,7 @@
-import UserCard from 'components/shared/UserCard';
 import React, { FunctionComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
-import { ElementSize } from 'src/types/additional';
 import { UserRole, Users, UserStatus } from 'src/types/user';
 import { UsersItem } from 'components/game/Scores/MembersList/UsersItem';
 import styles from './style.module.scss';

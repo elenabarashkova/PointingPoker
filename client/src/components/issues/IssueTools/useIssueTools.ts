@@ -25,7 +25,12 @@ export const useIssueTools = (): UseIssueTools => {
     }
   }, [editIssueValues]);
 
-  const editBtnAction = (title: string, url: string, priority: keyof typeof IssuePriority, id: string) => (event: MouseEvent) => {
+  const editBtnAction = (
+    title: string,
+    url: string,
+    priority: keyof typeof IssuePriority,
+    id: string,
+  ) => (event: MouseEvent) => {
     event.stopPropagation();
     setEditIssueValues((prev) => ({
       ...prev,
