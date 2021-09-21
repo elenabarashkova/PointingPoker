@@ -1,6 +1,6 @@
 import GameTimer from 'components/GameTimer';
 import { IssueList } from 'components/issues/IssueList';
-import IssueTools from 'components/issues/IssueTools';
+import { GameIssueTools } from 'components/issues/IssueTools/GameIssueTools';
 import Button from 'components/shared/buttons/Button';
 import GameTitle from 'components/shared/GameTitle';
 import UserCard from 'components/shared/UserCard';
@@ -30,7 +30,9 @@ const GamePage: React.FC<GamePageProps> = ({ leaveRoom, updateGameStatus }): Rea
   const currentUserId = useTypedSelector((state) => state.currentUserId);
 
   const roomUsers = useTypedSelector(({ users }) => users);
-  const [masterId, masterData] = Object.entries(roomUsers).filter(([, user]) => user.role === UserRole.master)[0];
+  const [masterId, masterData] = Object.entries(roomUsers).filter(
+    ([, user]) => user.role === UserRole.master,
+  )[0];
 
   const isTimerNeeded = useTypedSelector(({ gameSettings }) => gameSettings.timer);
 
@@ -42,30 +44,35 @@ const GamePage: React.FC<GamePageProps> = ({ leaveRoom, updateGameStatus }): Rea
     leaveRoom(roomId);
   };
 
-  const ButtonContent = (isGameMaster) ? 'Stop Game' : 'Exit';
-  const ButtonAction = (isGameMaster) ? handleStopGame : handleExit;
-  
+  const ButtonContent = isGameMaster ? 'Stop Game' : 'Exit';
+  const ButtonAction = isGameMaster ? handleStopGame : handleExit;
+
   return (
     <div className={styles.wrapper}>
       <Header page={Pages.game} />
       <main className={styles.main}>
         <GameTitle editable={false} />
         <div className={styles.container}>
-          <UserCard user={masterData} id={masterId} currentUserId={currentUserId} size={ElementSize.big} />
+          <UserCard
+            user={masterData}
+            id={masterId}
+            currentUserId={currentUserId}
+            size={ElementSize.big}
+          />
           {isTimerNeeded && <GameTimer />}
           <div style={{ marginBottom: '45px' }}>
             <Button content={ButtonContent} variant="colored" action={ButtonAction} />
           </div>
         </div>
-        {isGameMaster ? <IssueTools editMode={false} columnMode /> : <IssueList />}
+        {isGameMaster ? <GameIssueTools /> : <IssueList />}
         {!isGameMaster && <VotingArea />}
       </main>
       <Footer page={Pages.game} />
     </div>
   );
-}; 
+};
 
-export default connect(null, { 
+export default connect(null, {
   leaveRoom: leaveRoomAction,
   updateGameStatus: updateGameStatusAction,
 })(GamePage);
