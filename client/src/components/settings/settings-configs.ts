@@ -1,4 +1,4 @@
-import { GameSettings, ScoreType } from '../../types/room';
+import { ScoreType } from '../../types/room';
 
 export const SWITCHES_CONFIG = [
   {
