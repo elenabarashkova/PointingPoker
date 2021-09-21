@@ -1,6 +1,6 @@
 @import '../../../scss/variables.scss';
 
-.issueCard {
+.issue_card {
   box-sizing: border-box;
   padding: 10px;
   flex-basis: calc((700px - 30px) / 3);
@@ -16,9 +16,10 @@
   align-items: center;
   color: white;
   min-height: 70px;
+  overflow: hidden;
 }
 
-.issueInfo {
+.issue_info {
   display: flex;
   flex-direction: column;
   flex: 0 0 65%;
@@ -29,12 +30,12 @@
   padding: 5px 10px;
   cursor: pointer;
 
-  .issueInfo {
+  .issue_info {
     flex: 0 0 auto;
   }
 }
 
-.currentIssue {
+.current_issue {
   color: #22485c;
   background: #facf24;
   cursor: inherit;
@@ -60,6 +61,11 @@
   padding-top: 5px;
 }
 
-.buttonsWrapper {
+.buttons_wrapper {
   display: flex;
+}
+
+.not_clickable {
+  pointer-events: none;
+  cursor: inherit;
 }

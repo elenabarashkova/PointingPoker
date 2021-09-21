@@ -8,21 +8,25 @@ export const IssueItem: React.FC<IssueItemProps> = ({
   priority,
   editBtn,
   deleteBtn,
+  finalVote,
   input,
   columnMode,
+  notClickable,
+  voteMode,
   onClick,
 }) => (
   <div
     className={`
-      ${styles.issueCard} 
-      ${current && styles.currentIssue} 
-      ${columnMode && styles.column_mode}`}
+      ${styles.issue_card} 
+      ${current && styles.current_issue} 
+      ${columnMode && styles.column_mode}
+      ${notClickable && styles.not_clickable}`}
     onClick={onClick}
     onKeyDown={onClick}
     role="button"
     tabIndex={0}
   >
-    <div className={styles.issueInfo}>
+    <div className={styles.issue_info}>
       <span className={styles.current}>{current && 'current'}</span>
       <span className={styles.title}>{title}</span>
       <span className={styles.priority}>
@@ -31,8 +35,9 @@ export const IssueItem: React.FC<IssueItemProps> = ({
         priority
       </span>
     </div>
-    <div className={styles.buttonsWrapper}>
-      {input}
+    <div className={styles.buttons_wrapper}>
+      <div>{finalVote}</div>
+      {voteMode && input}
       {editBtn}
       {deleteBtn}
     </div>
@@ -41,6 +46,7 @@ export const IssueItem: React.FC<IssueItemProps> = ({
 
 IssueItem.defaultProps = {
   columnMode: false,
+  notClickable: false,
   voteMode: false,
 };
 
