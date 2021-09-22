@@ -1,7 +1,10 @@
+import { UserData } from './user';
+
 export interface Notifications {
   common: CommonNotification[];
   important: string;  
   voting: VotingData;
+  admitUser: UserData;
 }
 export interface CommonNotification {
   key: string;

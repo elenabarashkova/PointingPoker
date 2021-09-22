@@ -40,6 +40,7 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
       const {
         users, messages, issues, gameStatus, gameSettings, gameTitle,
       } = room as Room;
+      // todo: данные о голосовании
   
       batch(() => {
         dispatch(setUsersAction(users));

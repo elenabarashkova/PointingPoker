@@ -5,4 +5,5 @@ export enum Pages {
   settings = 'settings',
   error = 'error',
   goodbye = 'goodbye',
+  tooLate = 'tooLate',
 }

@@ -1,7 +1,12 @@
 import { CommonNotification, Notifications, VotingData } from 'src/types/notifications';
+import { UserData } from 'src/types/user';
 import {
   REMOVE_COMMON_NOTIFICATION,
-  REMOVE_IMPORTANT_NOTIFICATION, SET_COMMON_NOTIFICATION, SET_IMPORTANT_NOTIFICATION, SET_VOTING_NOTIFICATION, 
+  REMOVE_IMPORTANT_NOTIFICATION, 
+  SET_ADMIT_NOTIFICATION, 
+  SET_COMMON_NOTIFICATION, 
+  SET_IMPORTANT_NOTIFICATION, 
+  SET_VOTING_NOTIFICATION, 
 } from '../action-types';
   
 export const initialState = {
@@ -11,6 +16,7 @@ export const initialState = {
     kickInitiator: '',
     kickedUserId: '',
   },
+  admitUser: null,
 };
   
 export type NotificationAction = {
@@ -27,6 +33,9 @@ export type NotificationAction = {
 } | {
   type: 'SET_VOTING_NOTIFICATION';
   voting: VotingData;
+} | {
+  type: 'SET_ADMIT_NOTIFICATION';
+  userData: UserData;
 };
   
 export const notifications = (
@@ -67,7 +76,13 @@ export const notifications = (
         ...state, 
         voting: action.voting,
       };
-    }       
+    }    
+    case SET_ADMIT_NOTIFICATION: {
+      return {
+        ...state,
+        admitUser: action.userData,
+      };
+    }   
     default:
       return state;
   }
