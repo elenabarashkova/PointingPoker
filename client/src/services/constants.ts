@@ -12,6 +12,7 @@ export enum ResponseStatus {
   ok = 200,
   notFound = 404,
   error = 500,
+  admit = 202,
 }
 
 export const IS_ROOM_VALID = 'IS_ROOM_VALID';

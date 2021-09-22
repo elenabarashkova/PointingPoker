@@ -10,6 +10,7 @@ import { createRoom } from '../../../services/room/createRoom';
 import { redirectToLobby, redirectToSettings } from '../../../shared';
 import { Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
+import { setImportantNotification } from '../notifications';
 
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
   try {
@@ -30,24 +31,30 @@ export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promi
 
 export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatch: Dispatch): Promise<void> => {
   try {
-    const { room, roomId, userId } = (await joinRoom(gameIdInput, newUser)) as RoomData;
-    const {
-      users, messages, issues, gameStatus, gameSettings, gameTitle,
-    } = room as Room;
-
-    batch(() => {
-      dispatch(setUsersAction(users));
-      dispatch(setCurrentUserAction(userId));
-      dispatch(setRoomIdAction(roomId));
-      dispatch(setGameStatus(gameStatus));
-      dispatch(setAllGameSettings(gameSettings));
-      dispatch(setMessages(messages));
-      dispatch(setIssuesAction(issues));
-      dispatch(setTitle(gameTitle));
-    });
-
-    redirectToLobby();
+    const result = await joinRoom(gameIdInput, newUser);
+    if (result === 'Your request to join the room has been accepted'
+    || result === 'Room not found') {
+      dispatch(setImportantNotification(result));
+    } else {
+      const { room, roomId, userId } = result as RoomData;
+      const {
+        users, messages, issues, gameStatus, gameSettings, gameTitle,
+      } = room as Room;
+  
+      batch(() => {
+        dispatch(setUsersAction(users));
+        dispatch(setCurrentUserAction(userId));
+        dispatch(setRoomIdAction(roomId));
+        dispatch(setGameStatus(gameStatus));
+        dispatch(setAllGameSettings(gameSettings));
+        dispatch(setMessages(messages));
+        dispatch(setIssuesAction(issues));
+        dispatch(setTitle(gameTitle));
+      });
+  
+      redirectToLobby();
+    }
   } catch (error) {
-    // todo: common-cotifications Катя
+    dispatch(setImportantNotification('Something went wrong. Try again'));
   }
 };

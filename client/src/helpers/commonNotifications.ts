@@ -64,6 +64,7 @@ export const createCommonNotificationAboutVouting = (
     type,
   };
 };
+
 export const createCommonNotificationAboutFinalVote = (
   type: keyof typeof CommonNotificationType,
 ): CommonNotification => {

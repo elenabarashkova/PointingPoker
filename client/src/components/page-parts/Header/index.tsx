@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({
           kickInitiatorId={kickInitiator}
         />
       )}
-      { (page !== Pages.main && importantNotification) && (
+      { importantNotification && (
         <ImportantNotification 
           content={importantNotification} 
           isModalOpen={isNotificationModalOpen} 
