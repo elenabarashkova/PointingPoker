@@ -7,8 +7,8 @@ import { setRoomIdAction } from 'src/redux/actions/room';
 import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { joinRoom } from 'src/services/room/joinRoom';
 import { createRoom } from '../../../services/room/createRoom';
-import { redirectToLobby, redirectToSettings } from '../../../shared';
-import { Room, RoomData } from '../../../types/room';
+import { redirectToGamePage, redirectToLobby, redirectToSettings } from '../../../shared';
+import { GameStatus, Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
 import { setImportantNotification } from '../notifications';
 
@@ -52,8 +52,11 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
         dispatch(setIssuesAction(issues));
         dispatch(setTitle(gameTitle));
       });
-  
-      redirectToLobby();
+      if (gameStatus === GameStatus.active) {
+        redirectToGamePage();
+      } else {
+        redirectToLobby();
+      }
     }
   } catch (error) {
     dispatch(setImportantNotification('Something went wrong. Try again'));
