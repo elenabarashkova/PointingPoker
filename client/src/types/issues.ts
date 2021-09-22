@@ -79,7 +79,7 @@ export interface IssueCardProps extends IssueProps {
 
 export interface CreateIssueProps {
   additionalStyle?: string;
-  addBtnAction: () => void;
+  addBtnAction?: () => void;
 }
 
 export interface FormConfig {
@@ -228,4 +228,8 @@ export interface GameIssueCardsProps {
   voteMode: (id: string) => boolean;
   isCompleted: (id: string) => boolean;
   startRound: (id: string) => () => void;
+}
+
+export interface IssuesFromFileProps {
+  additionalStyle?: string;
 }
