@@ -18,7 +18,6 @@ export const setVoteAction = (
     const notification = createCommonNotificationAboutVouting(CommonNotificationType.success);
     dispatch(setCommonNotification(notification));
   } catch (error) {
-    console.log('error catch:', error);
     const notification = createCommonNotificationAboutVouting(CommonNotificationType.error);
     dispatch(setCommonNotification(notification));
   }

@@ -84,3 +84,12 @@ export const createCommonNotificationAboutError = (): CommonNotification => {
     type: CommonNotificationType.error,
   };
 };
+
+export const createCommonNotificationAboutConfirmation = (message: string): CommonNotification => {
+  const id = nanoid();
+  return {
+    key: id,
+    data: message,
+    type: CommonNotificationType.success,
+  };
+};

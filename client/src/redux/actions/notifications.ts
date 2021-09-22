@@ -1,10 +1,12 @@
 import { CommonNotification, VotingData } from 'src/types/notifications';
+import { UserData } from 'src/types/user';
 import {
   SET_COMMON_NOTIFICATION, 
   SET_IMPORTANT_NOTIFICATION, 
   SET_VOTING_NOTIFICATION, 
   REMOVE_IMPORTANT_NOTIFICATION, 
-  REMOVE_COMMON_NOTIFICATION, 
+  REMOVE_COMMON_NOTIFICATION,
+  SET_ADMIT_NOTIFICATION, 
 } from '../action-types';
 import { NotificationAction } from '../reducers/notifications';
 
@@ -30,4 +32,9 @@ export const removeImportantNotification = (): NotificationAction => ({
 export const setVotingNotification = (data: VotingData): NotificationAction => ({
   type: SET_VOTING_NOTIFICATION,
   voting: data,
+});
+
+export const setAdmitRejectUser = (userData: UserData): NotificationAction => ({
+  type: SET_ADMIT_NOTIFICATION,
+  userData,
 });

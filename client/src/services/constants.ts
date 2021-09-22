@@ -54,6 +54,10 @@ export const ERROR_RESULT = 'error';
 
 export const ISSUE_VOTE = 'ISSUE_VOTE';
 
+export const CONFIRM_ACCESS = 'CONFIRM_ACCESS';
+export const ACCESS_CONFIRMATION = 'ACCESS_CONFIRMATION';
+export const ACCESS_CONFIRMATION_RESPONSE = 'ACCESS_CONFIRMATION_RESPONSE';
+
 export enum Events {
   addIssue = 'ADD_ISSUE',
   issueHasBeenAdded = 'ISSUE_HAS_BEEN_ADDED',
