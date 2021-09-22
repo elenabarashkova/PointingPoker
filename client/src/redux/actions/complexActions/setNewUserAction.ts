@@ -25,7 +25,7 @@ export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promi
 
     redirectToSettings();
   } catch (error) {
-    // todo: common-cotifications Катя
+    dispatch(setImportantNotification('Something went wrong. Try again'));
   }
 };
 
