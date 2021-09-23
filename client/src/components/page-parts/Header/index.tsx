@@ -1,3 +1,4 @@
+import AdmitRejetUserModal from 'components/AdmitRejetUserModal';
 import ChatField from 'components/chatArea/ChatField';
 import ImportantNotification from 'components/Notifications/ImportantNotification';
 import VotingModal from 'components/voting/VotingModal';
@@ -9,6 +10,7 @@ import { AppDispatch } from 'src/redux/store';
 import { redirectToMainPage } from 'src/shared';
 import { ImportantNotifications, VotingData } from 'src/types/notifications';
 import { Pages } from 'src/types/page';
+import { UserData } from 'src/types/user';
 import styles from './style.module.scss';
 
 interface HeaderProps {
@@ -16,6 +18,7 @@ interface HeaderProps {
   importantNotification: string;
   votingNotification: VotingData;
   removeImportantNotification: CallableFunction;
+  admitRejectNotification: UserData;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
@@ -23,11 +26,14 @@ const Header: React.FC<HeaderProps> = ({
   importantNotification, 
   votingNotification,
   removeImportantNotification: removeLastImportantNotification,
+  admitRejectNotification,
 }): ReactElement => {
   const [isVotingModalOpen, setVotingModalOpen] = useState(false);
   const { kickInitiator, kickedUserId } = votingNotification;
 
   const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
+
+  const [isAdmitRejectModalOpen, setAdmitRejectModalOpen] = useState(false);
 
   useEffect(() => {
     if (!kickInitiator) return;
@@ -38,6 +44,11 @@ const Header: React.FC<HeaderProps> = ({
     if (!importantNotification) return;
     setNotificationModalOpen(true);
   }, [importantNotification]);
+
+  useEffect(() => {
+    if (!admitRejectNotification) return;
+    setAdmitRejectModalOpen(true);
+  }, [admitRejectNotification]);
 
   const hadleClickImportantNotification = () => {
     setNotificationModalOpen(false);
@@ -63,11 +74,18 @@ const Header: React.FC<HeaderProps> = ({
           kickInitiatorId={kickInitiator}
         />
       )}
-      { (page !== Pages.main && importantNotification) && (
+      { importantNotification && (
         <ImportantNotification 
           content={importantNotification} 
           isModalOpen={isNotificationModalOpen} 
           closeModal={hadleClickImportantNotification}
+        />
+      )}
+      { admitRejectNotification && (
+        <AdmitRejetUserModal 
+          userData={admitRejectNotification} 
+          isModalOpen={isAdmitRejectModalOpen} 
+          closeModal={() => setAdmitRejectModalOpen(false)}
         />
       )}
     </header>
@@ -77,6 +95,7 @@ const Header: React.FC<HeaderProps> = ({
 const mapStateToProps = (state: RootState) => ({
   importantNotification: state.notifications.important,
   votingNotification: state.notifications.voting,
+  admitRejectNotification: state.notifications.admitUser,
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

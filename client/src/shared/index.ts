@@ -20,3 +20,7 @@ export const redirectToGoodbyePage = (): void => {
 export const redirectToMainPage = (): void => {
   history.push('/');
 };
+
+export const redirectToTooLatePage = (): void => {
+  history.push(`/${Pages.tooLate}`);
+};

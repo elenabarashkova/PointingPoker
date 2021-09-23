@@ -64,6 +64,7 @@ export const createCommonNotificationAboutVouting = (
     type,
   };
 };
+
 export const createCommonNotificationAboutFinalVote = (
   type: keyof typeof CommonNotificationType,
 ): CommonNotification => {
@@ -81,5 +82,14 @@ export const createCommonNotificationAboutError = (): CommonNotification => {
     key: id,
     data: 'Something went wrong. Try again.',
     type: CommonNotificationType.error,
+  };
+};
+
+export const createCommonNotificationAboutConfirmation = (message: string): CommonNotification => {
+  const id = nanoid();
+  return {
+    key: id,
+    data: message,
+    type: CommonNotificationType.success,
   };
 };

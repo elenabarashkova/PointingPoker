@@ -1,0 +1,15 @@
+.modalWrapper {
+    position: fixed;
+    top: 20px;
+    left: calc((100vh - 300px) / 2);
+}
+.modalComponent {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+}
