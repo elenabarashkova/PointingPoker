@@ -49,6 +49,7 @@ export const USER_HAS_VOTED = 'USER_HAS_VOTED';
 export const CHANGE_GAME_SETTINGS = 'CHANGE_GAME_SETTINGS';
 
 export const CHANGE_GAME_TITLE = 'CHANGE_GAME_TITLE';
+export const GAME_TITLE_CHANGED = 'GAME_TITLE_CHANGED';
 
 export const ERROR_RESULT = 'error';
 
