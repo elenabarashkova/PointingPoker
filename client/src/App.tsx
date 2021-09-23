@@ -52,6 +52,7 @@ import {
   YOU_ARE_KICKED,
   YOU_ARE_NOT_DELETED,
   GAME_TITLE_CHANGED,
+  GAME_SETTINGS_CHANGED,
 } from './services/constants';
 import {
   redirectToGamePage, redirectToGoodbyePage, redirectToSettings, redirectToTooLatePage, 
@@ -229,6 +230,7 @@ const App: FunctionComponent<AppProps> = ({
     });
   }, []);
   socket.on(GAME_TITLE_CHANGED, setGameTitle);
+  socket.on(GAME_SETTINGS_CHANGED, setGameSettings);
   const roomId = useQuery();
 
   const routes = [

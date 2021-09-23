@@ -57,7 +57,8 @@ const GameTimer: React.FC<GameTimerPrors> = ({
         if (changingCardInRoundEnd) {
           setRestartButtonNeeded(true);
         }
-      } return;
+      }
+      return;
     }
     if (timerSeconds === 0) {
       setTimeout(() => {

@@ -17,7 +17,7 @@ const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value, disabled }): 
         type="number"
         name="minutes"
         onChange={handleChange}
-        value={value.minutes}
+        value={value.minutes > 0 ? value.minutes : 0}
         className={styles.input}
         disabled={disabled}
       />
@@ -30,7 +30,7 @@ const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value, disabled }): 
         type="number"
         name="seconds"
         onChange={handleChange}
-        value={value.seconds}
+        value={value.seconds > 0 ? value.seconds : 0}
         className={styles.input}
         disabled={disabled}
       />
