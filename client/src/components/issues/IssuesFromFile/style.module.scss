@@ -1,4 +1,4 @@
-.createIssue {
+.add_issues {
   box-sizing: border-box;
   padding: 15px 10px;
   flex-basis: calc((700px - 30px) / 3);
@@ -17,5 +17,28 @@
 
   p {
     margin: 0;
+  }
+}
+
+.input {
+  display: none;
+}
+
+.label {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
+
+  .image {
+    width: 30px;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(0.9);
   }
 }

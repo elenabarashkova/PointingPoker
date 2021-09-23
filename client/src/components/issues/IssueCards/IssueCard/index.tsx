@@ -1,4 +1,3 @@
-import FinalVoteInput from 'components/issues/FinalVoteInput';
 import { DeleteButton } from 'components/shared/buttons/DeleteButton';
 import { EditButton } from 'components/shared/buttons/EditButton';
 import IssueItem from 'components/shared/IssueItem';
@@ -14,13 +13,11 @@ export const IssueCard: React.FC<IssueCardProps> = ({
   isCompleted,
   voteMode,
   current,
-  inputValue,
-  isSending,
+  finalVote,
+  input,
   onClick,
-  inputAction,
   deleteBtnAction,
   editBtnAction,
-  sendBtnAction,
 }) => (
   <IssueItem
     id={id}
@@ -29,18 +26,11 @@ export const IssueCard: React.FC<IssueCardProps> = ({
     current={current}
     columnMode={columnMode}
     onClick={onClick}
+    voteMode={voteMode}
     editBtn={editMode && <EditButton onClick={editBtnAction} whiteColor />}
-    deleteBtn={<DeleteButton onClick={deleteBtnAction} />}
-    input={
-      voteMode && (
-        <FinalVoteInput
-          onChange={inputAction}
-          value={inputValue}
-          onClick={sendBtnAction}
-          disabled={isSending}
-          completed={isCompleted}
-        />
-      )
-    }
+    deleteBtn={!voteMode && !current && !isCompleted && <DeleteButton onClick={deleteBtnAction} />}
+    notClickable={isCompleted}
+    finalVote={finalVote}
+    input={input}
   />
 );

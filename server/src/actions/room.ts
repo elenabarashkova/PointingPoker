@@ -8,7 +8,7 @@ export const roomExists = (roomId: string, store: Store): boolean =>
 
 export const admissionNeeded = (roomId: string, store: Store): boolean =>
   !!store[roomId] &&
-  store[roomId].gameSettings.autoAdmitNewUsers &&
+  !store[roomId].gameSettings.autoAdmitNewUsers &&
   store[roomId].gameStatus === GameStatus.active;
 
 const createRoomId = (store: Store): string => {
