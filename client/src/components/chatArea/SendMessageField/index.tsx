@@ -1,13 +1,13 @@
-import React, { ReactElement, useState } from 'react';
 import { LinearProgress } from '@material-ui/core';
-import SendMessageButton from 'components/shared/buttons/SendMessageButton';
 import Textarea from 'components/chatArea/Textarea';
-import { ValidationMessages } from 'src/types/validationMessages';
+import SendMessageButton from 'components/shared/buttons/SendMessageButton';
+import React, { ReactElement, useState } from 'react';
 import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
-import styles from './style.module.scss';
+import { ValidationMessages } from 'src/types/validationMessages';
 import { setNewMessageAction } from '../../../redux/actions/complexActions/setNewMessageAction';
+import styles from './style.module.scss';
 
 interface SendMessageFieldProps {
   isLoading: boolean;
@@ -16,10 +16,10 @@ interface SendMessageFieldProps {
 }
 
 const SendMessageField: React.FC<SendMessageFieldProps> = ({
-  isLoading, 
-  serverError, 
-  setNewMessage, 
-}): ReactElement => {  
+  isLoading,
+  serverError,
+  setNewMessage,
+}): ReactElement => {
   const [messageInput, setMessageInput] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
 
@@ -32,7 +32,7 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
     if (!textAreaValue) {
       setValidationMessage(ValidationMessages.emptyField);
     }
-    setMessageInput(textAreaValue); 
+    setMessageInput(textAreaValue);
   };
 
   const handleSendMessage = () => {
@@ -47,17 +47,15 @@ const SendMessageField: React.FC<SendMessageFieldProps> = ({
     <div className={styles.wrapper}>
       <div className={styles.sendMessageField}>
         <Textarea
-          value={messageInput} 
-          onChange={handleTextArea} 
+          value={messageInput}
+          onChange={handleTextArea}
           placeholder="Print your message here"
           errorMessage={serverError ? ValidationMessages.error : validationMessage}
         />
         <SendMessageButton onClick={handleSendMessage} />
-      
       </div>
-      { isLoading && <LinearProgress /> }
+      {isLoading && <LinearProgress />}
     </div>
-    
   );
 };
 

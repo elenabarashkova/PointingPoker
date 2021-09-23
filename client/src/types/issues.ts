@@ -1,4 +1,4 @@
-import {
+import React, {
   ChangeEvent, Dispatch, MouseEvent, SetStateAction, 
 } from 'react';
 import { Statistics } from './voting';
@@ -52,13 +52,15 @@ export interface IssueProps {
   priority: keyof typeof IssuePriority;
   columnMode?: boolean;
   voteMode?: boolean;
+  finalVote?: string;
+  input?: React.ReactNode;
   onClick?: () => void;
 }
 
 export interface IssueItemProps extends IssueProps {
   editBtn?: React.ReactNode;
   deleteBtn?: React.ReactNode;
-  input?: React.ReactNode;
+  notClickable?: boolean;
   disabled?: boolean;
   handleTitleChange?: () => void;
   handlePriorityChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
@@ -77,7 +79,7 @@ export interface IssueCardProps extends IssueProps {
 
 export interface CreateIssueProps {
   additionalStyle?: string;
-  addBtnAction: () => void;
+  addBtnAction?: () => void;
 }
 
 export interface FormConfig {
@@ -169,6 +171,8 @@ type EditBtnAction = (
   id: string
 ) => (event: MouseEvent) => void;
 
+export type ButtonOnClickAction = (id: string) => (event: MouseEvent) => void;
+
 export interface UseIssueTools {
   createIssueModalIsOpen: boolean;
   openCreateIssueModal: () => void;
@@ -178,6 +182,7 @@ export interface UseIssueTools {
 export interface UseSettingsIssueTools {
   updateIssueModalIsOpen: boolean;
   editIssueValues: EditIssueValues;
+  sortedIssues: ExtendedIssue[];
   deleteBtnAction: (id: string) => (event: MouseEvent) => void;
   closeUpdateIssueModal: () => void;
   editBtnAction: EditBtnAction;
@@ -185,12 +190,15 @@ export interface UseSettingsIssueTools {
 
 export interface UseGameIssueTools {
   isLoading: boolean;
+  finalVoteInputValue?: string;
+  sortedIssues: ExtendedIssue[];
+  getFinalVoteValue?: (id: string) => string | undefined;
   voteMode: (id: string) => boolean;
   isCompleted: (id: string) => boolean;
-  sendBtnAction: (id: string) => (event: MouseEvent) => void;
+  sendBtnAction: ButtonOnClickAction;
   startRound: (id: string) => () => void;
   finalVoteInputAction: (event: ChangeEvent<HTMLInputElement>) => void;
-  deleteBtnAction: (id: string) => (event: MouseEvent) => void;
+  deleteBtnAction: ButtonOnClickAction;
 }
 
 export interface IssueToolsProps {
@@ -212,10 +220,16 @@ export interface SettingsIssueCardsProps {
 export interface GameIssueCardsProps {
   issues: ExtendedIssue[];
   isLoading: boolean;
+  finalVoteInputValue: string;
+  getFinalVoteValue?: (id: string) => string | undefined;
   deleteBtnAction: (id: string) => (event: MouseEvent) => void;
   sendBtnAction: (id: string) => (event: MouseEvent) => void;
   finalVoteInputAction: (event: ChangeEvent<HTMLInputElement>) => void;
   voteMode: (id: string) => boolean;
   isCompleted: (id: string) => boolean;
   startRound: (id: string) => () => void;
+}
+
+export interface IssuesFromFileProps {
+  additionalStyle?: string;
 }

@@ -12,6 +12,7 @@ export enum ResponseStatus {
   ok = 200,
   notFound = 404,
   error = 500,
+  admit = 202,
 }
 
 export const IS_ROOM_VALID = 'IS_ROOM_VALID';
@@ -52,6 +53,10 @@ export const CHANGE_GAME_TITLE = 'CHANGE_GAME_TITLE';
 export const ERROR_RESULT = 'error';
 
 export const ISSUE_VOTE = 'ISSUE_VOTE';
+
+export const CONFIRM_ACCESS = 'CONFIRM_ACCESS';
+export const ACCESS_CONFIRMATION = 'ACCESS_CONFIRMATION';
+export const ACCESS_CONFIRMATION_RESPONSE = 'ACCESS_CONFIRMATION_RESPONSE';
 
 export enum Events {
   addIssue = 'ADD_ISSUE',
