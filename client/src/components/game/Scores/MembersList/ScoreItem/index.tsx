@@ -10,6 +10,8 @@ interface MembersSectionProps {
   isMaster: boolean;
 }
 
+const coffeeVote = <img src={coffee} alt="coffee" />;
+
 export const ScoresItem: FunctionComponent<MembersSectionProps> = (
   {
     votes,
@@ -17,22 +19,17 @@ export const ScoresItem: FunctionComponent<MembersSectionProps> = (
     isRoundActive,
     isMaster,
   },
-): ReactElement => (
-  <div className={`${styles.vote} ${isMaster ? styles.master : ''}`}>
-    {votes.map(({ userId, vote }) => {
-      if (userId === id) {
-        return (
-          isRoundActive ? (
-            <span key={userId}>Pending</span>
-          ) : (vote ? (
-            vote === 'coffee' ? (
-              <img key={userId} src={coffee} alt="coffee" />
-            ) : (
-              <span key={userId}>{vote}</span>
-            )) : (<span key={userId}>—</span>))
-        );
-      }
-      return null;
-    })}
-  </div>
-);
+): ReactElement => {
+  const userVote = votes.find(({ userId }) => userId === id)?.vote;
+
+  const actualVote = userVote === 'coffee' ? coffeeVote : (<span>{userVote}</span>);
+  return (
+    <div className={`${styles.vote} ${isMaster ? styles.master : ''}`}>
+      {isRoundActive ? (
+        <span key={id}>Pending</span>
+      ) : (
+        userVote ? actualVote : (<span>—</span>)
+      )}
+    </div>
+  );
+};
