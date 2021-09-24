@@ -285,7 +285,6 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setVotingStatistics: (statisticsData: StatisticsData) => dispatch(setVotingStatistics(statisticsData)),
   initVoting: (issueId: string) => dispatch(initVoting(issueId)),
   setAdmitRejectNotification: (userData: UserData) => dispatch(setAdmitRejectUser(userData)),
-
   setUsersAction: (users: Users) => dispatch(setUsersAction(users)),
   setCurrentUserAction: (userId: string) => dispatch(setCurrentUserAction(userId)),
   setRoomIdAction: (roomId: string) => dispatch(setRoomIdAction(roomId)),
