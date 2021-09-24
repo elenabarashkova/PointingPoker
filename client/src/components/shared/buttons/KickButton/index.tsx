@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useTypedSelector from 'src/hooks/useTypedSelector';
-import { UserRole, Users } from 'src/types/user';
+import { UserRole, Users, UserStatus } from 'src/types/user';
 import { RootState } from 'src/redux/reducers';
 import { connect } from 'react-redux';
 import KickUserModal from 'components/KickUserModal';
@@ -20,9 +20,10 @@ const KickButton: React.FC<KickButtonProps> = ({ users, userId }): ReactElement 
   
   const currentUserId = useTypedSelector((state) => state.currentUserId);
   const currentUserRole = users[currentUserId].role;
-  const usersNumber = Object.values(users).filter((user) => user.role !== UserRole.master).length;
+  const activeUsersNumber = Object.values(users).filter((user) => (user.role !== UserRole.master 
+    && user.status === UserStatus.active)).length;
 
-  const disabled = ((currentUserRole !== UserRole.master && usersNumber < 3) || isModalOpen);
+  const disabled = ((currentUserRole !== UserRole.master && activeUsersNumber < 3) || isModalOpen);
 
   const handleClick = () => {
     setIsModalOpen((prev) => !prev);
