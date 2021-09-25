@@ -35,6 +35,8 @@ export interface Room {
   gameStatus: keyof typeof GameStatus;
   gameSettings: GameSettings;
   gameTitle: string;
+  currentIssueId?: string;
+  roundIsActive?: boolean;
 }
 
 export interface RoomData {

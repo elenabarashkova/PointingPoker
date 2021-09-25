@@ -24,6 +24,7 @@ export const LEAVE_ROOM = 'LEAVE_ROOM';
 export const USER_CONNECTED = 'USER_CONNECTED';
 export const USER_LEFT = 'USER_LEFT';
 export const USER_DISCONNECTED = 'USER_DISCONNECTED';
+export const MASTER_DISCONNECTED = 'MASTER_DISCONNECTED';
 export const DISCONNECTING = 'disconnecting';
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';

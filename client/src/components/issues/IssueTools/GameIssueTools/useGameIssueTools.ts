@@ -36,16 +36,24 @@ export const useGameIssueTools = (): UseGameIssueTools => {
     setFinalVote(value);
   };
 
-  const startRound = (id: string) => () => {
-    if (gameStatus === GameStatus.active && !roundIsActive && id !== currentIssueId) {
-      dispatch(startRoundRequest(roomId, id));
-    }
-  };
+  const voteMode = (id: string): boolean => currentIssueId === id && !roundIsActive;
+
+  const isCompleted = (id: string): boolean => !!voting[id]?.finalVote;
 
   const getFinalVoteValue = (id: string) => voting[id]?.finalVote || undefined;
 
-  const voteMode = (id: string): boolean => currentIssueId === id && !roundIsActive;
-  const isCompleted = (id: string): boolean => !!voting[id]?.finalVote;
+  const newRoundCanBeStarted = (id: string) => (currentIssueId
+    ? gameStatus === GameStatus.active
+        && id !== currentIssueId
+        && !roundIsActive
+        && isCompleted(currentIssueId)
+    : true);
+
+  const startRound = (id: string) => () => {
+    if (newRoundCanBeStarted(id)) {
+      dispatch(startRoundRequest(roomId, id));
+    }
+  };
 
   return {
     isLoading,

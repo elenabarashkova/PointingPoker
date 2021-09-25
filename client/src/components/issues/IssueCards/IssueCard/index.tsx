@@ -12,9 +12,11 @@ export const IssueCard: React.FC<IssueCardProps> = ({
   columnMode,
   isCompleted,
   voteMode,
+  gameMode,
   current,
   finalVote,
   input,
+  link,
   onClick,
   deleteBtnAction,
   editBtnAction,
@@ -22,11 +24,13 @@ export const IssueCard: React.FC<IssueCardProps> = ({
   <IssueItem
     id={id}
     title={title}
+    link={link}
     priority={priority}
     current={current}
     columnMode={columnMode}
     onClick={onClick}
     voteMode={voteMode}
+    gameMode={gameMode}
     editBtn={editMode && <EditButton onClick={editBtnAction} whiteColor />}
     deleteBtn={!voteMode && !current && !isCompleted && <DeleteButton onClick={deleteBtnAction} />}
     notClickable={isCompleted}

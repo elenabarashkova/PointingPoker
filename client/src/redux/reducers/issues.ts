@@ -13,21 +13,8 @@ export const initialState: IssuesStore = {
   error: false,
   isLoading: false,
   issues: {},
+  issuesCounter: 1,
 };
-
-// export const initialState: IssuesStore = {
-//   error: false,
-//   isLoading: false,
-//   issues: {
-//     1237: {
-//       title: 'Issue 1',
-//       link: 'http://localhost:8080/?roomId=',
-//       priority: 'low',
-//       status: 'pending',
-//       date: 1632148700161,
-//     },
-//   },
-// };
 
 export const issuesStore = (
   state: IssuesStore = initialState,
@@ -49,6 +36,7 @@ export const issuesStore = (
       return {
         ...state,
         issues: { ...state.issues, [payload.issueId]: payload.issue },
+        issuesCounter: state.issuesCounter + 1,
         isLoading: false,
         error: false,
       };

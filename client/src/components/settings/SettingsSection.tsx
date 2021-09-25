@@ -1,16 +1,16 @@
-import React, { ChangeEvent, ReactElement, useState } from 'react';
-import { SwitchWithLabel } from 'components/shared/switches/SwitchWithLabel/SwitchWithLabel';
-import { SWITCHES_CONFIG, INITIAL_TIME } from 'components/settings/settings-configs';
+import { INITIAL_TIME, SWITCHES_CONFIG } from 'components/settings/settings-configs';
 import { SettingsSelect } from 'components/settings/SettingsSelect';
 import TimeInput from 'components/settings/TimeInput';
 import Button from 'components/shared/buttons/Button';
-import { connect } from 'react-redux';
-import VotingCardsField from 'components/voting/VotingCardsField';
 import { Select } from 'components/shared/Select';
-import styles from './style.module.scss';
+import { SwitchWithLabel } from 'components/shared/switches/SwitchWithLabel/SwitchWithLabel';
+import VotingCardsField from 'components/voting/VotingCardsField';
+import React, { ChangeEvent, ReactElement, useState } from 'react';
+import { connect } from 'react-redux';
 import { changeGameSettingsAction } from '../../redux/actions/complexActions/changeGameSettingsAction';
 import { RootState } from '../../redux/reducers';
 import { GameSettings } from '../../types/room';
+import styles from './style.module.scss';
 
 export interface Time {
   minutes: number;
@@ -22,16 +22,16 @@ interface SettingsSectionProps {
   changeGameSettings: CallableFunction;
   roomId: string;
   gameSettings: GameSettings;
+  canParticipate: boolean;
 }
 
-const SettingsSection: React.FC<SettingsSectionProps> = (
-  {
-    settingsChangeHandler,
-    changeGameSettings,
-    roomId,
-    gameSettings,
-  },
-):ReactElement => {
+const SettingsSection: React.FC<SettingsSectionProps> = ({
+  settingsChangeHandler,
+  changeGameSettings,
+  roomId,
+  gameSettings,
+  canParticipate,
+}): ReactElement => {
   const [settings, setSettings] = useState(gameSettings);
   const [time, setTime] = useState<Time>(INITIAL_TIME);
   const [settingsEdited, setSettingsEdited] = useState(false);
@@ -47,7 +47,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
     setSettingsEdited(true);
   };
 
-  const switchesSet = ():ReactElement => (
+  const switchesSet = (): ReactElement => (
     <>
       {SWITCHES_CONFIG.map(({ label, name }) => (
         <SwitchWithLabel
@@ -142,8 +142,17 @@ const SettingsSection: React.FC<SettingsSectionProps> = (
           </div>
         ) : null}
       </div>
-      <Button variant="colored" content="Save Settings" action={handleClick} disabled={!settingsEdited} />
-      <VotingCardsField scoreType={settings.scoreType} number={settings.cardsNumber} />
+      <Button
+        variant="colored"
+        content="Save Settings"
+        action={handleClick}
+        disabled={!settingsEdited}
+      />
+      <VotingCardsField
+        scoreType={settings.scoreType}
+        number={settings.cardsNumber}
+        canParticipate={canParticipate}
+      />
     </div>
   );
 };

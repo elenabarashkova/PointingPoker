@@ -1,18 +1,30 @@
 import {
-  FinalVoteData, StatisticsData, UserVotingData, Voting,
+  FinalVoteData,
+  StatisticsData,
+  UsersVotingData,
+  UserVotingData,
+  Voting,
 } from 'src/types/voting';
 import {
-  INIT_VOTING, SET_FINAL_VOTE, SET_STATISTICS, SET_USER_VOTE,
+  INIT_VOTING,
+  SET_FINAL_VOTE,
+  SET_STATISTICS,
+  SET_USERS_VOTE,
+  SET_USER_VOTE,
 } from '../action-types';
 
 export type VotingAction =
-  {
+  | {
     type: 'INIT_VOTING';
     issueId: string;
   }
   | {
     type: 'SET_USER_VOTE';
     votingData: UserVotingData;
+  }
+  | {
+    type: 'SET_USERS_VOTE';
+    votesData: UsersVotingData;
   }
   | {
     type: 'SET_STATISTICS';
@@ -75,6 +87,16 @@ export const voting = (state: Voting = {}, action: VotingAction): Voting => {
         [issueId]: {
           ...state[issueId],
           votes: [...state[issueId].votes, { userId, vote }],
+        },
+      };
+    }
+    case SET_USERS_VOTE: {
+      const { issueId, votes } = action.votesData;
+      return {
+        ...state,
+        [issueId]: {
+          ...state[issueId],
+          votes,
         },
       };
     }

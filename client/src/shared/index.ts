@@ -24,3 +24,7 @@ export const redirectToMainPage = (): void => {
 export const redirectToTooLatePage = (): void => {
   history.push(`/${Pages.tooLate}`);
 };
+
+export const redirectToResultPage = (): void => {
+  history.push(`/${Pages.result}`);
+};
