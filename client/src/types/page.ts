@@ -6,4 +6,5 @@ export enum Pages {
   error = 'error',
   goodbye = 'goodbye',
   tooLate = 'tooLate',
+  result = 'result',
 }

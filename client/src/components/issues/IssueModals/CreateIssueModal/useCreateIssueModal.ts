@@ -1,21 +1,21 @@
 import {
-  ChangeEvent, Dispatch, SetStateAction, useEffect, useMemo, useState,
+  ChangeEvent, Dispatch, SetStateAction, useEffect, useState, 
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addIssueRequest } from 'src/redux/actions/issues';
 import {
-  FormConfig, FormValues, IssuePriority, UseIssueModal,
+  FormConfig, FormValues, IssuePriority, UseIssueModal, 
 } from 'src/types/issues';
 import { RootStore } from 'src/types/store';
-import { getNextIssueNumber } from '../helpers';
 import { useValidation } from '../useValidation';
 
 export const useCreateIssueModal = (config: FormConfig, noBtnAction: () => void): UseIssueModal => {
   const { issuesStore, game } = useSelector((store: RootStore) => store);
-  const { issues, isLoading, error } = issuesStore;
-  const nextIssuesNum = useMemo(() => getNextIssueNumber(issues), [issues]);
+  const {
+    issues, issuesCounter, isLoading, error, 
+  } = issuesStore;
 
-  const [issueTitle, setIssueTitle] = useState<string>(`Issue ${nextIssuesNum}`);
+  const [issueTitle, setIssueTitle] = useState<string>(`Issue ${issuesCounter}`);
   const [issueLink, setIssueLink] = useState<string>('');
   const [issuePriority, setIssuePriority] = useState<keyof typeof IssuePriority>(IssuePriority.low);
 
@@ -41,7 +41,7 @@ export const useCreateIssueModal = (config: FormConfig, noBtnAction: () => void)
 
   const closeModal = () => {
     noBtnAction();
-    setIssueTitle(`Issue ${nextIssuesNum}`);
+    setIssueTitle(`Issue ${issuesCounter}`);
     setIssueLink('');
     setIssuePriority(IssuePriority.low);
     resetErrors();

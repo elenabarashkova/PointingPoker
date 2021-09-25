@@ -26,27 +26,32 @@ export const IssueModal: React.FC<IssueModalProps> = ({
     loading={isLoading}
   >
     <form>
-      {Object.entries(config).map(([inputName, {
-        type, placeholder, label, errorText, 
-      }]) => (type === 'text' ? (
-        <TextInput
-          key={inputName}
-          name={inputName}
-          value={valuesConfig[inputName].value}
-          label={label}
-          onChange={handleChange(valuesConfig[inputName].action)}
-          placeholder={placeholder}
-          errorMessage={errors[inputName] && errorText}
-        />
-      ) : (
-        <Select
-          key={inputName}
-          value={valuesConfig[inputName].value}
-          valuesConfig={options}
-          name={inputName}
-          handleChange={handleSelect}
-        />
-      )))}
+      {Object.entries(config).map(
+        ([inputName, {
+          type, placeholder, label, errorText, maxLength, 
+        }]) => (type === 'text' ? (
+          <TextInput
+            key={inputName}
+            name={inputName}
+            value={valuesConfig[inputName].value}
+            label={label}
+            onChange={handleChange(valuesConfig[inputName].action)}
+            placeholder={placeholder}
+            errorMessage={errors[inputName] && errorText}
+            maxLength={maxLength}
+          />
+        ) : (
+          <Select
+            label={label}
+            selectId={inputName}
+            key={inputName}
+            value={valuesConfig[inputName].value}
+            valuesConfig={options}
+            name={inputName}
+            handleChange={handleSelect}
+          />
+        )),
+      )}
     </form>
   </Modal>
 );

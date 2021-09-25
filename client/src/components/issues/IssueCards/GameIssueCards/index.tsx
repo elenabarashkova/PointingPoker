@@ -17,13 +17,15 @@ export const GameIssueCards: React.FC<GameIssueCardsProps> = ({
 }) => (
   <>
     {issues.map(({
-      id, title, priority, status, 
+      id, title, priority, status, link, 
     }) => (
       <IssueCard
         key={id}
         id={id}
         columnMode
+        gameMode
         title={title}
+        link={link}
         priority={priority}
         current={status === IssueStatus.active}
         voteMode={voteMode(id)}

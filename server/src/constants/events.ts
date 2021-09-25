@@ -18,6 +18,7 @@ export enum UserEvents {
   userConnected = 'USER_CONNECTED',
   userLeft = 'USER_LEFT',
   userDisconnected = 'USER_DISCONNECTED',
+  masterDisconnected = 'MASTER_DISCONNECTED',
   disconnecting = 'disconnecting',
   reconnected = 'RECONNECTED',
   userReconnected = 'USER_RECONNECTED',

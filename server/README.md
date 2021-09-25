@@ -56,7 +56,7 @@ socket.emit("IS_ROOM_VALID", roomId, (response) => { console.log(response) });
 
 User should have role: "player" | "observer"
 
-##### 1) IF GAME IS ACTIVE AND autoAdmitNewUsers IS TRUE
+##### 1) IF GAME IS ACTIVE AND autoAdmitNewUsers IS FALSE
 
 ##### On joined user side you can add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
@@ -86,7 +86,7 @@ socket.emit("ACCESS_CONFIRMATION", { roomId, userId, user, confirmation: true/fa
 - data if access was allowed: **{room, roomId, userId, confirmation: true}**
 - data if access was not allowed: **{ confirmation: false }**
 
-##### 2) IF GAME IS NOT ACTIVE OR autoAdmitNewUsers IS FALSE
+##### 2) IF GAME IS NOT ACTIVE OR autoAdmitNewUsers IS TRUE
 
 ##### On joined user side you can add a callback as the last argument of the emit(), and this callback will be called once the server side acknowledges the event:
 
@@ -449,7 +449,7 @@ socket.emit("UPDATE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ###### Other users in this room should listen event:
 
-- event: **USER_DISCONNECTED**
+- event: **USER_DISCONNECTED** or **MASTER_DISCONNECTED**
 - data: **{ disconnectedUserId, disconnectedUser }**
 
 ---
@@ -526,7 +526,6 @@ socket.emit("STOP_ROUND", roomId, (response) => { console.log(response) });
 - data: { roundIsActive: false, issueId, issue : Issue with statistics}
 
 ---
-
 
 ##### - ISSUE_VOTE
 

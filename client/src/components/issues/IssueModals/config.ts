@@ -7,6 +7,7 @@ export const CREATE_ISSUE_FORM_CONFIG: FormConfig = {
     label: 'Title:',
     errorText: 'Please fill in this field',
     regExp: /\S/,
+    maxLength: 30,
   },
   issueLink: {
     type: 'text',
@@ -14,13 +15,15 @@ export const CREATE_ISSUE_FORM_CONFIG: FormConfig = {
     label: 'Link:',
     errorText: 'Please enter a valid URL',
     regExp: /^(http|https):\/\/[^ "]+$/,
+    maxLength: 100,
   },
   issuePriority: {
     type: 'select',
     placeholder: '',
-    label: 'Link:',
+    label: 'Priority:',
     errorText: 'Please select issue priority',
     regExp: /\S/,
+    maxLength: undefined,
   },
 };
 

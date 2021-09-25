@@ -1,11 +1,10 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
-import { connect } from 'react-redux';
-import {
-  Route, RouteComponentProps, Switch, withRouter, 
-} from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
+import { Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
 import Context from './helpers/context';
 import { useQuery } from './helpers/query';
+import { setRoomData } from './helpers/setRoomData';
 import ErrorPage from './pages/ErrorPage';
 import GamePage from './pages/GamePage';
 import GoodbyePage from './pages/GoodbyePage';
@@ -14,35 +13,46 @@ import MainPage from './pages/MainPage';
 import SettingsPage from './pages/Settings';
 import TooLatePage from './pages/TooLatePage';
 import {
-  setAllGameSettings, setGameStatus, setTitle, startRoundAction, stopRound, 
+  setAllGameSettings,
+  setGameStatus,
+  setTitle,
+  startRoundAction,
+  stopRound
 } from './redux/actions/game';
 import {
   addIssueAction,
   deleteIssueAction,
   setIssuesAction,
-  updateIssueAction,
+  updateIssueAction
 } from './redux/actions/issues';
 import { setMessageOnResponse, setMessages } from './redux/actions/messages';
 import {
   setAdmitRejectUser,
   setCommonNotification,
   setImportantNotification,
-  setVotingNotification,
+  setVotingNotification
 } from './redux/actions/notifications';
 import { setRoomIdAction } from './redux/actions/room';
 import { setCurrentUserAction, setUsersAction, updateUser } from './redux/actions/user';
 import {
-  initVoting, setFinalVoteAction, setUserVote, setVotingStatistics, 
+  initVoting,
+  setFinalVoteAction,
+  setUserVote,
+  setVotingStatistics
 } from './redux/actions/voting';
 import { AppDispatch } from './redux/store';
 import {
   ACCESS_CONFIRMATION_RESPONSE,
   CONFIRM_ACCESS,
   Events,
+  GAME_SETTINGS_CHANGED,
   GAME_STATUS_CHANGED,
+  GAME_TITLE_CHANGED,
+  MASTER_DISCONNECTED,
   RECEIVE_MESSAGE,
   socket,
   USER_CONNECTED,
+  USER_DISCONNECTED,
   USER_HAS_VOTED,
   USER_IS_DELETED,
   USER_IS_KICKED,
@@ -50,13 +60,9 @@ import {
   USER_LEFT,
   YOU_ARE_DELETED,
   YOU_ARE_KICKED,
-  YOU_ARE_NOT_DELETED,
-  GAME_TITLE_CHANGED,
-  GAME_SETTINGS_CHANGED,
+  YOU_ARE_NOT_DELETED
 } from './services/constants';
-import {
-  redirectToGamePage, redirectToGoodbyePage, redirectToSettings, redirectToTooLatePage, 
-} from './shared';
+import { redirectToGamePage, redirectToGoodbyePage, redirectToTooLatePage } from './shared';
 import { StartRoundData } from './types/game';
 import { IssueData, Issues } from './types/issues';
 import { Message } from './types/messages';
@@ -64,11 +70,11 @@ import {
   CommonNotification,
   CommonNotificationAction,
   ImportantNotifications,
-  VotingData,
+  VotingData
 } from './types/notifications';
 import { Pages } from './types/page';
-import { GameSettings, GameStatus, Room } from './types/room';
-import { User, UserData, Users } from './types/user';
+import { GameSettings, GameStatus } from './types/room';
+import { UserData, Users } from './types/user';
 import { FinalVoteData, StatisticsData, UserVotingData } from './types/voting';
 
 interface AppProps extends RouteComponentProps {
@@ -124,25 +130,48 @@ const App: FunctionComponent<AppProps> = ({
   setRoomIdAction: setRoomId,
   setAllGameSettingsAction: setGameSettings,
   setMessagesAction: setAllMessages,
-  setTitleAction: setGameTitle,
+  setTitleAction: setGameTitle
 }): ReactElement => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
       setNewUser(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.connect,
+        CommonNotificationAction.connect
       );
       setNewCommonNotification(notificationData);
     });
+
     socket.on(USER_LEFT, (data) => {
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.left,
+        CommonNotificationAction.left
       );
       setNewCommonNotification(notificationData);
     });
+
+    socket.on(USER_DISCONNECTED, ({ disconnectedUserId, disconnectedUser }) => {
+      const disconnectedUserData = { userId: disconnectedUserId, user: disconnectedUser };
+      updateUserStatus(disconnectedUserData);
+      const notificationData = createCommonNotificationAboutUser(
+        disconnectedUserData,
+        CommonNotificationAction.disconnected
+      );
+      setNewCommonNotification(notificationData);
+    });
+
+    socket.on(MASTER_DISCONNECTED, ({ disconnectedUserId, disconnectedUser }) => {
+      const disconnectedUserData = { userId: disconnectedUserId, user: disconnectedUser };
+      updateUserStatus(disconnectedUserData);
+      setNewImportantNotification(ImportantNotifications.masterDisconnected);
+      setTimeout(() => {
+        redirectToGoodbyePage();
+      }, 5000);
+    });
+
     socket.on(RECEIVE_MESSAGE, setNewMessage);
     socket.on(USER_IS_KICKED, ({ kickInitiator, kickedUserId, kickedUser }) => {
       updateUserStatus({ userId: kickedUserId, user: kickedUser });
@@ -156,7 +185,7 @@ const App: FunctionComponent<AppProps> = ({
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.deleted,
+        CommonNotificationAction.deleted
       );
       setNewCommonNotification(notificationData);
     });
@@ -164,7 +193,7 @@ const App: FunctionComponent<AppProps> = ({
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.isNotDeleted,
+        CommonNotificationAction.isNotDeleted
       );
       setNewCommonNotification(notificationData);
     });
@@ -197,7 +226,7 @@ const App: FunctionComponent<AppProps> = ({
     socket.on(Events.issueHasBeenDeleted, (issueId) => deleteIssue(issueId));
     socket.on(Events.issueHasBeenUpdated, (issueData) => updateIssue(issueData));
     socket.on(Events.finalVote, (finalVote) => setFinalVote(finalVote));
-    
+
     socket.on(Events.roundIsFinished, ({ roundIsActive, issueId, issue }) => {
       stopGameRound(roundIsActive);
       setCommonVotingStatistics({ issueId, statistics: issue.statistics });
@@ -207,30 +236,21 @@ const App: FunctionComponent<AppProps> = ({
     socket.on(CONFIRM_ACCESS, (data) => {
       setAdmitRejectUserNotification(data);
     });
+
     socket.on(ACCESS_CONFIRMATION_RESPONSE, (data) => {
       if (data.confirmation) {
         const { room, roomId, userId } = data;
-        const {
-          users, messages, issues, gameStatus, gameSettings, gameTitle,
-        } = room as Room;
-       
-        setUsers(users);
-        setCurrentUser(userId);
-        setRoomId(roomId);
-        setGameSettings(gameSettings);
-        setAllMessages(messages);
-        setGameTitle(gameTitle);
-        updateGameStatus(gameStatus);
-        setIssues(issues);
-        // данные о голосовании
+        setRoomData(dispatch, room, roomId, userId);
         redirectToGamePage();
       } else {
         redirectToTooLatePage();
       }
     });
   }, []);
+
   socket.on(GAME_TITLE_CHANGED, setGameTitle);
   socket.on(GAME_SETTINGS_CHANGED, setGameSettings);
+
   const roomId = useQuery();
 
   const routes = [
@@ -241,14 +261,14 @@ const App: FunctionComponent<AppProps> = ({
           <MainPage />
         </Context.Provider>
       ),
-      key: 'main',
+      key: 'main'
     },
     { path: `/${Pages.game}`, component: <GamePage />, key: 'game' },
     { path: `/${Pages.settings}`, component: <SettingsPage />, key: 'settings' },
     { path: `/${Pages.lobby}`, component: <LobbyPage />, key: 'lobby' },
     { path: `/${Pages.goodbye}`, component: <GoodbyePage />, key: 'goodbye' },
     { path: `/${Pages.tooLate}`, component: <TooLatePage />, key: 'tooLate' },
-    { path: '/*', component: <ErrorPage />, key: 'error' },
+    { path: '/*', component: <ErrorPage />, key: 'error' }
   ];
 
   return (
@@ -272,7 +292,8 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   updateUser: (userData: UserData) => dispatch(updateUser(userData)),
   setVoting: (data: VotingData) => dispatch(setVotingNotification(data)),
   setImportantNotification: (content: string) => dispatch(setImportantNotification(content)),
-  setCommonNotification: (notification: CommonNotification) => dispatch(setCommonNotification(notification)),
+  setCommonNotification: (notification: CommonNotification) =>
+    dispatch(setCommonNotification(notification)),
   updateGameStatusAction: (status: keyof typeof GameStatus) => dispatch(setGameStatus(status)),
   setIssues: (issues: Issues) => dispatch(setIssuesAction(issues)),
   startRound: (roundData: StartRoundData) => dispatch(startRoundAction(roundData)),
@@ -282,15 +303,17 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setUserVote: (votingData: UserVotingData) => dispatch(setUserVote(votingData)),
   setFinalVote: (finalVote: FinalVoteData) => dispatch(setFinalVoteAction(finalVote)),
   stopRound: (roundIsActive: boolean) => dispatch(stopRound(roundIsActive)),
-  setVotingStatistics: (statisticsData: StatisticsData) => dispatch(setVotingStatistics(statisticsData)),
+  setVotingStatistics: (statisticsData: StatisticsData) =>
+    dispatch(setVotingStatistics(statisticsData)),
   initVoting: (issueId: string) => dispatch(initVoting(issueId)),
   setAdmitRejectNotification: (userData: UserData) => dispatch(setAdmitRejectUser(userData)),
   setUsersAction: (users: Users) => dispatch(setUsersAction(users)),
   setCurrentUserAction: (userId: string) => dispatch(setCurrentUserAction(userId)),
   setRoomIdAction: (roomId: string) => dispatch(setRoomIdAction(roomId)),
-  setAllGameSettingsAction: (gameSettings: GameSettings) => dispatch(setAllGameSettings(gameSettings)),
+  setAllGameSettingsAction: (gameSettings: GameSettings) =>
+    dispatch(setAllGameSettings(gameSettings)),
   setMessagesAction: (messages: Message[]) => dispatch(setMessages(messages)),
-  setTitleAction: (gameTitle: string) => dispatch(setTitle(gameTitle)),
+  setTitleAction: (gameTitle: string) => dispatch(setTitle(gameTitle))
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));
