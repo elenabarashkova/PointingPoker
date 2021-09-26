@@ -96,6 +96,7 @@ import UserConnectionListener from './listeners/UserConnectionListener';
 import UserKickListener from './listeners/UserKickListener';
 import IssuesListener from './listeners/IssuesListener';
 import NewUserAccessListener from './listeners/NewUserAccessListener';
+import VotingListener from './listeners/VotingListener';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -163,11 +164,6 @@ const App: FunctionComponent<AppProps> = ({
 
   useEffect(() => {
     socket.on(RECEIVE_MESSAGE, setNewMessage);
-
-    socket.on(Events.finalVote, (finalVote) => setFinalVote(finalVote));
-
-    socket.on(USER_HAS_VOTED, setNewUserVote);
-
     socket.on(GAME_TITLE_CHANGED, setGameTitle);
     socket.on(GAME_SETTINGS_CHANGED, setGameSettings);
   }, []);
@@ -213,6 +209,7 @@ const App: FunctionComponent<AppProps> = ({
         <RoundStatusListener />
         <IssuesListener />
         <NewUserAccessListener />
+        <VotingListener />
       </>
     </>
   );
