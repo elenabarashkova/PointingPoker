@@ -251,10 +251,10 @@ const App: FunctionComponent<AppProps> = ({
         redirectToTooLatePage();
       }
     });
-  }, []);
 
-  socket.on(GAME_TITLE_CHANGED, setGameTitle);
-  socket.on(GAME_SETTINGS_CHANGED, setGameSettings);
+    socket.on(GAME_TITLE_CHANGED, setGameTitle);
+    socket.on(GAME_SETTINGS_CHANGED, setGameSettings);
+  }, []);
 
   const roomId = useQuery();
 
