@@ -95,6 +95,7 @@ import RoundStatusListener from './listeners/RoundStatusListener';
 import UserConnectionListener from './listeners/UserConnectionListener';
 import UserKickListener from './listeners/UserKickListener';
 import IssuesListener from './listeners/IssuesListener';
+import NewUserAccessListener from './listeners/NewUserAccessListener';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -166,19 +167,6 @@ const App: FunctionComponent<AppProps> = ({
     socket.on(Events.finalVote, (finalVote) => setFinalVote(finalVote));
 
     socket.on(USER_HAS_VOTED, setNewUserVote);
-    socket.on(CONFIRM_ACCESS, (data) => {
-      setAdmitRejectUserNotification(data);
-    });
-
-    socket.on(ACCESS_CONFIRMATION_RESPONSE, (data) => {
-      if (data.confirmation) {
-        const { room, roomId, userId } = data;
-        setRoomData(dispatch, room, roomId, userId);
-        redirectToGamePage();
-      } else {
-        redirectToTooLatePage();
-      }
-    });
 
     socket.on(GAME_TITLE_CHANGED, setGameTitle);
     socket.on(GAME_SETTINGS_CHANGED, setGameSettings);
@@ -224,6 +212,7 @@ const App: FunctionComponent<AppProps> = ({
         <GameStatusListener />
         <RoundStatusListener />
         <IssuesListener />
+        <NewUserAccessListener />
       </>
     </>
   );
