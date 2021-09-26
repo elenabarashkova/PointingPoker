@@ -9,6 +9,7 @@ import { redirectToGamePage, redirectToLobby, redirectToSettings } from '../../.
 import { GameStatus, Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
 import { setImportantNotification } from '../notifications';
+import { setTitle } from '../game';
 
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
   try {
@@ -19,6 +20,7 @@ export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promi
       dispatch(setUsersAction(users));
       dispatch(setCurrentUserAction(Object.keys(users)[0]));
       dispatch(setRoomIdAction(roomId));
+      dispatch(setTitle(room.gameTitle));
     });
 
     redirectToSettings();

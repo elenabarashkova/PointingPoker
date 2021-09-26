@@ -18,7 +18,7 @@ export const initialState = {
   gameStatus: '',
   roomId: '',
   isRoomValid: false,
-  gameTitle: 'Sprint Plan',
+  gameTitle: '',
   currentIssueId: '',
   roundIsActive: false,
   error: false,
