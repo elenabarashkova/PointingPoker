@@ -4,7 +4,7 @@ import { kickUser } from 'src/services/user/kickUser';
 import { CommonNotificationType } from 'src/types/notifications';
 import { KickUserdata } from 'src/types/user';
 import { setCommonNotification } from '../notifications';
-import { updateUser } from '../user';
+import { updateUserAction } from '../user';
 
 export const kickUserByUserAction = (
   userId: string,
@@ -13,7 +13,7 @@ export const kickUserByUserAction = (
   try {
     const { kickedUserId, kickedUser } = await kickUser(userId, roomId) as KickUserdata;
 
-    dispatch(updateUser({ userId: kickedUserId, user: kickedUser }));
+    dispatch(updateUserAction({ userId: kickedUserId, user: kickedUser }));
 
     const notification = createCommonNotificationAboutKicking(CommonNotificationType.success, kickedUser);
     dispatch(setCommonNotification(notification));

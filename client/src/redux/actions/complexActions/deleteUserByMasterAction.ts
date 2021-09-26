@@ -3,7 +3,7 @@ import { createCommonNotificationAboutError } from 'src/helpers/commonNotificati
 import { deleteUser } from 'src/services/user/deleteUser';
 import { UserData } from 'src/types/user';
 import { setCommonNotification } from '../notifications';
-import { updateUser } from '../user';
+import { updateUserAction } from '../user';
 
 export const deleteUserByMasterAction = (
   roomId: string,
@@ -11,7 +11,7 @@ export const deleteUserByMasterAction = (
 ) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const result = await deleteUser(userId, roomId) as UserData;
-    dispatch(updateUser(result));    
+    dispatch(updateUserAction(result));
   } catch (error) {
     const notification = createCommonNotificationAboutError();
     dispatch(setCommonNotification(notification));
