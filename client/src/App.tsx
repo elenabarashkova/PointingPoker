@@ -1,6 +1,11 @@
 import React, { FunctionComponent, ReactElement, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
+import {
+  Route,
+  RouteComponentProps,
+  Switch,
+  withRouter,
+} from 'react-router-dom';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
 import Context from './helpers/context';
 import { useQuery } from './helpers/query';
@@ -17,20 +22,20 @@ import {
   setGameStatus,
   setTitle,
   startRoundAction,
-  stopRound
+  stopRound,
 } from './redux/actions/game';
 import {
   addIssueAction,
   deleteIssueAction,
   setIssuesAction,
-  updateIssueAction
+  updateIssueAction,
 } from './redux/actions/issues';
 import { setMessageOnResponse, setMessages } from './redux/actions/messages';
 import {
   setAdmitRejectUser,
   setCommonNotification,
   setImportantNotification,
-  setVotingNotification
+  setVotingNotification,
 } from './redux/actions/notifications';
 import { setRoomIdAction } from './redux/actions/room';
 import { setCurrentUserAction, setUsersAction, updateUser } from './redux/actions/user';
@@ -38,7 +43,7 @@ import {
   initVoting,
   setFinalVoteAction,
   setUserVote,
-  setVotingStatistics
+  setVotingStatistics,
 } from './redux/actions/voting';
 import { AppDispatch } from './redux/store';
 import {
@@ -60,7 +65,7 @@ import {
   USER_LEFT,
   YOU_ARE_DELETED,
   YOU_ARE_KICKED,
-  YOU_ARE_NOT_DELETED
+  YOU_ARE_NOT_DELETED,
 } from './services/constants';
 import { redirectToGamePage, redirectToGoodbyePage, redirectToTooLatePage } from './shared';
 import { StartRoundData } from './types/game';
@@ -70,7 +75,7 @@ import {
   CommonNotification,
   CommonNotificationAction,
   ImportantNotifications,
-  VotingData
+  VotingData,
 } from './types/notifications';
 import { Pages } from './types/page';
 import { GameSettings, GameStatus } from './types/room';
@@ -130,7 +135,7 @@ const App: FunctionComponent<AppProps> = ({
   setRoomIdAction: setRoomId,
   setAllGameSettingsAction: setGameSettings,
   setMessagesAction: setAllMessages,
-  setTitleAction: setGameTitle
+  setTitleAction: setGameTitle,
 }): ReactElement => {
   const dispatch = useDispatch();
 
@@ -139,7 +144,7 @@ const App: FunctionComponent<AppProps> = ({
       setNewUser(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.connect
+        CommonNotificationAction.connect,
       );
       setNewCommonNotification(notificationData);
     });
@@ -148,7 +153,7 @@ const App: FunctionComponent<AppProps> = ({
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.left
+        CommonNotificationAction.left,
       );
       setNewCommonNotification(notificationData);
     });
@@ -158,7 +163,7 @@ const App: FunctionComponent<AppProps> = ({
       updateUserStatus(disconnectedUserData);
       const notificationData = createCommonNotificationAboutUser(
         disconnectedUserData,
-        CommonNotificationAction.disconnected
+        CommonNotificationAction.disconnected,
       );
       setNewCommonNotification(notificationData);
     });
@@ -185,7 +190,7 @@ const App: FunctionComponent<AppProps> = ({
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.deleted
+        CommonNotificationAction.deleted,
       );
       setNewCommonNotification(notificationData);
     });
@@ -193,7 +198,7 @@ const App: FunctionComponent<AppProps> = ({
       updateUserStatus(data);
       const notificationData = createCommonNotificationAboutUser(
         data,
-        CommonNotificationAction.isNotDeleted
+        CommonNotificationAction.isNotDeleted,
       );
       setNewCommonNotification(notificationData);
     });
@@ -261,14 +266,14 @@ const App: FunctionComponent<AppProps> = ({
           <MainPage />
         </Context.Provider>
       ),
-      key: 'main'
+      key: 'main',
     },
     { path: `/${Pages.game}`, component: <GamePage />, key: 'game' },
     { path: `/${Pages.settings}`, component: <SettingsPage />, key: 'settings' },
     { path: `/${Pages.lobby}`, component: <LobbyPage />, key: 'lobby' },
     { path: `/${Pages.goodbye}`, component: <GoodbyePage />, key: 'goodbye' },
     { path: `/${Pages.tooLate}`, component: <TooLatePage />, key: 'tooLate' },
-    { path: '/*', component: <ErrorPage />, key: 'error' }
+    { path: '/*', component: <ErrorPage />, key: 'error' },
   ];
 
   return (
@@ -292,8 +297,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   updateUser: (userData: UserData) => dispatch(updateUser(userData)),
   setVoting: (data: VotingData) => dispatch(setVotingNotification(data)),
   setImportantNotification: (content: string) => dispatch(setImportantNotification(content)),
-  setCommonNotification: (notification: CommonNotification) =>
-    dispatch(setCommonNotification(notification)),
+  setCommonNotification: (notification: CommonNotification) => dispatch(setCommonNotification(notification)),
   updateGameStatusAction: (status: keyof typeof GameStatus) => dispatch(setGameStatus(status)),
   setIssues: (issues: Issues) => dispatch(setIssuesAction(issues)),
   startRound: (roundData: StartRoundData) => dispatch(startRoundAction(roundData)),
@@ -303,17 +307,15 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   setUserVote: (votingData: UserVotingData) => dispatch(setUserVote(votingData)),
   setFinalVote: (finalVote: FinalVoteData) => dispatch(setFinalVoteAction(finalVote)),
   stopRound: (roundIsActive: boolean) => dispatch(stopRound(roundIsActive)),
-  setVotingStatistics: (statisticsData: StatisticsData) =>
-    dispatch(setVotingStatistics(statisticsData)),
+  setVotingStatistics: (statisticsData: StatisticsData) => dispatch(setVotingStatistics(statisticsData)),
   initVoting: (issueId: string) => dispatch(initVoting(issueId)),
   setAdmitRejectNotification: (userData: UserData) => dispatch(setAdmitRejectUser(userData)),
   setUsersAction: (users: Users) => dispatch(setUsersAction(users)),
   setCurrentUserAction: (userId: string) => dispatch(setCurrentUserAction(userId)),
   setRoomIdAction: (roomId: string) => dispatch(setRoomIdAction(roomId)),
-  setAllGameSettingsAction: (gameSettings: GameSettings) =>
-    dispatch(setAllGameSettings(gameSettings)),
+  setAllGameSettingsAction: (gameSettings: GameSettings) => dispatch(setAllGameSettings(gameSettings)),
   setMessagesAction: (messages: Message[]) => dispatch(setMessages(messages)),
-  setTitleAction: (gameTitle: string) => dispatch(setTitle(gameTitle))
+  setTitleAction: (gameTitle: string) => dispatch(setTitle(gameTitle)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(App));
