@@ -11,7 +11,7 @@ interface UserKickProps {
   setImportantNotification: CallableFunction;
 }
 
-const UserKick: FunctionComponent<UserKickProps> = (
+const UserKickListener: FunctionComponent<UserKickProps> = (
   {
     updateUserAction: updateUser,
     setVotingNotification: setStartVoting,
@@ -38,4 +38,4 @@ export default connect(null, {
   updateUserAction,
   setVotingNotification,
   setImportantNotification,
-})(UserKick);
+})(UserKickListener);

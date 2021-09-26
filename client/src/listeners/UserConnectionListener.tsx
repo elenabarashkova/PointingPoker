@@ -1,8 +1,8 @@
-import React, { FunctionComponent, ReactElement, useEffect } from 'react';
+import { FunctionComponent, ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createCommonNotificationAboutUser } from '../helpers/commonNotifications';
 import { setCommonNotification, setImportantNotification } from '../redux/actions/notifications';
-import { setUsersAction, updateUserAction } from '../redux/actions/user';
+import { updateUserAction } from '../redux/actions/user';
 import {
   MASTER_DISCONNECTED,
   socket,
@@ -19,7 +19,7 @@ interface UserConnectionProps {
   setCommonNotification: CallableFunction;
 }
 
-const UserConnection: FunctionComponent<UserConnectionProps> = (
+const UserConnectionListener: FunctionComponent<UserConnectionProps> = (
   {
     updateUserAction: updateUser,
     setImportantNotification: setNewImportantNotification,
@@ -73,4 +73,4 @@ export default connect(null, {
   updateUserAction,
   setImportantNotification,
   setCommonNotification,
-})(UserConnection);
+})(UserConnectionListener);
