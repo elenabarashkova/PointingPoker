@@ -15,7 +15,7 @@ import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { setFinalVoteAction, setUsersVote, setVotingStatistics } from 'src/redux/actions/voting';
 import { Room } from 'src/types/room';
 
-export const setRoomData = (dispatch: Dispatch, room: Room, roomId: string, userId: string) => {
+export const setRoomData = (dispatch: Dispatch, room: Room, roomId: string, userId: string): void => {
   const {
     users,
     messages,

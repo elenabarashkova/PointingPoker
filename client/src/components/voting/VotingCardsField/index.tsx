@@ -45,11 +45,13 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
     if (!roundIsActive || !canParticipate) {
       setDisabled(true);
     }
-    if (roundIsActive && (isUserPlayer || isUserMasterAsPlayer) && canParticipate) {
+    const notObserver = isUserPlayer || isUserMasterAsPlayer;
+
+    if (roundIsActive && notObserver && canParticipate) {
       setDisabled(false);
       setVotedCardId('');
     }
-  }, [roundIsActive, canParticipate]);
+  }, [roundIsActive, canParticipate, isUserPlayer, isUserMasterAsPlayer]);
 
   const config = {
     [ScoreType.size]: ['coffee', 'xs', 's', 'm', 'l', 'xl'],

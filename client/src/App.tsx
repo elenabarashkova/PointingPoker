@@ -75,7 +75,6 @@ import {
 import {
   redirectToGamePage,
   redirectToGoodbyePage,
-  redirectToMainPage,
   redirectToTooLatePage,
 } from './shared';
 import { StartRoundData } from './types/game';

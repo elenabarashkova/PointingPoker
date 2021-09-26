@@ -52,10 +52,13 @@ const GamePage: React.FC<GamePageProps> = ({
   )[0];
 
   useEffect(() => {
-    if (!voting[issueId] || !voting[issueId].statistics) return;
+    if (!voting[issueId] || !voting[issueId].statistics) {
+      return;
+    }
     if (Object.keys(voting[issueId].statistics).length) {
       setShowStatistics(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voting]);
 
   const handleStopGame = () => {
@@ -66,8 +69,8 @@ const GamePage: React.FC<GamePageProps> = ({
     leaveRoom(roomId);
   };
 
-  const ButtonContent = isGameMaster ? 'Stop Game' : 'Exit';
-  const ButtonAction = isGameMaster ? handleStopGame : handleExit;
+  const buttonContent = isGameMaster ? 'Stop Game' : 'Exit';
+  const buttonAction = isGameMaster ? handleStopGame : handleExit;
 
   return (
     <div className={styles.wrapper}>
@@ -78,7 +81,7 @@ const GamePage: React.FC<GamePageProps> = ({
           <UserCard user={masterData} id={masterId} currentUserId={userId} size={ElementSize.big} />
           {isTimerNeeded && <GameTimer />}
           <div style={{ marginBottom: '45px' }}>
-            <Button content={ButtonContent} variant="colored" action={ButtonAction} />
+            <Button content={buttonContent} variant="colored" action={buttonAction} />
           </div>
         </div>
         <div className={styles.container}>

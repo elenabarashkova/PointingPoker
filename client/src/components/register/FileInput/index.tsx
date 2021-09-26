@@ -8,14 +8,6 @@ interface FileInputProps {
   handler: CallableFunction;
 }
 
-const TooltipContent: React.FC = () => (
-  <div className={styles.table}>
-    <span>some issue</span>
-    <span>some link</span>
-    <span>priority</span>
-  </div>
-);
-
 const FileInput: React.FC<FileInputProps> = ({ name, handler }): ReactElement => {
   const { tooltipIsVisible, showTooltip, hideTooltip } = useTooltip();
   const [fileSizeInvalid, setFileSizeInvalid] = useState(false);

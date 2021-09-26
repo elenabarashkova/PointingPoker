@@ -57,6 +57,7 @@ export const useUpdateIssueModal = (
     if (updated) {
       closeModal();
     }
+    // eslint-disable-next-line
   }, [issues, error]);
 
   const handleChange = (setValue: Dispatch<SetStateAction<string>>) => (name: string, value: string) => {

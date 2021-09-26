@@ -6,9 +6,10 @@ import { UsersItem } from 'components/game/Scores/MembersList/UserItem';
 import styles from './style.module.scss';
 import { GameSettings } from '../../../../types/room';
 import { UserVote } from '../../../../types/voting';
+import { ActiveMembers } from '../../../../types/user';
 
 interface MembersSectionProps {
-  gameMembers: Record<string, any>;
+  gameMembers: ActiveMembers;
   gameSettings: GameSettings;
   votes: UserVote[];
   isRoundActive: boolean;
