@@ -94,6 +94,7 @@ import UserDeleteListener from './listeners/UserDeleteListener';
 import RoundStatusListener from './listeners/RoundStatusListener';
 import UserConnectionListener from './listeners/UserConnectionListener';
 import UserKickListener from './listeners/UserKickListener';
+import IssuesListener from './listeners/IssuesListener';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -162,9 +163,6 @@ const App: FunctionComponent<AppProps> = ({
   useEffect(() => {
     socket.on(RECEIVE_MESSAGE, setNewMessage);
 
-    socket.on(Events.issueHasBeenAdded, (issueData) => addIssue(issueData));
-    socket.on(Events.issueHasBeenDeleted, (issueId) => deleteIssue(issueId));
-    socket.on(Events.issueHasBeenUpdated, (issueData) => updateIssue(issueData));
     socket.on(Events.finalVote, (finalVote) => setFinalVote(finalVote));
 
     socket.on(USER_HAS_VOTED, setNewUserVote);
@@ -225,6 +223,7 @@ const App: FunctionComponent<AppProps> = ({
         <UserDeleteListener />
         <GameStatusListener />
         <RoundStatusListener />
+        <IssuesListener />
       </>
     </>
   );
