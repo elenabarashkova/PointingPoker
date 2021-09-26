@@ -21,3 +21,22 @@
     box-shadow: $shadow;
     height: fit-content;
 }
+
+.wrap {
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.tooltip {
+  left: -70%;
+  top: -100%;
+}
+
+.errorMessage {
+  font-size: 12px;
+  color: $error-color;
+  position: absolute;
+  bottom: -5px;
+}

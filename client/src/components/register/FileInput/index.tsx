@@ -1,4 +1,6 @@
-import React, { ChangeEvent, ReactElement } from 'react';
+import React, { ChangeEvent, ReactElement, useState } from 'react';
+import { useTooltip } from 'components/shared/Tooltip/useTooltip';
+import Tooltip from 'components/shared/Tooltip';
 import styles from './style.module.scss';
 
 interface FileInputProps {
@@ -6,9 +8,27 @@ interface FileInputProps {
   handler: CallableFunction;
 }
 
+const TooltipContent: React.FC = () => (
+  <div className={styles.table}>
+    <span>some issue</span>
+    <span>some link</span>
+    <span>priority</span>
+  </div>
+);
+
 const FileInput: React.FC<FileInputProps> = ({ name, handler }): ReactElement => {
+  const { tooltipIsVisible, showTooltip, hideTooltip } = useTooltip();
+  const [fileSizeInvalid, setFileSizeInvalid] = useState(false);
+
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const file = target.files[0];
+    const fileSize = file.size / 1024 / 1024;
+
+    if (fileSize > 1) {
+      target.value = '';
+      setFileSizeInvalid(true);
+      return;
+    }
     const reader = new FileReader();
     if (file && file.type.match('image.*')) {
       reader.readAsDataURL(file);
@@ -16,11 +36,21 @@ const FileInput: React.FC<FileInputProps> = ({ name, handler }): ReactElement =>
     reader.onloadend = () => handler('image', reader.result);
   };
   return (
-    <label htmlFor={name} className={styles.label}>
-      Choose your photo
-      <input type="file" name="" id={name} className={styles.fileInput} onChange={handleChange} />
-    </label>
-            
+    <div className={styles.wrap} onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
+      <label
+        htmlFor={name}
+        className={styles.label}
+      >
+        Choose your photo
+        <input type="file" name="" id={name} className={styles.fileInput} onChange={handleChange} />
+      </label>
+      {fileSizeInvalid ? <span className={styles.errorMessage}>File size is too big</span> : null}
+      <Tooltip
+        title="Maximum file size: 1 Mb"
+        additionalStyle={styles.tooltip}
+        isVisible={tooltipIsVisible}
+      />
+    </div>
   );
 };
 

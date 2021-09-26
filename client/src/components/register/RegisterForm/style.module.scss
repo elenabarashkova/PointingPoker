@@ -3,12 +3,14 @@
 .registerForm {
     display: flex;
     flex-direction: column;
+
     .userIcoField {
-        max-width: 240px;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        align-items: center;
-        margin-left: calc(100% - 240px - 10px);
+      height: 60px;
+      max-width: 240px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      align-items: center;
+      margin-left: calc(100% - 240px - 10px);
     }
 }
