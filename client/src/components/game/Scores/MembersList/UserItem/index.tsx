@@ -5,10 +5,10 @@ import { ScoresItem } from 'components/game/Scores/MembersList/ScoreItem';
 import observer from 'components/shared/UserCard/observer.svg';
 import styles from '../style.module.scss';
 import { UserVote } from '../../../../../types/voting';
-import { UserRole } from '../../../../../types/user';
+import { Members, UserRole } from '../../../../../types/user';
 
 interface MembersSectionProps {
-  users: Array<any>;
+  users: Members;
   currectUserId: string;
   votes: UserVote[];
   isRoundActive: boolean;
