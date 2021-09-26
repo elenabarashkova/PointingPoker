@@ -20,7 +20,9 @@ const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
   const currentUserId = useTypedSelector((state) => state.currentUserId);
 
   useEffect(() => {
-    if (!messages.length) return;
+    if (!messages.length) {
+      return;
+    }
 
     const lastMessage = messages[messages.length - 1];
     const currentUserIsNotAuthor = lastMessage.userId !== currentUserId;
@@ -28,6 +30,7 @@ const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
     if (!chatIsOpened && currentUserIsNotAuthor) {
       setNotShownMessages(true);
     }
+    // eslint-disable-next-line
   }, [messages]);
 
   const openCloseChat = () => {

@@ -8,7 +8,7 @@ import {
   Users,
   UserStatus,
   Members,
-  User, Member, ActiveMembers,
+  ActiveMembers,
 } from '../../../types/user';
 import { GameSettings } from '../../../types/room';
 import { UserVote } from '../../../types/voting';

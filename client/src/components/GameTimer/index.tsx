@@ -42,6 +42,7 @@ const GameTimer: React.FC<GameTimerPrors> = ({
     if (voting[issueId].finalVote) {
       setRestartButtonNeeded(false);
     }
+    // eslint-disable-next-line
   }, [voting]);
 
   const handleRestartRound = () => {
@@ -57,6 +58,7 @@ const GameTimer: React.FC<GameTimerPrors> = ({
       setTimerMinutes(minutes);
       setTimerSeconds(seconds);
     }
+    // eslint-disable-next-line
   }, [roundIsActive]);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ const GameTimer: React.FC<GameTimerPrors> = ({
         setTimerSeconds((prev) => prev - 1);
       }, 1000);
     }
+    // eslint-disable-next-line
   }, [timerSeconds]);
 
   useEffect(() => {
@@ -84,6 +87,7 @@ const GameTimer: React.FC<GameTimerPrors> = ({
         }
       }
     }
+    // eslint-disable-next-line
   }, [timerMitunes, timerSeconds]);
 
   return (
