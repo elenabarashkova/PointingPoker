@@ -14,13 +14,15 @@ interface VotingCardsFieldProps {
   scoreType: keyof typeof ScoreType;
   number: number;
   roundIsActive: boolean;
+  canParticipate: boolean;
 }
 
-const VotingCardsField: React.FC<VotingCardsFieldProps> = ({ 
-  scoreType, 
-  number, 
-  roundIsActive, 
-}):ReactElement => {
+const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
+  scoreType,
+  number,
+  roundIsActive,
+  canParticipate,
+}): ReactElement => {
   const isMasterPlayer = useTypedSelector(({ gameSettings }) => gameSettings.masterAsPlayer);
 
   const [isDisabled, setDisabled] = useState(true);
@@ -29,7 +31,7 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
   const isUserPlayer = useMemo(() => isPlayer(), []);
   const isUserMaster = useMemo(() => isMaster(), []);
 
-  const isUserMasterAsPlayer = (isUserMaster && isMasterPlayer);
+  const isUserMasterAsPlayer = isUserMaster && isMasterPlayer;
 
   const toSetDisable = (disabled: boolean) => {
     setDisabled(disabled);
@@ -40,14 +42,14 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
   };
 
   useEffect(() => {
-    if (!roundIsActive) {
+    if (!roundIsActive || !canParticipate) {
       setDisabled(true);
-    } 
-    if (roundIsActive && (isUserPlayer || isUserMasterAsPlayer)) {
+    }
+    if (roundIsActive && (isUserPlayer || isUserMasterAsPlayer) && canParticipate) {
       setDisabled(false);
       setVotedCardId('');
     }
-  }, [roundIsActive]);
+  }, [roundIsActive, canParticipate]);
 
   const config = {
     [ScoreType.size]: ['coffee', 'xs', 's', 'm', 'l', 'xl'],
@@ -56,16 +58,16 @@ const VotingCardsField: React.FC<VotingCardsFieldProps> = ({
   };
 
   const points: string[] = config[scoreType];
-  
+
   return (
     <div className={styles.cardsField}>
       {points.slice(0, number).map((el) => (
-        <VotingCard 
-          scoreType={scoreType} 
-          point={el} 
-          key={el} 
-          isDisabled={isDisabled} 
-          toSetDisable={toSetDisable} 
+        <VotingCard
+          scoreType={scoreType}
+          point={el}
+          key={el}
+          isDisabled={isDisabled}
+          toSetDisable={toSetDisable}
           toSetVotedCardId={toSetVotedCardId}
           votedCardId={votedCardId}
         />

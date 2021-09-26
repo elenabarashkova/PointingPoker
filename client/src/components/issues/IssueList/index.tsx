@@ -12,12 +12,14 @@ export const IssueList: React.FC = () => {
   return (
     <div className={styles.issue_list}>
       {sortedIssues.map(({
-        id, title, priority, status, 
+        id, title, priority, status, link, 
       }) => (
         <IssueItem
-          key={`issue-${id}`}
+          key={id}
           title={title}
+          gameMode
           priority={priority}
+          link={link}
           current={status === IssueStatus.active}
           columnMode
           notClickable

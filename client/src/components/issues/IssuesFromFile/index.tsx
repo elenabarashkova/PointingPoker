@@ -1,3 +1,5 @@
+import Tooltip from 'components/shared/Tooltip';
+import { useTooltip } from 'components/shared/Tooltip/useTooltip';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addIssueRequest } from 'src/redux/actions/issues';
@@ -6,11 +8,21 @@ import { RootStore } from 'src/types/store';
 import XLSX from 'xlsx';
 import styles from './style.module.scss';
 
+const TooltipContent: React.FC = () => (
+  <div className={styles.table}>
+    <span>some issue</span>
+    <span>some link</span>
+    <span>priority</span>
+  </div>
+);
+
 export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle }) => {
   const [uploadedIssues, setUploadedIssues] = useState<any>(null);
   const [error, setError] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { roomId } = useSelector((store: RootStore) => store.game);
+
+  const { tooltipIsVisible, showTooltip, hideTooltip } = useTooltip();
 
   useEffect(() => {
     if (uploadedIssues) {
@@ -61,7 +73,12 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
   return (
     <div className={`${styles.add_issues} ${uploadedIssues && styles.uploaded} ${additionalStyle}`}>
       <p>Import issues</p>
-      <label className={styles.label} htmlFor="issues-file-input">
+      <label
+        className={styles.label}
+        htmlFor="issues-file-input"
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+      >
         {error && <img className={styles.image} src="../../../assets/error.svg" alt="" />}
         {!error && <img className={styles.image} src="../../../assets/down-arrow.svg" alt="" />}
         <input
@@ -72,6 +89,12 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
           accept=".csv, .xlsx"
         />
       </label>
+      <Tooltip
+        title="Supported table formats: .xlsx, .csv"
+        additionalStyle={styles.tooltip}
+        isVisible={tooltipIsVisible}
+        content={<TooltipContent />}
+      />
     </div>
   );
 };

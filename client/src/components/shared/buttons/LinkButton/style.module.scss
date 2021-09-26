@@ -1,0 +1,22 @@
+.link {
+  width: 38px;
+  height: 20px;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  pointer-events: all;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+
+  svg {
+    width: 30px;
+    height: 30px;
+    transform: rotate(42deg) translate(-3px, -7px);
+    position: absolute;
+  }
+}

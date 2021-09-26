@@ -39,7 +39,7 @@ export const createRoom = (
     gameSettings: INIT_GAME_SETTINGS,
     currentIssueId: '',
     roundIsActive: false,
-    gameTitle: '',
+    gameTitle: 'Sprint Plan',
     masterId: userId,
   };
 

@@ -1,7 +1,7 @@
 import React, {
   ChangeEvent, Dispatch, MouseEvent, SetStateAction, 
 } from 'react';
-import { Statistics } from './voting';
+import { Statistics, UserVote } from './voting';
 
 export type IssueVote = Array<string>;
 
@@ -17,7 +17,8 @@ export interface Issue {
   priority: keyof typeof IssuePriority;
   status?: keyof typeof IssueStatus;
   statistics?: Statistics;
-  vote?: IssueVote;
+  finalVote?: string;
+  votes?: UserVote[];
   date?: number;
 }
 export interface ExtendedIssue extends Issue {
@@ -32,6 +33,7 @@ export interface IssuesStore {
   error: boolean;
   isLoading: boolean;
   issues: Issues;
+  issuesCounter: number;
 }
 
 export interface IssueData {
@@ -52,8 +54,10 @@ export interface IssueProps {
   priority: keyof typeof IssuePriority;
   columnMode?: boolean;
   voteMode?: boolean;
+  gameMode?: boolean;
   finalVote?: string;
   input?: React.ReactNode;
+  link: string;
   onClick?: () => void;
 }
 
@@ -90,6 +94,7 @@ export interface FormConfig {
     placeholder: string;
     errorText: string;
     regExp: RegExp;
+    maxLength: number | undefined;
   };
 }
 

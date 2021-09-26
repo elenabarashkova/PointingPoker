@@ -1,5 +1,6 @@
 import React from 'react';
 import { IssueItemProps } from 'src/types/issues';
+import LinkButton from '../buttons/LinkButton';
 import styles from './style.module.scss';
 
 export const IssueItem: React.FC<IssueItemProps> = ({
@@ -13,6 +14,8 @@ export const IssueItem: React.FC<IssueItemProps> = ({
   columnMode,
   notClickable,
   voteMode,
+  gameMode,
+  link,
   onClick,
 }) => (
   <div
@@ -27,7 +30,10 @@ export const IssueItem: React.FC<IssueItemProps> = ({
     tabIndex={0}
   >
     <div className={styles.issue_info}>
-      <span className={styles.current}>{current && 'current'}</span>
+      <div className={styles.top}>
+        <LinkButton link={link} current={current} />
+        <span className={styles.current}>{current && 'current'}</span>
+      </div>
       <span className={styles.title}>{title}</span>
       <span className={styles.priority}>
         {priority}
@@ -36,7 +42,8 @@ export const IssueItem: React.FC<IssueItemProps> = ({
       </span>
     </div>
     <div className={styles.buttons_wrapper}>
-      <div>{finalVote}</div>
+      <div>{gameMode && !voteMode && !finalVote && <span className={styles.dash}>—</span>}</div>
+      <div>{gameMode && finalVote}</div>
       {voteMode && input}
       {editBtn}
       {deleteBtn}
@@ -48,6 +55,7 @@ IssueItem.defaultProps = {
   columnMode: false,
   notClickable: false,
   voteMode: false,
+  gameMode: false,
 };
 
 export default IssueItem;
