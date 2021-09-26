@@ -1,21 +1,34 @@
 import { FunctionComponent, ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setGameStatus } from '../redux/actions/game';
 import { setImportantNotification } from '../redux/actions/notifications';
-import { GAME_STATUS_CHANGED, socket } from '../services/constants';
+import {
+  GAME_STATUS_CHANGED,
+  socket,
+  GAME_SETTINGS_CHANGED,
+  GAME_TITLE_CHANGED,
+  RECEIVE_MESSAGE,
+} from '../services/constants';
 import { redirectToGamePage } from '../shared';
 import { ImportantNotifications } from '../types/notifications';
 import { GameStatus } from '../types/room';
+import { setAllGameSettings, setGameStatus, setTitle } from '../redux/actions/game';
+import { setMessageOnResponse } from '../redux/actions/messages';
 
-interface GameStatusListenerProps {
+interface GameListenerProps {
   setImportantNotification: CallableFunction;
   setGameStatus: CallableFunction;
+  setMessageOnResponse: any;
+  setAllGameSettings: any;
+  setTitle: any;
 }
 
-const GameStatusListener: FunctionComponent<GameStatusListenerProps> = (
+const GameListener: FunctionComponent<GameListenerProps> = (
   {
     setImportantNotification: setNewImportantNotification,
     setGameStatus: updateGameStatus,
+    setMessageOnResponse: setNewMessage,
+    setAllGameSettings: setGameSettings,
+    setTitle: setTitleAction,
   },
 ): ReactElement => {
   useEffect(() => {
@@ -29,6 +42,10 @@ const GameStatusListener: FunctionComponent<GameStatusListenerProps> = (
         redirectToGamePage();
       }
     });
+
+    socket.on(RECEIVE_MESSAGE, setNewMessage);
+    socket.on(GAME_TITLE_CHANGED, setTitleAction);
+    socket.on(GAME_SETTINGS_CHANGED, setGameSettings);
     // eslint-disable-next-line
   }, []);
 
@@ -38,4 +55,7 @@ const GameStatusListener: FunctionComponent<GameStatusListenerProps> = (
 export default connect(null, {
   setImportantNotification,
   setGameStatus,
-})(GameStatusListener);
+  setMessageOnResponse,
+  setAllGameSettings,
+  setTitle,
+})(GameListener);
