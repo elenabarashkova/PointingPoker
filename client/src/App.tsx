@@ -11,9 +11,6 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom';
-import UserConnection from './listeners/UserConnection';
-import UserKick from './listeners/UserKick';
-import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
 import Context from './helpers/context';
 import { useQuery } from './helpers/query';
 import { setRoomData } from './helpers/setRoomData';
@@ -92,7 +89,11 @@ import { Pages } from './types/page';
 import { GameSettings, GameStatus } from './types/room';
 import { UserData, Users } from './types/user';
 import { FinalVoteData, StatisticsData, UserVotingData } from './types/voting';
-import UserDelete from './listeners/UserDelete';
+import GameStatusListener from './listeners/GameStatusListener';
+import UserDeleteListener from './listeners/UserDeleteListener';
+import RoundStatusListener from './listeners/RoundStatusListener';
+import UserConnectionListener from './listeners/UserConnectionListener';
+import UserKickListener from './listeners/UserKickListener';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -160,33 +161,11 @@ const App: FunctionComponent<AppProps> = ({
 
   useEffect(() => {
     socket.on(RECEIVE_MESSAGE, setNewMessage);
-    socket.on(GAME_STATUS_CHANGED, (data) => {
-      updateGameStatus(data);
-      if (data === GameStatus.canceled) {
-        setNewImportantNotification(ImportantNotifications.gameCanceled);
-      }
-      if (data === GameStatus.active) {
-        redirectToGamePage();
-      }
-    });
-
-    socket.on(Events.roundIsStarted, ({ currentIssueId, issues, roundIsActive }) => {
-      if (issues) {
-        setIssues(issues);
-        startRound({ currentIssueId, roundIsActive });
-        initRoundVoting(currentIssueId);
-      }
-    });
 
     socket.on(Events.issueHasBeenAdded, (issueData) => addIssue(issueData));
     socket.on(Events.issueHasBeenDeleted, (issueId) => deleteIssue(issueId));
     socket.on(Events.issueHasBeenUpdated, (issueData) => updateIssue(issueData));
     socket.on(Events.finalVote, (finalVote) => setFinalVote(finalVote));
-
-    socket.on(Events.roundIsFinished, ({ roundIsActive, issueId, issue }) => {
-      stopGameRound(roundIsActive);
-      setCommonVotingStatistics({ issueId, statistics: issue.statistics });
-    });
 
     socket.on(USER_HAS_VOTED, setNewUserVote);
     socket.on(CONFIRM_ACCESS, (data) => {
@@ -241,9 +220,11 @@ const App: FunctionComponent<AppProps> = ({
         ))}
       </Switch>
       <>
-        <UserConnection />
-        <UserKick />
-        <UserDelete />
+        <UserConnectionListener />
+        <UserKickListener />
+        <UserDeleteListener />
+        <GameStatusListener />
+        <RoundStatusListener />
       </>
     </>
   );

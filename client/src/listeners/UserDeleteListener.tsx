@@ -19,7 +19,7 @@ interface UserDeleteProps {
   setCommonNotification: CallableFunction;
 }
 
-const UserDelete: FunctionComponent<UserDeleteProps> = (
+const UserDeleteListener: FunctionComponent<UserDeleteProps> = (
   {
     updateUserAction: updateUser,
     setImportantNotification: setNewImportantNotification,
@@ -63,4 +63,4 @@ export default connect(null, {
   updateUserAction,
   setImportantNotification,
   setCommonNotification,
-})(UserDelete);
+})(UserDeleteListener);
