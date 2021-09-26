@@ -43,6 +43,11 @@ const webpackConfig = ({ development }): Configuration => ({
         exclude: /node_modules/
       },
       {
+        test: /\.[tj]sx?$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+      },
+      {
         test: /\.(?:ico|gif|png|jpg|jpeg|mp3)$/i,
         type: 'asset/resource'
       },
