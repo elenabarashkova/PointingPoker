@@ -1,13 +1,18 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
 import MembersList from './MembersList';
 import styles from './style.module.scss';
 import { RootState } from '../../../redux/reducers';
-import { UserRole, Users, UserStatus } from '../../../types/user';
+import {
+  UserRole,
+  Users,
+  UserStatus,
+  Members,
+  User, Member, ActiveMembers,
+} from '../../../types/user';
 import { GameSettings } from '../../../types/room';
 import { UserVote } from '../../../types/voting';
 import { isMaster } from '../../../shared/isMaster';
-import { startRoundRequest } from '../../../redux/actions/complexActions/startRoundAction';
 import { stopRoundAction } from '../../../redux/actions/complexActions/stopRoundAction';
 
 interface ScoresProps {
@@ -32,14 +37,15 @@ const Scores: React.FC<ScoresProps> = (
   const isUserMaster = isMaster();
 
   const roomMembersData = Object.entries(users);
-  const activeMembers = roomMembersData.filter(([, { status }]) => (
+  const activeMembers: Members = roomMembersData.filter(([, { status }]) => (
     (status === UserStatus.active || status === UserStatus.kicked)
   ));
-  const master = activeMembers.filter(([, { role }]) => role === UserRole.master);
-  const observers = activeMembers.filter(([, { role }]) => role === UserRole.observer);
-  const players = activeMembers.filter(([, { role }]) => role === UserRole.player);
 
-  const gameMembers = {
+  const master:Members = activeMembers.filter(([, { role }]) => role === UserRole.master);
+  const observers:Members = activeMembers.filter(([, { role }]) => role === UserRole.observer);
+  const players:Members = activeMembers.filter(([, { role }]) => role === UserRole.player);
+
+  const gameMembers:ActiveMembers = {
     master,
     observers,
     players,

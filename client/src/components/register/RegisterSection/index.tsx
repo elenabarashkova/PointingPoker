@@ -23,6 +23,7 @@ const RegisterSection: React.FC = (): ReactElement => {
     if (roomId) {
       setGameIdInput(roomId);
     }
+    // eslint-disable-next-line
   }, []);
 
   const handleIdInput = (name: string, idValue: string) => {

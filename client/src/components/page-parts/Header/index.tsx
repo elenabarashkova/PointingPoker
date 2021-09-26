@@ -36,17 +36,24 @@ const Header: React.FC<HeaderProps> = ({
   const [isAdmitRejectModalOpen, setAdmitRejectModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!kickInitiator) return;
+    if (!kickInitiator) {
+      return;
+    }
     setVotingModalOpen(true);
+    // eslint-disable-next-line
   }, [votingNotification]);
 
   useEffect(() => {
-    if (!importantNotification) return;
+    if (!importantNotification) {
+      return;
+    }
     setNotificationModalOpen(true);
   }, [importantNotification]);
 
   useEffect(() => {
-    if (!admitRejectNotification) return;
+    if (!admitRejectNotification) {
+      return;
+    }
     setAdmitRejectModalOpen(true);
   }, [admitRejectNotification]);
 

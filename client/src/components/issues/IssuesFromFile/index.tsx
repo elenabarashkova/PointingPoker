@@ -36,6 +36,7 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
         );
       });
     }
+    // eslint-disable-next-line
   }, [uploadedIssues]);
 
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {

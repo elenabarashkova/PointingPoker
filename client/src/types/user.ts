@@ -37,3 +37,12 @@ export interface KickUserdata {
   kickedUserId: string;
   kickedUser: User;
 }
+
+export type Member = [string, User];
+export type Members = Array<Member>;
+
+export interface ActiveMembers {
+  master?: Members;
+  observers?: Members;
+  players?: Members;
+}

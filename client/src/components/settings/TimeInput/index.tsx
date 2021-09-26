@@ -3,7 +3,7 @@ import { Time } from 'components/settings/SettingsSection';
 import styles from './style.module.scss';
 
 interface TimeInputProps {
-  handleChange(event: ChangeEvent<HTMLInputElement>): void;
+  handleChange?(event: ChangeEvent<HTMLInputElement>): void;
   value: Time;
   disabled?: boolean;
 }
@@ -39,6 +39,7 @@ const TimeInput:React.FC<TimeInputProps> = ({ handleChange, value, disabled }): 
 );
 
 TimeInput.defaultProps = {
+  handleChange() {},
   disabled: false,
 };
 

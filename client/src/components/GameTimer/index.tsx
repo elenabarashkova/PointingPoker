@@ -86,10 +86,9 @@ const GameTimer: React.FC<GameTimerPrors> = ({
     }
   }, [timerMitunes, timerSeconds]);
 
-  console.log(roundTime, timerMitunes, timerSeconds);
-  return ( 
+  return (
     <div className={styles.timerContainer}>
-      <TimeInput value={{ minutes: timerMitunes, seconds: timerSeconds }} disabled handleChange={console.log} />
+      <TimeInput value={{ minutes: timerMitunes, seconds: timerSeconds }} disabled />
       {isRestartButtonNeeded && <Button content="Restart round" variant="bordered" action={handleRestartRound} />}
     </div>
   );
