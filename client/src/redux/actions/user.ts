@@ -12,7 +12,7 @@ export const setCurrentUserAction = (userId: string): PayloadAction<string> => (
   payload: userId,
 });
 
-export const updateUser = (userData: UserData): PayloadAction<UserData> => ({
+export const updateUserAction = (userData: UserData): PayloadAction<UserData> => ({
   type: UPDATE_USER,
   payload: userData,
 });

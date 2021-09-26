@@ -4,7 +4,7 @@ import { leaveRoom } from 'src/services/room/leaveRoom';
 import { ImportantNotifications } from 'src/types/notifications';
 import { UserData } from 'src/types/user';
 import { setCommonNotification, setImportantNotification } from '../notifications';
-import { updateUser } from '../user';
+import { updateUserAction } from '../user';
 
 export const leaveRoomAction = (
   roomId: string,
@@ -12,7 +12,7 @@ export const leaveRoomAction = (
   try {
     const userData = await leaveRoom(roomId) as UserData;
   
-    dispatch(updateUser(userData));
+    dispatch(updateUserAction(userData));
     dispatch(setImportantNotification(ImportantNotifications.userExitGame));
   } catch (error) {
     const notification = createCommonNotificationAboutError();

@@ -11,6 +11,8 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom';
+import UserConnection from './listeners/UserConnection';
+import UserKick from './listeners/UserKick';
 import { createCommonNotificationAboutUser } from './helpers/commonNotifications';
 import Context from './helpers/context';
 import { useQuery } from './helpers/query';
@@ -43,7 +45,7 @@ import {
   setVotingNotification,
 } from './redux/actions/notifications';
 import { setRoomIdAction } from './redux/actions/room';
-import { setCurrentUserAction, setUsersAction, updateUser } from './redux/actions/user';
+import { setCurrentUserAction, setUsersAction, updateUserAction } from './redux/actions/user';
 import {
   initVoting,
   setFinalVoteAction,
@@ -90,6 +92,7 @@ import { Pages } from './types/page';
 import { GameSettings, GameStatus } from './types/room';
 import { UserData, Users } from './types/user';
 import { FinalVoteData, StatisticsData, UserVotingData } from './types/voting';
+import UserDelete from './listeners/UserDelete';
 
 interface AppProps extends RouteComponentProps {
   setUser: any;
@@ -156,75 +159,7 @@ const App: FunctionComponent<AppProps> = ({
   }, []);
 
   useEffect(() => {
-    socket.on(USER_CONNECTED, (data) => {
-      setNewUser(data);
-      const notificationData = createCommonNotificationAboutUser(
-        data,
-        CommonNotificationAction.connect,
-      );
-      setNewCommonNotification(notificationData);
-    });
-
-    socket.on(USER_LEFT, (data) => {
-      updateUserStatus(data);
-      const notificationData = createCommonNotificationAboutUser(
-        data,
-        CommonNotificationAction.left,
-      );
-      setNewCommonNotification(notificationData);
-    });
-
-    socket.on(USER_DISCONNECTED, ({ disconnectedUserId, disconnectedUser }) => {
-      const disconnectedUserData = { userId: disconnectedUserId, user: disconnectedUser };
-      updateUserStatus(disconnectedUserData);
-      const notificationData = createCommonNotificationAboutUser(
-        disconnectedUserData,
-        CommonNotificationAction.disconnected,
-      );
-      setNewCommonNotification(notificationData);
-    });
-
-    socket.on(MASTER_DISCONNECTED, ({ disconnectedUserId, disconnectedUser }) => {
-      const disconnectedUserData = { userId: disconnectedUserId, user: disconnectedUser };
-      updateUserStatus(disconnectedUserData);
-      setNewImportantNotification(ImportantNotifications.masterDisconnected);
-      setTimeout(() => {
-        redirectToGoodbyePage();
-      }, 5000);
-    });
-
     socket.on(RECEIVE_MESSAGE, setNewMessage);
-    socket.on(USER_IS_KICKED, ({ kickInitiator, kickedUserId, kickedUser }) => {
-      updateUserStatus({ userId: kickedUserId, user: kickedUser });
-      setStartVoting({ kickInitiator, kickedUserId });
-    });
-    socket.on(YOU_ARE_KICKED, ({ kickInitiator, kickedUserId, kickedUser }) => {
-      updateUserStatus({ userId: kickedUserId, user: kickedUser });
-      setNewImportantNotification(ImportantNotifications.kick);
-    });
-    socket.on(USER_IS_DELETED, (data) => {
-      updateUserStatus(data);
-      const notificationData = createCommonNotificationAboutUser(
-        data,
-        CommonNotificationAction.deleted,
-      );
-      setNewCommonNotification(notificationData);
-    });
-    socket.on(USER_IS_NOT_DELETED, (data) => {
-      updateUserStatus(data);
-      const notificationData = createCommonNotificationAboutUser(
-        data,
-        CommonNotificationAction.isNotDeleted,
-      );
-      setNewCommonNotification(notificationData);
-    });
-    socket.on(YOU_ARE_DELETED, () => {
-      redirectToGoodbyePage();
-    });
-    socket.on(YOU_ARE_NOT_DELETED, (data) => {
-      setNewImportantNotification(ImportantNotifications.notDeleted);
-      updateUserStatus(data);
-    });
     socket.on(GAME_STATUS_CHANGED, (data) => {
       updateGameStatus(data);
       if (data === GameStatus.canceled) {
@@ -293,24 +228,31 @@ const App: FunctionComponent<AppProps> = ({
   ];
 
   return (
-    <Switch>
-      {routes.map(({ path, component, key }) => (
-        <Route
-          exact={key === 'main'}
-          path={key === 'main' ? path || '/?roomId=roomId' : path}
-          key={key}
-        >
-          {component}
-        </Route>
-      ))}
-    </Switch>
+    <>
+      <Switch>
+        {routes.map(({ path, component, key }) => (
+          <Route
+            exact={key === 'main'}
+            path={key === 'main' ? path || '/?roomId=roomId' : path}
+            key={key}
+          >
+            {component}
+          </Route>
+        ))}
+      </Switch>
+      <>
+        <UserConnection />
+        <UserKick />
+        <UserDelete />
+      </>
+    </>
   );
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  setUser: (userData: UserData) => dispatch(updateUser(userData)),
+  setUser: (userData: UserData) => dispatch(updateUserAction(userData)),
   setMessage: (message: Message) => dispatch(setMessageOnResponse(message)),
-  updateUser: (userData: UserData) => dispatch(updateUser(userData)),
+  updateUser: (userData: UserData) => dispatch(updateUserAction(userData)),
   setVoting: (data: VotingData) => dispatch(setVotingNotification(data)),
   setImportantNotification: (content: string) => dispatch(setImportantNotification(content)),
   setCommonNotification: (notification: CommonNotification) => dispatch(setCommonNotification(notification)),
