@@ -50,17 +50,19 @@ const GameTimer: React.FC<GameTimerPrors> = ({
   };
 
   useEffect(() => {
-    if (!roundIsActive) return;
-    if (timerMitunes === 0 && timerSeconds === 0) {
-      if (isUserMaster && roundIsActive) {
-        stopRound(roomId);
-        if (changingCardInRoundEnd) {
-          setRestartButtonNeeded(true);
-        }
-      }
-      return;
+    if (!roundIsActive) {
+      setTimerMinutes(0);
+      setTimerSeconds(0);
+    } else {
+      setTimerMinutes(minutes);
+      setTimerSeconds(seconds);
     }
-    if (timerSeconds === 0) {
+  }, [roundIsActive]);
+
+  useEffect(() => {
+    if (!roundIsActive) return;
+
+    if (timerSeconds === 0 && timerMitunes !== 0) {
       setTimeout(() => {
         setTimerSeconds(59);
         setTimerMinutes((prev) => prev - 1);
@@ -74,15 +76,17 @@ const GameTimer: React.FC<GameTimerPrors> = ({
   }, [timerSeconds]);
 
   useEffect(() => {
-    if (!roundIsActive) {
-      setTimerMinutes(0);
-      setTimerSeconds(0);
-    } else {
-      setTimerMinutes(minutes);
-      setTimerSeconds(seconds);
+    if (roundIsActive && timerMitunes === 0 && timerSeconds === 0) {
+      if (isUserMaster && roundIsActive) {
+        stopRound(roomId);
+        if (changingCardInRoundEnd) {
+          setRestartButtonNeeded(true);
+        }
+      }
     }
-  }, [roundIsActive]);
+  }, [timerMitunes, timerSeconds]);
 
+  console.log(roundTime, timerMitunes, timerSeconds);
   return ( 
     <div className={styles.timerContainer}>
       <TimeInput value={{ minutes: timerMitunes, seconds: timerSeconds }} disabled handleChange={console.log} />
