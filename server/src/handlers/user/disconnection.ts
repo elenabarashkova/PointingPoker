@@ -2,6 +2,7 @@ import { Socket } from 'socket.io';
 import { addDisconnectedStatus } from '../../actions/user/changeStatus';
 import { UserEvents } from '../../constants/events';
 import { store } from '../../store';
+import { UserRole } from '../../types/user';
 
 export const userDisconnectionHandler = (socket: Socket) => (): void => {
   try {
@@ -14,7 +15,12 @@ export const userDisconnectionHandler = (socket: Socket) => (): void => {
         store
       );
       if (disconnectedUser) {
-        socket.to(roomId).emit(UserEvents.userDisconnected, {
+        const event =
+          disconnectedUser.role === UserRole.master
+            ? UserEvents.masterDisconnected
+            : UserEvents.userDisconnected;
+
+        socket.to(roomId).emit(event, {
           disconnectedUserId,
           disconnectedUser,
         });

@@ -16,6 +16,9 @@ export const createCommonNotificationAboutUser = (
     case CommonNotificationAction.connect:
       content = 'joined the game session';
       break;
+    case CommonNotificationAction.disconnected:
+      content = 'disconnected';
+      break;
     case CommonNotificationAction.deleted:
       content = 'was removed from the game session';
       break;

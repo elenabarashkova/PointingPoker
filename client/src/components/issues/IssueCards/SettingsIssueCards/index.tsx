@@ -15,6 +15,7 @@ export const SettingsIssueCards: React.FC<SettingsIssueCardsProps> = ({
         key={id}
         id={id}
         title={title}
+        link={link}
         priority={priority}
         editMode
         deleteBtnAction={deleteBtnAction(id)}

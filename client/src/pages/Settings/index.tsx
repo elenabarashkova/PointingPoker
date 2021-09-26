@@ -5,6 +5,7 @@ import SettingsSection from 'components/settings/SettingsSection';
 import GameTitle from 'components/shared/GameTitle';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
 import { Issues } from 'src/types/issues';
 import { Pages } from 'src/types/page';
@@ -19,6 +20,7 @@ export interface SettingsPageProps {
 const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => {
   const [areSettingsCustom, setCustomSettings] = useState(false);
   const [areIssuesCreated, setCreatedIssues] = useState(false);
+  const { canParticipate } = useTypedSelector(({ game }) => game);
 
   useEffect(() => {
     if (Object.keys(issues).length === 1) {
@@ -38,7 +40,10 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ issues }): ReactElement => 
         <GameSection areIssuesCreated={areIssuesCreated} areSettingsCustom={areSettingsCustom} />
         <MembersSection />
         <SettingsIssueTools />
-        <SettingsSection settingsChangeHandler={addCustomSettings} />
+        <SettingsSection
+          settingsChangeHandler={addCustomSettings}
+          canParticipate={canParticipate}
+        />
       </main>
       <Footer page={Pages.settings} />
     </div>

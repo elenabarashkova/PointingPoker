@@ -7,4 +7,5 @@ export interface Game {
   roundIsActive: boolean;
   error: boolean;
   isLoading: boolean;
+  canParticipate: boolean;
 }

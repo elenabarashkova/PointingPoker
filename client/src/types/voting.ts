@@ -26,6 +26,11 @@ export interface UserVotingData {
   vote: string;
 }
 
+export interface UsersVotingData {
+  issueId: string;
+  votes: UserVote[];
+}
+
 export interface StatisticsData {
   issueId: string;
   statistics: Statistics;
