@@ -1,4 +1,9 @@
-import React, { FunctionComponent, ReactElement, useEffect } from 'react';
+import React, {
+  FunctionComponent,
+  ReactElement,
+  useEffect,
+  useMemo,
+} from 'react';
 import { connect, useDispatch } from 'react-redux';
 import {
   Route,
@@ -67,7 +72,12 @@ import {
   YOU_ARE_KICKED,
   YOU_ARE_NOT_DELETED,
 } from './services/constants';
-import { redirectToGamePage, redirectToGoodbyePage, redirectToTooLatePage } from './shared';
+import {
+  redirectToGamePage,
+  redirectToGoodbyePage,
+  redirectToMainPage,
+  redirectToTooLatePage,
+} from './shared';
 import { StartRoundData } from './types/game';
 import { IssueData, Issues } from './types/issues';
 import { Message } from './types/messages';
@@ -138,6 +148,13 @@ const App: FunctionComponent<AppProps> = ({
   setTitleAction: setGameTitle,
 }): ReactElement => {
   const dispatch = useDispatch();
+
+  useMemo(() => {
+    const shouldRedirectToMain = window.location.pathname !== '/';
+    if (shouldRedirectToMain) {
+      window.location.href = window.location.origin;
+    }
+  }, []);
 
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
