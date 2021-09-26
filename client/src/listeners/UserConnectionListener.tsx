@@ -10,7 +10,7 @@ import {
   USER_DISCONNECTED,
   USER_LEFT,
 } from '../services/constants';
-import { redirectToGoodbyePage } from '../shared';
+import { redirectToGoodbyePage } from '../shared/redirect';
 import { CommonNotificationAction, ImportantNotifications } from '../types/notifications';
 
 interface UserConnectionProps {

@@ -7,6 +7,7 @@ import { updateGameStatusAction } from 'src/redux/actions/complexActions/updateG
 import { ElementSize } from 'src/types/additional';
 import { GameStatus } from 'src/types/room';
 import styles from './style.module.scss';
+import { getGameLink } from '../../shared/url';
 
 export interface GameSectionProps {
   updateGameStatus: CallableFunction;
@@ -25,8 +26,7 @@ const GameSection: React.FC<GameSectionProps> = ({
   const currectUserData = roomUsers[currectUserId];
   const gameId = useTypedSelector(({ game }) => game.roomId);
 
-  // todo: поменять gameLink
-  const gameLink = `http://localhost:8080/?roomId=${gameId}`;
+  const gameLink = getGameLink(gameId);
 
   const copyText = () => {
     navigator.clipboard.writeText(gameLink);

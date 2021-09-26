@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { createCommonNotificationAboutError } from 'src/helpers/commonNotifications';
 import { changeGameStatus } from 'src/services/game/changeGameStatus';
-import { redirectToGamePage } from 'src/shared';
+import { redirectToGamePage } from 'src/shared/redirect';
 import { ImportantNotifications } from 'src/types/notifications';
 import { GameStatus } from 'src/types/room';
 import { setGameStatus } from '../game';
