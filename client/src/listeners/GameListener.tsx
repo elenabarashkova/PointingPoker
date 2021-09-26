@@ -8,7 +8,7 @@ import {
   GAME_TITLE_CHANGED,
   RECEIVE_MESSAGE,
 } from '../services/constants';
-import { redirectToGamePage } from '../shared';
+import { redirectToGamePage } from '../shared/redirect';
 import { ImportantNotifications } from '../types/notifications';
 import { GameStatus } from '../types/room';
 import { setAllGameSettings, setGameStatus, setTitle } from '../redux/actions/game';
