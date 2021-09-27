@@ -14,8 +14,29 @@
   align-items: center;
   color: white;
   min-height: 70px;
+  outline: none;
+  border: none;
+  position: relative;
+  transition: 0.2s;
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 
   p {
     margin: 0;
+  }
+
+  &::after {
+    content: '\002B';
+    position: absolute;
+    top: 50%;
+    font-size: 55px;
+    right: 10px;
+    transform: translateY(-50%);
   }
 }

@@ -1,6 +1,7 @@
 export const SET_USERS = 'SET_USERS';
 export const UPDATE_USER = 'UPDATE_USER';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const ALLOW_PARTICIPATION = 'ALLOW_PARTICIPATION';
 
 export const SET_ROOM_ID = 'SET_ROOM_ID';
 export const SET_GAME_STATUS = 'SET_GAME_STATUS';
