@@ -8,8 +8,8 @@ import { createRoom } from '../../../services/room/createRoom';
 import { redirectToGamePage, redirectToLobby, redirectToSettings } from '../../../shared';
 import { GameStatus, Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
-import { setImportantNotification } from '../notifications';
 import { setTitle } from '../game';
+import { setImportantNotification } from '../notifications';
 
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
   try {
