@@ -1,5 +1,6 @@
 import { FunctionComponent, ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
+import store from 'src/redux/store';
 import { createCommonNotificationAboutUser } from '../helpers/commonNotifications';
 import { setCommonNotification, setImportantNotification } from '../redux/actions/notifications';
 import { updateUserAction } from '../redux/actions/user';
@@ -19,18 +20,19 @@ interface UserConnectionProps {
   setCommonNotification: CallableFunction;
 }
 
-const UserConnectionListener: FunctionComponent<UserConnectionProps> = (
-  {
-    updateUserAction: updateUser,
-    setImportantNotification: setNewImportantNotification,
-    setCommonNotification: setNewCommonNotification,
-  },
-): ReactElement => {
+const UserConnectionListener: FunctionComponent<UserConnectionProps> = ({
+  updateUserAction: updateUser,
+  setImportantNotification: setNewImportantNotification,
+  setCommonNotification: setNewCommonNotification,
+}): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
-      updateUser(data);
+      const { game } = store.getState();
+      const canParticipate = !game.roundIsActive;
+      const userData = { ...data, user: { ...data.user, canParticipate } };
+      updateUser(userData);
       const notificationData = createCommonNotificationAboutUser(
-        data,
+        userData,
         CommonNotificationAction.connect,
       );
       setNewCommonNotification(notificationData);

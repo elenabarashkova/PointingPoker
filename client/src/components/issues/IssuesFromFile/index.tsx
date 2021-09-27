@@ -17,7 +17,7 @@ const TooltipContent: React.FC = () => (
 );
 
 export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle }) => {
-  const [uploadedIssues, setUploadedIssues] = useState<any>(null);
+  const [uploadedIssues, setUploadedIssues] = useState<unknown[]>(null);
   const [error, setError] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { roomId } = useSelector((store: RootStore) => store.game);
