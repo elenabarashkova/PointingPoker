@@ -25,6 +25,7 @@ export enum ImportantNotifications {
   gameCanceled = 'Game is canceled',
   userExitGame = 'You are out of the game',
   masterDisconnected = 'Master disconnected, current game is over, you will be redirected to the result page',
+  roundIsActive = 'Current round is already in progress, you can not participate in this round, please wait until it ends',
 }
 
 export enum CommonNotificationAction {
