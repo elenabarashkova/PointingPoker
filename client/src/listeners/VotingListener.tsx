@@ -4,7 +4,7 @@ import { setFinalVoteAction, setUserVote } from '../redux/actions/voting';
 import { Events, socket, USER_HAS_VOTED } from '../services/constants';
 
 interface VotingListenerProps {
-  setUserVote():any;
+  setUserVote(UserVotingData):void;
   setFinalVoteAction: CallableFunction;
 }
 
