@@ -46,6 +46,7 @@ const GamePage: React.FC<GamePageProps> = ({
   const issueId = useTypedSelector(({ game }) => game.currentIssueId);
   const roomUsers = useTypedSelector(({ users }) => users);
   const isTimerNeeded = useTypedSelector(({ gameSettings }) => gameSettings.timer);
+  const { canParticipate } = useTypedSelector(({ game }) => game);
 
   const [masterId, masterData] = Object.entries(roomUsers).filter(
     ([, user]) => user.role === UserRole.master,
@@ -79,7 +80,7 @@ const GamePage: React.FC<GamePageProps> = ({
         <GameTitle editable={false} />
         <div className={styles.container}>
           <UserCard user={masterData} id={masterId} currentUserId={userId} size={ElementSize.big} />
-          {isTimerNeeded && <GameTimer />}
+          {isTimerNeeded && canParticipate && <GameTimer />}
           <div style={{ marginBottom: '45px' }}>
             <Button content={buttonContent} variant="colored" action={buttonAction} />
           </div>
