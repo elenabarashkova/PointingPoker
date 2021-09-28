@@ -4,10 +4,6 @@ export const socket = io('https://arcane-thicket-43676.herokuapp.com/', {
   transports: ['websocket', 'polling'],
 });
 
-// export const socket = io('http://localhost:5000/', {
-//   transports: ['websocket', 'polling'],
-// });
-
 export enum ResponseStatus {
   ok = 200,
   notFound = 404,

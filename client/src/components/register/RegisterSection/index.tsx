@@ -87,8 +87,8 @@ const RegisterSection: React.FC = (): ReactElement => {
         <p>Are you ready to be a scram master?</p>
         <Button content="start new game" variant="colored" action={handleClickBtnMaster} />
       </div>
-      <div>OR</div>
       <div className={styles.registrEl}>
+        <p>Or connect to a game:</p>
         <TextInput
           name="gameId"
           value={gameIdInput}
