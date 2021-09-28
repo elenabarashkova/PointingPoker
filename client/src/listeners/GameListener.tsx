@@ -17,9 +17,9 @@ import { setMessageOnResponse } from '../redux/actions/messages';
 interface GameListenerProps {
   setImportantNotification: CallableFunction;
   setGameStatus: CallableFunction;
-  setMessageOnResponse: any;
-  setAllGameSettings: any;
-  setTitle: any;
+  setMessageOnResponse: (Message) => void;
+  setAllGameSettings: (GameSettings) => void;
+  setTitle: (string) => void;
 }
 
 const GameListener: FunctionComponent<GameListenerProps> = (
