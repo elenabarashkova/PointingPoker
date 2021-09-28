@@ -10,12 +10,19 @@ import {
 } from 'src/redux/actions/game';
 import { setIssuesAction } from 'src/redux/actions/issues';
 import { setMessages } from 'src/redux/actions/messages';
+import { setImportantNotification } from 'src/redux/actions/notifications';
 import { setRoomIdAction } from 'src/redux/actions/room';
 import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { setFinalVoteAction, setUsersVote, setVotingStatistics } from 'src/redux/actions/voting';
+import { ImportantNotifications } from 'src/types/notifications';
 import { Room } from 'src/types/room';
 
-export const setRoomData = (dispatch: Dispatch, room: Room, roomId: string, userId: string): void => {
+export const setRoomData = (
+  dispatch: Dispatch,
+  room: Room,
+  roomId: string,
+  userId: string,
+): void => {
   const {
     users,
     messages,
@@ -41,6 +48,7 @@ export const setRoomData = (dispatch: Dispatch, room: Room, roomId: string, user
 
     if (roundIsActive) {
       dispatch(setCanParticipate(false));
+      dispatch(setImportantNotification(ImportantNotifications.roundIsActive));
     }
 
     Object.entries(issues).forEach(([issueId, { votes, finalVote, statistics }]) => {
