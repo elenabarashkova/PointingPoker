@@ -8,12 +8,10 @@
   height: 106px;
 }
 .header.main {
+  height: fit-content;
   display: flex;
   justify-content: flex-end;
-  height: 160px;
-  flex-grow: 0;
-  flex-shrink: 0;
-
+  margin-bottom: 65px;
   .logo {
     position: relative;
   }
