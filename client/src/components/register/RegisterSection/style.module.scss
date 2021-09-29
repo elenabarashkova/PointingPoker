@@ -13,15 +13,6 @@
   font-size: 24px;
   text-align: center;
 
-  @media (max-width: $s-screen) {
-    height: 80%;
-  }
-
-  @media (max-width: $xs-screen) {
-    height: 100%;
-    padding: 0 50px;
-  }
-
   .registrEl {
     padding: 0 10px;
     display: flex;
@@ -32,27 +23,12 @@
     font-size: 24px;
     text-align: center;
 
-    @media (max-width: $s-screen) {
-      align-items: flex-start;
-      padding: 0 155px 0 25px;
-      width: 100%;
-      text-align: left;
-    }
-
-    @media (max-width: $xs-screen) {
-      padding: 0 150px 0 0;
-    }
-
     &:first-child {
       margin-bottom: 35px;
     }
 
     p {
       width: calc(100% - 100px);
-
-      @media (max-width: $s-screen) {
-        width: 100%;
-      }
     }
   }
 }
