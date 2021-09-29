@@ -14,8 +14,28 @@
   flex-grow: 0;
   flex-shrink: 0;
 
+  @media (max-width: $xs-screen) {
+    height: 300px;
+  }
+
   .logo {
     position: relative;
+
+    @media (max-width: $xs-screen) {
+      height: 100px;
+      width: 100px;
+      font-size: 38px;
+
+      & > p {
+        top: -30px;
+      }
+
+      & > span {
+        top: 40px;
+      }
+    }
+
+
   }
 }
 .header.lobby,
