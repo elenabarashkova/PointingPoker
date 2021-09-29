@@ -8,16 +8,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left;
-
-  @media (max-width: $s-screen) {
-    position: static;
-    width: 50%;
-  }
-
-  @media (max-width: $xs-screen) {
-    background: none;
-    width: 0;
-  }
 }
 
 .slogan {
@@ -29,17 +19,6 @@
   font-family: $font-family-second;
   color: $base-text-color-2;
   margin: 0;
-
-  @media (max-width: $s-screen) {
-    top: 25px;
-    width: 60%;
-  }
-
-  @media (max-width: $xs-screen) {
-    font-size: 26px;
-    width: 53%;
-    line-height: 42px;
-  }
 }
 
 .markBold {
@@ -52,8 +31,4 @@
   font-style: italic;
   font-size: 38px;
   color: #295972;
-
-  @media (max-width: $xs-screen) {
-    font-size: 30px;
-  }
 }
