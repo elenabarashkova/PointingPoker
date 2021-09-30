@@ -15,7 +15,7 @@ export const createStatData = (
       const percent = `${(issueStatData[vote].percentage * 100).toFixed(1)}%`;
       return `${vote} - ${percent}`;
     });
-    const finalVote = statistics[issueId].finalVote;
+    const { finalVote } = statistics[issueId];
     if (type === 'saveAsXlsx') {
       return [issueTitle, finalVote, ...votesData];
     } 
@@ -33,8 +33,8 @@ export const createStatData = (
   } 
   return data.map(([firstElem, secondElem, thirdElem], index) => {
     if (index === 0) {
-      return `${firstElem}: ${secondElem} / ${thirdElem} \r\n`
+      return `${firstElem}: ${secondElem} / ${thirdElem} \r\n`;
     } 
-    return `${firstElem}: final vote - ${secondElem}, results - ${thirdElem}\r\n`
+    return `${firstElem}: final vote - ${secondElem}, results - ${thirdElem}\r\n`;
   });
 };
