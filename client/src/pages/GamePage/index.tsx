@@ -39,6 +39,7 @@ const GamePage: React.FC<GamePageProps> = ({
   updateGameStatus,
 }): ReactElement => {
   const [showStatistics, setShowStatistics] = useState(false);
+  const [isRedirectToResultNeeded, setRedirectToResultNeeded] = useState(false);
 
   const isGameMaster = useMemo(() => isMaster(), []);
   const roomId = useTypedSelector(({ game }) => game.roomId);
@@ -59,11 +60,19 @@ const GamePage: React.FC<GamePageProps> = ({
     if (Object.keys(voting[issueId].statistics).length) {
       setShowStatistics(true);
     }
+    if (Object.keys(voting).length === 1) {
+      setRedirectToResultNeeded(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voting]);
 
-  const handleStopGame = () => {
+  const handCancelGame = () => {
     updateGameStatus(roomId, GameStatus.canceled);
+  };
+
+  const handStopGame = () => {
+    updateGameStatus(roomId, GameStatus.finished);
+    // redirect to result
   };
 
   const handleExit = () => {
@@ -71,7 +80,11 @@ const GamePage: React.FC<GamePageProps> = ({
   };
 
   const buttonContent = isGameMaster ? 'Stop Game' : 'Exit';
-  const buttonAction = isGameMaster ? handleStopGame : handleExit;
+  const buttonAction = !isGameMaster 
+    ? handleExit 
+    : isRedirectToResultNeeded 
+      ? handStopGame
+      : handCancelGame;
 
   return (
     <div className={styles.wrapper}>

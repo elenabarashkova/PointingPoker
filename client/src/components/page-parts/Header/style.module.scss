@@ -11,14 +11,15 @@
   height: fit-content;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 65px;
+  margin-bottom: 75px;
   .logo {
     position: relative;
   }
 }
 .header.lobby,
 .header.game,
-.header.settings {
+.header.settings,
+.header.result {
   padding: 30px 0px;
   display: flex;
   justify-content: flex-end;
