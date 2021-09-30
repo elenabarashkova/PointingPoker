@@ -1,4 +1,8 @@
-import { FunctionComponent, ReactElement, useEffect } from 'react';
+import { 
+  FunctionComponent, 
+  ReactElement, 
+  useEffect,
+} from 'react';
 import { connect } from 'react-redux';
 import store from 'src/redux/store';
 import { createCommonNotificationAboutUser } from '../helpers/commonNotifications';
@@ -11,7 +15,6 @@ import {
   USER_DISCONNECTED,
   USER_LEFT,
 } from '../services/constants';
-import { redirectToGoodbyePage } from '../shared';
 import { CommonNotificationAction, ImportantNotifications } from '../types/notifications';
 
 interface UserConnectionProps {
@@ -61,9 +64,6 @@ const UserConnectionListener: FunctionComponent<UserConnectionProps> = ({
       const disconnectedUserData = { userId: disconnectedUserId, user: disconnectedUser };
       updateUser(disconnectedUserData);
       setNewImportantNotification(ImportantNotifications.masterDisconnected);
-      setTimeout(() => {
-        redirectToGoodbyePage();
-      }, 5000);
     });
     // eslint-disable-next-line
   }, []);
