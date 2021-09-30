@@ -28,3 +28,7 @@ export const redirectToTooLatePage = (): void => {
 export const redirectToResultPage = (): void => {
   history.push(`/${Pages.result}`);
 };
+
+export const redirectToGameIsOverPage = (): void => {
+  history.push(`/${Pages.gameIsOver}`);
+};

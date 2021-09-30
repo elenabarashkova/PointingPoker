@@ -1,0 +1,39 @@
+@import '../../scss/variables.scss';
+
+.wrapper {
+  margin: 0 auto;
+  height: 100%;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  padding: 20px;
+  .statItem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+    .p {
+      color: $base-text-color-2;
+      font-family: $font-family-second;
+      font-size: 18px;
+      margin-right: 20px;
+      mark {
+        font-family: $font-family-first;
+        font-size: 28px;
+        background: $light-yellow;
+        padding: 2px 4px;
+        border-radius: 3px;
+        box-shadow: $shadow;
+      }
+    }
+  }
+  .buttons {
+    width: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
