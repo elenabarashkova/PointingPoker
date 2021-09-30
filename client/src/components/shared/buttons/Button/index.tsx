@@ -1,4 +1,4 @@
-import { LinearProgress } from '@material-ui/core';
+import LinearProgress from '@mui/material/LinearProgress';
 import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
 
