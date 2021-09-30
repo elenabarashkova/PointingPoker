@@ -1,7 +1,12 @@
 import { Issues } from 'src/types/issues';
 import { Voting } from 'src/types/voting';
 
-export const createStatData = (issuesId: string[], issues: Issues, statistics: Voting, type: string): string[] | string[][] => {
+export const createStatData = (
+  issuesId: string[], 
+  issues: Issues, 
+  statistics: Voting, 
+  type: string,
+): string[] | string[][] => {
   const statData = issuesId.map((issueId) => {
     const issueStatData = statistics[issueId].statistics;
     const issueTitle = issues[issueId].title;
