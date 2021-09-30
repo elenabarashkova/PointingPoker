@@ -2,6 +2,7 @@ import React, { FunctionComponent, ReactElement } from 'react';
 import { UserVote } from '../../../../../types/voting';
 import styles from '../style.module.scss';
 import coffee from '../../../../voting/VotingCard/coffee-cup.svg';
+import donut from './donut.svg';
 
 interface MembersSectionProps {
   id: string;
@@ -28,7 +29,7 @@ export const ScoresItem: FunctionComponent<MembersSectionProps> = (
       {isRoundActive ? (
         <span key={id}>Pending</span>
       ) : (
-        userVote ? actualVote : (<span>—</span>)
+        userVote ? actualVote : (<img src={donut} alt="donut" />)
       )}
     </div>
   );
