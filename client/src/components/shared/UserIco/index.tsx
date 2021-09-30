@@ -14,7 +14,13 @@ interface UserIcoProps {
 const UserIco: React.FC<UserIcoProps> = ({
   firstName, lastName, imgSrc, size, userStatus,
 }): ReactElement => {
-  const content = (!lastName) ? firstName[0] : firstName[0] + lastName[0];
+  const content = (!firstName && !lastName) 
+    ? ''
+    : (firstName && !lastName) 
+    ? firstName[0]
+    : (!firstName && lastName) 
+    ? lastName[0]
+    : firstName[0] + lastName[0];
 
   return (
     <div className={`${styles.userIco} ${styles[size]} ${userStatus !== UserStatus.active && styles.nonActiveUser}`}>
