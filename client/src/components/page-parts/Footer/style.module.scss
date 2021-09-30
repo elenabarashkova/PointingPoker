@@ -1,35 +1,75 @@
 @import '../../../scss/variables';
 
 .footer.main {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    position: relative;
+    width: 100%;
+    display: flex;
+    background: $light-yellow;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    height: 70px;
+    flex-shrink: 0;
+  }
+  
   .githubIcos {
     position: absolute;
-    top: 560px;
-    left: calc(100% - 80px);
+    bottom: 110px;
+    right: 50px;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 768px) {
+      position: static;
+      flex-direction: row;
+    }
+
     .githubIco {
-      margin-bottom: 10px;
+      margin: 5px 0;
+
+      @media (max-width: 768px) {
+        margin: 0 5px;
+      }
     }
   }
   .youtubeLink {
     position: absolute;
-    top: 690px;
-    left: calc(100% - 85px);
+    bottom: 30px;
+    right: 45px;
+
+    @media (max-width: 768px) {
+      position: static;
+    }
   }
   .rsSchoolLink {
     position: absolute;
-    top: calc(100vh - 70px);
+    bottom: 40px;
     left: 20px;
+
+    @media (max-width: 768px) {
+      position: static;
+
+      & > span {
+        font-size: 18px;
+        top: 10px;
+        left: 107px;
+      }
+    }
   }
-
-
 }
+
 .footer.lobby,
 .footer.game,
 .footer.settings {
   position: relative;
   width: 100%;
-  max-width: 1600px;
+  //max-width: 1600px;
   margin: 0 auto;
   display: flex;
   background: $light-yellow;
