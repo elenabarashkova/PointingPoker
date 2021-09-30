@@ -24,7 +24,7 @@ const UserKickListener: FunctionComponent<UserKickProps> = (
       setStartVoting({ kickInitiator, kickedUserId });
     });
 
-    socket.on(YOU_ARE_KICKED, ({ kickInitiator, kickedUserId, kickedUser }) => {
+    socket.on(YOU_ARE_KICKED, ({ kickedUserId, kickedUser }) => {
       updateUser({ userId: kickedUserId, user: kickedUser });
       setNewImportantNotification(ImportantNotifications.kick);
     });

@@ -9,6 +9,7 @@ import LobbyPage from './pages/LobbyPage';
 import MainPage from './pages/MainPage';
 import SettingsPage from './pages/Settings';
 import TooLatePage from './pages/TooLatePage';
+import GameIsOverPage from './pages/GameIsOver';
 import { Pages } from './types/page';
 import GameListener from './listeners/GameListener';
 import UserDeleteListener from './listeners/UserDeleteListener';
@@ -46,6 +47,7 @@ const App: FunctionComponent = (): ReactElement => {
     { path: `/${Pages.goodbye}`, component: <GoodbyePage />, key: 'goodbye' },
     { path: `/${Pages.tooLate}`, component: <TooLatePage />, key: 'tooLate' },
     { path: `/${Pages.result}`, component: <ResultPage />, key: 'result' },
+    { path: `/${Pages.gameIsOver}`, component: <GameIsOverPage />, key: 'gameIsOver' },
     { path: '/*', component: <ErrorPage />, key: 'error' },
   ];
 

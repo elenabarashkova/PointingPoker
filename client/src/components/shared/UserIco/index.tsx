@@ -17,10 +17,10 @@ const UserIco: React.FC<UserIcoProps> = ({
   const content = (!firstName && !lastName) 
     ? ''
     : (firstName && !lastName) 
-    ? firstName[0]
-    : (!firstName && lastName) 
-    ? lastName[0]
-    : firstName[0] + lastName[0];
+      ? firstName[0]
+      : (!firstName && lastName) 
+        ? lastName[0]
+        : firstName[0] + lastName[0];
 
   return (
     <div className={`${styles.userIco} ${styles[size]} ${userStatus !== UserStatus.active && styles.nonActiveUser}`}>
