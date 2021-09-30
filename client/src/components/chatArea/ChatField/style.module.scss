@@ -1,10 +1,18 @@
 @import '../../../scss/variables';
 
 .chatField {
-  width: 500px;
+  padding-top: 30px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   color: $base-text-color-2;
   font-family: $font-family-second;
+  height: 100%;
+  min-height: 100vh;
+}
+.chatField.chatIsOpened {
+  position: relative;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.267);
 }

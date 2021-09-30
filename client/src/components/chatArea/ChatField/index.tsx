@@ -40,8 +40,10 @@ const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
     setChatIsOpened((prev) => !prev);
   }; 
 
+  const addChatClass = (chatIsOpened) ? 'chatIsOpened' : ''; 
+
   return (
-    <div className={styles.chatField}>
+    <div className={`${styles.chatField} ${styles[addChatClass]}`} onClick={() => { if (chatIsOpened) { setChatIsOpened(false); } }} aria-hidden="true">
       <ChatButton openCloseChat={openCloseChat} notShownMessages={notShownMessages} />
       <CSSTransition 
         in={chatIsOpened}
