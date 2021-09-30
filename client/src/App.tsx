@@ -9,6 +9,7 @@ import LobbyPage from './pages/LobbyPage';
 import MainPage from './pages/MainPage';
 import SettingsPage from './pages/Settings';
 import TooLatePage from './pages/TooLatePage';
+import GameIsOverPage from './pages/GameIsOver';
 import { Pages } from './types/page';
 import GameListener from './listeners/GameListener';
 import UserDeleteListener from './listeners/UserDeleteListener';
@@ -18,6 +19,7 @@ import UserKickListener from './listeners/UserKickListener';
 import IssuesListener from './listeners/IssuesListener';
 import NewUserAccessListener from './listeners/NewUserAccessListener';
 import VotingListener from './listeners/VotingListener';
+import ResultPage from './pages/ResultPage';
 
 const App: FunctionComponent = (): ReactElement => {
   useMemo(() => {
@@ -44,6 +46,8 @@ const App: FunctionComponent = (): ReactElement => {
     { path: `/${Pages.lobby}`, component: <LobbyPage />, key: 'lobby' },
     { path: `/${Pages.goodbye}`, component: <GoodbyePage />, key: 'goodbye' },
     { path: `/${Pages.tooLate}`, component: <TooLatePage />, key: 'tooLate' },
+    { path: `/${Pages.result}`, component: <ResultPage />, key: 'result' },
+    { path: `/${Pages.gameIsOver}`, component: <GameIsOverPage />, key: 'gameIsOver' },
     { path: '/*', component: <ErrorPage />, key: 'error' },
   ];
 

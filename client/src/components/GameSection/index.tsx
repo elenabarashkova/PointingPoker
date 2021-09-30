@@ -31,6 +31,9 @@ const GameSection: React.FC<GameSectionProps> = ({
   const copyText = () => {
     navigator.clipboard.writeText(gameLink);
     setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 5000);
   };
 
   const handleSubmit = () => {
