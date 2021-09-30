@@ -51,8 +51,9 @@ const ResultPage: React.FC = (): ReactElement => {
       <div className={styles.wrapper}>
         {issuesId.map((issueId) => (
           <div className={styles.statItem} key={issueId}>
-            <p>{issues[issueId].title}</p>
+            <p className={styles.p}><mark>{issues[issueId].title}</mark></p>
             <Statistics issueId={issueId} />
+            <p className={styles.p}>{`Final vote - ${statistics[issueId].finalVote}`}</p>
           </div>
         ))}
         <div className={styles.buttons}>
