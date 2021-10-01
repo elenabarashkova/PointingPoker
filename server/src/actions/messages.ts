@@ -1,4 +1,4 @@
-import { getMessageId } from '../helpers';
+import { getId } from '../helpers';
 import { Message } from '../types/message';
 import { Store } from '../types/room';
 
@@ -12,7 +12,7 @@ export const addMessages = (
   const message = {
     userId,
     text,
-    messageId: getMessageId(room.messages),
+    messageId: getId(),
   };
   room.messages = [...room.messages, message];
   return message;
