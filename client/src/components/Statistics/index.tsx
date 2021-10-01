@@ -18,9 +18,7 @@ const Statistics: React.FC<StatisticsProps> = ({ issueId }): ReactElement => {
           <div key={key} className={styles.statItem}>
             <p>{key}</p>
             <div style={{ height: `${percent}` }} className={styles.block} />
-            <p>
-              {percent}
-            </p>
+            <p>{percent}</p>
           </div>
         );
       })}

@@ -39,6 +39,7 @@ const GamePage: React.FC<GamePageProps> = ({
   updateGameStatus,
 }): ReactElement => {
   const [showStatistics, setShowStatistics] = useState(false);
+  const [isRedirectToResultNeeded, setRedirectToResultNeeded] = useState(false);
 
   const isGameMaster = useMemo(() => isMaster(), []);
   const roomId = useTypedSelector(({ game }) => game.roomId);
@@ -46,6 +47,7 @@ const GamePage: React.FC<GamePageProps> = ({
   const issueId = useTypedSelector(({ game }) => game.currentIssueId);
   const roomUsers = useTypedSelector(({ users }) => users);
   const isTimerNeeded = useTypedSelector(({ gameSettings }) => gameSettings.timer);
+  const { canParticipate } = useTypedSelector(({ game }) => game);
 
   const [masterId, masterData] = Object.entries(roomUsers).filter(
     ([, user]) => user.role === UserRole.master,
@@ -58,11 +60,19 @@ const GamePage: React.FC<GamePageProps> = ({
     if (Object.keys(voting[issueId].statistics).length) {
       setShowStatistics(true);
     }
+    if (Object.keys(voting).length === 1) {
+      setRedirectToResultNeeded(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voting]);
 
-  const handleStopGame = () => {
+  const handCancelGame = () => {
     updateGameStatus(roomId, GameStatus.canceled);
+  };
+
+  const handStopGame = () => {
+    updateGameStatus(roomId, GameStatus.finished);
+    // redirect to result
   };
 
   const handleExit = () => {
@@ -70,7 +80,11 @@ const GamePage: React.FC<GamePageProps> = ({
   };
 
   const buttonContent = isGameMaster ? 'Stop Game' : 'Exit';
-  const buttonAction = isGameMaster ? handleStopGame : handleExit;
+  const buttonAction = !isGameMaster 
+    ? handleExit 
+    : isRedirectToResultNeeded 
+      ? handStopGame
+      : handCancelGame;
 
   return (
     <div className={styles.wrapper}>
@@ -79,7 +93,7 @@ const GamePage: React.FC<GamePageProps> = ({
         <GameTitle editable={false} />
         <div className={styles.container}>
           <UserCard user={masterData} id={masterId} currentUserId={userId} size={ElementSize.big} />
-          {isTimerNeeded && <GameTimer />}
+          {isTimerNeeded && canParticipate && <GameTimer />}
           <div style={{ marginBottom: '45px' }}>
             <Button content={buttonContent} variant="colored" action={buttonAction} />
           </div>

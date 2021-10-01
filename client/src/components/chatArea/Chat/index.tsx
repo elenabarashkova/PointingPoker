@@ -4,7 +4,7 @@ import MessagesField from '../MessagesField';
 import SendMessageField from '../SendMessageField';
 
 const Chat: React.FC = (): ReactElement => (
-  <div className={styles.chat}>
+  <div className={styles.chat} onClick={(e) => { e.stopPropagation(); }} aria-hidden="true">
     <MessagesField />
     <SendMessageField />
   </div>

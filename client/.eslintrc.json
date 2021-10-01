@@ -42,6 +42,7 @@
     "react-hooks/rules-of-hooks": "warn",
     "react-hooks/exhaustive-deps": "warn",
     "react/prefer-stateless-function": "off",
+    "react/default-props-match-prop-types": "off",
     "no-plusplus": "off",
     "no-alert": "warn",
     "no-console": "warn",

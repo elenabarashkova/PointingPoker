@@ -1,9 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { SET_USERS, UPDATE_USER } from '../action-types';
-import {
-  UserData,
-  Users,
-} from '../../types/user';
+import { UserData, Users } from '../../types/user';
+import { ALLOW_PARTICIPATION, SET_USERS, UPDATE_USER } from '../action-types';
 
 // export const initialState = {
 //   '2Qo1JANROXXoPWY0AAAV': {
@@ -52,7 +49,10 @@ import {
 
 export const initialState = {};
 
-export const users = (state: Users = initialState, { type, payload }: PayloadAction<Users | UserData>): Users => {
+export const users = (
+  state: Users = initialState,
+  { type, payload }: PayloadAction<Users | UserData | string>,
+): Users => {
   if (type === SET_USERS) {
     return payload as Users;
   }
@@ -61,6 +61,13 @@ export const users = (state: Users = initialState, { type, payload }: PayloadAct
     return {
       ...state,
       [userId]: user,
+    };
+  }
+  if (type === ALLOW_PARTICIPATION) {
+    const userId = payload as string;
+    return {
+      ...state,
+      [userId]: { ...state[userId], canParticipate: true },
     };
   }
 

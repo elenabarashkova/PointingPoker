@@ -7,4 +7,5 @@ export enum Pages {
   goodbye = 'goodbye',
   tooLate = 'tooLate',
   result = 'result',
+  gameIsOver = 'gameIsOver',
 }

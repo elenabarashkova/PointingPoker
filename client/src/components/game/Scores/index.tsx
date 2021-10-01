@@ -1,51 +1,48 @@
 import React, { ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { stopRoundAction } from '../../../redux/actions/complexActions/stopRoundAction';
+import { RootState } from '../../../redux/reducers';
+import { isMaster } from '../../../shared/isMaster';
+import { GameSettings } from '../../../types/room';
+import {
+  ActiveMembers, Members, UserRole, Users, UserStatus, 
+} from '../../../types/user';
+import { UserVote } from '../../../types/voting';
 import MembersList from './MembersList';
 import styles from './style.module.scss';
-import { RootState } from '../../../redux/reducers';
-import {
-  UserRole,
-  Users,
-  UserStatus,
-  Members,
-  ActiveMembers,
-} from '../../../types/user';
-import { GameSettings } from '../../../types/room';
-import { UserVote } from '../../../types/voting';
-import { isMaster } from '../../../shared/isMaster';
-import { stopRoundAction } from '../../../redux/actions/complexActions/stopRoundAction';
 
 interface ScoresProps {
   users: Users;
-  gameSettings:GameSettings;
+  gameSettings: GameSettings;
   votes: UserVote[];
   roundIsActive: boolean;
   stopRound: CallableFunction;
   roomId: string;
 }
 
-const Scores: React.FC<ScoresProps> = (
-  {
-    users,
-    gameSettings,
-    votes,
-    roundIsActive,
-    stopRound,
-    roomId,
-  },
-): ReactElement => {
+const Scores: React.FC<ScoresProps> = ({
+  users,
+  gameSettings,
+  votes,
+  roundIsActive,
+  stopRound,
+  roomId,
+}): ReactElement => {
   const isUserMaster = isMaster();
 
   const roomMembersData = Object.entries(users);
-  const activeMembers: Members = roomMembersData.filter(([, { status }]) => (
-    (status === UserStatus.active || status === UserStatus.kicked)
-  ));
+  const activeMembers: Members = roomMembersData.filter(
+    ([, { status }]) => status === UserStatus.active || status === UserStatus.kicked,
+  );
 
-  const master:Members = activeMembers.filter(([, { role }]) => role === UserRole.master);
-  const observers:Members = activeMembers.filter(([, { role }]) => role === UserRole.observer);
-  const players:Members = activeMembers.filter(([, { role }]) => role === UserRole.player);
+  const master: Members = activeMembers.filter(([, { role }]) => role === UserRole.master);
+  const observers: Members = activeMembers.filter(([, { role }]) => role === UserRole.observer);
+  const players: Members = activeMembers.filter(([, { role }]) => role === UserRole.player);
+  const activePlayers: Members = activeMembers.filter(
+    ([, { role, canParticipate }]) => role === UserRole.player && canParticipate,
+  );
 
-  const gameMembers:ActiveMembers = {
+  const gameMembers: ActiveMembers = {
     master,
     observers,
     players,
@@ -53,7 +50,7 @@ const Scores: React.FC<ScoresProps> = (
 
   useEffect(() => {
     const { timer, autoFlip, masterAsPlayer } = gameSettings;
-    const playersQuantity = players.length + (masterAsPlayer ? 1 : 0);
+    const playersQuantity = activePlayers.length + (masterAsPlayer ? 1 : 0);
     const everyoneVoted = votes.length === playersQuantity;
     // todo: make extra check for empty votes
 
@@ -78,14 +75,9 @@ const Scores: React.FC<ScoresProps> = (
   );
 };
 
-const mapStateToProps = (
-  {
-    users,
-    gameSettings,
-    voting,
-    game,
-  }: RootState,
-) => {
+const mapStateToProps = ({
+  users, gameSettings, voting, game, 
+}: RootState) => {
   const { currentIssueId, roundIsActive, roomId } = game;
   const result = {
     users,
