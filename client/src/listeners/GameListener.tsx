@@ -8,7 +8,7 @@ import {
   GAME_TITLE_CHANGED,
   RECEIVE_MESSAGE,
 } from '../services/constants';
-import { redirectToGamePage } from '../shared/redirect';
+import { redirectToGamePage, redirectToResultPage } from '../shared';
 import { ImportantNotifications } from '../types/notifications';
 import { GameStatus } from '../types/room';
 import { setAllGameSettings, setGameStatus, setTitle } from '../redux/actions/game';
@@ -17,9 +17,9 @@ import { setMessageOnResponse } from '../redux/actions/messages';
 interface GameListenerProps {
   setImportantNotification: CallableFunction;
   setGameStatus: CallableFunction;
-  setMessageOnResponse: any;
-  setAllGameSettings: any;
-  setTitle: any;
+  setMessageOnResponse: (Message) => void;
+  setAllGameSettings: (GameSettings) => void;
+  setTitle: (string) => void;
 }
 
 const GameListener: FunctionComponent<GameListenerProps> = (
@@ -40,6 +40,9 @@ const GameListener: FunctionComponent<GameListenerProps> = (
       }
       if (data === GameStatus.active) {
         redirectToGamePage();
+      }
+      if (data === GameStatus.finished) {
+        redirectToResultPage();
       }
     });
 

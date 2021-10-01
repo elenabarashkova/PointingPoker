@@ -23,8 +23,13 @@
 }
 .header.lobby,
 .header.game,
-.header.settings {
-  padding: 30px 0px;
+.header.settings,
+.header.result {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0px 0px 30px;
   display: flex;
   justify-content: flex-end;
   background: $light-blue;

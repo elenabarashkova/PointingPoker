@@ -4,10 +4,13 @@ import ImportantNotification from 'components/Notifications/ImportantNotificatio
 import VotingModal from 'components/voting/VotingModal';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import useTypedSelector from 'src/hooks/useTypedSelector';
 import { removeImportantNotification } from 'src/redux/actions/notifications';
 import { RootState } from 'src/redux/reducers';
 import { AppDispatch } from 'src/redux/store';
-import { redirectToMainPage } from 'src/shared/redirect';
+import {
+  redirectToGameIsOverPage, redirectToMainPage, redirectToResultPage,
+} from 'src/shared';
 import { ImportantNotifications, VotingData } from 'src/types/notifications';
 import { Pages } from 'src/types/page';
 import { UserData } from 'src/types/user';
@@ -34,6 +37,8 @@ const Header: React.FC<HeaderProps> = ({
   const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
 
   const [isAdmitRejectModalOpen, setAdmitRejectModalOpen] = useState(false);
+
+  const statistics = useTypedSelector(({ voting }) => voting);
 
   useEffect(() => {
     if (!kickInitiator) {
@@ -63,6 +68,13 @@ const Header: React.FC<HeaderProps> = ({
     if (importantNotification === ImportantNotifications.gameCanceled 
       || importantNotification === ImportantNotifications.userExitGame) {
       redirectToMainPage();
+    }
+    if (importantNotification === ImportantNotifications.masterDisconnected) {
+      if (Object.keys(statistics).length) {
+        redirectToResultPage();
+      } else {
+        redirectToGameIsOverPage();
+      }
     }
   };
 

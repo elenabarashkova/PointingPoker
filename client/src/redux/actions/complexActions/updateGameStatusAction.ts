@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { createCommonNotificationAboutError } from 'src/helpers/commonNotifications';
 import { changeGameStatus } from 'src/services/game/changeGameStatus';
-import { redirectToGamePage } from 'src/shared/redirect';
+import { redirectToGamePage, redirectToResultPage } from 'src/shared';
 import { ImportantNotifications } from 'src/types/notifications';
 import { GameStatus } from 'src/types/room';
 import { setGameStatus } from '../game';
@@ -19,6 +19,9 @@ export const updateGameStatusAction = (
     }
     if (gameStatus === GameStatus.canceled) {
       dispatch(setImportantNotification(ImportantNotifications.gameCanceled));
+    }
+    if (gameStatus === GameStatus.finished) {
+      redirectToResultPage();
     }
   } catch (error) {
     const notification = createCommonNotificationAboutError();
