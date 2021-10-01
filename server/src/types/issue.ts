@@ -20,7 +20,7 @@ export interface Issue {
   votes?: IssueVote[];
   status: keyof typeof IssueStatus;
   date?: number;
-  finalVote?: number;
+  finalVote?: string;
 }
 
 export interface Issues {
