@@ -4,6 +4,7 @@
   box-sizing: border-box;
   padding: 5px 10px 10px 10px;
   flex-basis: calc((800px - 30px) / 3);
+  max-width: 280px;
   margin: 0 5px 10px 5px;
   background-color: #7ecfc9;
   transition: 0.15s ease-out;
@@ -15,15 +16,15 @@
   justify-content: space-between;
   align-items: center;
   color: white;
-  min-height: 70px;
   overflow: hidden;
+  min-height: 70px;
   position: relative;
 }
 
 .issue_info {
-  display: flex;
   flex-direction: column;
   flex: 0 0 55%;
+  margin-right: 10px;
 }
 
 .column_mode {
@@ -52,8 +53,10 @@
 
 .title {
   font-weight: 300;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 30px;
+  max-width: 155px;
+  overflow: hidden;
 }
 
 .priority {
@@ -61,10 +64,13 @@
   font-size: 12px;
   line-height: 12px;
   padding-top: 5px;
+  overflow: hidden;
+  max-width: 140px;
 }
 
 .buttons_wrapper {
   display: flex;
+  font-size: 16px;
 }
 
 .dash {
