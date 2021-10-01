@@ -18,7 +18,7 @@ const FinalVoteInput: React.FC<FinalVoteInputProps> = ({
   onClick,
 }) => (
   <div className={`${styles.container} ${completed && styles.completed}`}>
-    <input className={styles.input} type="text" value={value} onChange={onChange} maxLength={10} />
+    <input className={styles.input} type="text" value={value} onChange={onChange} maxLength={15} />
     <SendButton onClick={onClick} disabled={disabled} />
   </div>
 );
