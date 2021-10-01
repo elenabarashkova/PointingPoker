@@ -34,12 +34,12 @@ export const IssueItem: React.FC<IssueItemProps> = ({
         <LinkButton link={link} current={current} />
         <span className={styles.current}>{current && 'current'}</span>
       </div>
-      <span className={styles.title}>{title}</span>
-      <span className={styles.priority}>
+      <div className={styles.title}>{title}</div>
+      <div className={styles.priority}>
         {priority}
         {' '}
         priority
-      </span>
+      </div>
     </div>
     <div className={styles.buttons_wrapper}>
       <div>{gameMode && !voteMode && !finalVote && <span className={styles.dash}>—</span>}</div>
