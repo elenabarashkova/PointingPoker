@@ -10,7 +10,7 @@ import { RootState } from 'src/redux/reducers';
 import { AppDispatch } from 'src/redux/store';
 import {
   redirectToGameIsOverPage, redirectToMainPage, redirectToResultPage,
-} from 'src/shared';
+} from 'src/shared/redirect';
 import { ImportantNotifications, VotingData } from 'src/types/notifications';
 import { Pages } from 'src/types/page';
 import { UserData } from 'src/types/user';
