@@ -1,4 +1,4 @@
-import { getIssueId } from '../../helpers';
+import { getId } from '../../helpers';
 import { Issue, IssueStatus } from '../../types/issue';
 import { Store } from '../../types/room';
 
@@ -8,7 +8,7 @@ export const addIssue = (
   store: Store
 ): { issueId: string; createdIssue: Issue } => {
   const room = store[roomId];
-  const issueId = getIssueId(room.issues);
+  const issueId = getId();
   const createdIssue = {
     ...issue,
     status: IssueStatus.pending,
