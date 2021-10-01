@@ -8,7 +8,7 @@ import {
   IssueEvents,
   KickUserEvents,
   RoomEvents,
-  UserEvents
+  UserEvents,
 } from './constants/events';
 import { gameStatusHandler } from './handlers/game/gameStatus';
 import { gameTitleHandler } from './handlers/game/gameTitle';
@@ -21,8 +21,9 @@ import { addIssueHandler } from './handlers/issues/add';
 import { deleteIssueHandler } from './handlers/issues/delete';
 import { updateIssueHandler } from './handlers/issues/update';
 import { sendMessageHandler } from './handlers/message';
-import { checkRoomHandler, createRoomHandler } from './handlers/room';
 import { accessConfirmationHandler } from './handlers/room/accessConfirmation';
+import { checkRoomHandler } from './handlers/room/checkRoom';
+import { createRoomHandler } from './handlers/room/createRoom';
 import { deleteUserHandler } from './handlers/user/delete';
 import { userDisconnectionHandler } from './handlers/user/disconnection';
 import { joinRoomHandler } from './handlers/user/joinRoom';
@@ -44,16 +45,9 @@ app.use(cors(options));
 
 const server = createServer(app);
 const io = new Server(server);
-// const io = new Server(server, {
-//   maxHttpBufferSize: 1e8,
-// });
 
 io.on('connection', (socket: Socket) => {
   console.log('Connected ' + socket.id);
-
-  // const roomData = socket.rooms.values();
-  // const [id, roomId] = roomData;
-  // socket.emit('YOU ARE CONNECTED', id, roomId);
 
   socket.on(RoomEvents.createRoom, createRoomHandler(socket));
   socket.on(RoomEvents.isRoomValid, checkRoomHandler(socket));
