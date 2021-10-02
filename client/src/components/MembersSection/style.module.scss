@@ -10,6 +10,8 @@
 .membersSection {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+
     p {
         font-family: $font-family-second;
         margin: 0;

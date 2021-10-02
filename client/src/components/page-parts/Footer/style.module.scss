@@ -70,7 +70,6 @@
 footer.result {
   position: relative;
   width: 100%;
-  //max-width: 1600px;
   margin: 0 auto;
   display: flex;
   background: $light-yellow;
@@ -79,15 +78,24 @@ footer.result {
   justify-content: space-between;
   height: 70px;
   box-sizing: border-box;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+
+  }
+
   .githubIcos {
     width: 120px;
     display: flex;
     justify-content: space-between;
   }
+
   .rsSchoolLink {
     position: relative;
   }
 }
+
 .youtubeLink {
   img {
     border-radius: 8px;
@@ -97,9 +105,11 @@ footer.result {
 }
 
 .rsSchoolLink {
+
   img {
     width: 120px;
   }
+
   span {
     color: $base-text-color-2;
     font-weight: bolder;
@@ -108,6 +118,12 @@ footer.result {
     position: absolute;
     top: 18px;
     left: 130px;
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+      top: -1px;
+      left: 85px;
+    }
   }
 }
 
@@ -122,9 +138,11 @@ footer.result {
   box-shadow: 0 0.3rem 0.5rem #211b588a;
   cursor: pointer;
   transition: .4s;
+
   &:hover {
     transform: scale(1.1);
   }
+
   &:active {
     transform: scale(.9);
   }
