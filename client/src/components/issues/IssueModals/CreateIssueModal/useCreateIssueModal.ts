@@ -11,9 +11,7 @@ import { useValidation } from '../useValidation';
 
 export const useCreateIssueModal = (config: FormConfig, noBtnAction: () => void): UseIssueModal => {
   const { issuesStore, game } = useSelector((store: RootStore) => store);
-  const {
-    issues, issuesCounter, isLoading, error, 
-  } = issuesStore;
+  const { issuesCounter, isLoading } = issuesStore;
 
   const [issueTitle, setIssueTitle] = useState<string>(`Issue ${issuesCounter}`);
   const [issueLink, setIssueLink] = useState<string>('');
@@ -48,9 +46,11 @@ export const useCreateIssueModal = (config: FormConfig, noBtnAction: () => void)
   };
 
   useEffect(() => {
-    closeModal();
+    if (!isLoading) {
+      closeModal();
+    }
     // eslint-disable-next-line
-  }, [issues, error]);
+  }, [isLoading]);
 
   const handleChange = (setValue: Dispatch<SetStateAction<string>>) => (name: string, value: string) => {
     validateField(name, value);

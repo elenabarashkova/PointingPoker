@@ -4,6 +4,7 @@ import { SettingsIssueCardsProps } from 'src/types/issues';
 
 export const SettingsIssueCards: React.FC<SettingsIssueCardsProps> = ({
   issues,
+  deleteBtnIsDisabled,
   deleteBtnAction,
   editBtnAction,
 }) => (
@@ -18,6 +19,7 @@ export const SettingsIssueCards: React.FC<SettingsIssueCardsProps> = ({
         link={link}
         priority={priority}
         editMode
+        deleteBtnIsDisabled={deleteBtnIsDisabled}
         deleteBtnAction={deleteBtnAction(id)}
         editBtnAction={editBtnAction(title, link, priority, id)}
       />
