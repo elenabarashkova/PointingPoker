@@ -2,30 +2,53 @@
 
 .gameSection {
   display: flex;
-  height: 100px;
+  flex-wrap: wrap;
   margin-bottom: 50px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .wrapper {
-    width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    .inputWrapper {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      input {
-        width: fit-content;
-        background: transparent;
-        border: none;
-        border-bottom: 2px solid $blue;
-        font-size: 16px;
-        color: $base-text-color-2;
-        font-family: $font-family-second;
+
+    @media (max-width: 768px) {
+      align-items: center;
+    }
+
+    & > button {
+
+      @media (max-width: 1024px) {
+        margin-bottom: 15px;
       }
     }
-    .btnWrapper {
-      display: flex;
-      justify-content: space-between;
+
+    & > button:not(:first-child) {
+
+      @media (max-width: 768px) {
+        margin-top: 15px;
+      }
+    }
+
+    & > label {
+      margin-right: 15px;
+
+      @media (max-width: 768px) {
+        margin-right: 0;
+      }
+    }
+
+    input {
+      width: fit-content;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid $blue;
+      font-size: 16px;
+      color: $base-text-color-2;
+      font-family: $font-family-second;
     }
   }
 }

@@ -56,12 +56,12 @@ const ResultPage: React.FC = (): ReactElement => {
             <p className={styles.p}>{`Final vote - ${statistics[issueId].finalVote}`}</p>
           </div>
         ))}
-        <div className={styles.buttons}>
-          {buttons.map(({ content, variant, action }) => (
-            <Button content={content} variant={variant} action={action} key={content} />
-          ))}
-        </div>
-      </div> 
+      </div>
+      <div className={styles.buttons}>
+        {buttons.map(({ content, variant, action }) => (
+          <Button content={content} variant={variant} action={action} key={content} />
+        ))}
+      </div>
       <Footer page={Pages.result} />
     </div>
     

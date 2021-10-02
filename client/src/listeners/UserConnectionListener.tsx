@@ -1,6 +1,6 @@
-import { 
-  FunctionComponent, 
-  ReactElement, 
+import {
+  FunctionComponent,
+  ReactElement,
   useEffect,
 } from 'react';
 import { connect } from 'react-redux';

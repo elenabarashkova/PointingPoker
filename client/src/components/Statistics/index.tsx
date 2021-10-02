@@ -10,19 +10,22 @@ const Statistics: React.FC<StatisticsProps> = ({ issueId }): ReactElement => {
   
   const statData = Object.entries(statistics);
   
-  return ( 
-    <div className={styles.statArea}>
-      {statData.map(([key, { percentage }]) => {
-        const percent = `${(percentage * 100).toFixed(1)}%`;
-        return (
-          <div key={key} className={styles.statItem}>
-            <p>{key}</p>
-            <div style={{ height: `${percent}` }} className={styles.block} />
-            <p>{percent}</p>
-          </div>
-        );
-      })}
-    </div> 
+  return (
+    <>
+      <div className={styles.title}>Statistics:</div>
+      <div className={styles.statArea}>
+        {statData.map(([key, { percentage }]) => {
+          const percent = `${(percentage * 100).toFixed(1)}%`;
+          return (
+            <div key={key} className={styles.statItem}>
+              <p>{key}</p>
+              <div style={{ height: `${percent}` }} className={styles.block} />
+              <p>{percent}</p>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
  
