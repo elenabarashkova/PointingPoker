@@ -6,7 +6,9 @@ import { GameIssueCardsProps, IssueStatus } from 'src/types/issues';
 export const GameIssueCards: React.FC<GameIssueCardsProps> = ({
   issues,
   finalVoteInputValue,
-  isLoading,
+  cardIsNotClickable,
+  finalVoteIsLoading,
+  deleteBtnIsDisabled,
   getFinalVoteValue,
   deleteBtnAction,
   sendBtnAction,
@@ -28,6 +30,8 @@ export const GameIssueCards: React.FC<GameIssueCardsProps> = ({
         link={link}
         priority={priority}
         current={status === IssueStatus.active}
+        deleteBtnIsDisabled={deleteBtnIsDisabled}
+        cardIsNotClickable={cardIsNotClickable}
         voteMode={voteMode(id)}
         onClick={startRound(id)}
         deleteBtnAction={deleteBtnAction(id)}
@@ -38,7 +42,7 @@ export const GameIssueCards: React.FC<GameIssueCardsProps> = ({
             onChange={finalVoteInputAction}
             value={finalVoteInputValue}
             onClick={sendBtnAction(id)}
-            disabled={isLoading}
+            disabled={finalVoteIsLoading}
             completed={isCompleted(id)}
           />
         )}

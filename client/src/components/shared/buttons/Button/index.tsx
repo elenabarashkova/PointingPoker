@@ -1,4 +1,4 @@
-import LinearProgress from '@mui/material/LinearProgress';
+import { Loader } from 'components/shared/Loader';
 import React, { ReactElement } from 'react';
 import styles from './style.module.scss';
 
@@ -32,7 +32,11 @@ const Button: React.FC<ButtonProps> = ({
       onClick={action}
       disabled={disabled}
     >
-      {loading ? <LinearProgress /> : addContent ? addButtonContent : content}
+      <span className={styles.content}>{addContent ? addButtonContent : content}</span>
+      <div className={styles.loader}>
+        {' '}
+        <Loader isLoading={loading} />
+      </div>
     </button>
   );
 };

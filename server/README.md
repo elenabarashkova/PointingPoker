@@ -405,7 +405,8 @@ socket.emit("DELETE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ##### Success response
 
-{ status: 200, data: deletedIssueId }
+- If this issue exists: { status: 200, data: deletedIssueId }
+- If this issue doesn't exists: { status: 404, data: 'Issue not found' }
 
 ##### Error response
 

@@ -1,6 +1,12 @@
 import {
-  Action, AnyAction, Dispatch, PayloadAction, 
+  Action, AnyAction, Dispatch, PayloadAction,
 } from '@reduxjs/toolkit';
+import { SetStateAction } from 'react';
+import {
+  createCommonNotificationAboutIssue,
+  IssueNotFoundNotification,
+} from 'src/helpers/commonNotifications';
+import { ResponseStatus } from 'src/services/constants';
 import { addIssue } from 'src/services/issues/addIssue';
 import { deleteIssue } from 'src/services/issues/deleteIssue';
 import { updateIssue } from 'src/services/issues/updateIssue';
@@ -13,6 +19,7 @@ import {
   SET_ISSUES,
   UPDATE_ISSUE,
 } from '../action-types';
+import { setCommonNotification } from './notifications';
 
 export const setIssuesAction = (issues: Issues): PayloadAction<Issues> => ({
   type: SET_ISSUES,
@@ -42,38 +49,58 @@ export const setIssuesError = (): Action => ({
   type: SET_ERROR,
 });
 
-export const addIssueRequest = (roomId: string, issue: Issue) => (
-  async (dispatch: Dispatch<AnyAction>): Promise<void> => {
-    try {
-      dispatch(sendIssuesRequest());
-      const response = await addIssue(roomId, issue);
-      dispatch(addIssueAction(response));
-    } catch (error) {
-      dispatch(setIssuesError());
-    }
-  }
-);
+const handleIssueActionError = (dispatch: Dispatch<AnyAction>): void => {
+  const notification = createCommonNotificationAboutIssue();
+  dispatch(setCommonNotification(notification));
+};
 
-export const deleteIssueRequest = (roomId: string, issueId: string) => (
-  async (dispatch: Dispatch<AnyAction>): Promise<void> => {
-    try {
-      dispatch(sendIssuesRequest());
-      const response = await deleteIssue(roomId, issueId);
-      dispatch(deleteIssueAction(response));
-    } catch (error) {
-      dispatch(setIssuesError());
-    }
+export const addIssueRequest = (
+  roomId: string, 
+  issue: Issue,
+) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
+  try {
+    dispatch(sendIssuesRequest());
+    const response = await addIssue(roomId, issue);
+    dispatch(addIssueAction(response));
+  } catch (error) {
+    dispatch(setIssuesError());
+    handleIssueActionError(dispatch);
   }
-);
+};
 
-export const updateIssueRequest = (roomId: string, issueId: string, issue: Issue) => (
-  async (dispatch: Dispatch<AnyAction>): Promise<void> => {
-    try {
-      dispatch(sendIssuesRequest());
-      const response = await updateIssue(roomId, issueId, issue);
-      dispatch(updateIssueAction(response));
-    } catch (error) {
-      dispatch(setIssuesError());
+export const deleteIssueRequest = (
+  roomId: string, 
+  issueId: string,
+  setIsLoading: React.Dispatch<SetStateAction<boolean>>,
+) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
+  try {
+    setIsLoading(true);
+    const { status, data } = await deleteIssue(roomId, issueId);
+
+    if (status === ResponseStatus.ok) {
+      dispatch(deleteIssueAction(data));
+    } else {
+      const notification = IssueNotFoundNotification();
+      dispatch(setCommonNotification(notification));
     }
+  } catch (error) {
+    handleIssueActionError(dispatch);
+  } finally {
+    setIsLoading(false);
   }
-);
+};
+
+export const updateIssueRequest = (
+  roomId: string, 
+  issueId: string, 
+  issue: Issue,
+) => async (dispatch: Dispatch<AnyAction>): Promise<void> => {
+  try {
+    dispatch(sendIssuesRequest());
+    const response = await updateIssue(roomId, issueId, issue);
+    dispatch(updateIssueAction(response));
+  } catch (error) {
+    dispatch(setIssuesError());
+    handleIssueActionError(dispatch);
+  }
+};

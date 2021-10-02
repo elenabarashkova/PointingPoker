@@ -10,22 +10,22 @@ import { useDeleteIssues } from '../useDeleteIssue';
 
 export const useGameIssueTools = (): UseGameIssueTools => {
   const [finalVote, setFinalVote] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [finalVoteIsLoading, setFinalVoteIsLoading] = useState<boolean>(false);
 
   const { voting, game } = useTypedSelector((store) => store);
   const {
-    roomId, gameStatus, roundIsActive, currentIssueId, 
+    roomId, gameStatus, roundIsActive, currentIssueId, isLoading, 
   } = game;
 
   const dispatch = useDispatch();
 
-  const { deleteBtnAction } = useDeleteIssues();
+  const { deleteBtnIsDisabled, deleteBtnAction } = useDeleteIssues();
   const { sortedIssues } = useSortedIssues();
 
   const sendBtnAction = (id: string) => (event: MouseEvent) => {
     event.stopPropagation();
     if (finalVote) {
-      dispatch(setFinalVoteRequest(roomId, id, finalVote, setIsLoading));
+      dispatch(setFinalVoteRequest(roomId, id, finalVote, setFinalVoteIsLoading));
       setFinalVote('');
     }
   };
@@ -55,10 +55,16 @@ export const useGameIssueTools = (): UseGameIssueTools => {
     }
   };
 
+  const cardIsNotClickable = isLoading
+    || roundIsActive
+    || (gameStatus === GameStatus.active && currentIssueId && !voting[currentIssueId]?.finalVote);
+
   return {
-    isLoading,
     sortedIssues,
     finalVoteInputValue: finalVote,
+    deleteBtnIsDisabled,
+    finalVoteIsLoading,
+    cardIsNotClickable,
     getFinalVoteValue,
     voteMode,
     sendBtnAction,

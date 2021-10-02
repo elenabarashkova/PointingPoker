@@ -14,6 +14,7 @@ export const SettingsIssueTools: React.FC = () => {
     updateIssueModalIsOpen,
     editIssueValues,
     sortedIssues,
+    deleteBtnIsDisabled,
     editBtnAction,
     deleteBtnAction,
     closeUpdateIssueModal,
@@ -31,6 +32,7 @@ export const SettingsIssueTools: React.FC = () => {
       cards={(
         <SettingsIssueCards
           issues={sortedIssues}
+          deleteBtnIsDisabled={deleteBtnIsDisabled}
           deleteBtnAction={deleteBtnAction}
           editBtnAction={editBtnAction}
         />

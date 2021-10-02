@@ -55,6 +55,16 @@
   pointer-events: none;
 }
 
+.content {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.loader {
+  flex: 0 0 auto;
+}
+
 .not_clickable {
   pointer-events: none;
+  opacity: 0.7;
 }
