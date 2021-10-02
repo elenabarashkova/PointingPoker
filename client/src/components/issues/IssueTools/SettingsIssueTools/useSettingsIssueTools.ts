@@ -12,7 +12,7 @@ export const useSettingsIssueTools = (): UseSettingsIssueTools => {
     id: undefined,
   });
 
-  const { deleteBtnAction } = useDeleteIssues();
+  const { deleteBtnIsDisabled, deleteBtnAction } = useDeleteIssues();
   const { sortedIssues } = useSortedIssues();
 
   useEffect(() => {
@@ -22,9 +22,9 @@ export const useSettingsIssueTools = (): UseSettingsIssueTools => {
   }, [editIssueValues]);
 
   const editBtnAction = (
-    title: string,
-    url: string,
-    priority: keyof typeof IssuePriority,
+    title: string, 
+    url: string, 
+    priority: keyof typeof IssuePriority, 
     id: string,
   ) => (event: MouseEvent) => {
     event.stopPropagation();
@@ -43,6 +43,7 @@ export const useSettingsIssueTools = (): UseSettingsIssueTools => {
     updateIssueModalIsOpen,
     editIssueValues,
     sortedIssues,
+    deleteBtnIsDisabled,
     editBtnAction,
     deleteBtnAction,
     closeUpdateIssueModal,

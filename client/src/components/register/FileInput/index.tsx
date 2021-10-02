@@ -1,6 +1,6 @@
-import React, { ChangeEvent, ReactElement, useState } from 'react';
-import { useTooltip } from 'components/shared/Tooltip/useTooltip';
 import Tooltip from 'components/shared/Tooltip';
+import { useTooltip } from 'components/shared/Tooltip/useTooltip';
+import React, { ChangeEvent, ReactElement, useState } from 'react';
 import styles from './style.module.scss';
 
 interface FileInputProps {
@@ -29,10 +29,7 @@ const FileInput: React.FC<FileInputProps> = ({ name, handler }): ReactElement =>
   };
   return (
     <div className={styles.wrap} onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
-      <label
-        htmlFor={name}
-        className={styles.label}
-      >
+      <label htmlFor={name} className={styles.label}>
         Choose your photo
         <input type="file" name="" id={name} className={styles.fileInput} onChange={handleChange} />
       </label>

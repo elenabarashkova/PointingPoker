@@ -96,3 +96,30 @@ export const createCommonNotificationAboutConfirmation = (message: string): Comm
     type: CommonNotificationType.success,
   };
 };
+
+export const createCommonNotificationAboutIssue = (): CommonNotification => {
+  const id = nanoid();
+  return {
+    key: id,
+    data: 'Something went wrong. Try again.',
+    type: CommonNotificationType.error,
+  };
+};
+
+export const IssueNotFoundNotification = (): CommonNotification => {
+  const id = nanoid();
+  return {
+    key: id,
+    data: 'Issue not found',
+    type: CommonNotificationType.error,
+  };
+};
+
+export const createCommonNotificationAboutUserKicking = (name: string): CommonNotification => {
+  const id = nanoid();
+  return {
+    key: id,
+    data: `Something went wrong with user ${name} kicking. User is not deleted.`,
+    type: CommonNotificationType.error,
+  };
+};

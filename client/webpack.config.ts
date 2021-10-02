@@ -44,8 +44,8 @@ const webpackConfig = ({ development }): Configuration => ({
       },
       {
         test: /\.[tj]sx?$/,
-        enforce: "pre",
-        use: ["source-map-loader"],
+        enforce: 'pre',
+        use: ['source-map-loader']
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|mp3)$/i,

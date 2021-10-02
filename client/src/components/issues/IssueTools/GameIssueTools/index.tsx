@@ -6,9 +6,11 @@ import { useGameIssueTools } from './useGameIssueTools';
 
 export const GameIssueTools: React.FC = () => {
   const {
-    isLoading,
     sortedIssues,
     finalVoteInputValue,
+    deleteBtnIsDisabled,
+    cardIsNotClickable,
+    finalVoteIsLoading,
     voteMode,
     sendBtnAction,
     finalVoteInputAction,
@@ -28,7 +30,9 @@ export const GameIssueTools: React.FC = () => {
         <GameIssueCards
           issues={sortedIssues}
           finalVoteInputValue={finalVoteInputValue}
-          isLoading={isLoading}
+          finalVoteIsLoading={finalVoteIsLoading}
+          cardIsNotClickable={cardIsNotClickable}
+          deleteBtnIsDisabled={deleteBtnIsDisabled}
           deleteBtnAction={deleteBtnAction}
           sendBtnAction={sendBtnAction}
           getFinalVoteValue={getFinalVoteValue}

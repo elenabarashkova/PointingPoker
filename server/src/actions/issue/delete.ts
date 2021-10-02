@@ -4,8 +4,9 @@ export const deleteIssue = (
   roomId: string,
   issueId: string,
   store: Store
-): void => {
+): boolean => {
   const room = store[roomId];
+  const isIssueInRoom = room.issues[issueId] ? true : false;
   const {
     // eslint-disable-next-line no-empty-pattern
     [issueId]: {},
@@ -13,4 +14,5 @@ export const deleteIssue = (
   } = room.issues;
 
   room.issues = rest;
+  return isIssueInRoom;
 };

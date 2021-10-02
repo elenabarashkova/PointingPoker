@@ -18,13 +18,12 @@ export const setFinalVoteRequest = (
   try {
     setIsLoading(true);
     const votingData = await setFinalVote(roomId, issueId, finalVote);
-    dispatch(setFinalVoteAction(votingData));
-
     const notification = createCommonNotificationAboutFinalVote(CommonNotificationType.success);
+    dispatch(setFinalVoteAction(votingData));
     dispatch(setCommonNotification(notification));
-    setIsLoading(false);
   } catch (error) {
-    setIsLoading(false);
     dispatch(createCommonNotificationAboutError());
+  } finally {
+    setIsLoading(false);
   }
 };
