@@ -24,7 +24,7 @@ socket.emit("CREATE_ROOM", user, (response) => { console.log(response) });
 
 ##### Error response
 
-{status: 500, error: "error"}
+{status: 500, error: {name: "errorName", message: "errorMessage" }}
 
 ---
 
@@ -44,7 +44,7 @@ socket.emit("IS_ROOM_VALID", roomId, (response) => { console.log(response) });
 
 ##### Error response
 
-{status: 500, error: "error"}
+{status: 500, error: {name: "errorName", message: "errorMessage" }}
 
 ---
 
@@ -69,7 +69,7 @@ socket.emit("JOIN_ROOM", { roomId: string, user : User }, (response) => { consol
 
 ##### Error response
 
-{status: 500, error: "error"}
+{status: 500, error: {name: "errorName", message: "errorMessage" }}
 
 ##### Master will receive the event:
 
@@ -99,7 +99,7 @@ socket.emit("JOIN_ROOM", { roomId: string, user : User}, (response) => { console
 
 ##### Error response
 
-{status: 500, error: "error"}
+{status: 500, error: {name: "errorName", message: "errorMessage" }}
 
 ###### Other users in this room should listen event:
 
@@ -127,7 +127,7 @@ socket.emit("ACCESS_CONFIRMATION", { roomId, userId, user, confirmation}, (respo
 
 ##### Error response
 
-{status: 500, error: "error"}
+{status: 500, error: {name: "errorName", message: "errorMessage" }}
 
 ---
 
@@ -147,7 +147,7 @@ socket.emit("LEAVE_ROOM", roomId, (response) => { console.log(response) });
 
 ##### Error response
 
-{status: 500, error: "error"}
+{status: 500, error: {name: "errorName", message: "errorMessage" }}
 
 ###### Other users in this room should listen event:
 
@@ -172,7 +172,7 @@ socket.emit("DELETE_USER", { userId, roomId }, (response) => { console.log(respo
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -201,7 +201,7 @@ socket.emit("KICK_USER", { userId, roomId }, (response) => { console.log(respons
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### IF RESPONSE WAS SUCCESS
 
@@ -215,7 +215,7 @@ socket.emit("KICK_USER", { userId, roomId }, (response) => { console.log(respons
 - event: **USER_IS_KICKED**
 - data: **{ kickInitiator: string, kickedUserId: string, kickedUser: kickedUserObject}** _Kicked User has status "kicked"_
 
-##### Master can not be kicked, user cannot kick himself!
+##### Master can not be kicked, user can not kick himself!
 
 ---
 
@@ -235,7 +235,7 @@ callback({ status: 200, data: 'Your vote is accepted' });
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ##### IF ALL USERS HAVE VOTED AND THEY DECIDED TO DELETE USER
 
@@ -249,7 +249,7 @@ callback({ status: 200, data: 'Your vote is accepted' });
 - event: **USER_IS_DELETED**
 - data: **{ userId: deletedUserId, user: deletedUserObject}** _Deleted User has status "deleted"_
 
-IF ALL USERS HAVE VOTED BUT THEY DECIDED NOT TO DELETE USER
+##### IF ALL USERS HAVE VOTED BUT THEY DECIDED NOT TO DELETE USER
 
 ###### Kicked user:
 
@@ -264,7 +264,7 @@ IF ALL USERS HAVE VOTED BUT THEY DECIDED NOT TO DELETE USER
 ##### IF SOMETHING WENT WRONG WITH THE VOTE ALL USERS IN THE ROOM WILL RECEIVE:
 
 - event: **KICK_VOTING_ERROR**
-- data: **{ status: 500, message: "Voting error, user is not deleted" }**
+- data: **{ message: "Voting error, user is not deleted", userId, user: User with status "active }**
 
 ---
 
@@ -284,7 +284,7 @@ socket.emit("SEND_MESSAGE", { roomId, text }, (response) => { console.log(respon
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -309,7 +309,7 @@ socket.emit("CHANGE_GAME_SETTINGS", { roomId, settings }, (response) => { consol
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -334,7 +334,7 @@ socket.emit("CHANGE_GAME_STATUS", { roomId, newStatus }, (response) => { console
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -359,7 +359,7 @@ socket.emit("CHANGE_GAME_TITLE", { roomId, gameTitle }, (response) => { console.
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -384,7 +384,7 @@ socket.emit("ADD_ISSUE", { roomId, issue }, (response) => { console.log(response
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -409,7 +409,7 @@ socket.emit("DELETE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -434,7 +434,7 @@ socket.emit("UPDATE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -468,7 +468,7 @@ socket.emit("RECONNECTED", (response) => { console.log(response) });
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -493,7 +493,7 @@ socket.emit("START_ROUND", { roomId, issueId }, (response) => { console.log(resp
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -518,7 +518,7 @@ socket.emit("STOP_ROUND", roomId, (response) => { console.log(response) });
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -543,7 +543,7 @@ socket.emit("ISSUE_VOTE", { roomId, issueId, vote }, (response) => { console.log
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 
@@ -568,7 +568,7 @@ socket.emit("SET_FINAL_VOTE", { roomId, issueId, finalVote }, (response) => { co
 
 ##### Error response
 
-{ status: 500, error: "error" }
+{ status: 500, error: {name: "errorName", message: "errorMessage" } }
 
 ###### Other users in this room should listen event:
 

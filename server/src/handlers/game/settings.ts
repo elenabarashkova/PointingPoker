@@ -13,7 +13,7 @@ export const gameSettingsHandler =
       const updatedSettings = changeGameSettings(roomId, settings, store);
       callback({ status: 200, data: updatedSettings });
       socket.to(roomId).emit(GameEvents.gameSettingsChanged, updatedSettings);
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

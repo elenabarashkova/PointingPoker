@@ -13,7 +13,7 @@ export const sendMessageHandler =
       const message = addMessages(roomId, socket.id, text, store);
       callback({ status: 200, data: message });
       socket.to(roomId).emit(ChatEvents.receiveMessage, message);
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

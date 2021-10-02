@@ -18,8 +18,10 @@ export const voteHandler =
         status: 200,
         data: { issueId, userId: socket.id, vote },
       });
-      socket.to(roomId).emit(GameEvents.userHasVoted, { issueId, userId: socket.id, vote });
-    } catch {
-      handleError(socket, callback);
+      socket
+        .to(roomId)
+        .emit(GameEvents.userHasVoted, { issueId, userId: socket.id, vote });
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

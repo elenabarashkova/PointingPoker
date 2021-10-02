@@ -46,16 +46,23 @@ export const kickUserVotingHandler =
       if (userWasKicked) {
         io.to(kickedUserId).disconnectSockets();
       }
-    } catch {
-      handleError(socket, callback);
-      const response = {
-        status: 500,
-        message: 'Voting error, user is not deleted',
-      };
-      socket.emit(KickUserEvents.KICK_VOTING_ERROR, response);
-      socket.to(roomId).emit(KickUserEvents.KICK_VOTING_ERROR, response);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
       if (store[roomId] && store[roomId].users[kickedUserId]) {
-        changeUserStatus(roomId, kickedUserId, UserStatus.active, store);
+        const user = changeUserStatus(
+          roomId,
+          kickedUserId,
+          UserStatus.active,
+          store
+        );
+        const response = {
+          message: 'Voting error, user is not deleted',
+          userId: kickedUserId,
+          user,
+        };
+        socket.emit(KickUserEvents.KICK_VOTING_ERROR, response);
+        socket.to(roomId).emit(KickUserEvents.KICK_VOTING_ERROR, response);
+        socket.emit(KickUserEvents.KICK_VOTING_ERROR, response);
       }
     }
   };
