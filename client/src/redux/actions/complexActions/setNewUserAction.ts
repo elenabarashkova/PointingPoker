@@ -5,7 +5,7 @@ import { setRoomIdAction } from 'src/redux/actions/room';
 import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { joinRoom } from 'src/services/room/joinRoom';
 import { createRoom } from '../../../services/room/createRoom';
-import { redirectToGamePage, redirectToLobby, redirectToSettings } from '../../../shared';
+import { redirectToGamePage, redirectToLobby, redirectToSettings } from '../../../shared/redirect';
 import { GameStatus, Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
 import { setTitle } from '../game';

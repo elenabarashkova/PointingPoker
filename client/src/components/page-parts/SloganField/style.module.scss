@@ -3,11 +3,26 @@
 .containerSloganField {
   position: relative;
   width: 60%;
-  height: 510px;
+  //height: 510px;
   background: url(../../../assets/base-bg.jpg);
-  background-position: center;
+  background-position: bottom right;
   background-size: cover;
   background-repeat: no-repeat;
+
+  @media (max-width: 1400px) {
+    background-position-x: 94%;
+  }
+
+  @media (max-width: 1024px) {
+    width: 50%;
+    background-position-x: 97%;
+  }
+
+  @media (max-width: 768px) {
+    background: none;
+    position: static;
+    width: 0;
+  }
 }
 
 .slogan {
@@ -19,6 +34,14 @@
   font-family: $font-family-second;
   color: $base-text-color-2;
   margin: 0;
+
+  @media (max-width: 768px) {
+    top: 50px;
+    left: 20px;
+    width: 90%;
+    padding-right: 244px;
+    font-size: 30px;
+  }
 }
 
 .markBold {

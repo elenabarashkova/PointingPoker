@@ -10,7 +10,7 @@ import {
   YOU_ARE_DELETED,
   YOU_ARE_NOT_DELETED,
 } from '../services/constants';
-import { redirectToGoodbyePage } from '../shared';
+import { redirectToGoodbyePage } from '../shared/redirect';
 import { CommonNotificationAction, ImportantNotifications } from '../types/notifications';
 
 interface UserDeleteProps {

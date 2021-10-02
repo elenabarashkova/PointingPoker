@@ -11,8 +11,9 @@
   align-items: center;
   padding: 50px;
   box-sizing: border-box;
+
   .modal {
-    width: 500px;
+    width: 480px;
     background: white;
     display: flex;
     flex-direction: column;
@@ -20,7 +21,8 @@
     align-items: center;
     box-shadow: $shadow;
     border-radius: 10px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
+
     .img {
       background: url(../../assets/gameIsOver.jpg);
       width: 400px;
@@ -30,24 +32,28 @@
       background-repeat: no-repeat;
       border-radius: 5px;
     }
+
     p {
       color: $blue;
       font-family: $font-family-second;
       text-align:center;
       line-height: 24px;
+
       mark,
       span {
         text-transform: uppercase;
-        
       }
+
       mark:nth-child(1) {
         background-color: $light-blue;
         padding: 1px 3px;
       }
+
       mark:nth-child(2) {
         background-color:$light-yellow;
         padding: 1px 3px;
       }
+
       span {
         background-color: $pink;
         font-weight: bolder;
@@ -55,6 +61,7 @@
       }
     }
   }
+
   .btn {
     width: 200px;
     height: 50px;
@@ -67,9 +74,11 @@
     box-shadow: $shadow;
     cursor: pointer;
     transition: .4s;
+
     &:hover {
         transform: scale(1.1);
     }
+
     &:active {
         transform: scale(.9);
     }

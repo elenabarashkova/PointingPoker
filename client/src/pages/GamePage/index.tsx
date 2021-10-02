@@ -98,9 +98,11 @@ const GamePage: React.FC<GamePageProps> = ({
             <Button content={buttonContent} variant="colored" action={buttonAction} />
           </div>
         </div>
-        <div className={styles.container}>
-          <div className={styles.statContainer}>
+        <div className={`${styles.container} ${styles.separate}`}>
+          <div className={styles.issuesContainer}>
             {isGameMaster ? <GameIssueTools /> : <IssueList />}
+          </div>
+          <div className={styles.statisticsContainer}>
             {!roundIsActive && showStatistics && <Statistics issueId={issueId} />}
           </div>
           <Scores />
