@@ -1,12 +1,13 @@
 @import '../../scss/variables.scss';
 
 .wrapper {
+
   width: 100%;
+
   .main {
     width: 100%;
-    //max-width: 1600px;
     box-sizing: border-box;
-    padding: 50px;
+    padding: 140px 50px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,14 +20,55 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 40px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        margin-bottom: 0;
+      }
+
+      &.separate {
+        align-items: flex-start;
+
+        @media (max-width: 1024px) {
+          flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+          align-items: center;
+          margin-bottom: 50px;
+        }
+      }
     }
   }
 }
-.statContainer {
+
+.statisticsContainer {
+  display: flex;
   width: 100%;
-  max-width: 800px;
+  justify-content: center;
+  flex-direction: column;
+
+  @media (max-width: 1024px) {
+    order: 3;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 30px;
+  }
+}
+
+.issuesContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin-bottom: 50px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }

@@ -11,6 +11,7 @@ export const IssueList: React.FC = () => {
 
   return (
     <div className={styles.issue_list}>
+      <div className={styles.title}>Issues:</div>
       {sortedIssues.map(({
         id, title, priority, status, link, 
       }) => (
