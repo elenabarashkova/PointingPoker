@@ -44,7 +44,7 @@ export const accessConfirmationHandler =
           data: { message: 'Your confirmation is accepted' },
         });
       }
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

@@ -12,7 +12,7 @@ export const createRoomHandler =
       const { room, roomId } = createRoom(socket.id, user, store);
       socket.join(roomId);
       callback({ status: 200, data: { room, roomId } });
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };
