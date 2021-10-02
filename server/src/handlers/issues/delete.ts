@@ -13,7 +13,7 @@ export const deleteIssueHandler =
       deleteIssue(roomId, issueId, store);
       callback({ status: 200, data: issueId });
       socket.to(roomId).emit(IssueEvents.issueHasBeenDeleted, issueId);
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

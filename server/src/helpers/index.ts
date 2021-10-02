@@ -8,11 +8,16 @@ export const sendError = (socket: Socket, data: ErrorResponse): void => {
   socket.emit('error', data);
 };
 
-export const handleError = (socket: Socket, callback: unknown): void => {
+export const handleError = (
+  error: Error,
+  socket: Socket,
+  callback: unknown
+): void => {
   const errorCallback =
     typeof callback === 'function' ? callback : sendError.bind(null, socket);
 
-  errorCallback({ status: 500, error: 'error' });
+  const { name, message } = error;
+  errorCallback({ status: 500, error: { name, message } });
 };
 
 export const getRoom = async (

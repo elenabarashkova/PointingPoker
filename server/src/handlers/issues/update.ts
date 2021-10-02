@@ -19,7 +19,7 @@ export const updateIssueHandler =
         issueId,
         issue: updatedIssue,
       });
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

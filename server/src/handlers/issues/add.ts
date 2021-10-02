@@ -15,7 +15,7 @@ export const addIssueHandler =
       socket
         .to(roomId)
         .emit(IssueEvents.issueHasBeenAdded, { issueId, issue: createdIssue });
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

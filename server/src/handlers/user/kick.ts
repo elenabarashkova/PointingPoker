@@ -26,7 +26,7 @@ export const kickUserHandler =
         .to(roomId)
         .except(userId)
         .emit(KickUserEvents.userIsKicked, response);
-    } catch (error) {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

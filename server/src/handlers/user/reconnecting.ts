@@ -27,7 +27,7 @@ export const userReconnectingHandler =
         room,
       });
       socket.join(roomId);
-    } catch (error) {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

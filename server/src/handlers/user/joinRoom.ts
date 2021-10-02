@@ -48,7 +48,7 @@ export const joinRoomHandler =
         callback({ status: 404, data: 'Room not found' });
         socket.disconnect();
       }
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };
