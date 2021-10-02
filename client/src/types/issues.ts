@@ -74,6 +74,8 @@ export interface IssueCardProps extends IssueProps {
   editMode?: boolean;
   isSending?: boolean;
   isCompleted?: boolean;
+  deleteBtnIsDisabled?: boolean;
+  cardIsNotClickable?: boolean;
   inputValue?: string;
   deleteBtnAction: (event: MouseEvent) => void;
   editBtnAction?: (event: MouseEvent) => void;
@@ -188,15 +190,18 @@ export interface UseSettingsIssueTools {
   updateIssueModalIsOpen: boolean;
   editIssueValues: EditIssueValues;
   sortedIssues: ExtendedIssue[];
+  deleteBtnIsDisabled: boolean;
   deleteBtnAction: (id: string) => (event: MouseEvent) => void;
   closeUpdateIssueModal: () => void;
   editBtnAction: EditBtnAction;
 }
 
 export interface UseGameIssueTools {
-  isLoading: boolean;
   finalVoteInputValue?: string;
   sortedIssues: ExtendedIssue[];
+  deleteBtnIsDisabled: boolean;
+  cardIsNotClickable: boolean;
+  finalVoteIsLoading: boolean;
   getFinalVoteValue?: (id: string) => string | undefined;
   voteMode: (id: string) => boolean;
   isCompleted: (id: string) => boolean;
@@ -218,14 +223,17 @@ export interface IssueToolsProps {
 
 export interface SettingsIssueCardsProps {
   issues: ExtendedIssue[];
+  deleteBtnIsDisabled: boolean;
   deleteBtnAction: (id: string) => (event: MouseEvent) => void;
   editBtnAction: EditBtnAction;
 }
 
 export interface GameIssueCardsProps {
   issues: ExtendedIssue[];
-  isLoading: boolean;
+  cardIsNotClickable: boolean;
+  finalVoteIsLoading: boolean;
   finalVoteInputValue: string;
+  deleteBtnIsDisabled: boolean;
   getFinalVoteValue?: (id: string) => string | undefined;
   deleteBtnAction: (id: string) => (event: MouseEvent) => void;
   sendBtnAction: (id: string) => (event: MouseEvent) => void;

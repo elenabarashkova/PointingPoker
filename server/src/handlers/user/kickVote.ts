@@ -62,7 +62,6 @@ export const kickUserVotingHandler =
         };
         socket.emit(KickUserEvents.KICK_VOTING_ERROR, response);
         socket.to(roomId).emit(KickUserEvents.KICK_VOTING_ERROR, response);
-        socket.emit(KickUserEvents.KICK_VOTING_ERROR, response);
       }
     }
   };

@@ -17,6 +17,8 @@ export const IssueCard: React.FC<IssueCardProps> = ({
   finalVote,
   input,
   link,
+  deleteBtnIsDisabled,
+  cardIsNotClickable,
   onClick,
   deleteBtnAction,
   editBtnAction,
@@ -32,8 +34,12 @@ export const IssueCard: React.FC<IssueCardProps> = ({
     voteMode={voteMode}
     gameMode={gameMode}
     editBtn={editMode && <EditButton onClick={editBtnAction} whiteColor />}
-    deleteBtn={!voteMode && !current && !isCompleted && <DeleteButton onClick={deleteBtnAction} />}
-    notClickable={isCompleted}
+    deleteBtn={
+      !voteMode
+      && !current
+      && !isCompleted && <DeleteButton onClick={deleteBtnAction} disabled={deleteBtnIsDisabled} />
+    }
+    notClickable={isCompleted || cardIsNotClickable}
     finalVote={finalVote}
     input={input}
   />

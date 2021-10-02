@@ -1,3 +1,4 @@
+import { Loader } from 'components/shared/Loader';
 import Tooltip from 'components/shared/Tooltip';
 import { useTooltip } from 'components/shared/Tooltip/useTooltip';
 import React, { ChangeEvent, useEffect, useState } from 'react';
@@ -19,13 +20,17 @@ const TooltipContent: React.FC = () => (
 export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle }) => {
   const [uploadedIssues, setUploadedIssues] = useState<unknown[]>(null);
   const [error, setError] = useState<boolean>(false);
+  const [issuesAreLoading, setIssuesAreLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const { roomId } = useSelector((store: RootStore) => store.game);
+  const { game, issuesStore } = useSelector((store: RootStore) => store);
+  const { roomId } = game;
+  const { isLoading } = issuesStore;
 
   const { tooltipIsVisible, showTooltip, hideTooltip } = useTooltip();
 
   useEffect(() => {
     if (uploadedIssues) {
+      setIssuesAreLoading(true);
       uploadedIssues.forEach(([title, link, priority]) => {
         dispatch(
           addIssueRequest(roomId, {
@@ -39,8 +44,15 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
     // eslint-disable-next-line
   }, [uploadedIssues]);
 
+  useEffect(() => {
+    if (!isLoading) {
+      setIssuesAreLoading(false);
+    }
+  }, [isLoading]);
+
   const handleUpload = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
+    hideTooltip();
     const regExp = /.*\.(xlsx|xls|csv)$/g;
 
     const { files } = event.target;
@@ -74,22 +86,27 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
   return (
     <div className={`${styles.add_issues} ${uploadedIssues && styles.uploaded} ${additionalStyle}`}>
       <p>Import issues</p>
-      <label
-        className={styles.label}
-        htmlFor="issues-file-input"
-        onMouseEnter={showTooltip}
-        onMouseLeave={hideTooltip}
-      >
-        {error && <img className={styles.image} src="../../../assets/error.svg" alt="" />}
-        {!error && <img className={styles.image} src="../../../assets/down-arrow.svg" alt="" />}
-        <input
-          onChange={handleUpload}
-          type="file"
-          className={styles.input}
-          id="issues-file-input"
-          accept=".csv, .xlsx"
-        />
-      </label>
+      {isLoading && issuesAreLoading ? (
+        <Loader isLoading={isLoading} />
+      ) : (
+        <label
+          className={styles.label}
+          htmlFor="issues-file-input"
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
+        >
+          {error && <img className={styles.image} src="../../../assets/error.svg" alt="" />}
+          {!error && <img className={styles.image} src="../../../assets/down-arrow.svg" alt="" />}
+          <input
+            onChange={handleUpload}
+            type="file"
+            className={styles.input}
+            id="issues-file-input"
+            accept=".csv, .xlsx"
+          />
+        </label>
+      )}
+
       <Tooltip
         title="Supported table formats: .xlsx, .csv"
         additionalStyle={styles.tooltip}

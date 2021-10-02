@@ -1,16 +1,13 @@
+import { ConfirmButton } from 'components/shared/buttons/ConfirmButton';
+import { EditButton } from 'components/shared/buttons/EditButton';
 import React, {
-  ReactElement,
-  useState,
-  ChangeEvent,
-  useEffect,
+  ChangeEvent, ReactElement, useEffect, useState, 
 } from 'react';
 import { connect } from 'react-redux';
-import { EditButton } from 'components/shared/buttons/EditButton';
-import { ConfirmButton } from 'components/shared/buttons/ConfirmButton';
-import styles from './style.module.scss';
+import { setGameTitleAction } from '../../../redux/actions/complexActions/setGameTitleAction';
 import { RootState } from '../../../redux/reducers';
 import { Issues } from '../../../types/issues';
-import { setGameTitleAction } from '../../../redux/actions/complexActions/setGameTitleAction';
+import styles from './style.module.scss';
 
 interface GameTitleProps {
   setGameTitle: CallableFunction;
@@ -20,15 +17,13 @@ interface GameTitleProps {
   editable: boolean;
 }
 
-const GameTitle: React.FC<GameTitleProps> = (
-  {
-    setGameTitle,
-    issues,
-    editable,
-    roomId,
-    gameTitle,
-  },
-):ReactElement => {
+const GameTitle: React.FC<GameTitleProps> = ({
+  setGameTitle,
+  issues,
+  editable,
+  roomId,
+  gameTitle,
+}): ReactElement => {
   const [editMode, setEditMode] = useState(false);
   const [issuesList, setIssuesList] = useState('');
   const [inputTitleValue, setInputTitleValue] = useState(gameTitle);
@@ -38,7 +33,7 @@ const GameTitle: React.FC<GameTitleProps> = (
     let namesString = '';
 
     Object.keys(issues).forEach((id) => {
-      const issueTitle = issues[id].title;
+      const issueTitle = issues[id].title || '';
       namesString = namesString.length ? `${namesString} , ${issueTitle}` : issueTitle;
     });
 
@@ -71,7 +66,7 @@ const GameTitle: React.FC<GameTitleProps> = (
             value={inputTitleValue}
             onChange={handleInput}
           />
-          {isValid ? null : (<span className={styles.error}>Fill in the field</span>)}
+          {isValid ? null : <span className={styles.error}>Fill in the field</span>}
         </div>
       ) : (
         <span className={styles.name}>{gameTitle}</span>
