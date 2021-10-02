@@ -1,9 +1,9 @@
 import { Socket } from 'socket.io';
-import { stopRound } from "../../actions/game/stopRound";
-import { GameEvents } from "../../constants/events";
-import { handleError } from "../../helpers";
-import { store } from "../../store";
-import { EventCallback } from "../../types/callbacks";
+import { stopRound } from '../../actions/game/stopRound';
+import { GameEvents } from '../../constants/events';
+import { handleError } from '../../helpers';
+import { store } from '../../store';
+import { EventCallback } from '../../types/callbacks';
 
 export const stopRoundHandler =
   (socket: Socket) =>
@@ -17,7 +17,7 @@ export const stopRoundHandler =
       socket
         .to(roomId)
         .emit(GameEvents.roundIsFinished, { roundIsActive, issueId, issue });
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

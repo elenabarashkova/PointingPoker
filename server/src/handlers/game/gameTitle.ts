@@ -13,7 +13,7 @@ export const gameTitleHandler =
       const title = changeGameTitle(roomId, gameTitle, store);
       callback({ status: 200, data: title });
       socket.to(roomId).emit(GameEvents.gameTitleChanged, title);
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };

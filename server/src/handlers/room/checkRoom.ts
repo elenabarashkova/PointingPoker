@@ -9,7 +9,7 @@ export const checkRoomHandler =
   (roomId: string, callback: EventCallback): void => {
     try {
       callback({ status: 200, data: !!roomExists(roomId, store) });
-    } catch {
-      handleError(socket, callback);
+    } catch (error: unknown) {
+      handleError(error as Error, socket, callback);
     }
   };
