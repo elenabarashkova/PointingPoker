@@ -461,11 +461,15 @@ socket.emit("UPDATE_ISSUE", { roomId, issueId }, (response) => { console.log(res
 
 ###### On client side you should listen 'reconnect' event and then send to the server 'RECONNECTED' event:
 
-socket.emit("RECONNECTED", (response) => { console.log(response) });
+##### Expected data
+
+{ roomId: string, issueId : string }
+
+socket.emit("RECONNECTED", { roomId, userId }, (response) => { console.log(response) });
 
 ##### Success response
 
-{ newUserId, user, room }
+{ status: 200, data: { newUserId, user, room } }
 
 ##### Error response
 

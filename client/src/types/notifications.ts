@@ -25,6 +25,7 @@ export enum ImportantNotifications {
   gameCanceled = 'Game is canceled',
   userExitGame = 'You are out of the game',
   masterDisconnected = 'Master disconnected, current game is over.',
+  disconnecting = 'You are disconnected',
   roundIsActive = 'Current round is already in progress, you can not participate in this round, please wait until it '
     + 'ends',
 }
@@ -32,6 +33,7 @@ export enum ImportantNotifications {
 export enum CommonNotificationAction {
   connect = 'connect',
   disconnected = 'disconnected',
+  reconnected = 'reconnected',
   deleted = 'deleted',
   isNotDeleted = 'isNotDeleted',
   left = 'left',
