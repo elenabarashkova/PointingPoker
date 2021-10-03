@@ -2,24 +2,24 @@ import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Context from './helpers/context';
 import { useQuery } from './helpers/query';
+import GameListener from './listeners/GameListener';
+import IssuesListener from './listeners/IssuesListener';
+import NewUserAccessListener from './listeners/NewUserAccessListener';
+import RoundStatusListener from './listeners/RoundStatusListener';
+import UserConnectionListener from './listeners/UserConnectionListener';
+import UserDeleteListener from './listeners/UserDeleteListener';
+import UserKickListener from './listeners/UserKickListener';
+import VotingListener from './listeners/VotingListener';
 import ErrorPage from './pages/ErrorPage';
+import GameIsOverPage from './pages/GameIsOver';
 import GamePage from './pages/GamePage';
 import GoodbyePage from './pages/GoodbyePage';
 import LobbyPage from './pages/LobbyPage';
 import MainPage from './pages/MainPage';
+import ResultPage from './pages/ResultPage';
 import SettingsPage from './pages/Settings';
 import TooLatePage from './pages/TooLatePage';
-import GameIsOverPage from './pages/GameIsOver';
 import { Pages } from './types/page';
-import GameListener from './listeners/GameListener';
-import UserDeleteListener from './listeners/UserDeleteListener';
-import RoundStatusListener from './listeners/RoundStatusListener';
-import UserConnectionListener from './listeners/UserConnectionListener';
-import UserKickListener from './listeners/UserKickListener';
-import IssuesListener from './listeners/IssuesListener';
-import NewUserAccessListener from './listeners/NewUserAccessListener';
-import VotingListener from './listeners/VotingListener';
-import ResultPage from './pages/ResultPage';
 
 const App: FunctionComponent = (): ReactElement => {
   useMemo(() => {
