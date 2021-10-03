@@ -11,7 +11,6 @@ export const kickingVoteUserAction = (
 ) => async (dispatch: Dispatch): Promise<void> => {
   try {
     await kickingVoteUser(confirm, roomId, kickedUserId);
-    
     const notification = createCommonNotificationAboutVouting(CommonNotificationType.success);
     dispatch(setCommonNotification(notification));
   } catch (error) {
