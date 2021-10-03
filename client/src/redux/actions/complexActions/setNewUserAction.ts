@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { setRoomData } from 'src/helpers/setRoomData';
 import { setRoomIdAction } from 'src/redux/actions/room';
 import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
-import { joinRoom } from 'src/services/room/joinRoom';
+import { joinRoom } from 'src/services/room/joinRooms';
 import { createRoom } from '../../../services/room/createRoom';
 import { redirectToGamePage, redirectToLobby, redirectToSettings } from '../../../shared';
 import { GameStatus, Room, RoomData } from '../../../types/room';

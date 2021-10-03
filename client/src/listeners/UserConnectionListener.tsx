@@ -1,19 +1,20 @@
-import { 
-  FunctionComponent, 
-  ReactElement, 
-  useEffect,
-} from 'react';
+import { FunctionComponent, ReactElement, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { reconnectToRoom } from 'src/redux/actions/complexActions/reconnectToRoom';
+import { setMessages } from 'src/redux/actions/messages';
 import store from 'src/redux/store';
 import { createCommonNotificationAboutUser } from '../helpers/commonNotifications';
 import { setCommonNotification, setImportantNotification } from '../redux/actions/notifications';
 import { updateUserAction } from '../redux/actions/user';
 import {
+  DISCONNECT,
   MASTER_DISCONNECTED,
+  RECONNECT,
   socket,
   USER_CONNECTED,
   USER_DISCONNECTED,
   USER_LEFT,
+  USER_RECONNECTED,
 } from '../services/constants';
 import { CommonNotificationAction, ImportantNotifications } from '../types/notifications';
 
@@ -21,12 +22,16 @@ interface UserConnectionProps {
   updateUserAction: CallableFunction;
   setImportantNotification: CallableFunction;
   setCommonNotification: CallableFunction;
+  reconnectToRoom: CallableFunction;
+  setMessages: CallableFunction;
 }
 
 const UserConnectionListener: FunctionComponent<UserConnectionProps> = ({
   updateUserAction: updateUser,
   setImportantNotification: setNewImportantNotification,
   setCommonNotification: setNewCommonNotification,
+  reconnectToRoom: reconnectUserToRoom,
+  setMessages: setRoomMessages,
 }): ReactElement => {
   useEffect(() => {
     socket.on(USER_CONNECTED, (data) => {
@@ -50,12 +55,36 @@ const UserConnectionListener: FunctionComponent<UserConnectionProps> = ({
       setNewCommonNotification(notificationData);
     });
 
+    socket.on(DISCONNECT, () => {
+      setNewImportantNotification(ImportantNotifications.disconnecting);
+    });
+
     socket.on(USER_DISCONNECTED, ({ disconnectedUserId, disconnectedUser }) => {
       const disconnectedUserData = { userId: disconnectedUserId, user: disconnectedUser };
       updateUser(disconnectedUserData);
       const notificationData = createCommonNotificationAboutUser(
         disconnectedUserData,
         CommonNotificationAction.disconnected,
+      );
+      setNewCommonNotification(notificationData);
+    });
+
+    socket.io.on(RECONNECT, () => {
+      const { currentUserId, game } = store.getState();
+      if (game.roomId) {
+        reconnectUserToRoom(game.roomId, currentUserId);
+      }
+    });
+
+    socket.on(USER_RECONNECTED, ({ newUserId, user, messages }) => {
+      const { game } = store.getState();
+      const canParticipate = !game.roundIsActive;
+      updateUser({ userId: newUserId, user: { ...user, canParticipate } });
+      setRoomMessages(messages);
+      const reconnectedUserData = { userId: newUserId, user };
+      const notificationData = createCommonNotificationAboutUser(
+        reconnectedUserData,
+        CommonNotificationAction.reconnected,
       );
       setNewCommonNotification(notificationData);
     });
@@ -75,4 +104,6 @@ export default connect(null, {
   updateUserAction,
   setImportantNotification,
   setCommonNotification,
+  reconnectToRoom,
+  setMessages,
 })(UserConnectionListener);
