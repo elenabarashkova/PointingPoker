@@ -14,6 +14,9 @@ const TooltipContent: React.FC = () => (
     <span>some issue</span>
     <span>some link</span>
     <span>priority</span>
+    <span className={styles.text}>
+      *If link does not match the link format, this issue will not be loaded 
+    </span>
   </div>
 );
 
@@ -32,13 +35,15 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
     if (uploadedIssues) {
       setIssuesAreLoading(true);
       uploadedIssues.forEach(([title, link, priority]) => {
-        dispatch(
-          addIssueRequest(roomId, {
-            title,
-            link,
-            priority,
-          }),
-        );
+        if (/^(http|https):\/\/[^ "]+$/.test(link)) {
+          dispatch(
+            addIssueRequest(roomId, {
+              title: title.substring(0, 30),
+              link,
+              priority: priority.substring(0, 15),
+            }),
+          );
+        }
       });
     }
     // eslint-disable-next-line
@@ -108,7 +113,7 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
       )}
 
       <Tooltip
-        title="Supported table formats: .xlsx, .csv"
+        title="Supported table formats: .xlsx, .csv."
         additionalStyle={styles.tooltip}
         isVisible={tooltipIsVisible}
         content={<TooltipContent />}
