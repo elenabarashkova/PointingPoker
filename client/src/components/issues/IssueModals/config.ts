@@ -15,7 +15,7 @@ export const CREATE_ISSUE_FORM_CONFIG: FormConfig = {
     label: 'Link:',
     errorText: 'Please enter a valid URL',
     regExp: /^(http|https):\/\/[^ "]+$/,
-    maxLength: 100,
+    maxLength: 250,
   },
   issuePriority: {
     type: 'select',

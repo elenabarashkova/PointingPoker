@@ -8,7 +8,7 @@ import {
 } from '../redux/actions/notifications';
 import { updateUserAction } from '../redux/actions/user';
 import {
-  KICK_VOTING_ERROR, socket, USER_IS_KICKED, YOU_ARE_KICKED, 
+  KICK_VOTING_ERROR, socket, USER_IS_KICKED, YOU_ARE_KICKED,
 } from '../services/constants';
 import { ImportantNotifications } from '../types/notifications';
 

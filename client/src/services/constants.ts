@@ -26,6 +26,10 @@ export const USER_LEFT = 'USER_LEFT';
 export const USER_DISCONNECTED = 'USER_DISCONNECTED';
 export const MASTER_DISCONNECTED = 'MASTER_DISCONNECTED';
 export const DISCONNECTING = 'disconnecting';
+export const DISCONNECT = 'disconnect';
+export const RECONNECT = 'reconnect';
+export const RECONNECTED = 'RECONNECTED';
+export const USER_RECONNECTED = 'USER_RECONNECTED';
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';

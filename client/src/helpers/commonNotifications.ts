@@ -19,6 +19,9 @@ export const createCommonNotificationAboutUser = (
     case CommonNotificationAction.disconnected:
       content = 'disconnected';
       break;
+    case CommonNotificationAction.reconnected:
+      content = 'reconnected';
+      break;
     case CommonNotificationAction.deleted:
       content = 'was removed from the game session';
       break;
@@ -103,6 +106,15 @@ export const createCommonNotificationAboutIssue = (): CommonNotification => {
     key: id,
     data: 'Something went wrong. Try again.',
     type: CommonNotificationType.error,
+  };
+};
+
+export const createCommonNotificationAboutReconnecting = (): CommonNotification => {
+  const id = nanoid();
+  return {
+    key: id,
+    data: 'You are reconnected',
+    type: CommonNotificationType.success,
   };
 };
 
