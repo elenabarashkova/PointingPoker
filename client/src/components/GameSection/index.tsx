@@ -7,6 +7,7 @@ import { updateGameStatusAction } from 'src/redux/actions/complexActions/updateG
 import { ElementSize } from 'src/types/additional';
 import { GameStatus } from 'src/types/room';
 import styles from './style.module.scss';
+import { getGameLink } from '../../shared/url';
 
 export interface GameSectionProps {
   updateGameStatus: CallableFunction;
@@ -25,8 +26,7 @@ const GameSection: React.FC<GameSectionProps> = ({
   const currectUserData = roomUsers[currectUserId];
   const gameId = useTypedSelector(({ game }) => game.roomId);
 
-  // todo: поменять gameLink
-  const gameLink = `http://localhost:8080/?roomId=${gameId}`;
+  const gameLink = getGameLink(gameId);
 
   const copyText = () => {
     navigator.clipboard.writeText(gameLink);
@@ -55,27 +55,25 @@ const GameSection: React.FC<GameSectionProps> = ({
         size={ElementSize.big}
       />
       <div className={styles.wrapper}>
-        <div className={styles.inputWrapper}>
-          <label htmlFor="gameId">
-            <input type="text" name="" id="gameId" value={gameLink} disabled size={40} />
-          </label>
-          <Button
-            content="Start Game"
-            variant="colored"
-            action={handleSubmit}
-            disabled={!areIssuesCreated}
-            addContent={buttonSubmitAddContent}
-          />
-        </div>
-        <div className={styles.btnWrapper}>
-          <Button
-            content={isCopied ? 'Copied ✓' : 'Copy'}
-            variant={isCopied ? 'bordered' : 'colored'}
-            action={copyText}
-            disabled={isCopied}
-          />
-          <Button content="Cancel Game" variant="bordered" action={handleCancel} />
-        </div>
+        <label htmlFor="gameId">
+          <input type="text" name="" id="gameId" value={gameLink} disabled size={40} />
+        </label>
+        <Button
+          content={isCopied ? 'Copied ✓' : 'Copy'}
+          variant={isCopied ? 'bordered' : 'colored'}
+          action={copyText}
+          disabled={isCopied}
+        />
+      </div>
+      <div className={styles.wrapper}>
+        <Button
+          content="Start Game"
+          variant="colored"
+          action={handleSubmit}
+          disabled={!areIssuesCreated}
+          addContent={buttonSubmitAddContent}
+        />
+        <Button content="Cancel Game" variant="bordered" action={handleCancel} />
       </div>
     </div>
   );

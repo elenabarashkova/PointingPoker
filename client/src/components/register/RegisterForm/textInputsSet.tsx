@@ -25,6 +25,7 @@ export const RegisterTextInputs: FunctionComponent<RegisterTextInputsProps> = (
         onChange={handler}
         errorMessage={validation[name]}
         placeholder={label}
+        maxLength={15}
       />
     ))}
   </>

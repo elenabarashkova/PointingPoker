@@ -65,13 +65,16 @@ const Scores: React.FC<ScoresProps> = ({
   });
 
   return (
-    <div className={styles.scores}>
-      <MembersList
-        isRoundActive={roundIsActive}
-        gameMembers={gameMembers}
-        hasActiveMembers={Boolean(activeMembers.length)}
-      />
-    </div>
+    <>
+      <div className={styles.scores}>
+        <div className={styles.title}>Scores:</div>
+        <MembersList
+          isRoundActive={roundIsActive}
+          gameMembers={gameMembers}
+          hasActiveMembers={Boolean(activeMembers.length)}
+        />
+      </div>
+    </>
   );
 };
 
