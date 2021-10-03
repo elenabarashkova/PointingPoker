@@ -6,7 +6,7 @@ import {
   SET_FINAL_VOTE,
   SET_STATISTICS,
   SET_USERS_VOTE,
-  SET_USER_VOTE,
+  SET_USER_VOTE, CLEAR_ISSUE_VOTES,
 } from '../action-types';
 import { VotingAction } from '../reducers/voting';
 
@@ -23,6 +23,11 @@ export const setUserVote = (votingData: UserVotingData): VotingAction => ({
 export const setUsersVote = (votesData: UsersVotingData): VotingAction => ({
   type: SET_USERS_VOTE,
   votesData,
+});
+
+export const clearVotesForRestart = (currentIssueId: string): VotingAction => ({
+  type: CLEAR_ISSUE_VOTES,
+  currentIssueId,
 });
 
 export const setVotingStatistics = (statistics: StatisticsData): VotingAction => ({

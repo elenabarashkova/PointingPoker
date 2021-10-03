@@ -10,7 +10,7 @@ import {
   SET_FINAL_VOTE,
   SET_STATISTICS,
   SET_USERS_VOTE,
-  SET_USER_VOTE,
+  SET_USER_VOTE, CLEAR_ISSUE_VOTES,
 } from '../action-types';
 
 export type VotingAction =
@@ -25,6 +25,10 @@ export type VotingAction =
   | {
     type: 'SET_USERS_VOTE';
     votesData: UsersVotingData;
+  }
+  | {
+    type: 'CLEAR_ISSUE_VOTES';
+    currentIssueId: string;
   }
   | {
     type: 'SET_STATISTICS';
@@ -97,6 +101,18 @@ export const voting = (state: Voting = {}, action: VotingAction): Voting => {
         [issueId]: {
           ...state[issueId],
           votes,
+        },
+      };
+    }
+    case CLEAR_ISSUE_VOTES: {
+      const { currentIssueId } = action;
+
+      return {
+        ...state,
+        [currentIssueId]: {
+          votes: [],
+          statistics: {},
+          finalVote: '',
         },
       };
     }

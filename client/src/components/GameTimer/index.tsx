@@ -10,20 +10,25 @@ import { RootState } from 'src/redux/reducers';
 import { isMaster } from 'src/shared/isMaster';
 import { Voting } from 'src/types/voting';
 import styles from './style.module.scss';
+import { clearVotesForRestart } from '../../redux/actions/voting';
 
 export interface GameTimerPrors {
   roundIsActive: boolean;
   startRound: CallableFunction;
   stopRound: CallableFunction;
   voting: Voting;
+  clearVotes: CallableFunction;
 }
  
-const GameTimer: React.FC<GameTimerPrors> = ({ 
-  roundIsActive, 
-  startRound, 
-  stopRound, 
-  voting,
-}): ReactElement => {
+const GameTimer: React.FC<GameTimerPrors> = (
+  {
+    roundIsActive,
+    startRound,
+    stopRound,
+    voting,
+    clearVotes,
+  },
+): ReactElement => {
   const roundTime = useTypedSelector(({ gameSettings }) => gameSettings.roundTime);
   const changingCardInRoundEnd = useTypedSelector(({ gameSettings }) => gameSettings.changingCardInRoundEnd);
   const roomId = useTypedSelector(({ game }) => game.roomId);
@@ -47,6 +52,7 @@ const GameTimer: React.FC<GameTimerPrors> = ({
 
   const handleRestartRound = () => {
     setRestartButtonNeeded(false);
+    clearVotes(issueId);
     startRound(roomId, issueId);
   };
 
@@ -87,14 +93,14 @@ const GameTimer: React.FC<GameTimerPrors> = ({
     // eslint-disable-next-line
   }, [timerSeconds]);
 
-  // useEffect(() => {
-  //   if (timerMitunes === 0 && timerSeconds === 0) {
-  //     if (isUserMaster && roundIsActive) {
-  //       stopRound(roomId);
-  //     }
-  //   }
-  //   // eslint-disable-next-line
-  // }, [timerMitunes, timerSeconds]);
+  useEffect(() => {
+    if (timerMitunes === 0 && timerSeconds === 0) {
+      if (isUserMaster && roundIsActive) {
+        stopRound(roomId);
+      }
+    }
+    // eslint-disable-next-line
+  }, [timerMitunes, timerSeconds]);
 
   return (
     <div className={styles.timerContainer}>
@@ -111,5 +117,5 @@ const mapStateToProps = (state: RootState) => ({
  
 export default connect(
   mapStateToProps,
-  { startRound: startRoundRequest, stopRound: stopRoundAction },
+  { startRound: startRoundRequest, stopRound: stopRoundAction, clearVotes: clearVotesForRestart },
 )(GameTimer);
