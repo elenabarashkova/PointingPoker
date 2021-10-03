@@ -1,5 +1,16 @@
 .scores {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 50px 0;
+  font-family: 'Dancing Script', serif;
+  font-size: 36px;
+  font-weight: normal;
+  color: #1b3949;
   width: 100%;
 }

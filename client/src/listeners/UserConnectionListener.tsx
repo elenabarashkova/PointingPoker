@@ -1,4 +1,8 @@
-import { FunctionComponent, ReactElement, useEffect } from 'react';
+import {
+  FunctionComponent,
+  ReactElement,
+  useEffect,
+} from 'react';
 import { connect } from 'react-redux';
 import { reconnectToRoom } from 'src/redux/actions/complexActions/reconnectToRoom';
 import { setMessages } from 'src/redux/actions/messages';

@@ -11,8 +11,9 @@
   align-items: center;
   padding: 50px;
   box-sizing: border-box;
+
   .modal {
-    width: 500px;
+    width: 480px;
     background: white;
     display: flex;
     flex-direction: column;
@@ -20,7 +21,8 @@
     align-items: center;
     box-shadow: $shadow;
     border-radius: 10px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
+
     .img {
       background: url(../../assets/suitcase.png);
       width: 300px;
@@ -29,29 +31,36 @@
       background-size: 300px;
       background-repeat: no-repeat;
     }
+
     p {
       color: $blue;
       font-family: $font-family-second;
       text-align:center;
       line-height: 24px;
+
       mark,
       span {
         text-transform: uppercase;
       }
+
       mark:nth-child(1) {
         background-color: $light-yellow;
       }
+
       mark:nth-child(2) {
         background-color: rgb(106, 190, 106);
       }
+
       mark:nth-child(3) {
         background-color: rgba(241, 30, 76, 0.363);
       }
+
       span {
         background-color: $light-blue;
       }
     }
   }
+
   .btn {
     width: 200px;
     height: 50px;
@@ -64,6 +73,7 @@
     box-shadow: $shadow;
     cursor: pointer;
     transition: .4s;
+
     &:hover {
         transform: scale(1.1);
     }

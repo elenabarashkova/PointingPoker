@@ -3,7 +3,7 @@ import { connect, useDispatch } from 'react-redux';
 import { setRoomData } from '../helpers/setRoomData';
 import { setAdmitRejectUser } from '../redux/actions/notifications';
 import { ACCESS_CONFIRMATION_RESPONSE, CONFIRM_ACCESS, socket } from '../services/constants';
-import { redirectToGamePage, redirectToTooLatePage } from '../shared';
+import { redirectToGamePage, redirectToTooLatePage } from '../shared/redirect';
 
 interface NewUserAccessProps {
   setAdmitRejectUser: CallableFunction;
