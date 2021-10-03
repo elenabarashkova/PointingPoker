@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { createCommonNotificationAboutReconnecting } from 'src/helpers/commonNotifications';
 import { setRoomData } from 'src/helpers/setRoomData';
 import { reconnect } from 'src/services/room/reconnect';
-import { redirectToGamePage, redirectToLobby } from '../../../shared';
+import { redirectToGamePage, redirectToLobby } from 'src/shared/redirect';
 import { GameStatus } from '../../../types/room';
 import { setCommonNotification, setImportantNotification } from '../notifications';
 
