@@ -54,6 +54,10 @@ const GameTimer: React.FC<GameTimerPrors> = ({
     if (!roundIsActive) {
       setTimerMinutes(0);
       setTimerSeconds(0);
+      if (!voting[issueId]) return;
+      if (changingCardInRoundEnd && isUserMaster && Object.keys(voting[issueId].votes).length) {
+        setRestartButtonNeeded(true);
+      }
     } else {
       setTimerMinutes(minutes);
       setTimerSeconds(seconds);
@@ -64,6 +68,11 @@ const GameTimer: React.FC<GameTimerPrors> = ({
   useEffect(() => {
     if (!roundIsActive) return;
 
+    if (timerMitunes === 0 && timerSeconds === 0) {
+      if (isUserMaster && roundIsActive) {
+        stopRound(roomId);
+      }
+    }
     if (timerSeconds === 0 && timerMitunes !== 0) {
       setTimeout(() => {
         setTimerSeconds(59);
@@ -78,17 +87,14 @@ const GameTimer: React.FC<GameTimerPrors> = ({
     // eslint-disable-next-line
   }, [timerSeconds]);
 
-  useEffect(() => {
-    if (roundIsActive && timerMitunes === 0 && timerSeconds === 0) {
-      if (isUserMaster && roundIsActive) {
-        stopRound(roomId);
-        if (changingCardInRoundEnd) {
-          setRestartButtonNeeded(true);
-        }
-      }
-    }
-    // eslint-disable-next-line
-  }, [timerMitunes, timerSeconds]);
+  // useEffect(() => {
+  //   if (timerMitunes === 0 && timerSeconds === 0) {
+  //     if (isUserMaster && roundIsActive) {
+  //       stopRound(roomId);
+  //     }
+  //   }
+  //   // eslint-disable-next-line
+  // }, [timerMitunes, timerSeconds]);
 
   return (
     <div className={styles.timerContainer}>
