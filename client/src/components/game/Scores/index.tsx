@@ -55,7 +55,7 @@ const Scores: React.FC<ScoresProps> = ({
     // todo: make extra check for empty votes
 
     const caseOne = roundIsActive && !timer && everyoneVoted;
-    const caseTwo = everyoneVoted && autoFlip;
+    const caseTwo = roundIsActive && everyoneVoted && autoFlip;
 
     if (caseOne || caseTwo) {
       if (isUserMaster) {
