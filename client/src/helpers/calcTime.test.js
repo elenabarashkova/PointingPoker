@@ -1,6 +1,6 @@
 import { calcTime } from './calcTime';
 
-describe('helpers', () => {
+describe('calcTime', () => {
   test('calcTime should work correctly', () => {
     const expected = {
       minutes: 2,
