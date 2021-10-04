@@ -13,7 +13,7 @@ interface RoundStatusProps {
   initVoting: CallableFunction;
 }
 
-const RoundStatusListener: FunctionComponent<RoundStatusProps> = (
+export const RoundStatusListener: FunctionComponent<RoundStatusProps> = (
   {
     setIssuesAction: setIssues,
     startRoundAction: startRound,

@@ -9,7 +9,6 @@ export const FIELDS_CONFIG: Array<FieldConfigItem> = [
     name: 'firstName',
     label: 'First Name:',
     required: true,
-
   },
   {
     name: 'lastName',
