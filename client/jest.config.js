@@ -7,7 +7,7 @@ module.exports = {
   // },
   "moduleNameMapper": {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
-    // "\\.(css|less)$": "<rootDir>/mocks/styleMock.js"
+     "\\.(css|less|scss)$": "<rootDir>/mocks/styleMock.js"
   },
   // modulePaths: ['src', 'node_modules', '<rootDir>/../libjs-kolas-editor/src'],
   // All imported modules in your tests should be mocked automatically

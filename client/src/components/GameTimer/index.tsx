@@ -93,15 +93,6 @@ const GameTimer: React.FC<GameTimerPrors> = (
     // eslint-disable-next-line
   }, [timerSeconds]);
 
-  useEffect(() => {
-    if (timerMitunes === 0 && timerSeconds === 0) {
-      if (isUserMaster && roundIsActive) {
-        stopRound(roomId);
-      }
-    }
-    // eslint-disable-next-line
-  }, [timerMitunes, timerSeconds]);
-
   return (
     <div className={styles.timerContainer}>
       <TimeInput value={{ minutes: timerMitunes, seconds: timerSeconds }} disabled />

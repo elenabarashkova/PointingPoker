@@ -48,7 +48,10 @@ const ChatField: React.FC<ChatFieldProps> = ({ messages }): ReactElement => {
       onClick={() => { if (chatIsOpened) { setChatIsOpened(false); } }} 
       aria-hidden="true"
     >
-      <ChatButton openCloseChat={openCloseChat} notShownMessages={notShownMessages} />
+      <ChatButton 
+        openCloseChat={openCloseChat} 
+        notShownMessages={notShownMessages}
+      />
       <CSSTransition 
         in={chatIsOpened}
         timeout={400}
