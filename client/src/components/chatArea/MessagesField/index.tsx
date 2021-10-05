@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
-import { ElementSize } from 'src/types/additional';
 import UserCard from 'components/shared/UserCard';
 import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
 import { RootState } from 'src/redux/reducers';
 import { Message } from 'src/types/messages';
 import styles from './style.module.scss';
+import { ElementSize } from '../../../types/additional';
 
 interface MessagesFieldProps {
   messages: Message[];
