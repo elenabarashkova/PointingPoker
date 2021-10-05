@@ -14,6 +14,7 @@ import { Issue, IssueData, Issues } from 'src/types/issues';
 import {
   ADD_ISSUE,
   DELETE_ISSUE,
+  RESET_ISSUES,
   SEND_REQUEST,
   SET_ERROR,
   SET_ISSUES,
@@ -47,6 +48,10 @@ export const sendIssuesRequest = (): Action => ({
 
 export const setIssuesError = (): Action => ({
   type: SET_ERROR,
+});
+
+export const resetIssues = (): Action => ({
+  type: RESET_ISSUES,
 });
 
 const handleIssueActionError = (dispatch: Dispatch<AnyAction>): void => {

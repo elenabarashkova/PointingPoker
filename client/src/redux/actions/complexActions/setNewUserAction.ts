@@ -10,11 +10,14 @@ import { GameStatus, Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
 import { setTitle } from '../game';
 import { setImportantNotification } from '../notifications';
+import { resetGame } from './resetGame';
 
 export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const { roomId, room } = (await createRoom(newUser)) as RoomData;
     const { users } = room;
+
+    resetGame(dispatch);
 
     batch(() => {
       dispatch(setUsersAction(users));

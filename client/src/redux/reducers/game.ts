@@ -2,6 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { StartRoundData } from 'src/types/game';
 import { Game } from '../../types/redusers';
 import {
+  RESET_GAME,
   SEND_GAME_REQUEST,
   SET_CAN_PARTICIPATE,
   SET_CURRENT_ISSUE_ID,
@@ -26,17 +27,6 @@ export const initialState = {
   canParticipate: true,
 };
 
-// export const initialState = {
-//   gameStatus: 'active',
-//   roomId: '1632148613679',
-//   isRoomValid: false,
-//   gameTitle: 'Sprint Plan',
-//   currentIssueId: '1237',
-//   roundIsActive: false,
-//   error: false,
-//   isLoading: true,
-// };
-
 export const game = (
   state: Game = initialState,
   { type, payload }: PayloadAction<string | boolean | StartRoundData>,
@@ -53,6 +43,10 @@ export const game = (
       ...state,
       gameStatus: payload as string,
     };
+  }
+
+  if (type === RESET_GAME) {
+    return initialState;
   }
 
   if (type === SET_GAME_TITLE) {

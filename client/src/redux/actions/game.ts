@@ -2,6 +2,7 @@ import { Action, PayloadAction } from '@reduxjs/toolkit';
 import { StartRoundData } from 'src/types/game';
 import { GameSettings, GameStatus } from 'src/types/room';
 import {
+  RESET_GAME, RESET_GAME_SETTINGS,
   SEND_GAME_REQUEST,
   SET_ALL_GAME_SETTINGS,
   SET_CAN_PARTICIPATE,
@@ -21,9 +22,17 @@ export const setGameStatus = (
   payload: gameStatus,
 });
 
+export const resetGameToInitial = (): Action => ({
+  type: RESET_GAME,
+});
+
 export const setAllGameSettings = (gameSettings: GameSettings): PayloadAction<GameSettings> => ({
   type: SET_ALL_GAME_SETTINGS,
   payload: gameSettings,
+});
+
+export const resetGameSettings = (): Action => ({
+  type: RESET_GAME_SETTINGS,
 });
 
 export const setTitle = (gameTitle: string): PayloadAction<string> => ({

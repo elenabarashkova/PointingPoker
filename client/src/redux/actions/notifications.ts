@@ -1,12 +1,14 @@
 import { CommonNotification, VotingData } from 'src/types/notifications';
 import { UserData } from 'src/types/user';
+import { Action } from '@reduxjs/toolkit';
 import {
-  SET_COMMON_NOTIFICATION, 
-  SET_IMPORTANT_NOTIFICATION, 
-  SET_VOTING_NOTIFICATION, 
-  REMOVE_IMPORTANT_NOTIFICATION, 
+  SET_COMMON_NOTIFICATION,
+  SET_IMPORTANT_NOTIFICATION,
+  SET_VOTING_NOTIFICATION,
+  REMOVE_IMPORTANT_NOTIFICATION,
   REMOVE_COMMON_NOTIFICATION,
-  SET_ADMIT_NOTIFICATION, 
+  SET_ADMIT_NOTIFICATION,
+  RESET_NOTIFICATIONS,
 } from '../action-types';
 import { NotificationAction } from '../reducers/notifications';
 
@@ -37,4 +39,8 @@ export const setVotingNotification = (data: VotingData): NotificationAction => (
 export const setAdmitRejectUser = (userData: UserData): NotificationAction => ({
   type: SET_ADMIT_NOTIFICATION,
   userData,
+});
+
+export const resetNotifications = (): Action => ({
+  type: RESET_NOTIFICATIONS,
 });

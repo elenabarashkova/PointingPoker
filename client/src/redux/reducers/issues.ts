@@ -3,6 +3,7 @@ import { IssuesStore } from '../../types/issues';
 import {
   ADD_ISSUE,
   DELETE_ISSUE,
+  RESET_ISSUES,
   SEND_REQUEST,
   SET_ERROR,
   SET_ISSUES,
@@ -54,6 +55,8 @@ export const issuesStore = (
         isLoading: false,
         error: false,
       };
+    case RESET_ISSUES:
+      return initialState;
     default:
       return state;
   }

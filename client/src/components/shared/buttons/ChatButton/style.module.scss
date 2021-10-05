@@ -27,22 +27,9 @@
         border-radius: 50%;
         width: 15px;
         height: 15px;
-        // animation-name: blinker;
-        // animation-iteration-count: infinite;
-        // animation-timing-function: linear;
-        // animation-duration: 1s;
         animation: pulsate .8s linear infinite;
-        // @keyframes blinker {
-        //     from { opacity: 1.0; }
-        //     to { opacity: 0.0; }
-        //   }
-           
-        //   @-webkit-keyframes blinker {
-        //     from { opacity: 1.0; }
-        //     to { opacity: 0.0; }
-        //   }
+
         @keyframes pulsate {
-           
             100% { background-color: #b61e1e }
         }
     }   

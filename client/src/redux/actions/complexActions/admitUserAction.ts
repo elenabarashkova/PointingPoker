@@ -26,7 +26,6 @@ export const admitUserAction = (
     const { game } = store.getState();
     const canParticipate = !game.roundIsActive;
     dispatch(updateUserAction({ userId: newUserId, user: { ...newUser, canParticipate } }));
-    // todo: голоса
     const notification = createCommonNotificationAboutConfirmation(message);
     dispatch(setCommonNotification(notification));
   } catch (error) {

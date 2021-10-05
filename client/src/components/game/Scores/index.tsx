@@ -52,7 +52,6 @@ const Scores: React.FC<ScoresProps> = ({
     const { timer, autoFlip, masterAsPlayer } = gameSettings;
     const playersQuantity = activePlayers.length + (masterAsPlayer ? 1 : 0);
     const everyoneVoted = votes.length === playersQuantity;
-    // todo: make extra check for empty votes
 
     const caseOne = roundIsActive && !timer && everyoneVoted;
     const caseTwo = roundIsActive && everyoneVoted && autoFlip;

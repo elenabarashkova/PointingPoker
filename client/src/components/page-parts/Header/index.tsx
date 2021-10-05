@@ -20,15 +20,15 @@ interface HeaderProps {
   page: keyof typeof Pages;
   importantNotification: string;
   votingNotification: VotingData;
-  removeImportantNotification: CallableFunction;
+  removeImportantNotifications: CallableFunction;
   admitRejectNotification: UserData;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
   page, 
-  importantNotification, 
+  importantNotification,
   votingNotification,
-  removeImportantNotification: removeLastImportantNotification,
+  removeImportantNotifications: removeLastImportantNotification,
   admitRejectNotification,
 }): ReactElement => {
   const [isVotingModalOpen, setVotingModalOpen] = useState(false);
@@ -63,9 +63,8 @@ const Header: React.FC<HeaderProps> = ({
   }, [admitRejectNotification]);
 
   const hadleClickImportantNotification = () => {
-    setNotificationModalOpen(false);
     removeLastImportantNotification();
-    if (importantNotification === ImportantNotifications.gameCanceled 
+    if (importantNotification === ImportantNotifications.gameCanceled
       || importantNotification === ImportantNotifications.userExitGame) {
       redirectToMainPage();
     }
@@ -86,25 +85,34 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       { page !== Pages.main && <ChatField /> }
       { (page !== Pages.main && kickInitiator) && (
-        <VotingModal 
-          isModalOpen={isVotingModalOpen} 
-          closeModal={() => setVotingModalOpen(false)} 
+        <VotingModal
+          isModalOpen={isVotingModalOpen}
+          closeModal={() => {
+            hadleClickImportantNotification();
+            setVotingModalOpen(false);
+          }}
           kickedUserId={kickedUserId}
           kickInitiatorId={kickInitiator}
         />
       )}
       { importantNotification && (
-        <ImportantNotification 
-          content={importantNotification} 
-          isModalOpen={isNotificationModalOpen} 
-          closeModal={hadleClickImportantNotification}
+        <ImportantNotification
+          content={importantNotification}
+          isModalOpen={isNotificationModalOpen}
+          closeModal={() => {
+            hadleClickImportantNotification();
+            setNotificationModalOpen(false);
+          }}
         />
       )}
       { admitRejectNotification && (
-        <AdmitRejetUserModal 
-          userData={admitRejectNotification} 
-          isModalOpen={isAdmitRejectModalOpen} 
-          closeModal={() => setAdmitRejectModalOpen(false)}
+        <AdmitRejetUserModal
+          userData={admitRejectNotification}
+          isModalOpen={isAdmitRejectModalOpen}
+          closeModal={() => {
+            hadleClickImportantNotification();
+            setAdmitRejectModalOpen(false);
+          }}
         />
       )}
     </header>
@@ -118,7 +126,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  removeImportantNotification: () => dispatch(removeImportantNotification()),
+  removeImportantNotifications: () => dispatch(removeImportantNotification()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

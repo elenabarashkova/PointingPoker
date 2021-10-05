@@ -1,9 +1,10 @@
 import { Message } from 'src/types/messages';
-import { 
-  MESSAGE_ON_REQUEST, 
-  MESSAGE_ON_RESPONCE, 
-  MESSAGE_ON_RESPONCE_FAIL, 
-  SET_MESSAGES, 
+import {
+  MESSAGE_ON_REQUEST,
+  MESSAGE_ON_RESPONCE,
+  MESSAGE_ON_RESPONCE_FAIL,
+  RESET_MESSAGES,
+  SET_MESSAGES,
 } from '../action-types';
 import { MessageAction } from '../reducers/messages';
 
@@ -23,4 +24,8 @@ export const setMessageOnResponse = (message: Message): MessageAction => ({
 
 export const setMessageOnResponseFail = (): MessageAction => ({
   type: MESSAGE_ON_RESPONCE_FAIL,
+});
+
+export const resetMessages = (): MessageAction => ({
+  type: RESET_MESSAGES,
 });

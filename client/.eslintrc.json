@@ -81,7 +81,8 @@
         "delimiter": "semi",    // 'semi' or 'comma'
         "requireLast": false
       }
-    }]
+    }],
+    "import/no-named-as-default": 0
   },
   
   "settings": {

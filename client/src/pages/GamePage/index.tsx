@@ -72,7 +72,6 @@ const GamePage: React.FC<GamePageProps> = ({
 
   const handStopGame = () => {
     updateGameStatus(roomId, GameStatus.finished);
-    // redirect to result
   };
 
   const handleExit = () => {

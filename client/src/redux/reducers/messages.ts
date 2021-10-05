@@ -1,8 +1,8 @@
 import {
   MESSAGE_ON_REQUEST,
   MESSAGE_ON_RESPONCE,
-  MESSAGE_ON_RESPONCE_FAIL, 
-  SET_MESSAGES, 
+  MESSAGE_ON_RESPONCE_FAIL, RESET_MESSAGES,
+  SET_MESSAGES,
 } from '../action-types';
 import { Messages, Message } from '../../types/messages';
 
@@ -22,6 +22,8 @@ export type MessageAction = {
   message: Message;
 } | {
   type: 'MESSAGE_ON_RESPONCE_FAIL';
+} | {
+  type: 'RESET_MESSAGES';
 };
 
 export const messages = (
@@ -58,6 +60,9 @@ export const messages = (
         error: true,
         isLoading: false,
       };
+
+    case RESET_MESSAGES:
+      return initialState;
        
     default:
       return state;

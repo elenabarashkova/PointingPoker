@@ -43,7 +43,7 @@ export const TextInput: FunctionComponent<TextInputProps> = ({
         placeholder={placeholder}
         maxLength={maxLength || MAX_INPUT_LENGTH}
       />
-      <span className={styles.error} data-testid='errorMessage'>{errorMessage}</span>
+      <span className={styles.error} data-testid="errorMessage">{errorMessage}</span>
     </label>
   );
 };
