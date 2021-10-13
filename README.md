@@ -21,3 +21,4 @@ Planning Poker application
 - Redis
 - Socket.io Client
 - Nanoid
+- Nodejs
