@@ -40,7 +40,7 @@ const UserCard: React.FC<UserCardProps> = (
     ? (
       <div className={styles.roleInfo}>
         <img src={crown} alt="crown" className={styles.roleIco} /> 
-        <span>Scram master</span>
+        <span>Scrum master</span>
       </div>
     )
     : (isPlayer)

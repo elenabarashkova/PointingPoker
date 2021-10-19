@@ -2,7 +2,7 @@ import { ScoreType } from '../../types/room';
 
 export const SWITCHES_CONFIG = [
   {
-    label: 'Scram master as player:',
+    label: 'Scrum master as player:',
     name: 'masterAsPlayer',
   },
   {

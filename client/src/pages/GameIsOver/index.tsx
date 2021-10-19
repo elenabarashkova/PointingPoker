@@ -15,7 +15,7 @@ const GameIsOverPage: React.FC<RouteComponentProps> = ({ history }): ReactElemen
         <p>
           It seems like your
           {' '}
-          <mark>scram master</mark>
+          <mark>scrum master</mark>
           {' '}
           has decided
           {' '}

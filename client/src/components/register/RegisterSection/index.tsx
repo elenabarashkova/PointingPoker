@@ -84,7 +84,7 @@ const RegisterSection: React.FC = (): ReactElement => {
   return (
     <div className={styles.registrField}>
       <div className={styles.registrEl}>
-        <p>Are you ready to be a scram master?</p>
+        <p>Are you ready to be a scrum master?</p>
         <Button content="start new game" variant="colored" action={handleClickBtnMaster} />
       </div>
       <div className={styles.registrEl}>

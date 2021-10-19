@@ -15,7 +15,7 @@ const TooLatePage: React.FC<RouteComponentProps> = ({ history }): ReactElement =
         <p>
           It seems like your
           {' '}
-          <mark>scram master</mark>
+          <mark>scrum master</mark>
           {' '}
           has decided
           {' '}

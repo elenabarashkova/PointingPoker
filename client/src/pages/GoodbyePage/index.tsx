@@ -16,7 +16,7 @@ const GoodbyePage: React.FC<RouteComponentProps> = ({ history }): ReactElement =
           {' '}
           or
           {' '}
-          <mark>scram master</mark>
+          <mark>scrum master</mark>
           {' '}
           has decided to 
           {' '}
