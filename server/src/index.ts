@@ -58,7 +58,7 @@ io.on('connection', (socket: Socket) => {
   socket.on(KickUserEvents.kickingVote, kickUserVotingHandler(io, socket));
   socket.on(GameEvents.changeGameSettings, gameSettingsHandler(socket));
   socket.on(GameEvents.changeGameStatus, gameStatusHandler(socket));
-  socket.on(KickUserEvents.deleteUser, deleteUserHandler(socket));
+  socket.on(KickUserEvents.deleteUser, deleteUserHandler(io, socket));
   socket.on(IssueEvents.addIssue, addIssueHandler(socket));
   socket.on(IssueEvents.deleteIssue, deleteIssueHandler(socket));
   socket.on(IssueEvents.updateIssue, updateIssueHandler(socket));
