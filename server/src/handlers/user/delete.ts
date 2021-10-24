@@ -1,4 +1,4 @@
-import { Socket } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { changeUserStatus } from '../../actions/user/changeStatus';
 import { KickUserEvents } from '../../constants/events';
 import { handleError } from '../../helpers';
@@ -8,7 +8,7 @@ import { UserData } from '../../types/data';
 import { UserStatus } from '../../types/user';
 
 export const deleteUserHandler =
-  (socket: Socket) =>
+  (io: Server, socket: Socket) =>
   ({ userId, roomId }: UserData, callback: EventCallback): void => {
     try {
       const updatedUser = changeUserStatus(
@@ -23,6 +23,7 @@ export const deleteUserHandler =
         .to(roomId)
         .except(userId)
         .emit(KickUserEvents.userIsDeleted, { userId, user: updatedUser });
+      io.in(userId).socketsLeave(roomId);
     } catch (error: unknown) {
       handleError(error as Error, socket, callback);
     }
