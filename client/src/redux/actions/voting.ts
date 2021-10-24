@@ -1,12 +1,13 @@
 import {
-  FinalVoteData, StatisticsData, UsersVotingData, UserVotingData, 
+  FinalVoteData, StatisticsData, UsersVotingData, UserVotingData,
 } from 'src/types/voting';
 import {
-  INIT_VOTING,
+  CLEAR_ISSUE_VOTES, INIT_VOTING,
+  RESET_STATISTICS,
   SET_FINAL_VOTE,
   SET_STATISTICS,
   SET_USERS_VOTE,
-  SET_USER_VOTE, CLEAR_ISSUE_VOTES,
+  SET_USER_VOTE,
 } from '../action-types';
 import { VotingAction } from '../reducers/voting';
 
@@ -38,4 +39,8 @@ export const setVotingStatistics = (statistics: StatisticsData): VotingAction =>
 export const setFinalVoteAction = (finalVote: FinalVoteData): VotingAction => ({
   type: SET_FINAL_VOTE,
   finalVote,
+});
+
+export const resetStatisticsAction = (): VotingAction => ({
+  type: RESET_STATISTICS,
 });

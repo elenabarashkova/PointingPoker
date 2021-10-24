@@ -8,7 +8,7 @@ import UserCard from 'components/shared/UserCard';
 import Statistics from 'components/Statistics';
 import VotingArea from 'components/voting/VotingArea';
 import React, {
-  ReactElement, useEffect, useMemo, useState, 
+  ReactElement, useEffect, useMemo, useState,
 } from 'react';
 import { connect } from 'react-redux';
 import useTypedSelector from 'src/hooks/useTypedSelector';
@@ -60,7 +60,7 @@ const GamePage: React.FC<GamePageProps> = ({
     if (Object.keys(voting[issueId].statistics).length) {
       setShowStatistics(true);
     }
-    if (Object.keys(voting).length === 1) {
+    if (Object.keys(voting).length) {
       setRedirectToResultNeeded(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

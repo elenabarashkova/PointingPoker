@@ -6,11 +6,12 @@ import {
   Voting,
 } from 'src/types/voting';
 import {
-  INIT_VOTING,
+  CLEAR_ISSUE_VOTES, INIT_VOTING,
+  RESET_STATISTICS,
   SET_FINAL_VOTE,
   SET_STATISTICS,
   SET_USERS_VOTE,
-  SET_USER_VOTE, CLEAR_ISSUE_VOTES,
+  SET_USER_VOTE,
 } from '../action-types';
 
 export type VotingAction =
@@ -37,42 +38,14 @@ export type VotingAction =
   | {
     type: 'SET_FINAL_VOTE';
     finalVote: FinalVoteData;
+  }
+  | {
+    type: 'RESET_STATISTICS';
   };
 
-// const initialState = {
-//   1237: {
-//     finalVote: '5',
-//     votes: [
-//       {
-//         userId: '2Qo1JANROXXoPWY0AAAV',
-//         vote: 'coffee',
-//       },
-//       {
-//         userId: 'gnzffoXjbH8YpYMAAAAX',
-//         vote: '1',
-//       },
-//       {
-//         userId: 'hw_mhp39ltw4YYUWAAAZ',
-//         vote: '2',
-//       },
-//       {
-//         userId: '7baKPM0JqQPNNoknAAAb',
-//         vote: '3',
-//       },
-//       {
-//         userId: '94CXszdD4lh9C-BaAAAd',
-//         vote: '5',
-//       },
-//       {
-//         userId: 'pL1CE-IzQ8k4zm0pAAAf',
-//         vote: '',
-//       },
-//     ],
-//     statistics: {},
-//   },
-// };
+const initialState = {};
 
-export const voting = (state: Voting = {}, action: VotingAction): Voting => {
+export const voting = (state: Voting = initialState, action: VotingAction): Voting => {
   switch (action.type) {
     case INIT_VOTING: {
       return {
@@ -136,7 +109,9 @@ export const voting = (state: Voting = {}, action: VotingAction): Voting => {
         },
       };
     }
-
+    case RESET_STATISTICS: {
+      return initialState;
+    }
     default:
       return state;
   }

@@ -8,7 +8,7 @@ import {
   IssueEvents,
   KickUserEvents,
   RoomEvents,
-  UserEvents,
+  UserEvents
 } from './constants/events';
 import { gameStatusHandler } from './handlers/game/gameStatus';
 import { gameTitleHandler } from './handlers/game/gameTitle';
@@ -53,7 +53,7 @@ io.on('connection', (socket: Socket) => {
   socket.on(RoomEvents.isRoomValid, checkRoomHandler(socket));
   socket.on(UserEvents.joinRoom, joinRoomHandler(socket));
   socket.on(ChatEvents.sendMessage, sendMessageHandler(socket));
-  socket.on(UserEvents.leaveRoom, leaveRoomHandler(socket));
+  socket.on(UserEvents.leaveRoom, leaveRoomHandler(io, socket));
   socket.on(KickUserEvents.kickUser, kickUserHandler(socket));
   socket.on(KickUserEvents.kickingVote, kickUserVotingHandler(io, socket));
   socket.on(GameEvents.changeGameSettings, gameSettingsHandler(socket));

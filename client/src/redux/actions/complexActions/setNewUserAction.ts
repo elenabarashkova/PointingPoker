@@ -5,7 +5,9 @@ import { setRoomIdAction } from 'src/redux/actions/room';
 import { setCurrentUserAction, setUsersAction } from 'src/redux/actions/user';
 import { joinRoom } from 'src/services/room/joinRooms';
 import { createRoom } from '../../../services/room/createRoom';
-import { redirectToGamePage, redirectToLobby, redirectToSettings } from '../../../shared/redirect';
+import {
+  redirectToGamePage, redirectToLobby, redirectToResultPage, redirectToSettings,
+} from '../../../shared/redirect';
 import { GameStatus, Room, RoomData } from '../../../types/room';
 import { User } from '../../../types/user';
 import { setTitle } from '../game';
@@ -35,6 +37,7 @@ export const setNewMaster = (newUser: User) => async (dispatch: Dispatch): Promi
 export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatch: Dispatch): Promise<void> => {
   try {
     const result = await joinRoom(gameIdInput, newUser);
+    resetGame(dispatch);
     if (
       result === 'Your request to join the room has been accepted'
         || result === 'Room not found'
@@ -43,10 +46,15 @@ export const setNewUser = (newUser: User, gameIdInput: string) => async (dispatc
     } else {
       const { room, roomId, userId } = result as RoomData;
       const { gameStatus } = room as Room;
+      
       setRoomData(dispatch, room, roomId, userId);
 
       if (gameStatus === GameStatus.active) {
         redirectToGamePage();
+      } else if (gameStatus === GameStatus.finished) {
+        redirectToResultPage();
+      } else if (gameStatus === GameStatus.canceled) {
+        dispatch(setImportantNotification('Game was canceled'));
       } else {
         redirectToLobby();
       }
