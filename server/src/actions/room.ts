@@ -1,4 +1,5 @@
 import { INIT_GAME_SETTINGS } from '../constants/game';
+import { getId } from '../helpers';
 import { GameStatus } from '../types/game';
 import { Room, Store } from '../types/room';
 import { User, UserRole, UserStatus } from '../types/user';
@@ -11,20 +12,12 @@ export const admissionNeeded = (roomId: string, store: Store): boolean =>
   !store[roomId].gameSettings.autoAdmitNewUsers &&
   store[roomId].gameStatus === GameStatus.active;
 
-const createRoomId = (store: Store): string => {
-  let id = Date.now().toString();
-  if (roomExists(id, store)) {
-    id = createRoomId(store);
-  }
-  return id;
-};
-
 export const createRoom = (
   userId: string,
   user: User,
   store: Store
 ): { room: Room; roomId: string } => {
-  const roomId = createRoomId(store);
+  const roomId = getId();
   const room = {
     users: {
       [userId]: {
