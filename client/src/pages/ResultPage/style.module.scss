@@ -47,9 +47,13 @@
 }
 
 .buttons {
-  width: 450px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
   margin: 50px auto;
+
+  button {
+    margin: 20px;
+  }
 }

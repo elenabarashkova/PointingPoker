@@ -1,4 +1,4 @@
-import { Socket } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { changeUserStatus } from '../../actions/user/changeStatus';
 import { UserEvents } from '../../constants/events';
 import { handleError } from '../../helpers';
@@ -7,7 +7,7 @@ import { EventCallback } from '../../types/callbacks';
 import { UserStatus } from '../../types/user';
 
 export const leaveRoomHandler =
-  (socket: Socket) =>
+  (io: Server, socket: Socket) =>
   (roomId: string, callback: EventCallback): void => {
     try {
       const updatedUser = changeUserStatus(
@@ -20,7 +20,7 @@ export const leaveRoomHandler =
       socket
         .to(roomId)
         .emit(UserEvents.userLeft, { userId: socket.id, user: updatedUser });
-      socket.disconnect();
+        io.in(socket.id).socketsLeave(roomId);
     } catch (error: unknown) {
       handleError(error as Error, socket, callback);
     }

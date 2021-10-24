@@ -32,19 +32,26 @@ export const IssuesFromFile: React.FC<IssuesFromFileProps> = ({ additionalStyle 
   const { tooltipIsVisible, showTooltip, hideTooltip } = useTooltip();
 
   useEffect(() => {
-    if (uploadedIssues) {
-      setIssuesAreLoading(true);
-      uploadedIssues.forEach(([title, link, priority]) => {
-        if (/^(http|https):\/\/[^ "]+$/.test(link)) {
-          dispatch(
-            addIssueRequest(roomId, {
-              title: title.substring(0, 30),
-              link,
-              priority: priority.substring(0, 15),
-            }),
-          );
-        }
-      });
+    try {
+      if (uploadedIssues) {
+        setIssuesAreLoading(true);
+        uploadedIssues.forEach(([title, link, priority]) => {
+          if (/^(http|https):\/\/[^ "]+$/.test(link)) {
+            dispatch(
+              addIssueRequest(roomId, {
+                title: title ? title.toString().substring(0, 30) : '',
+                link,
+                priority: priority ? priority.toString().substring(0, 15) : '',
+              }),
+            );
+          }
+        });
+      }
+    } catch {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
     }
     // eslint-disable-next-line
   }, [uploadedIssues]);

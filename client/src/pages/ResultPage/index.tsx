@@ -3,18 +3,26 @@ import Header from 'components/page-parts/Header';
 import Button from 'components/shared/buttons/Button';
 import Statistics from 'components/Statistics';
 import FileSaver from 'file-saver';
-import XLSX from 'xlsx';
 import React, { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 import { createStatData } from 'src/helpers/createStatData';
 import useTypedSelector from 'src/hooks/useTypedSelector';
+import { leaveRoomAction } from 'src/redux/actions/complexActions/leaveRoomAction';
 import { Pages } from 'src/types/page';
+import XLSX from 'xlsx';
 import styles from './style.module.scss';
 
 const ResultPage: React.FC = (): ReactElement => {
-  const gameTitile = useTypedSelector(({ game }) => game.gameTitle);
+  const gameTitle = useTypedSelector(({ game }) => game.gameTitle);
   const statistics = useTypedSelector(({ voting }) => voting);
+  const roomId = useTypedSelector(({ game }) => game.roomId);
   const issuesId = Object.keys(statistics);
   const issues = useTypedSelector(({ issuesStore }) => issuesStore.issues);
+  const dispatch = useDispatch();
+
+  const handleExit = () => {
+    dispatch(leaveRoomAction(roomId));
+  };
 
   const saveAsCsv = () => {
     const dataToSave = createStatData(issuesId, issues, statistics, 'saveAsCsv') as string[];
@@ -26,7 +34,7 @@ const ResultPage: React.FC = (): ReactElement => {
 
     const ws = XLSX.utils.aoa_to_sheet(dataToSave);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, gameTitile);
+    XLSX.utils.book_append_sheet(wb, ws, gameTitle);
     const wbout = XLSX.write(wb, { type: 'array', bookType: 'xlsx' });
 
     FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'statistics.xlsx');
@@ -61,6 +69,7 @@ const ResultPage: React.FC = (): ReactElement => {
         {buttons.map(({ content, variant, action }) => (
           <Button content={content} variant={variant} action={action} key={content} />
         ))}
+        <Button content="exit" variant="colored" action={handleExit} />
       </div>
       <Footer page={Pages.result} />
     </div>

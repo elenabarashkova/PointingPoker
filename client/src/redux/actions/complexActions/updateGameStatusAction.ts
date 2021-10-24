@@ -5,7 +5,7 @@ import { redirectToGamePage, redirectToResultPage } from 'src/shared/redirect';
 import { ImportantNotifications } from 'src/types/notifications';
 import { GameStatus } from 'src/types/room';
 import { setGameStatus } from '../game';
-import { setCommonNotification, setImportantNotification } from '../notifications';
+import { resetNotifications, setCommonNotification, setImportantNotification } from '../notifications';
 
 export const updateGameStatusAction = (
   currentRoomId: string, 
@@ -18,6 +18,7 @@ export const updateGameStatusAction = (
       redirectToGamePage();
     }
     if (gameStatus === GameStatus.canceled) {
+      dispatch(resetNotifications());
       dispatch(setImportantNotification(ImportantNotifications.gameCanceled));
     }
     if (gameStatus === GameStatus.finished) {
